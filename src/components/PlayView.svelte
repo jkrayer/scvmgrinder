@@ -25,14 +25,13 @@
         <div class="col">
             Defense: <button type="button" title="Defense" on:click={() => alert(roll(20) + $character.abilities.agility)}>d20 + Agility</button>
             <HitPoints />
-            <div>Omens: ({$character.omens.current})</div>
-            <!--  Maximum damage, Reroll, –d6 damage, DR –4, No Crit/Fumble -->
-            <div>Silver: {$character.silver}</div>
         </div>
     </div>
     <Initiative />
     <ArmorWorn />
     <WeaponsCarried />
+    <!--  Maximum damage, Reroll, –d6 damage, DR –4, No Crit/Fumble -->
+    <div>Omens: ({$character.omens.current})</div>
     <section>
         <h2>Powers</h2>
         <!-- <p>Presence DR12, or -d2 HP and no Powers for 1</p> -->
@@ -40,6 +39,7 @@
             <p>{power}</p>            
         {/each}
     </section>
+    <div>Silver: {$character.silver}</div>
     <Equipment />
 
     <div>Miseries:
