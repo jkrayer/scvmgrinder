@@ -5,6 +5,7 @@
     import Equipment from './Equipment.svelte';
     import Scores from './Scores.svelte';
     import Initiative from './Initiaitve.svelte'
+    import HitPoints from './HitPoints.svelte';
 </script>
 
 <article>
@@ -21,7 +22,7 @@
             <Scores />
         </div>
         <div class="col">
-            <div>Hit Points: {$character.hitpoints.current} / {$character.hitpoints.maximum}</div>
+            <HitPoints />
             <div>Omens: ({$character.omens.current})</div>
             <!--  Maximum damage, Reroll, –d6 damage, DR –4, No Crit/Fumble -->
             <div>Silver: {$character.silver}</div>

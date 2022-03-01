@@ -50,3 +50,28 @@ export const setArmorTier = (slotId, currentTier) => character.update((currentCh
     }
   }
 })
+
+// HP Helpers
+export const incrementHp = () => character.update((currentCharacter) => {
+  const { current, maximum } = currentCharacter.hitpoints;
+
+  return current < maximum ? {
+    ...currentCharacter,
+    hitpoints: {
+      current: current + 1,
+      maximum
+    }
+  } : currentCharacter;
+})
+
+export const decrementHp = () => character.update((currentCharacter) => {
+  const { current, maximum } = currentCharacter.hitpoints;
+
+  return {
+    ...currentCharacter,
+    hitpoints: {
+      current: current - 1,
+      maximum
+    }
+  }
+})
