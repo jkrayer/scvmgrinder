@@ -1,3 +1,9 @@
+/**
+ * 1. General
+ * 2. Layout
+*/
+
+/* 1. General */
 html, body {
 	position: relative;
 	width: 100%;
@@ -75,4 +81,11 @@ table th, table td {
 table > thead > tr > th:first-of-type,
 table > tbody > tr > td:first-of-type {
 	text-align: left;
+}
+
+/* 2. Layout */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

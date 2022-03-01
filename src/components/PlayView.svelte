@@ -4,6 +4,7 @@
     import WeaponsCarried from './WeaponsCarried.svelte';
     import Equipment from './Equipment.svelte';
     import Scores from './Scores.svelte';
+    import Initiative from './Initiaitve.svelte'
 </script>
 
 <article>
@@ -12,6 +13,9 @@
         <h2 class="h2">{$character.class.name}</h2>
     </header>
     
+
+    
+
     <div class="row">
         <div class="col">
             <Scores />
@@ -23,6 +27,7 @@
             <div>Silver: {$character.silver}</div>
         </div>
     </div>
+    <Initiative />
     <ArmorWorn />
     <WeaponsCarried />
     <section>

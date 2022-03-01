@@ -27,11 +27,6 @@
 <style>
     .current { background-color: yellow; }
     button:disabled { background-color: gray; }
-    .row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
 
     .button-tier {
         width: 27px;
