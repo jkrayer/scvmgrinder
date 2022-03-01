@@ -51,6 +51,16 @@ export const setArmorTier = (slotId, currentTier) => character.update((currentCh
   }
 })
 
+// Weapons
+export const breakWeapon = (slotId) => character.update((currentCharacter) => {
+  const { equipment } = currentCharacter;
+
+  return {
+    ...currentCharacter,
+    equipment: mapObjIndexed((value, key) => key !== slotId ? value : { ...value, broken: true }, equipment)
+  }
+});
+
 // HP Helpers
 export const incrementHp = () => character.update((currentCharacter) => {
   const { current, maximum } = currentCharacter.hitpoints;
