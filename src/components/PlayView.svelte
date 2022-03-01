@@ -6,6 +6,7 @@
     import Scores from './Scores.svelte';
     import Initiative from './Initiaitve.svelte'
     import HitPoints from './HitPoints.svelte';
+    import {roll} from '../lib'
 </script>
 
 <article>
@@ -22,6 +23,7 @@
             <Scores />
         </div>
         <div class="col">
+            Defense: <button type="button" title="Defense" on:click={() => alert(roll(20) + $character.abilities.agility)}>d20 + Agility</button>
             <HitPoints />
             <div>Omens: ({$character.omens.current})</div>
             <!--  Maximum damage, Reroll, –d6 damage, DR –4, No Crit/Fumble -->
