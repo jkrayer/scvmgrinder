@@ -1,6 +1,7 @@
 <script>
     import { compose, filter, head, isNil, ifElse, always, identity, toPairs } from 'ramda';
 	import character, { setArmorTier } from '../stores/Character';
+    import { roll } from '../lib'
 
     const isWornArmor = (equipment) => equipment.type === 'armor' && equipment.equipped
 
@@ -12,17 +13,29 @@
     const handleTierClick = (tier) => () => setArmorTier(slotId, tier)
 </script>
 
-<h2>Armor</h2>
-<div>
-    {armorWorn.name || ''}
+<div class="row">
     <div>
-        <button type="button" on:click={handleTierClick(1)} class={armorWorn.currentTier === 1 ? 'current' : ''}>Tier 1</button>
-        <button type="button" on:click={handleTierClick(2)} class={armorWorn.currentTier === 2 ? 'current' : ''}>Tier 2</button>
-        <button type="button" on:click={handleTierClick(3)} class={armorWorn.currentTier === 3 ? 'current' : ''}>Tier 3</button>
+        <b>Armor:</b> {armorWorn.name || ''}
+    </div>
+    <div>
+        <button type="button" on:click={handleTierClick(1)} class={armorWorn.currentTier === 1 ? 'current button-tier' : 'button-tier'} title="Tier 1, -d2">1</button>
+        <button type="button" on:click={handleTierClick(2)} class={armorWorn.currentTier === 2 ? 'current button-tier' : 'button-tier'} title="Tier 2, -d4">2</button>
+        <button type="button" on:click={handleTierClick(3)} class={armorWorn.currentTier === 3 ? 'current button-tier' : 'button-tier'} title="Tier 3, -d6">3</button>
     </div>
 </div>
 
 <style>
     .current { background-color: yellow; }
     button:disabled { background-color: gray; }
+    .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .button-tier {
+        width: 27px;
+        padding: 3px;
+        border-radius: 50%;
+    }
 </style>

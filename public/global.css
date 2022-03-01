@@ -61,3 +61,18 @@ button:not(:disabled):active {
 button:focus {
 	border-color: #666;
 }
+
+table {
+	width: 100%;
+	padding: .2em 0;
+	margin: .2em 0;
+}
+
+table th, table td {
+	text-align: center;
+}
+
+table > thead > tr > th:first-of-type,
+table > tbody > tr > td:first-of-type {
+	text-align: left;
+}

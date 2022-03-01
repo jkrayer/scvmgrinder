@@ -16,7 +16,8 @@
 	
 {/if}
  -->
-<div style="display:flex;">
-	<div style="flex-grow:1"><PlayView /></div>
+<!-- <div style="display:flex;">
+	<div style="flex-grow:1"></div>
 	<div style="flex-grow:1"><EditView /></div>
- </div>
+ </div> -->
+ <PlayView />
