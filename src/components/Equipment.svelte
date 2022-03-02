@@ -1,23 +1,25 @@
 <script>
+    import { partial } from 'ramda';
     import Armor from './EquipmentTypes/Armor.svelte';
-	import character from '../stores/Character';
+	import character, { dropEquipment } from '../stores/Character';
+
     const encumbrance = 8 + $character.abilities.strength;
-    
-    $: equipment = Object.entries($character.equipment);
-    
 </script>
 
 <h2>Equipment</h2>
+<!-- TODO: Add Tooltip -->
 <p>Strength + 8 items or DR+2 on Agility/Strength tests</p>
 
 <ul class="list">
-    {#each equipment as [slotId,e], i }
-        <li class={ i >= encumbrance ? 'list-item empty' : 'list-item'} key={slotId}>
+    {#each $character.equipment as e, i }
+        <li class={ i >= encumbrance ? 'list-item empty' : 'list-item'} key={e._id}>
             {#if e.type === 'armor'}
-                <Armor armor={e} slotId={slotId} />
+                <Armor armor={e} />
             {:else}
                 {e?.name}
             {/if}
+            <!-- TODO: Skull Icon -->
+            <button type="button" on:click={partial(dropEquipment, [i])}>Delete</button>
         </li>
     {/each}
 </ul>

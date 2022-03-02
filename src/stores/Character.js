@@ -1,4 +1,4 @@
-import { mapObjIndexed } from 'ramda'
+import { map } from 'ramda'
 import { writable } from 'svelte/store';
 
 const STORAGE_KEY = 'character'
@@ -11,6 +11,7 @@ const character = writable({}, (set) => {
   return (a,b,c,d) => console.log('nomoresubs',a,b,c,d)
 })
 
+// More events ... perhaps a way to push changes when the local stops changing
 character.subscribe(value => {
   console.log('sub', value)
   localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
@@ -18,46 +19,46 @@ character.subscribe(value => {
 
 export default character
 
-// 
-const toggleArmor = (slotId) => (value, key, obj) => {
-  const { type, equipped } = value;
+//
+const toggleArmor = (itemId) => (value) => {
+  const { type, _id, equipped } = value;
 
   if (type !== 'armor') {
     return value;
   }
 
-  return {...value, equipped: key === slotId ?  !equipped : false}
+  return {...value, equipped: itemId === _id ?  !equipped : false}
 }
 
-// 
-export const equipArmor = (slotId) => character.update((currentCharacter) => {
-  const {equipment} = currentCharacter;
+//
+export const equipArmor = (itemId) => character.update((currentCharacter) => {
+  const { equipment } = currentCharacter;
   
   return {
     ...currentCharacter,
-    equipment: mapObjIndexed(toggleArmor(slotId), equipment)
+    equipment: map(toggleArmor(itemId), equipment)
   }
 });
 
-export const setArmorTier = (slotId, currentTier) => character.update((currentCharacter) => {
-  const armor = { ...currentCharacter.equipment[slotId], currentTier };
+// ARMOR
+// TODO: This method need to check for out of bounds
+export const setArmorTier = (itemId, currentTier) => character.update((currentCharacter) => {
+  const equipment = currentCharacter.equipment.map(eq => eq._id === itemId ? { ...eq, currentTier } : eq );
+  
 
   return {
     ...currentCharacter,
-    equipment:{
-      ...currentCharacter.equipment,
-      [slotId]: armor
-    }
+    equipment
   }
 })
 
 // Weapons
-export const breakWeapon = (slotId) => character.update((currentCharacter) => {
-  const { equipment } = currentCharacter;
+export const breakWeapon = (itemId) => character.update((currentCharacter) => {
+  const equipment = currentCharacter.equipment.map((eq) => eq._id !== itemId ? eq : {...eq, broken: true })
 
   return {
     ...currentCharacter,
-    equipment: mapObjIndexed((value, key) => key !== slotId ? value : { ...value, broken: true }, equipment)
+    equipment
   }
 });
 
@@ -85,3 +86,13 @@ export const decrementHp = () => character.update((currentCharacter) => {
     }
   }
 })
+
+// EQUIPMENT
+export const dropEquipment = (index) => character.update((currentCharacter) => {
+  const { equipment } = currentCharacter;
+
+  return {
+    ...currentCharacter,
+    equipment: equipment.filter((value, i) => i !== index)
+  }
+});

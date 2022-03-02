@@ -1,19 +1,23 @@
 <script>
-    import { compose, filter, head, isNil, ifElse, always, identity, toPairs } from 'ramda';
+    import { always, compose, filter, head, identity, ifElse, isEmpty, isNil} from 'ramda';
 	import character, { setArmorTier } from '../stores/Character';
     import { roll } from '../lib'
 
-    const isWornArmor = (equipment) => equipment.type === 'armor' && equipment.equipped
-    const getWornArmor = compose(ifElse(isNil, always(['', {}]), identity), head, toPairs, filter(isWornArmor))
+    const isWornArmor = (equipment) => equipment.type === 'armor' && equipment.equipped;
+    const getWornArmor = compose(ifElse(isNil, always({}), identity), head, filter(isWornArmor));
 
     let toggle = true;
-    $: [slotId, armorWorn] = getWornArmor($character.equipment);
+    $: armorWorn = getWornArmor($character.equipment);
 
-    const handleToggle = () => toggle = !toggle
 
-    const handleTierClick = (tier) => () => setArmorTier(slotId, tier)
+    // Handlers
+    const handleToggle = () => toggle = !toggle;
+    // does this need to be reactive? Would I get stale state for armor worn?, armor is
+    // stale but it doesn't matter in this case
+    const handleTierClick = (tier) => () => setArmorTier(armorWorn._id, tier);
 </script>
 
+{#if !isEmpty(armorWorn)}
 <div class="row">
     <div>
         <b>Armor:</b> {armorWorn.name || ''}
@@ -30,7 +34,8 @@
             <button type="button" on:click={handleTierClick(3)} class={armorWorn.currentTier === 3 ? 'current button-tier' : 'button-tier'} title="Tier 3, -d6">3</button>
         {/if}
     </div>
-</div>
+</div>    
+{/if}
 
 <style>
     .current { background-color: yellow; }
