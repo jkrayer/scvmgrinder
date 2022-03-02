@@ -1,18 +1,20 @@
 <script>
     import { isEmpty } from 'ramda';
 	import character from '../stores/Character';
+    import settings, { toggleSheetLock } from '../stores/Settings';
     import ArmorWorn from './ArmorWorn.svelte';
     import WeaponsCarried from './WeaponsCarried.svelte';
     import Equipment from './Equipment.svelte';
     import Scores from './Scores.svelte';
     import Initiative from './Initiaitve.svelte'
     import HitPoints from './HitPoints.svelte';
-    import {roll} from '../lib'
+    import {roll} from '../lib';
 </script>
 
 {#if !isEmpty($character)}
 <article>
     <header>
+        <button type="button" on:click={toggleSheetLock}>{$settings.sheetLocked ? 'UnLock' : 'Lock'}</button>
         <h1 class="h1">{$character.name}</h1>
         <h2 class="h2">{$character.class.name}</h2>
     </header>
