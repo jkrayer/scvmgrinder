@@ -1,4 +1,5 @@
 <script>
+    import { isEmpty } from 'ramda';
 	import character from '../stores/Character';
     import ArmorWorn from './ArmorWorn.svelte';
     import WeaponsCarried from './WeaponsCarried.svelte';
@@ -9,15 +10,12 @@
     import {roll} from '../lib'
 </script>
 
+{#if !isEmpty($character)}
 <article>
     <header>
         <h1 class="h1">{$character.name}</h1>
         <h2 class="h2">{$character.class.name}</h2>
     </header>
-    
-
-    
-
     <div class="row">
         <div class="col">
             <Scores />
@@ -55,7 +53,8 @@
         <h2>Description</h2>
         {@html $character.description}
     </section>
-</article>
+</article>   
+{/if}
 
 <style>
     .h1 {

@@ -10,7 +10,7 @@
 <!-- TODO: Add Tooltip -->
 <p>Strength + 8 items or DR+2 on Agility/Strength tests</p>
 
-<ul class="list">
+<ul class="list-clear list">
     {#each $character.equipment as e, i }
         <li class={ i >= encumbrance ? 'list-item empty' : 'list-item'} key={e._id}>
             {#if e.type === 'armor'}
@@ -31,13 +31,8 @@
     .list {
         display: flex;
         flex-wrap: wrap;
-        padding: 0;
-        margin: 0;
-        list-style: none;;
     }
     .list-item {
         flex-basis: 50%;
-        padding: 0;
-        margin: 0;
     }
 </style>

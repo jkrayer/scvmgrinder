@@ -3,6 +3,7 @@
 
 	import EditView from './components/EditView.svelte';
 	import PlayView from './components/PlayView.svelte';
+	import Sidebar from './components/Sidebar.svelte';
 
 	const toggleView = writable('edit') // play | edit
 	const handleToggle = (e) => toggleView.set($toggleView === 'play' ? 'edit' : 'play')
@@ -20,4 +21,5 @@
 	<div style="flex-grow:1"></div>
 	<div style="flex-grow:1"><EditView /></div>
  </div> -->
+ <Sidebar />
  <PlayView />

@@ -1,23 +1,40 @@
 import { map } from 'ramda'
 import { writable } from 'svelte/store';
 
-const STORAGE_KEY = 'character'
+const STORAGE_KEY = 'character:';
 
-const character = writable({}, (set) => {
-  const char = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); // add either?
+const character = writable({});
 
-  set(char)
+// const character = writable({}, (set) => {
+//   const char = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); // add either?
+
+//   set(char)
   
-  return (a,b,c,d) => console.log('nomoresubs',a,b,c,d)
-})
+//   return (a,b,c,d) => console.log('nomoresubs',a,b,c,d)
+// })
 
 // More events ... perhaps a way to push changes when the local stops changing
 character.subscribe(value => {
-  console.log('sub', value)
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
+  // console.log('sub', value)
+  // localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
+  console.log('selected', value)
+  // const  {id } = value;
+  // localStorage.setItem(`${STORAGE_KEY}${id}`, JSON.stringify(value))
+
 });
 
 export default character
+
+export const setSelected = (id) => {
+    console.log('id', id)
+    const selected = localStorage.getItem(`${STORAGE_KEY}${id}`)
+    console.log('gotselected', selected)
+    // TODO: handle this case
+    // if (selected == null)
+
+    character.update(() => JSON.parse(selected))
+}
+
 
 //
 const toggleArmor = (itemId) => (value) => {

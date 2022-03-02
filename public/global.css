@@ -1,6 +1,7 @@
 /**
  * 1. General
  * 2. Layout
+ * 3. Lists
 */
 
 /* 1. General */
@@ -88,4 +89,16 @@ table > tbody > tr > td:first-of-type {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+/* 3. Lists */
+.list-clear {
+	padding: 0;
+	margin: 0;
+	list-style: none;;
+}
+
+.list-clear > li {
+	padding: 0;
+	margin: 0;
 }
