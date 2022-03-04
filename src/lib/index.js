@@ -1,4 +1,4 @@
-import { compose } from "ramda";
+import { compose, prop } from "ramda";
 
 export const symbol = (score) =>
   score === 0 ? `±${score}` : score > 0 ? `+${score}` : score;
@@ -106,3 +106,5 @@ export const getAbilityScore = (num) =>
     : num < 17
     ? 2
     : 3;
+
+export const getDie = compose(prop(2), parseRollString);

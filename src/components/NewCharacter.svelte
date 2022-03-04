@@ -6,19 +6,24 @@
     import RollButton from './Buttons/RollButton.svelte'
     import RadioGroup from './Form/RadioGroup.svelte';
     import Input from './Form/Input.svelte';
+    import WeaponTable from './Tables/WeaponTable.svelte'
     import {
         STARTING_EQUIPMENT_ONE,
         STARTING_EQUIPMENT_TWO,
         STARTING_EQUIPMENT_THREE,
         STARTING_WEAPONS,
         STARTING_ARMOR } from '../lib/tables';
+    import { handleTableRoll } from '../lib/dom'
 
     const classData = writable({
         loading: false,
         error: false,
         errorMessage: null,
-        baseTpl: {},
+        selected: null,
+        classes: [],
     });
+
+    const selectedClass = writable({});
 
     // getter
     const fetchJSON = async (path) => {
@@ -30,7 +35,7 @@
                 (oldState) => ({
                     ...oldState,
                     loading: false,
-                    baseTpl: result                    
+                    classes: result
                 })
             );
         } catch (error) {
@@ -46,10 +51,7 @@
     }
 
     // setup
-    fetchJSON('/json/PlayerCharacter.json')
-
-    // 
-    const classes = ['Fanged Deserter', 'Gutterborn Scum'] // and more
+    fetchJSON('/json/Characters.json')
 
     // 
     const getFormData = () => {
@@ -74,6 +76,8 @@
     const containsScroll = test(/scroll/);
 
     // Handlers
+    const onSelectCharacter = (selected) => () => classData.update((oldState) => ({...oldState, selected}))
+
     const onSubmit = (e) => {
         console.log('sub', getFormData())
     }
@@ -89,14 +93,6 @@
 
         hasScroll = nextHasScroll;
     }
-
-    const handleTableRoll = (name) => (roll) => {
-        const radios = document.getElementsByName(name);
-        let key = name === "equipment-one" ? roll - 2 : roll - 1;
-        key = key < 0 ? 0 : key;
-
-        radios[key].dispatchEvent(new MouseEvent('click'))
-    }
 </script>
 
 {#if $classData.loading}
@@ -108,13 +104,13 @@
     <!--  -->
     <fieldset>
         <legend>Character Class</legend>
-            <button type="button">No Class</button>
-            {#each classes as c}
-                <div><button type="button">{c}</button><button type="button">Info</button></div>
+            {#each $classData.classes as c}
+                <div><button type="button" on:click={onSelectCharacter(c)}>{c.name}</button><button type="button">Info</button></div>
             {/each}
             <p>Click on a selection merges the template data and sets the rest of the process</p>
     </fieldset>
     <!--  -->
+    {#if $classData.selected !== null}
     <fieldset>
         <legend>First, you are what you own</legend>
         <p>Silver and food</p>
@@ -124,7 +120,7 @@
                     name="silver"
                     value={silver}
                 >
-                    <RollButton diceString={$classData.baseTpl.silver} onRoll={(x) => silver = x} />
+                    <RollButton diceString={$classData.selected.silver} onRoll={(x) => silver = x} />
                 </Input>
         </div>
                 <Input type="number"
@@ -164,31 +160,28 @@
 
         </fieldset>
     </fieldset>
-    <fieldset>
-        <legend>Weapons d10 (d6 if you have a sroll)</legend>
-        <RollButton diceString={hasScroll ? "1d6" : "1d10"} onRoll={handleTableRoll('weapon')} />
-        <RadioGroup options={STARTING_WEAPONS} name="weapon" disable={hasScroll ? 6 : -1} />
-    </fieldset>
+    <WeaponTable settings={$classData.selected.weaponsTable} hasScroll={hasScroll} />
     <fieldset>
         <legend>Armor d4 (d2 if you begin with a scroll)</legend>
         <RollButton diceString={hasScroll ? "1d2" : "1d4"} onRoll={handleTableRoll('armor')} />
-        <RadioGroup options={STARTING_ARMOR} name="armor" disable{hasScroll ? 2 : -1} />
+        <RadioGroup options={STARTING_ARMOR} name="armor" disable={hasScroll ? 2 : -1} />
     </fieldset>    
     <fieldset>
         class tables
     </fieldset>
     <fieldset>
         <legend>Abilities</legend>
-            <ScoreInput label="Agility" name="agility" diceString={$classData.baseTpl.agility} />
-            <ScoreInput label="Presence" name="presence" diceString={$classData.baseTpl.presence} />
-            <ScoreInput label="Strength" name="strength" diceString={$classData.baseTpl.strength} />
-            <ScoreInput label="Toughness" name="toughness" diceString={$classData.baseTpl.toughness} />
+            <ScoreInput label="Agility" name="agility" diceString={$classData.selected.agility} />
+            <ScoreInput label="Presence" name="presence" diceString={$classData.selected.presence} />
+            <ScoreInput label="Strength" name="strength" diceString={$classData.selected.strength} />
+            <ScoreInput label="Toughness" name="toughness" diceString={$classData.selected.toughness} />
     </fieldset>
     <fieldset>
             <label for="name">Name your character</label>
             <input type="text" name="name" id="name">
             <label for="name">, it won't save you</label>
     </fieldset>
-    <button type="submit">Submit</button>
+    <button type="submit">Submit</button>        
+    {/if}
 </form>
 {/if}
