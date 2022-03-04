@@ -3,7 +3,7 @@
 
     export let diceString = "";
     export let onRoll = (roll) => {};
-    
+
     const handleClick = () => onRoll(rollString(diceString));
 </script>
 

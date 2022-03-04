@@ -3,10 +3,8 @@
   export let label;
   export let name;
   export let value;
-  export let readonly;
+  export let readonly = false;
   export let onChange = () => {}
-
-  console.log(9, readonly)
 </script>
 
 <label for={name}>{label}</label>
