@@ -1,6 +1,6 @@
 <script>
 	import { writable } from 'svelte/store';
-
+	import NewCharacter from './components/NewCharacter.svelte'
 	import EditView from './components/EditView.svelte';
 	import PlayView from './components/PlayView.svelte';
 	import Sidebar from './components/Sidebar.svelte';
@@ -21,5 +21,6 @@
 	<div style="flex-grow:1"></div>
 	<div style="flex-grow:1"><EditView /></div>
  </div> -->
- <Sidebar />
- <PlayView />
+ <!-- <Sidebar />
+ <PlayView /> -->
+ <NewCharacter />
