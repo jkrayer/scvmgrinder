@@ -70,7 +70,7 @@ export const rollFormula = ([number, , die, operation, modifier]) => {
   return r;
 };
 
-const toInt = (str) => parseInt(str, 10);
+export const toInt = (str) => parseInt(str, 10);
 
 const toInboundsIndex = (num) => (num === -1 ? Infinity : num);
 
@@ -91,3 +91,18 @@ const parseRollString = (rs) => {
 };
 
 export const rollString = compose(rollFormula, parseRollString);
+
+export const getAbilityScore = (num) =>
+  num < 5
+    ? -3
+    : num < 7
+    ? -2
+    : num < 9
+    ? -1
+    : num < 13
+    ? 0
+    : num < 15
+    ? 1
+    : num < 17
+    ? 2
+    : 3;

@@ -6,6 +6,7 @@
     import { STARTING_EQUIPMENT_ONE, STARTING_EQUIPMENT_TWO, STARTING_EQUIPMENT_THREE, STARTING_WEAPONS, STARTING_ARMOR } from '../lib/tables';
     import { rollFormula } from '../lib';
     import Input from './Form/Input.svelte'
+    import ScoreInput from "./Form/ScoreInput.svelte";
     import RollButton from './Buttons/RollButton.svelte'
 
     const setInDom = (id) => (num) => {
@@ -155,18 +156,10 @@
     </fieldset>
     <fieldset>
         <legend>Abilities</legend>
-            <Input type="number" label={`Agility (${$classData.baseTpl.agility})`} name="agility">
-                <RollButton diceString={$classData.baseTpl.agility} onRoll={setInDom('agility')} />
-            </Input>
-            <Input type="number" label={`Presence (${$classData.baseTpl.presence})`} name="presence">
-                <RollButton diceString={$classData.baseTpl.presence} onRoll={setInDom('presence')} />
-            </Input>
-            <Input type="number" label={`Strength (${$classData.baseTpl.strength})`} name="strength">
-                <RollButton diceString={$classData.baseTpl.strength} onRoll={setInDom('strength')} />
-            </Input>
-            <Input type="number" label={`Toughness (${$classData.baseTpl.toughness})`} name="toughness">
-                <RollButton diceString={$classData.baseTpl.toughness} onRoll={setInDom('toughness')} />
-            </Input>
+            <ScoreInput label="Agility" name="agility" diceString={$classData.baseTpl.agility} />
+            <ScoreInput label="Presence" name="presence" diceString={$classData.baseTpl.presence} />
+            <ScoreInput label="Strength" name="strength" diceString={$classData.baseTpl.strength} />
+            <ScoreInput label="Toughness" name="toughness" diceString={$classData.baseTpl.toughness} />
     </fieldset>
     <fieldset>
             <label for="name">Name your character</label>
