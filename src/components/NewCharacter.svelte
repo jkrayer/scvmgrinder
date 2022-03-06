@@ -7,6 +7,8 @@
     import RadioGroup from './Form/RadioGroup.svelte';
     import Input from './Form/Input.svelte';
     import WeaponTable from './Tables/WeaponTable.svelte'
+    import RollTable from "./RollTable.svelte";
+
     import {
         STARTING_EQUIPMENT_ONE,
         STARTING_EQUIPMENT_TWO,
@@ -134,33 +136,29 @@
 
     <fieldset>
         <legend>To begin with, you are what you own</legend>
-        <fieldset>
-            <legend>d6</legend>
-            <RollButton diceString="1d6" onRoll={handleTableRoll('equipment-one')} />
-            <RadioGroup
-                options={STARTING_EQUIPMENT_ONE}
-                name="equipment-one"
-            />
-        </fieldset>
-        <fieldset>
-            <legend>d12</legend>
-            <RollButton diceString="1d12" onRoll={handleTableRoll('equipment-two')} />
-            <RadioGroup
-                options={STARTING_EQUIPMENT_TWO}
-                name="equipment-two"
-            />
-        </fieldset>
-        <fieldset>
-            <legend>d12</legend>
-            <RollButton diceString="1d12" onRoll={handleTableRoll('equipment-three')} />
-            <RadioGroup
-                options={STARTING_EQUIPMENT_THREE}
-                name="equipment-three"
-            />
-
-        </fieldset>
+        <RollTable
+            title="d6"
+            diceString="1d6"
+            name="equipment-one"
+            options={STARTING_EQUIPMENT_ONE}
+        />
+        <RollTable
+            title="d12"
+            diceString="1d12"
+            name="equipment-two"
+            options={STARTING_EQUIPMENT_TWO}
+        />
+        <RollTable
+            title="d12"
+            diceString="1d12"
+            name="equipment-three"
+            options={STARTING_EQUIPMENT_THREE}
+        />
     </fieldset>
-    <WeaponTable settings={$classData.selected.weaponsTable} hasScroll={hasScroll} />
+    <WeaponTable
+        settings={$classData.selected.weaponsTable}
+        hasScroll={hasScroll}
+    />
     <fieldset>
         <legend>Armor d4 (d2 if you begin with a scroll)</legend>
         <RollButton diceString={hasScroll ? "1d2" : "1d4"} onRoll={handleTableRoll('armor')} />
