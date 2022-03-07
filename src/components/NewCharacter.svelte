@@ -2,6 +2,7 @@
     // import { onMount } from 'svelte';
     import { writable } from "svelte/store";
     import { propSatisfies, test } from "ramda";
+    import { addCharacter } from '../stores/Characters';
     import ScoreInput from "./Form/ScoreInput.svelte";
     import RollButton from './Buttons/RollButton.svelte'
     import RadioGroup from './Form/RadioGroup.svelte';
@@ -81,7 +82,7 @@
     const onSelectCharacter = (selected) => () => classData.update((oldState) => ({...oldState, selected}))
 
     const onSubmit = (e) => {
-        console.log('sub', getFormData())
+        addCharacter(getFormData());
     }
 
     const handleFieldChanges = (e)=> {
@@ -109,7 +110,6 @@
             {#each $classData.classes as c}
                 <div><button type="button" on:click={onSelectCharacter(c)}>{c.name}</button><button type="button">Info</button></div>
             {/each}
-            <p>Click on a selection merges the template data and sets the rest of the process</p>
     </fieldset>
     <!--  -->
     {#if $classData.selected !== null}

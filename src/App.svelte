@@ -1,26 +1,17 @@
 <script>
-	import { writable } from 'svelte/store';
+	import settings from './stores/Settings'
 	import NewCharacter from './components/NewCharacter.svelte'
-	import EditView from './components/EditView.svelte';
 	import PlayView from './components/PlayView.svelte';
 	import Sidebar from './components/Sidebar.svelte';
-
-	const toggleView = writable('edit') // play | edit
-	const handleToggle = (e) => toggleView.set($toggleView === 'play' ? 'edit' : 'play')
 </script>
 
-<!-- 
-<button type="button" on:click={handleToggle}>{$toggleView === 'play' ? 'Edit' : 'Play'}</button>
-{#if $toggleView === 'play'}
-	<PlayView />
-{:else}
-	
-{/if}
- -->
-<!-- <div style="display:flex;">
-	<div style="flex-grow:1"></div>
-	<div style="flex-grow:1"><EditView /></div>
- </div> -->
- <!-- <Sidebar />
- <PlayView /> -->
- <NewCharacter />
+<main id="app">
+	<div id="stage">
+		{#if $settings.newCharacter}
+			<NewCharacter />
+		{:else if $settings.selectedCharacterId !== null}
+			<!-- <PlayView /> -->
+		{/if}
+	</div>
+<Sidebar />
+</main>

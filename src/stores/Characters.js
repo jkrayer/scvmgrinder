@@ -1,36 +1,36 @@
 import { writable } from "svelte/store";
-import { generateEmptyCharacter } from "../lib";
+import { setSelectedCharacterId } from "./Settings";
+import { setSelected } from "./Character";
 
-const STORAGE_KEY = 'characters';
+const STORAGE_KEY = "characters";
 
 const characters = writable([], (set) => {
-  const char = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); // add either?
-  set(char)
+  const char = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); // add either?
+  set(char);
 
-  return (a,b,c,d) => console.log('characters unsub',a,b,c,d)
+  return (a, b, c, d) => console.log("characters unsub", a, b, c, d);
 });
 
-characters.subscribe(value => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
+characters.subscribe((value) => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
 });
 
-export default characters
+export default characters;
 
 // Crud
-export const addCharacter = () => {
-    const id = Date.now().toString();
+export const addCharacter = (character) => {
+  const id = Date.now().toString();
 
-    localStorage.setItem(
-        `character:${id}`,
-        JSON.stringify(generateEmptyCharacter(id))
-    );
-    characters.update((ids) => [...ids, id]);
-}
+  localStorage.setItem(`character:${id}`, JSON.stringify({ id, ...character }));
+  characters.update((ids) => [...ids, id]);
+  setSelectedCharacterId(id);
+  setSelected(id);
+};
 
 // cruD
 export const deleteCharacter = (deleteId) => {
-    characters.update((ids) => ids.filter((id) => id !== deleteId));
+  characters.update((ids) => ids.filter((id) => id !== deleteId));
 
-    localStorage.removeItem(`character:${deleteId}`)
-    // may need to sync storage with selected character
-}
+  localStorage.removeItem(`character:${deleteId}`);
+  // may need to sync storage with selected character
+};

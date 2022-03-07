@@ -6,6 +6,7 @@ const settings = writable(
   {
     sheetLocked: true,
     selectedCharacterId: null,
+    newCharacter: false,
   },
   (set) => {
     const settings = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
@@ -15,8 +16,7 @@ const settings = writable(
   }
 );
 
-settings.subscribe((settings, b, c, d) => {
-  console.log("settings", settings, b, c, d);
+settings.subscribe((settings) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
 });
 
@@ -32,4 +32,12 @@ export const setSelectedCharacterId = (id) =>
   settings.update((oldSettings) => ({
     ...oldSettings,
     selectedCharacterId: id,
+    newCharacter: false,
+  }));
+
+export const setNewCharacter = (id) =>
+  settings.update((oldSettings) => ({
+    ...oldSettings,
+    selectedCharacterId: null,
+    newCharacter: true,
   }));
