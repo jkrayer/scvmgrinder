@@ -3,6 +3,7 @@
     import { writable } from "svelte/store";
     import { propSatisfies, test } from "ramda";
     import { addCharacter } from '../stores/Characters';
+    import { formatCharacterData } from '../lib/formatCharacterData';
     import ScoreInput from "./Form/ScoreInput.svelte";
     import RollButton from './Buttons/RollButton.svelte'
     import RadioGroup from './Form/RadioGroup.svelte';
@@ -25,8 +26,6 @@
         selected: null,
         classes: [],
     });
-
-    const selectedClass = writable({});
 
     // getter
     const fetchJSON = async (path) => {
@@ -82,7 +81,7 @@
     const onSelectCharacter = (selected) => () => classData.update((oldState) => ({...oldState, selected}))
 
     const onSubmit = (e) => {
-        addCharacter(getFormData());
+        addCharacter(formatCharacterData(getFormData()));
     }
 
     const handleFieldChanges = (e)=> {
@@ -139,19 +138,19 @@
         <RollTable
             title="d6"
             diceString="1d6"
-            name="equipment-one"
+            name="equipmentOne"
             options={STARTING_EQUIPMENT_ONE}
         />
         <RollTable
             title="d12"
             diceString="1d12"
-            name="equipment-two"
+            name="equipmentTwo"
             options={STARTING_EQUIPMENT_TWO}
         />
         <RollTable
             title="d12"
             diceString="1d12"
-            name="equipment-three"
+            name="equipmentThree"
             options={STARTING_EQUIPMENT_THREE}
         />
     </fieldset>
@@ -173,6 +172,7 @@
             <ScoreInput label="Presence" name="presence" diceString={$classData.selected.presence} />
             <ScoreInput label="Strength" name="strength" diceString={$classData.selected.strength} />
             <ScoreInput label="Toughness" name="toughness" diceString={$classData.selected.toughness} />
+            <!-- <Input type="number" label="Hit Points" name="hp"   /> -->
     </fieldset>
     <fieldset>
             <label for="name">Name your character</label>

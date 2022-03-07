@@ -14,10 +14,10 @@ body {
 }
 
 body {
-  color: #333;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  color: #333;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
@@ -99,22 +99,24 @@ table > tbody > tr > td:first-of-type {
 }
 
 #app {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
   width: 100vw;
   height: 100vh;
-  background-color: #333;
 }
 
 #sidebar {
+  box-sizing: border-box;
   padding: 0.5rem;
-  background-color: yellow;
+  background-color: #333;
 }
 
 #stage {
+  box-sizing: border-box;
   flex-grow: 1;
-  background-color: red;
+  padding: 1rem;
 }
 
 /* 3. Lists */

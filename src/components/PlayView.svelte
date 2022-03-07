@@ -1,7 +1,6 @@
 <script>
     import { isEmpty } from 'ramda';
 	import character from '../stores/Character';
-    import settings, { toggleSheetLock } from '../stores/Settings';
     import ArmorWorn from './ArmorWorn.svelte';
     import WeaponsCarried from './WeaponsCarried.svelte';
     import Equipment from './Equipment.svelte';
@@ -9,12 +8,13 @@
     import Initiative from './Initiaitve.svelte'
     import HitPoints from './HitPoints.svelte';
     import {roll} from '../lib';
+
+    console.log('character', $character)
 </script>
 
 {#if !isEmpty($character)}
 <article>
     <header>
-        <button type="button" on:click={toggleSheetLock}>{$settings.sheetLocked ? 'UnLock' : 'Lock'}</button>
         <h1 class="h1">{$character.name}</h1>
         <h2 class="h2">{$character.class.name}</h2>
     </header>
@@ -31,7 +31,7 @@
     <ArmorWorn />
     <WeaponsCarried />
     <!--  Maximum damage, Reroll, –d6 damage, DR –4, No Crit/Fumble -->
-    <div>Omens: ({$character.omens.current})</div>
+    <div>Omens: ({$character?.omens?.current || 0})</div>
     <section>
         <h2>Powers</h2>
         <!-- <p>Presence DR12, or -d2 HP and no Powers for 1</p> -->

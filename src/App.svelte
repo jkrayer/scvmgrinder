@@ -10,7 +10,7 @@
 		{#if $settings.newCharacter}
 			<NewCharacter />
 		{:else if $settings.selectedCharacterId !== null}
-			<!-- <PlayView /> -->
+			<PlayView />
 		{/if}
 	</div>
 <Sidebar />

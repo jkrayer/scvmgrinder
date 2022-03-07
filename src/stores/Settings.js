@@ -4,7 +4,6 @@ const STORAGE_KEY = "settings";
 
 const settings = writable(
   {
-    sheetLocked: true,
     selectedCharacterId: null,
     newCharacter: false,
   },
@@ -21,12 +20,6 @@ settings.subscribe((settings) => {
 });
 
 export default settings;
-
-export const toggleSheetLock = () =>
-  settings.update((oldSettings) => ({
-    ...oldSettings,
-    sheetLocked: !oldSettings.sheetLocked,
-  }));
 
 export const setSelectedCharacterId = (id) =>
   settings.update((oldSettings) => ({
