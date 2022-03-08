@@ -1,12 +1,10 @@
 <script>
     import Input from './Input.svelte';
-    import { toInt, getAbilityScore } from '../../lib/';
+    import { toInt, rollHp } from '../../lib/';
     import RollButton from '../Buttons/RollButton.svelte';
 
-    export let label;
-    export let name;
     export let diceString;
-    export let onChange = () => {};
+    export let toughness;
 
     let roll;
     let score;
@@ -14,11 +12,10 @@
     // HANDLERS
     const handleRoll = (num) => {
         roll = num;
-        score = getAbilityScore(num);
-        onChange(score);
+        score = rollHp(num, toughness);
     }
 
-    const handleChange = (e) => score = getAbilityScore(toInt(e.target.value));
+    const handleChange = (e) => score = rollHp(toInt(e.target.value), toughness);
     // 
 </script>
 
@@ -26,20 +23,22 @@
     <div>
     <Input
         type="number"
-        label={`${label} Roll`}
+        label="HP Roll + Toughness"
         value={roll}
         onChange={handleChange}
+        disabled={toughness === undefined}
     />
     </div>
     <RollButton
         diceString={diceString}
         onRoll={handleRoll}
+        disabled={toughness === undefined}
     />
     <div>
     <Input
         type="number"
-        label={`${label} Score`}
-        {name}
+        label="Hit Points"
+        name="hp"
         value={score}
         readonly
     />

@@ -4,9 +4,18 @@
   export let name;
   export let value;
   export let readonly = false;
+  export let disabled = false;
   export let onChange = () => {}
 </script>
 
 <label for={name}>{label}</label>
-<input {type} {name} id={name} value={value} on:input={onChange} readonly={!!readonly} />
+<input
+  {type}
+  {name}
+  id={name}
+  {value}
+  {disabled}
+  on:input={onChange}
+  readonly={!!readonly}
+/>
 <slot></slot>

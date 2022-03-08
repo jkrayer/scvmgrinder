@@ -1,15 +1,17 @@
 <script>
-    // import { onMount } from 'svelte';
+    // import Carousel from './Carousel/Carousel.svelte'
     import { writable } from "svelte/store";
     import { propSatisfies, test } from "ramda";
     import { addCharacter } from '../stores/Characters';
     import { formatCharacterData } from '../lib/formatCharacterData';
     import ScoreInput from "./Form/ScoreInput.svelte";
+    import HitPointInput from "./Form/HitPointInput.svelte";
     import RollButton from './Buttons/RollButton.svelte'
     import RadioGroup from './Form/RadioGroup.svelte';
     import Input from './Form/Input.svelte';
     import WeaponTable from './Tables/WeaponTable.svelte'
     import RollTable from "./RollTable.svelte";
+    import { handleFieldRoll } from "../lib/dom";
 
     import {
         STARTING_EQUIPMENT_ONE,
@@ -71,8 +73,7 @@
 
     // fields
     let hasScroll = false;
-    let silver;
-    let provisions;
+    let toughness;
 
     // Helpers
     const containsScroll = test(/scroll/);
@@ -94,7 +95,7 @@
     const handleFieldChanges = (e)=> {
         const formData = getFormData();
         const nextHasScroll = propSatisfies(containsScroll, 'equipment-two', formData) || propSatisfies(containsScroll, 'equipment-three', formData);
-
+        console.log(96, 'handleFieldChanges', e.target.name, e.target.value)
         if (hasScroll !== nextHasScroll) {
             document.getElementsByName('weapon').forEach(el => el.checked = false);
             document.getElementsByName('armor').forEach(el => el.checked = false);
@@ -109,38 +110,44 @@
 {:else if $classData.error}
     <p>{$classData.errorMessage}</p>
 {:else}
-<form id="new-character-form" novalidate on:submit|preventDefault={onSubmit} on:change={handleFieldChanges}>
+
+<form
+    id="new-character-form"
+    novalidate
+    on:submit|preventDefault={onSubmit}
+    on:change={handleFieldChanges}
+>
     <!--  -->
-    <fieldset>
+
+    <fieldset class="fieldset">
         <legend>Character Class</legend>
             {#each $classData.classes as c}
                 <div><button type="button" on:click={onSelectCharacter(c)}>{c.name}</button><button type="button">Info</button></div>
             {/each}
     </fieldset>
+
     <!--  -->
     {#if $classData.selected !== null}
-    <fieldset>
+    <fieldset class="fieldset">
         <legend>First, you are what you own</legend>
         <p>Silver and food</p>
         <div>
                 <Input type="number"
                     label="Silver"
                     name="silver"
-                    value={silver}
                 >
-                    <RollButton diceString={$classData.selected.silver} onRoll={(x) => silver = x} />
+                    <RollButton diceString={$classData.selected.silver} onRoll={handleFieldRoll('silver')} />
                 </Input>
         </div>
                 <Input type="number"
                     label="A waterskin and d4 days worth of food"
                     name="provisions"
-                    value={provisions}
                 >
-                    <RollButton diceString="1d4" onRoll={(x) => provisions = x} />
+                    <RollButton diceString="1d4" onRoll={handleFieldRoll('provisions')} />
                 </Input>
     </fieldset>
 
-    <fieldset>
+    <fieldset class="fieldset">
         <legend>To begin with, you are what you own</legend>
         <RollTable
             title="d6"
@@ -165,27 +172,28 @@
         settings={$classData.selected.weaponsTable}
         hasScroll={hasScroll}
     />
-    <fieldset>
+    <fieldset class="fieldset">
         <legend>Armor d4 (d2 if you begin with a scroll)</legend>
         <RollButton diceString={hasScroll ? "1d2" : "1d4"} onRoll={handleTableRoll('armor')} />
         <RadioGroup options={STARTING_ARMOR} name="armor" disable={hasScroll ? 2 : -1} />
     </fieldset>    
-    <fieldset>
+    <fieldset class="fieldset">
         class tables
     </fieldset>
-    <fieldset>
+    <fieldset class="fieldset">
         <legend>Abilities</legend>
             <ScoreInput label="Agility" name="agility" diceString={$classData.selected.agility} />
             <ScoreInput label="Presence" name="presence" diceString={$classData.selected.presence} />
             <ScoreInput label="Strength" name="strength" diceString={$classData.selected.strength} />
-            <ScoreInput label="Toughness" name="toughness" diceString={$classData.selected.toughness} />
-            <!-- <Input type="number" label="Hit Points" name="hp"   /> -->
+            <ScoreInput label="Toughness" name="toughness" onChange={(x) => toughness = x} diceString={$classData.selected.toughness} />
+            <HitPointInput diceString={$classData.selected.hitpoints} toughness={toughness} />
     </fieldset>
-    <fieldset>
+    <fieldset class="fieldset">
             <label for="name">Name your character</label>
             <input type="text" name="name" id="name">
             <label for="name">, it won't save you</label>
     </fieldset>
+    
     <button type="submit">Submit</button>        
     {/if}
 </form>

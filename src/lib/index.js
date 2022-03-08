@@ -72,6 +72,11 @@ export const rollFormula = ([number, , die, operation, modifier]) => {
 
 export const toInt = (str) => parseInt(str, 10);
 
+export const rollHp = (roll, toughness) => {
+  const hp = roll + toughness;
+  return hp < 1 ? 1 : hp;
+};
+
 const toInboundsIndex = (num) => (num === -1 ? Infinity : num);
 
 const parseRollString = (rs) => {
