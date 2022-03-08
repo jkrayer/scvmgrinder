@@ -8,9 +8,8 @@
     import ScoreInput from "./Form/ScoreInput.svelte";
     import HitPointInput from "./Form/HitPointInput.svelte";
     import RollButton from './Buttons/RollButton.svelte'
-    import RadioGroup from './Form/RadioGroup.svelte';
     import Input from './Form/Input.svelte';
-    import WeaponTable from './Tables/WeaponTable.svelte'
+    import ExceptionTable from './Tables/ExceptionTable.svelte'
     import RollTable from "./RollTable.svelte";
     import { handleFieldRoll } from "../lib/dom";
 
@@ -129,13 +128,13 @@
             options={STARTING_EQUIPMENT_THREE}
         />
     </fieldset>
-    <WeaponTable
+    <ExceptionTable
         title="Weapon"
         settings={$selected.weaponsTable}
         hasScroll={hasScroll}
         options={STARTING_WEAPONS}
     />
-    <WeaponTable
+    <ExceptionTable
         title="Armor"
         settings={$selected.armorTable}
         hasScroll={hasScroll}
