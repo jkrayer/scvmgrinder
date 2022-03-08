@@ -3,13 +3,16 @@
     import RadioGroup from '../Form/RadioGroup.svelte';
     import { handleTableRoll } from '../../lib/dom';
     import { getDie } from '../../lib'
-    import { STARTING_WEAPONS } from '../../lib/tables';
 
+    export let title = '';
     export let hasScroll = false;
+    export let options = [];
     export let settings = {
       roll: "1d10",
       exception: "1d6"
     };
+
+    const name = title.toLowerCase();
 
     $: rollDie = getDie(settings.roll);
     $: exceptionDie = !settings.exception ? -1 : getDie(settings.exception);
@@ -19,15 +22,15 @@
 
 <fieldset>
     <legend>
-        Weapons d{rollDie} {exceptionDie > -1 ? `(d${exceptionDie} if you have a scroll)` : ''}
+        {title} d{rollDie} {exceptionDie > -1 ? `(d${exceptionDie} if you have a scroll)` : ''}
     </legend>
     <RollButton
         diceString={diceString}
-        onRoll={handleTableRoll('weapon')}
+        onRoll={handleTableRoll(name)}
     />
     <RadioGroup
-        name="weapon"
-        options={STARTING_WEAPONS}
+        name={name}
+        options={options}
         disable={disable}
     />
 </fieldset>

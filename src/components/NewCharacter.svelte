@@ -1,4 +1,5 @@
 <script>
+    import { isEmpty } from 'ramda';
     import characters from '../data/characters'
     import { writable } from "svelte/store";
     import { propSatisfies, test } from "ramda";
@@ -87,6 +88,7 @@
     </fieldset>
 
     <!--  -->
+    {#if !isEmpty($selected)}
     <fieldset class="fieldset">
         <legend>First, you are what you own</legend>
         <p>Silver and food</p>
@@ -128,14 +130,17 @@
         />
     </fieldset>
     <WeaponTable
+        title="Weapon"
         settings={$selected.weaponsTable}
         hasScroll={hasScroll}
+        options={STARTING_WEAPONS}
     />
-    <fieldset class="fieldset">
-        <legend>Armor d4 (d2 if you begin with a scroll)</legend>
-        <RollButton diceString={hasScroll ? "1d2" : "1d4"} onRoll={handleTableRoll('armor')} />
-        <RadioGroup options={STARTING_ARMOR} name="armor" disable={hasScroll ? 2 : -1} />
-    </fieldset>    
+    <WeaponTable
+        title="Armor"
+        settings={$selected.armorTable}
+        hasScroll={hasScroll}
+        options={STARTING_ARMOR}
+    />
     <fieldset class="fieldset">
         class tables
     </fieldset>
@@ -154,4 +159,6 @@
     </fieldset>
     
     <button type="submit">Submit</button>        
+        
+    {/if}
 </form>
