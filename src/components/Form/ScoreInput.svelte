@@ -25,7 +25,6 @@
     <Input
         type="number"
         label={`${label} Roll`}
-        name={`${name}-roll`}
         value={roll}
         onChange={handleChange}
     />
@@ -40,7 +39,7 @@
         label={`${label} Score`}
         name={name}
         value={score}
-        readonly    
+        readonly
     />
     </div>
 </div>

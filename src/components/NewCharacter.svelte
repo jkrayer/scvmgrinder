@@ -81,8 +81,15 @@
     const onSelectCharacter = (selected) => () => classData.update((oldState) => ({...oldState, selected}))
 
     const onSubmit = (e) => {
-        addCharacter(formatCharacterData(getFormData()));
-    }
+        const { name:className, omens } = $classData.selected;
+        addCharacter(
+            formatCharacterData({
+                ...getFormData(),
+                className,
+                omens
+            })
+        );
+    };
 
     const handleFieldChanges = (e)=> {
         const formData = getFormData();

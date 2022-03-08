@@ -1,5 +1,5 @@
 import { compose, last, split } from "ramda";
-import { toInt } from "../lib";
+import { toInt, rollString, roll } from "../lib";
 import { getWeapon, getArmor, getEquipment, getFollower } from "../data";
 
 const GETTERS = {
@@ -12,19 +12,20 @@ const GETTERS = {
 
 export const formatCharacterData = (formData) => {
   const {
-    name,
+    provisions,
+    silver,
     agility,
     strength,
     presence,
     toughness,
-    silver,
-    provisions,
-    hp = -1,
+    omens,
+    hp = 1,
     armor,
     equipmentOne,
     equipmentThree,
     equipmentTwo,
     weapon,
+    ...rest
   } = formData;
 
   const equipment = [
@@ -37,13 +38,15 @@ export const formatCharacterData = (formData) => {
     if (tableId === "-1") return acc;
 
     const [table, id] = tableId.split(":");
-    console.log(41, table, id);
+
     return [...acc, GETTERS[table](id)];
   }, []);
 
   return {
-    name,
+    ...rest,
     description: "",
+    // className
+    // clasAbuilities?
     class: {
       name: "",
       powers: [],
@@ -52,15 +55,15 @@ export const formatCharacterData = (formData) => {
       maximum: hp,
       current: hp,
     },
-    // omens: {
-    //   die,
-    //   current
-    // },
+    omens: {
+      die: omens,
+      current: rollString(omens),
+    },
     abilities: {
-      agility,
-      strength,
-      presence,
-      toughness,
+      agility: toInt(agility),
+      strength: toInt(strength),
+      presence: toInt(presence),
+      toughness: toInt(toughness),
     },
     equipment,
     provisions: {
@@ -68,6 +71,6 @@ export const formatCharacterData = (formData) => {
       daysOfWater: 4,
       daysOfFood: toInt(provisions),
     },
-    silver,
+    silver: toInt(silver),
   };
 };
