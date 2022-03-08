@@ -1,5 +1,5 @@
 <script>
-    // import Carousel from './Carousel/Carousel.svelte'
+    import characters from '../data/characters'
     import { writable } from "svelte/store";
     import { propSatisfies, test } from "ramda";
     import { addCharacter } from '../stores/Characters';
@@ -21,41 +21,7 @@
         STARTING_ARMOR } from '../lib/tables';
     import { handleTableRoll } from '../lib/dom'
 
-    const classData = writable({
-        loading: false,
-        error: false,
-        errorMessage: null,
-        selected: null,
-        classes: [],
-    });
-
-    // getter
-    const fetchJSON = async (path) => {
-        classData.update((oldState) => ({ ...oldState, loading: true, error: false, errorMessage: null }));
-
-        try {
-            const result = await fetch(path).then(res => res.json());
-            classData.update(
-                (oldState) => ({
-                    ...oldState,
-                    loading: false,
-                    classes: result
-                })
-            );
-        } catch (error) {
-            classData.update(
-                (oldState) => ({
-                    ...oldState,
-                    loading: false,
-                    error: true,
-                    errorMessage: error
-                })
-            );
-        }
-    }
-
-    // setup
-    fetchJSON('/json/Characters.json')
+    const selected = writable({});
 
     // 
     const getFormData = () => {
@@ -79,10 +45,10 @@
     const containsScroll = test(/scroll/);
 
     // Handlers
-    const onSelectCharacter = (selected) => () => classData.update((oldState) => ({...oldState, selected}))
+    const onSelectCharacter = (character) => () => selected.update(() => character)
 
     const onSubmit = (e) => {
-        const { name:className, omens } = $classData.selected;
+        const { name:className, omens } = $selected;
         addCharacter(
             formatCharacterData({
                 ...getFormData(),
@@ -105,12 +71,6 @@
     }
 </script>
 
-{#if $classData.loading}
-    <p>loading...</p>
-{:else if $classData.error}
-    <p>{$classData.errorMessage}</p>
-{:else}
-
 <form
     id="new-character-form"
     novalidate
@@ -121,13 +81,12 @@
 
     <fieldset class="fieldset">
         <legend>Character Class</legend>
-            {#each $classData.classes as c}
+            {#each characters as c}
                 <div><button type="button" on:click={onSelectCharacter(c)}>{c.name}</button><button type="button">Info</button></div>
             {/each}
     </fieldset>
 
     <!--  -->
-    {#if $classData.selected !== null}
     <fieldset class="fieldset">
         <legend>First, you are what you own</legend>
         <p>Silver and food</p>
@@ -136,7 +95,7 @@
                     label="Silver"
                     name="silver"
                 >
-                    <RollButton diceString={$classData.selected.silver} onRoll={handleFieldRoll('silver')} />
+                    <RollButton diceString={$selected.silver} onRoll={handleFieldRoll('silver')} />
                 </Input>
         </div>
                 <Input type="number"
@@ -169,7 +128,7 @@
         />
     </fieldset>
     <WeaponTable
-        settings={$classData.selected.weaponsTable}
+        settings={$selected.weaponsTable}
         hasScroll={hasScroll}
     />
     <fieldset class="fieldset">
@@ -182,11 +141,11 @@
     </fieldset>
     <fieldset class="fieldset">
         <legend>Abilities</legend>
-            <ScoreInput label="Agility" name="agility" diceString={$classData.selected.agility} />
-            <ScoreInput label="Presence" name="presence" diceString={$classData.selected.presence} />
-            <ScoreInput label="Strength" name="strength" diceString={$classData.selected.strength} />
-            <ScoreInput label="Toughness" name="toughness" onChange={(x) => toughness = x} diceString={$classData.selected.toughness} />
-            <HitPointInput diceString={$classData.selected.hitpoints} toughness={toughness} />
+            <ScoreInput label="Agility" name="agility" diceString={$selected.agility} />
+            <ScoreInput label="Presence" name="presence" diceString={$selected.presence} />
+            <ScoreInput label="Strength" name="strength" diceString={$selected.strength} />
+            <ScoreInput label="Toughness" name="toughness" onChange={(x) => toughness = x} diceString={$selected.toughness} />
+            <HitPointInput diceString={$selected.hitpoints} toughness={toughness} />
     </fieldset>
     <fieldset class="fieldset">
             <label for="name">Name your character</label>
@@ -195,6 +154,4 @@
     </fieldset>
     
     <button type="submit">Submit</button>        
-    {/if}
 </form>
-{/if}
