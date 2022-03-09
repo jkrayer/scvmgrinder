@@ -1,5 +1,5 @@
 <script>
-    import RollTable from '../RollTable.svelte';
+    import RollTable from './RollTable.svelte';
     import { getDie } from '../../lib'
 
     export let title = "";

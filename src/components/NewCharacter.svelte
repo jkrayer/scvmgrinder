@@ -1,16 +1,16 @@
 <script>
     import { isEmpty } from 'ramda';
-    import characters from '../data/characters'
+    import characters from '../data/characters';
     import { writable } from "svelte/store";
     import { propSatisfies, test } from "ramda";
     import { addCharacter } from '../stores/Characters';
-    import { formatCharacterData } from '../lib/formatCharacterData';
     import ScoreInput from "./Form/ScoreInput.svelte";
     import HitPointInput from "./Form/HitPointInput.svelte";
-    import RollButton from './Buttons/RollButton.svelte'
     import Input from './Form/Input.svelte';
-    import ExceptionTable from './Tables/ExceptionTable.svelte'
-    import RollTable from "./RollTable.svelte";
+    import RollButton from './Buttons/RollButton.svelte';
+    import ExceptionTable from './Tables/ExceptionTable.svelte';
+    import RollTable from "./Tables/RollTable.svelte";
+    import { formatCharacterData } from '../lib/formatCharacterData';
     import { handleFieldRoll } from "../lib/dom";
 
     import {

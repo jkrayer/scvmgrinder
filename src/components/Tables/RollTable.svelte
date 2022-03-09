@@ -1,7 +1,7 @@
 <script>
-    import RollButton from './Buttons/RollButton.svelte';
-    import RadioGroup from './Form/RadioGroup.svelte';
-    import { handleTableRoll } from '../lib/dom';
+    import RollButton from '../Buttons/RollButton.svelte';
+    import RadioGroup from '../Form/RadioGroup.svelte';
+    import { handleTableRoll } from '../../lib/dom';
 
     export let title = "";
     export let diceString = "";
