@@ -10,6 +10,7 @@
     import RollButton from './Buttons/RollButton.svelte';
     import ExceptionTable from './Tables/ExceptionTable.svelte';
     import RollTable from "./Tables/RollTable.svelte";
+    import StringTable from './Tables/StringTable.svelte';
     import { formatCharacterData } from '../lib/formatCharacterData';
     import { handleFieldRoll } from "../lib/dom";
 
@@ -23,9 +24,10 @@
 
     const selected = writable({});
 
+    $: console.log(27, $selected)
+
     $: WEAPON_TABLE = { ...STARTING_WEAPONS, ...$selected.weaponsTable };
     $: ARMOR_TABLE = { ...STARTING_ARMOR, ...$selected.armorTable };
-
 
     // 
     const getFormData = () => {
@@ -89,9 +91,18 @@
                 <div><button type="button" on:click={onSelectCharacter(c)}>{c.name}</button><button type="button">Info</button></div>
             {/each}
     </fieldset>
-
+    
     <!--  -->
     {#if !isEmpty($selected)}
+        {#if $selected.classTables.length > 0}
+        <fieldset class="fieldset">
+            {#each $selected.classTables as table}
+                {#if table.name === 'background'}
+                    <StringTable {...table} />
+                {/if}
+            {/each}
+        </fieldset>
+        {/if}
     <fieldset class="fieldset">
         <legend>First, you are what you own</legend>
         <p>Silver and food</p>
@@ -119,9 +130,6 @@
     </fieldset>
     <ExceptionTable {...WEAPON_TABLE} {hasScroll} name="weapons" />
     <ExceptionTable {...ARMOR_TABLE} {hasScroll} name="armor" />
-    <fieldset class="fieldset">
-        class tables
-    </fieldset>
     <fieldset class="fieldset">
         <legend>Abilities</legend>
             <ScoreInput label="Agility" name="agility" diceString={$selected.agility} />
