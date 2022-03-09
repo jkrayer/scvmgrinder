@@ -18,8 +18,8 @@
         STARTING_EQUIPMENT_TWO,
         STARTING_EQUIPMENT_THREE,
         STARTING_WEAPONS,
-        STARTING_ARMOR } from '../data/tables';
-    import { handleTableRoll } from '../lib/dom'
+        STARTING_ARMOR,
+    } from '../data/tables';
 
     const selected = writable({});
 
@@ -60,8 +60,8 @@
 
     const handleFieldChanges = (e)=> {
         const formData = getFormData();
-        const nextHasScroll = propSatisfies(containsScroll, 'equipment-two', formData) || propSatisfies(containsScroll, 'equipment-three', formData);
-        console.log(96, 'handleFieldChanges', e.target.name, e.target.value)
+        const nextHasScroll = propSatisfies(containsScroll, 'equipmentTwo', formData) || propSatisfies(containsScroll, 'equipmentThree', formData);
+
         if (hasScroll !== nextHasScroll) {
             document.getElementsByName('weapon').forEach(el => el.checked = false);
             document.getElementsByName('armor').forEach(el => el.checked = false);
@@ -109,37 +109,12 @@
 
     <fieldset class="fieldset">
         <legend>To begin with, you are what you own</legend>
-        <RollTable
-            title="d6"
-            diceString="1d6"
-            name="equipmentOne"
-            options={STARTING_EQUIPMENT_ONE}
-        />
-        <RollTable
-            title="d12"
-            diceString="1d12"
-            name="equipmentTwo"
-            options={STARTING_EQUIPMENT_TWO}
-        />
-        <RollTable
-            title="d12"
-            diceString="1d12"
-            name="equipmentThree"
-            options={STARTING_EQUIPMENT_THREE}
-        />
+        <RollTable {...STARTING_EQUIPMENT_ONE} name="equipmentOne" />
+        <RollTable {...STARTING_EQUIPMENT_TWO} name="equipmentTwo" />
+        <RollTable {...STARTING_EQUIPMENT_THREE} name="equipmentThree" />
     </fieldset>
-    <ExceptionTable
-        title="Weapon"
-        settings={$selected.weaponsTable}
-        hasScroll={hasScroll}
-        options={STARTING_WEAPONS}
-    />
-    <ExceptionTable
-        title="Armor"
-        settings={$selected.armorTable}
-        hasScroll={hasScroll}
-        options={STARTING_ARMOR}
-    />
+    <ExceptionTable {...STARTING_WEAPONS} {hasScroll} name="weapons" />
+    <ExceptionTable {...STARTING_ARMOR} {hasScroll} name="armor" />
     <fieldset class="fieldset">
         class tables
     </fieldset>

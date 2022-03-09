@@ -6,7 +6,6 @@
     export let getLabel = prop('label');
     export let disable = -1;
     export let name;
-    console.log(disable)
 </script>
 
 {#each options as o, index}
