@@ -18,7 +18,7 @@
         STARTING_EQUIPMENT_TWO,
         STARTING_EQUIPMENT_THREE,
         STARTING_WEAPONS,
-        STARTING_ARMOR } from '../lib/tables';
+        STARTING_ARMOR } from '../data/tables';
     import { handleTableRoll } from '../lib/dom'
 
     const selected = writable({});
