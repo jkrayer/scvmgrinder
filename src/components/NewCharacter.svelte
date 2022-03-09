@@ -23,6 +23,10 @@
 
     const selected = writable({});
 
+    $: WEAPON_TABLE = { ...STARTING_WEAPONS, ...$selected.weaponsTable };
+    $: ARMOR_TABLE = { ...STARTING_ARMOR, ...$selected.armorTable };
+
+
     // 
     const getFormData = () => {
         const form = document.getElementById('new-character-form');
@@ -113,8 +117,8 @@
         <RollTable {...STARTING_EQUIPMENT_TWO} name="equipmentTwo" />
         <RollTable {...STARTING_EQUIPMENT_THREE} name="equipmentThree" />
     </fieldset>
-    <ExceptionTable {...STARTING_WEAPONS} {hasScroll} name="weapons" />
-    <ExceptionTable {...STARTING_ARMOR} {hasScroll} name="armor" />
+    <ExceptionTable {...WEAPON_TABLE} {hasScroll} name="weapons" />
+    <ExceptionTable {...ARMOR_TABLE} {hasScroll} name="armor" />
     <fieldset class="fieldset">
         class tables
     </fieldset>
