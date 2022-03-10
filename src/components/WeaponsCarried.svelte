@@ -1,7 +1,7 @@
 <script>
     import { filter, partial, propSatisfies } from 'ramda';
     import character, { breakWeapon } from '../stores/Character';
-    import { symbol, roll } from '../lib';
+    import { symbol, roll, rollString } from '../lib';
 
     const { strength, presence } = $character.abilities;
 
@@ -14,6 +14,8 @@
     const isUnbroken = propSatisfies((x) => x === false, 'broken');
     const isUnbrokenWeapon = (weapon) => isWeapon(weapon) && isUnbroken(weapon);
     const getWeapons = filter(isUnbrokenWeapon);
+
+    const rol = (die) => typeof die === 'string' ? rollString(die) : roll(die)
 
     $: weapons = getWeapons($character.equipment)
 </script>
@@ -35,10 +37,10 @@
                 <button type="button" on:click={partial(breakWeapon, [weapon._id])}>Break</button>
             </td>
             <td>
-                <button type="button" on:click={()=> alert(roll(20) + COMBAT_BONUS_MAP[weapon.subtype])} title="To Hit">{symbol(COMBAT_BONUS_MAP[weapon.subtype])}</button>
+                <button type="button" on:click={()=> alert(roll(20) + COMBAT_BONUS_MAP[weapon.weaponType])} title="To Hit">{symbol(COMBAT_BONUS_MAP[weapon.weaponType])}</button>
             </td>
             <td>
-                <button type="button" on:click={()=> alert(roll(weapon.damage))} title="Damage">{`d${weapon.damage}`}</button>
+                <button type="button" on:click={()=> alert(rol(weapon.damageDie))} title="Damage">{`d${weapon.damageDie}`}</button>
             </td>
         </tr>
     {/each}

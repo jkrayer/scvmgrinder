@@ -16,7 +16,7 @@
 <article>
     <header>
         <h1 class="h1">{$character.name}</h1>
-        <h2 class="h2">{$character.class.name}</h2>
+        <h2 class="h2">{$character.className}</h2>
     </header>
     <div class="row">
         <div class="col">

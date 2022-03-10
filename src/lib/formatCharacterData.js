@@ -36,11 +36,13 @@ export const formatCharacterData = (formData) => {
     equipmentOne,
     equipmentTwo,
     equipmentThree,
-  ].reduce((acc, val) => {
-    if (val === "-1" || val === undefined) return acc;
+  ]
+    .reduce((acc, val) => {
+      if (val === "-1" || val === undefined) return acc;
 
-    return [...acc, JSON.parse(val)];
-  }, []);
+      return [...acc, JSON.parse(val)];
+    }, [])
+    .flat();
 
   return {
     ...rest,
