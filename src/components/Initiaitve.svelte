@@ -1,34 +1,27 @@
 <script>
-    import { writable } from 'svelte/store';
     import character from '../stores/Character'
-    import { roll } from '../lib'
+    import RollButton from './Buttons/RollButton.svelte';
+    import Input from './Form/Input.svelte'
+    import { toInt } from '../lib'
 
-    const { agility } = $character.abilities
+    const { abilities } = $character;
 
-    const STORAGE_KEY = 'initiative'
+    // Handlers
+    const handleRoll = (roll) => $character.initiative = roll + abilities.agility;
 
-    const initiative = writable(0, (set) => {
-        const init = JSON.parse(localStorage.getItem(STORAGE_KEY) || 0);
-        set(init)
-  
-        return (a,b,c,d) => console.log('no more init subs',a,b,c,d)
-    })
-
-    initiative.subscribe(value => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
-    });
-
-    const rollInitiative = () => initiative.set(roll(6) + agility)
+    const handleChange = (e) => $character.initiative = toInt(e.target.value);
 </script>
 
-<div class="row">
-    <label>Current Initiative: <input type="number" class="init" bind:value={$initiative} /></label>
-    <button type="button" title="Agility + d6" on:click={rollInitiative}>Agility + d6</button>
+<div>
+    <RollButton
+      diceString={"1d6"}
+      onRoll={handleRoll}
+    >Initiative 1d6 + Agility</RollButton>
+    <Input
+      label="Initiative"
+      type="number"
+      name="initiative"
+      value={$character.initiative}
+      onChange={handleChange}
+    />
 </div>
-
-<style>
-  .init {
-    max-width: 50px;
-    border: none;
-  }
-</style>

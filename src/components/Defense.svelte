@@ -14,6 +14,6 @@
 
 </script>
 
-<div>    
+<div>
     <RollButton diceString="1d20" onRoll={alertRoll(tests.defence, abilities.agility)}>Defence 1d20 + Agility vs {tests.defence}</RollButton>
 </div>
