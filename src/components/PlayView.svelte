@@ -18,15 +18,9 @@
         <h1 class="h1">{$character.name}</h1>
         <h2 class="h2">{$character.className}</h2>
     </header>
-    <div class="row">
-        <div class="col">
-            <Scores />
-        </div>
-        <div class="col">
-            Defense: <button type="button" title="Defense" on:click={() => alert(roll(20) + $character.abilities.agility)}>d20 + Agility</button>
-            <HitPoints />
-        </div>
-    </div>
+    <Scores />
+    Defense: <button type="button" title="Defense" on:click={() => alert(roll(20) + $character.abilities.agility)}>d20 + Agility</button>
+    <HitPoints />
     <Initiative />
     <ArmorWorn />
     <WeaponsCarried />

@@ -8,4 +8,10 @@
     const handleClick = () => onRoll(rollString(diceString));
 </script>
 
-<button type="button" on:click={handleClick} disabled={disabled}>{diceString}</button>
+<button type="button" class="roll-button" on:click={handleClick} disabled={disabled}><slot>{diceString}</slot></button>
+
+<style>
+    .roll-button {
+        margin: 0;
+    }
+</style>
