@@ -25,13 +25,13 @@ export const formatCharacterData = (formData) => {
     equipmentOne,
     equipmentThree,
     equipmentTwo,
-    weapon,
+    weapons,
     ...rest
   } = formData;
 
   const equipment = [
     armor,
-    weapon,
+    weapons,
     classEquipment,
     equipmentOne,
     equipmentTwo,
