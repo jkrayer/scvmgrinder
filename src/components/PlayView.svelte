@@ -1,10 +1,12 @@
 <script>
     import { isEmpty } from 'ramda';
 	import character from '../stores/Character';
+    import Scores from './Scores.svelte';
+    import Defense from './Defense.svelte';
+
     import ArmorWorn from './ArmorWorn.svelte';
     import WeaponsCarried from './WeaponsCarried.svelte';
     import Equipment from './Equipment.svelte';
-    import Scores from './Scores.svelte';
     import Initiative from './Initiaitve.svelte'
     import HitPoints from './HitPoints.svelte';
     import {roll} from '../lib';
@@ -19,9 +21,12 @@
         <h2 class="h2">{$character.className}</h2>
     </header>
     <Scores />
-    Defense: <button type="button" title="Defense" on:click={() => alert(roll(20) + $character.abilities.agility)}>d20 + Agility</button>
+    <Defense />
+
+    
     <HitPoints />
     <Initiative />
+    <!--  -->
     <ArmorWorn />
     <WeaponsCarried />
     <!--  Maximum damage, Reroll, –d6 damage, DR –4, No Crit/Fumble -->
