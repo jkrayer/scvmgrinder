@@ -1,5 +1,5 @@
 import { compose, last, split } from "ramda";
-import { toInt, rollString, roll } from "../lib";
+import { nanSafeInt, rollString, roll } from "../lib";
 import { getWeapon, getArmor, getEquipment, getFollower } from "../data";
 
 const GETTERS = {
@@ -21,6 +21,7 @@ export const formatCharacterData = (formData) => {
     omens,
     hp = 1,
     armor,
+    classEquipment,
     equipmentOne,
     equipmentThree,
     equipmentTwo,
@@ -30,16 +31,15 @@ export const formatCharacterData = (formData) => {
 
   const equipment = [
     armor,
-    equipmentOne,
-    equipmentThree,
-    equipmentTwo,
     weapon,
-  ].reduce((acc, tableId) => {
-    if (tableId === "-1") return acc;
+    classEquipment,
+    equipmentOne,
+    equipmentTwo,
+    equipmentThree,
+  ].reduce((acc, val) => {
+    if (val === "-1" || val === undefined) return acc;
 
-    const [table, id] = tableId.split(":");
-
-    return [...acc, GETTERS[table](id)];
+    return [...acc, JSON.parse(val)];
   }, []);
 
   return {
@@ -60,17 +60,17 @@ export const formatCharacterData = (formData) => {
       current: rollString(omens),
     },
     abilities: {
-      agility: toInt(agility),
-      strength: toInt(strength),
-      presence: toInt(presence),
-      toughness: toInt(toughness),
+      agility: nanSafeInt(agility),
+      strength: nanSafeInt(strength),
+      presence: nanSafeInt(presence),
+      toughness: nanSafeInt(toughness),
     },
     equipment,
     provisions: {
       waterskin: true,
       daysOfWater: 4,
-      daysOfFood: toInt(provisions),
+      daysOfFood: nanSafeInt(provisions),
     },
-    silver: toInt(silver),
+    silver: nanSafeInt(silver),
   };
 };

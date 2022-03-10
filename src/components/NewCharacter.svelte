@@ -24,8 +24,6 @@
 
     const selected = writable({});
 
-    $: console.log(27, $selected)
-
     $: WEAPON_TABLE = { ...STARTING_WEAPONS, ...$selected.weaponsTable };
     $: ARMOR_TABLE = { ...STARTING_ARMOR, ...$selected.armorTable };
 
@@ -54,12 +52,14 @@
     const onSelectCharacter = (character) => () => selected.update(() => character)
 
     const onSubmit = (e) => {
-        const { name:className, omens } = $selected;
+        const { name:className, omens, classSpecial } = $selected;
+
         addCharacter(
             formatCharacterData({
                 ...getFormData(),
                 className,
-                omens
+                omens,
+                classSpecial
             })
         );
     };
@@ -99,6 +99,8 @@
             {#each $selected.classTables as table}
                 {#if table.name === 'background'}
                     <StringTable {...table} />
+                {:else}
+                    <RollTable {...table} />
                 {/if}
             {/each}
         </fieldset>

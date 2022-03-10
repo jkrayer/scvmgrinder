@@ -71,6 +71,9 @@ export const rollFormula = ([number, , die, operation, modifier]) => {
 };
 
 export const toInt = (str) => parseInt(str, 10);
+const numOrZero = (x) => (isNaN(x) ? 0 : x);
+
+export const nanSafeInt = compose(numOrZero, toInt);
 
 export const rollHp = (roll, toughness) => {
   const hp = roll + toughness;
