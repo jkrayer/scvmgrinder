@@ -1,4 +1,5 @@
 <script>
+    import { afterUpdate } from 'svelte';
     import { prop } from 'ramda';
 
     export let options = [{ value: -1, label: 'Select One' }];
@@ -7,6 +8,8 @@
     export let disable = -1;
     export let name;
     export let onChange = () => {}
+
+    afterUpdate(() => document.getElementsByName(name).forEach(el => el.checked = false));
 </script>
 
 {#each options as o, index}

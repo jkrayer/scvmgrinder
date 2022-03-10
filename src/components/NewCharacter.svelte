@@ -35,7 +35,7 @@
     let toughness;
 
     // Helpers
-    const containsScroll = test(/scroll/);
+    const containsScroll = test(/scroll/i);
 
     // Handlers
     const onSelectCharacter = (character) => () => selected.update(() => character)
