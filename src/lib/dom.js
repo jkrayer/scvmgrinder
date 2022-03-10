@@ -10,3 +10,24 @@ export const handleFieldRoll = (name) => (roll) => {
 
   handleFieldRoll[0].value = roll;
 };
+
+export const getFormData = (formEl) => {
+  const formData = new FormData(formEl);
+
+  const data = {};
+
+  for (let field of formData) {
+    const [key, value] = field;
+    data[key] = value;
+  }
+
+  return data;
+};
+
+export const findForm = (path) => {
+  for (let i = 0; i < path.length; i++) {
+    if (path[i].matches("form")) return path[i];
+  }
+
+  return null;
+};

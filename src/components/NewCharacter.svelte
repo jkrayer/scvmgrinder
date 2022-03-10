@@ -12,7 +12,8 @@
     import RollTable from "./Tables/RollTable.svelte";
     import StringTable from './Tables/StringTable.svelte';
     import { formatCharacterData } from '../lib/formatCharacterData';
-    import { handleFieldRoll } from "../lib/dom";
+    import { handleFieldRoll, getFormData, findForm } from "../lib/dom";
+    import TableofTables from './Tables/TableofTables.svelte';
 
     import {
         STARTING_EQUIPMENT_ONE,
@@ -20,26 +21,14 @@
         STARTING_EQUIPMENT_THREE,
         STARTING_WEAPONS,
         STARTING_ARMOR,
+        SACRED_SCROLLS,
+        UNCLEAN_SCROLLS
     } from '../data/tables';
 
     const selected = writable({});
 
     $: WEAPON_TABLE = { ...STARTING_WEAPONS, ...$selected.weaponsTable };
     $: ARMOR_TABLE = { ...STARTING_ARMOR, ...$selected.armorTable };
-
-    // 
-    const getFormData = () => {
-        const form = document.getElementById('new-character-form');
-        const formData = new FormData(form);
-
-        const data = {};
-        for (let field of formData) {
-            const [key, value] = field;
-            data[key] = value;
-        }
-
-        return data;
-    }
 
     // fields
     let hasScroll = false;
@@ -53,10 +42,11 @@
 
     const onSubmit = (e) => {
         const { name:className, omens, classSpecial } = $selected;
+        const formData = getFormData(e.target);
 
         addCharacter(
             formatCharacterData({
-                ...getFormData(),
+                ...formData,
                 className,
                 omens,
                 classSpecial
@@ -65,7 +55,7 @@
     };
 
     const handleFieldChanges = (e)=> {
-        const formData = getFormData();
+        const formData = getFormData(findForm(e.path));
         const nextHasScroll = propSatisfies(containsScroll, 'equipmentTwo', formData) || propSatisfies(containsScroll, 'equipmentThree', formData);
 
         if (hasScroll !== nextHasScroll) {
@@ -83,17 +73,16 @@
     on:submit|preventDefault={onSubmit}
     on:change={handleFieldChanges}
 >
-    <!--  -->
 
     <fieldset class="fieldset">
         <legend>Character Class</legend>
             {#each characters as c}
-                <div><button type="button" on:click={onSelectCharacter(c)}>{c.name}</button><button type="button">Info</button></div>
+                <div><button type="reset" on:click={onSelectCharacter(c)}>{c.name}</button><button type="button">Info</button></div>
             {/each}
     </fieldset>
-    
-    <!--  -->
+
     {#if !isEmpty($selected)}
+
         {#if $selected.classTables.length > 0}
         <fieldset class="fieldset">
             {#each $selected.classTables as table}
@@ -105,48 +94,52 @@
             {/each}
         </fieldset>
         {/if}
-    <fieldset class="fieldset">
-        <legend>First, you are what you own</legend>
-        <p>Silver and food</p>
-        <div>
+    
+        <fieldset class="fieldset">
+            <legend>First, you are what you own</legend>
+            <p>Silver and food</p>
+            <div>
                 <Input type="number"
                     label="Silver"
                     name="silver"
                 >
                     <RollButton diceString={$selected.silver} onRoll={handleFieldRoll('silver')} />
                 </Input>
-        </div>
+            </div>
                 <Input type="number"
                     label="A waterskin and d4 days worth of food"
                     name="provisions"
                 >
                     <RollButton diceString="1d4" onRoll={handleFieldRoll('provisions')} />
                 </Input>
-    </fieldset>
-
-    <fieldset class="fieldset">
-        <legend>To begin with, you are what you own</legend>
-        <RollTable {...STARTING_EQUIPMENT_ONE} name="equipmentOne" />
-        <RollTable {...STARTING_EQUIPMENT_TWO} name="equipmentTwo" />
-        <RollTable {...STARTING_EQUIPMENT_THREE} name="equipmentThree" />
-    </fieldset>
-    <ExceptionTable {...WEAPON_TABLE} {hasScroll} name="weapons" />
-    <ExceptionTable {...ARMOR_TABLE} {hasScroll} name="armor" />
-    <fieldset class="fieldset">
-        <legend>Abilities</legend>
+        </fieldset>
+    
+        <fieldset class="fieldset">
+            <legend>To begin with, you are what you own</legend>
+            <RollTable {...STARTING_EQUIPMENT_ONE} />
+            <TableofTables tables={[STARTING_EQUIPMENT_TWO, UNCLEAN_SCROLLS]} />
+            <TableofTables tables={[STARTING_EQUIPMENT_THREE, SACRED_SCROLLS]} />
+        </fieldset>
+    
+        <ExceptionTable {...WEAPON_TABLE} {hasScroll}  />
+    
+        <ExceptionTable {...ARMOR_TABLE} {hasScroll}  />
+    
+        <fieldset class="fieldset">
+            <legend>Abilities</legend>
             <ScoreInput label="Agility" name="agility" diceString={$selected.agility} />
             <ScoreInput label="Presence" name="presence" diceString={$selected.presence} />
             <ScoreInput label="Strength" name="strength" diceString={$selected.strength} />
             <ScoreInput label="Toughness" name="toughness" onChange={(x) => toughness = x} diceString={$selected.toughness} />
             <HitPointInput diceString={$selected.hitpoints} toughness={toughness} />
-    </fieldset>
-    <fieldset class="fieldset">
+        </fieldset>
+    
+        <fieldset class="fieldset">
             <label for="name">Name your character</label>
             <input type="text" name="name" id="name">
             <label for="name">, it won't save you</label>
-    </fieldset>
-    
-    <button type="submit">Submit</button>        
-        
+            <button type="submit">Submit</button>
+        </fieldset>
+
     {/if}
 </form>
