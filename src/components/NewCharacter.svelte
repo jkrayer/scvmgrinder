@@ -41,7 +41,7 @@
     const onSelectCharacter = (character) => () => selected.update(() => character)
 
     const onSubmit = (e) => {
-        const { name:className, omens, classSpecial, tests } = $selected;
+        const { name:className, omens, classSpecial, tests, img } = $selected;
         const formData = getFormData(e.target);
 
         addCharacter(
@@ -50,7 +50,8 @@
                 className,
                 omens,
                 classSpecial,
-                tests
+                tests,
+                img
             })
         );
     };

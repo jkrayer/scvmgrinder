@@ -10,6 +10,7 @@
     import Equipment from '../Equipment.svelte';
     import Initiative from '../Initiaitve.svelte'
     import HitPoints from '../HitPoints.svelte';
+    import Header from './Header.svelte';
     import { roll } from '../../lib';
 
     console.log('character', $character)
@@ -17,10 +18,7 @@
 
 {#if !isEmpty($character)}
 <article>
-    <header>
-        <h1 class="h1">{$character.name}</h1>
-        <h2 class="h2">{$character.className}</h2>
-    </header>
+    <Header />
     <Scores />
     <Defense />
 
@@ -30,8 +28,8 @@
     <!--  -->
     <ArmorWorn />
     <WeaponsCarried />
-    <Omens />
-    <Powers />
+    <!-- <Omens />
+    <Powers /> -->
     <div>Silver: {$character.silver}</div>
     <Equipment />
 
@@ -52,19 +50,6 @@
 {/if}
 
 <style>
-    .h1 {
-        margin-top: .5em;
-        margin-bottom: 0;
-        text-align: center;
-        font-family: Athelas, Cambria, serif;
-        font-size: 2rem;
-    }
-    .h2 {
-        margin-top: 0;
-        text-align: center;
-        font-family: Athelas, Cambria, serif;
-        font-size: 1rem;
-    }
     .row {
         display: flex;
     }

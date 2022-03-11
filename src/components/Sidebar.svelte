@@ -23,11 +23,11 @@
 </script>
 
 <aside id="sidebar">
-    <label type="button" id="sidebar-button" title="Toggle Menu" for="test">
+    <!-- <label type="button" id="sidebar-button" title="Toggle Menu" for="test">
         <div></div>
         <div></div>
         <div></div>
-    </label>
+    </label> -->
 
     <ul class="list-clear">
         {#each characterArray as {id, name} }
