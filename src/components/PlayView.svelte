@@ -3,7 +3,7 @@
 	import character from '../stores/Character';
     import Scores from './Scores.svelte';
     import Defense from './Defense.svelte';
-
+    import Omens from './Omens.svelte';
     import ArmorWorn from './ArmorWorn.svelte';
     import WeaponsCarried from './WeaponsCarried.svelte';
     import Equipment from './Equipment.svelte';
@@ -29,8 +29,7 @@
     <!--  -->
     <ArmorWorn />
     <WeaponsCarried />
-    <!--  Maximum damage, Reroll, –d6 damage, DR –4, No Crit/Fumble -->
-    <div>Omens: ({$character?.omens?.current || 0})</div>
+    <Omens />
     <section>
         <h2>Powers</h2>
         <!-- <p>Presence DR12, or -d2 HP and no Powers for 1</p> -->

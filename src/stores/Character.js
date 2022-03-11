@@ -116,6 +116,45 @@ export const decrementHp = () =>
     };
   });
 
+export const incrementOmens = () =>
+  character.update((currentCharacter) => {
+    const { current, die, maximum } = currentCharacter.omens;
+
+    return current < maximum
+      ? {
+          ...currentCharacter,
+          omens: {
+            current: current + 1,
+            die,
+            maximum,
+          },
+        }
+      : currentCharacter;
+  });
+
+export const decrementOmens = () =>
+  character.update((currentCharacter) => {
+    const { current, die, maximum } = currentCharacter.omens;
+
+    return current > 1
+      ? {
+          ...currentCharacter,
+          omens: {
+            current: current - 1,
+            die,
+            maximum,
+          },
+        }
+      : {
+          ...currentCharacter,
+          omens: {
+            current: 0,
+            die,
+            maximum,
+          },
+        };
+  });
+
 // EQUIPMENT
 export const dropEquipment = (index) =>
   character.update((currentCharacter) => {

@@ -1,5 +1,5 @@
 import { compose, last, split } from "ramda";
-import { nanSafeInt, rollString, roll } from "../lib";
+import { nanSafeInt, rollString, getDie } from "../lib";
 import { getWeapon, getArmor, getEquipment, getFollower } from "../data";
 
 const GETTERS = {
@@ -59,6 +59,7 @@ export const formatCharacterData = (formData) => {
     },
     omens: {
       die: omens,
+      maximum: getDie(omens),
       current: rollString(omens),
     },
     abilities: {
