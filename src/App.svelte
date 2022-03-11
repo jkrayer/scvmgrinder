@@ -1,7 +1,8 @@
 <script>
 	import settings from './stores/Settings'
 	import NewCharacter from './components/NewCharacter.svelte'
-	import PlayView from './components/PlayView.svelte';
+	// import PlayView from './components/CharacterSheet/PlayView.svelte';
+	import PlayView from './components/CharacterSheet/PlayView.svelte'
 	import Sidebar from './components/Sidebar.svelte';
 </script>
 
