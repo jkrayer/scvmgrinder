@@ -1,8 +1,7 @@
 <script>
 	import settings from './stores/Settings'
 	import NewCharacter from './components/NewCharacter.svelte'
-	// import PlayView from './components/CharacterSheet/PlayView.svelte';
-	import PlayView from './components/CharacterSheet/PlayView.svelte'
+	import CharacterSheet from './components/CharacterSheet/CharacterSheet.svelte';
 	import Sidebar from './components/Sidebar.svelte';
 </script>
 
@@ -11,7 +10,7 @@
 		{#if $settings.newCharacter}
 			<NewCharacter />
 		{:else if $settings.selectedCharacterId !== null}
-			<PlayView />
+			<CharacterSheet />
 		{/if}
 	</div>
 	<input type="checkbox" id="test" />
