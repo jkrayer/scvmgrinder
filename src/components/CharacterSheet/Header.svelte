@@ -34,16 +34,19 @@
 }
 
 .h1 {
+    width: 150px;
     margin: 0;
     font-family: Athelas, Cambria, serif;
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: .8;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .h2 {
     margin: 0;
-    text-align: center;
     font-family: Athelas, Cambria, serif;
-    font-size: 1rem;
+    font-size: .875rem;
     line-height: 1;
 }
 .b {
