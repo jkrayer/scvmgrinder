@@ -13,5 +13,6 @@
 			<PlayView />
 		{/if}
 	</div>
-<Sidebar />
+	<input type="checkbox" id="test" />
+	<Sidebar />
 </main>

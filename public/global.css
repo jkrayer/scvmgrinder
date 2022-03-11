@@ -3,6 +3,7 @@
  * 2. Layout
  * 3. Lists
  * 4. Buttons
+ * 5. Sidebar
 */
 
 /* 1. General */
@@ -107,12 +108,6 @@ table > tbody > tr > td:first-of-type {
   height: 100vh;
 }
 
-#sidebar {
-  box-sizing: border-box;
-  padding: 0.5rem;
-  background-color: #333;
-}
-
 #stage {
   box-sizing: border-box;
   flex-grow: 1;
@@ -142,4 +137,67 @@ table > tbody > tr > td:first-of-type {
 .sidebar-button.active {
   color: #fff;
   background-color: #0085be;
+}
+
+/* 5. Sidebar */
+#sidebar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  background-color: #333;
+  transform: translate3d(-4rem, 0, 0);
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+}
+
+#test {
+  position: absolute;
+  left: -100in;
+}
+
+#sidebar-button {
+  position: fixed;
+  top: 0.5em;
+  left: 4.5em;
+  border: none;
+  background-color: transparent;
+}
+
+#sidebar-button > div {
+  width: 35px;
+  height: 3px;
+  margin: 0.3em 0;
+  background-color: #333;
+  transition-duration: 300ms;
+}
+
+#test:checked + #sidebar {
+  transform: translate3d(0, 0, 0);
+}
+
+#test:checked + #sidebar > #sidebar-button > div:nth-of-type(2) {
+  display: none;
+}
+
+#test:checked + #sidebar > #sidebar-button > div:nth-of-type(1) {
+  transform: rotate(45deg) translate3d(15px, 5px, 0);
+}
+
+#test:checked + #sidebar > #sidebar-button > div:nth-of-type(3) {
+  transform: rotate(-45deg) translate3d(0, 0.5em, 0);
+}
+
+@media screen and (min-width: 520px) {
+  #sidebar {
+    position: static;
+  }
+  #sidebar-button {
+    display: none;
+  }
+  #test + #sidebar {
+    transform: translate3d(0, 0, 0);
+  }
 }
