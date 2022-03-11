@@ -1,12 +1,12 @@
 <script>
-    export let weapon = {};
+    export let item = {};
 </script>
 
 <div class="r">
   <div>
-    {weapon.name}
-    {#if !!weapon.description}
-        <p class="desc">{weapon.description}</p>    
+    {item.name}
+    {#if !!item.description}
+        <p class="desc">{item.description}</p>    
     {/if}
   </div>
 </div>
