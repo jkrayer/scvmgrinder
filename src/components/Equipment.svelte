@@ -1,6 +1,6 @@
 <script>
     import { partial } from 'ramda';
-    import Armor from './EquipmentTypes/Armor.svelte';
+    import Equipable from './EquipmentTypes/Equipable.svelte';
     import Weapon from './EquipmentTypes/Weapon.svelte';
 	import character, { dropEquipment } from '../stores/Character';
 
@@ -15,7 +15,7 @@
     {#each $character.equipment as e, i }
         <li class={ i >= encumbrance ? 'list-item empty' : 'list-item'} key={e._id}>
             {#if e.type === 'armor'}
-                <Armor armor={e} />
+                <Equipable armor={e} />
             {:else if e.type === 'weapon'}
                 <Weapon weapon={e} />
             {:else}
