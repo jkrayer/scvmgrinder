@@ -1,6 +1,7 @@
 <script>
     import { partial } from 'ramda';
     import Armor from './EquipmentTypes/Armor.svelte';
+    import Weapon from './EquipmentTypes/Weapon.svelte';
 	import character, { dropEquipment } from '../stores/Character';
 
     const encumbrance = 8 + $character.abilities.strength;
@@ -15,11 +16,13 @@
         <li class={ i >= encumbrance ? 'list-item empty' : 'list-item'} key={e._id}>
             {#if e.type === 'armor'}
                 <Armor armor={e} />
+            {:else if e.type === 'weapon'}
+                <Weapon weapon={e} />
             {:else}
                 {e?.name}
             {/if}
             <!-- TODO: Skull Icon -->
-            <button type="button" on:click={partial(dropEquipment, [i])}>Delete</button>
+            <button type="button" class="mb0" on:click={partial(dropEquipment, [i])}>Delete</button>
         </li>
     {/each}
 </ul>
@@ -30,9 +33,17 @@
     }
     .list {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
+        /* flex-wrap: wrap; */
     }
     .list-item {
-        flex-basis: 50%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: .5em;
+        /* flex-basis: 50%; */
+    }
+
+    .mb0 {
+        margin-bottom: 0;
     }
 </style>

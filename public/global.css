@@ -100,18 +100,22 @@ table > tbody > tr > td:first-of-type {
 }
 
 #app {
-  box-sizing: border-box;
+  /* box-sizing: border-box;
   display: flex;
   flex-direction: row-reverse;
-  justify-content: flex-end;
-  width: 100vw;
-  height: 100vh;
+  justify-content: flex-end; */
 }
 
 #stage {
   box-sizing: border-box;
-  flex-grow: 1;
+  /* flex-grow: 1; */
   padding: 1rem;
+}
+
+@media screen and (min-width: 520px) {
+  #stage {
+    margin-left: 4rem;
+  }
 }
 
 /* 3. Lists */
@@ -141,7 +145,7 @@ table > tbody > tr > td:first-of-type {
 
 /* 5. Sidebar */
 #sidebar {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -191,9 +195,6 @@ table > tbody > tr > td:first-of-type {
 }
 
 @media screen and (min-width: 520px) {
-  #sidebar {
-    position: static;
-  }
   #sidebar-button {
     display: none;
   }
