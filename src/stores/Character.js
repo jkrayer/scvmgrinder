@@ -116,6 +116,7 @@ export const decrementHp = () =>
     };
   });
 
+// Omens
 export const incrementOmens = () =>
   character.update((currentCharacter) => {
     const { current, die, maximum } = currentCharacter.omens;
@@ -153,6 +154,27 @@ export const decrementOmens = () =>
             maximum,
           },
         };
+  });
+
+// Powers
+export const incrementPowers = () =>
+  character.update((currentCharacter) => {
+    const { powers = 0 } = currentCharacter;
+
+    return {
+      ...currentCharacter,
+      powers: powers === 4 ? 4 : powers + 1,
+    };
+  });
+
+export const decrementPowers = () =>
+  character.update((currentCharacter) => {
+    const { powers = 0 } = currentCharacter;
+
+    return {
+      ...currentCharacter,
+      powers: powers === 0 ? 0 : powers - 1,
+    };
   });
 
 // EQUIPMENT

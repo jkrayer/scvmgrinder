@@ -4,6 +4,7 @@
     import Scores from './Scores.svelte';
     import Defense from './Defense.svelte';
     import Omens from './Omens.svelte';
+    import Powers from './Powers.svelte';
     import ArmorWorn from './ArmorWorn.svelte';
     import WeaponsCarried from './WeaponsCarried.svelte';
     import Equipment from './Equipment.svelte';
@@ -30,13 +31,7 @@
     <ArmorWorn />
     <WeaponsCarried />
     <Omens />
-    <section>
-        <h2>Powers</h2>
-        <!-- <p>Presence DR12, or -d2 HP and no Powers for 1</p> -->
-        {#each $character.class.powers as power}
-            <p>{power}</p>            
-        {/each}
-    </section>
+    <Powers />
     <div>Silver: {$character.silver}</div>
     <Equipment />
 
