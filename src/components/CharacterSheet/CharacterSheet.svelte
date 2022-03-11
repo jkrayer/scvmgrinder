@@ -1,7 +1,7 @@
 <script>
     import { isEmpty } from 'ramda';
 	import character from '../../stores/Character';
-    import Scores from '../Scores.svelte';
+    import Scores from './Scores.svelte';
     import Defense from '../Defense.svelte';
     import Omens from '../Omens.svelte';
     import Powers from '../Powers.svelte';
