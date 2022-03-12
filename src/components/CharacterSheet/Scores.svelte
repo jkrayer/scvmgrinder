@@ -15,7 +15,7 @@
     }
 </script>
 
-<div class="r">
+<div class="row-padded">
     {#each SCORES as score }
     <div class="score-wrapper">
         <div class="score-name">
@@ -57,17 +57,10 @@
 </div>
 
 <style>
-    .r {
-        display: flex;
-        justify-content: space-around;
-        padding: .25em;
-    }
     .score-wrapper {
         display: flex;
         flex-direction: column;
-        flex-basis: 25%;
-        padding: .25em;
-        margin: 0.5em 0;
+        margin: 0.5em 0 0;
         text-align: center;
     }
 </style>

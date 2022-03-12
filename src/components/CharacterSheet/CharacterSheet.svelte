@@ -11,8 +11,10 @@
     import Equipment from '../Equipment.svelte';
     import Header from './Header.svelte';
     import { roll } from '../../lib';
+    import SlideIn from '../SlideIn.svelte';
 
-    console.log('character', $character)
+    $: showOmens = false;
+    $: console.log(17, showOmens)
 </script>
 
 {#if !isEmpty($character)}
@@ -22,18 +24,41 @@
     <Scores />
     <!-- <Defense /> -->
     <!-- <HitPoints /> -->
-    <div class="right">
-        <button class="b">Omens</button>
-        <button class="b">Powers</button>
-        <button>Rest</button>
-        <button>Get Better</button>
+    <div class="row-padded">
+        <div>
+            <button
+                type="button"
+                class="b"
+                disabled={$character?.omens?.current === 0}
+                on:click={() => showOmens = !showOmens}
+            >
+                Omens ({$character?.omens?.current})
+            </button>
+        </div>
+        <div>
+            <button type="button" class="b">Powers</button>
+        </div>
+        <div>
+            <button type="button" disabled class="b">Rest</button>
+        </div>
+        <div>
+            <button type="button" disabled class="b">Get Better</button>
+        </div>
+        
     </div>
     <!--  -->
     <ArmorWorn />
     <WeaponsCarried />
-    <!-- <Omens />
+    <!--
     <Powers /> -->
     <div>Silver: {$character.silver}</div>
     <Equipment />
+    <Omens show={showOmens} onClose={() => showOmens = false} />
 </article>   
 {/if}
+
+<style>
+    .b {
+        width: 100%;
+    }
+</style>

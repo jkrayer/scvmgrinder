@@ -105,6 +105,17 @@ table > tbody > tr > td:first-of-type {
   /* justify-content: space-between; */
 }
 
+.row-padded {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.25em;
+}
+
+.row-padded > div {
+  flex-basis: 25%;
+  padding: 0.25em;
+}
+
 .col {
   display: flex;
   flex-direction: column;
