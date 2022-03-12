@@ -4,7 +4,14 @@
  * 3. Lists
  * 4. Buttons
  * 5. Sidebar
+ * 6. Typography
 */
+:root {
+  --small-padding: 0.5em;
+  --sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --serif: Athelas, Cambria, serif;
+}
 
 /* 1. General */
 html,
@@ -19,8 +26,7 @@ body {
   margin: 0;
   padding: 0;
   color: #333;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: var(--sans-serif);
 }
 
 a {
@@ -96,7 +102,12 @@ table > tbody > tr > td:first-of-type {
 .row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
 }
 
 #app {
@@ -201,4 +212,16 @@ table > tbody > tr > td:first-of-type {
   #test + #sidebar {
     transform: translate3d(0, 0, 0);
   }
+}
+
+/* 6. Typography */
+.score-name {
+  text-transform: capitalize;
+  font-size: 0.875em;
+  font-weight: 800;
+  color: #333;
+}
+.score {
+  font-size: 1.5em;
+  font-weight: 300;
 }

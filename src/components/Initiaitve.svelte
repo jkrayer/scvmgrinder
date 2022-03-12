@@ -1,27 +1,29 @@
 <script>
     import character from '../stores/Character'
-    import RollButton from './Buttons/RollButton.svelte';
-    import Input from './Form/Input.svelte'
-    import { toInt } from '../lib'
+    import { rollFormula } from '../lib'
 
     const { abilities } = $character;
 
     // Handlers
-    const handleRoll = (roll) => $character.initiative = roll + abilities.agility;
-
-    const handleChange = (e) => $character.initiative = toInt(e.target.value);
+    const handleRoll = () => $character.initiative = rollFormula([1, 'd', 6, '+', abilities.agility])
 </script>
 
-<div>
-    <RollButton
-      diceString={"1d6"}
-      onRoll={handleRoll}
-    >Initiative 1d6 + Agility</RollButton>
-    <Input
-      label="Initiative"
-      type="number"
-      name="initiative"
-      value={$character.initiative}
-      onChange={handleChange}
-    />
+<div class="initiative row" on:click={handleRoll}>
+    <div>
+        <div class="score-name">
+            <abbr title="Initiative">Init</abbr>
+        </div>
+        <div
+            class="score"
+        >
+          {$character.initiative || 0}
+        </div>
+    </div>
 </div>
+
+<style>
+.initiative {
+    text-align: center;
+    padding: var(--small-padding);
+}
+</style>

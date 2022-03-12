@@ -1,5 +1,8 @@
 <script>
     import character from '../../stores/Character'
+    import HitPoints from '../HitPoints.svelte';
+import Initiaitve from '../Initiaitve.svelte';
+    import Initiative from '../Initiaitve.svelte';
 </script>
 
 <div id="character-header">
@@ -8,11 +11,9 @@
         <h1 class="h1">{$character.name}</h1>
         <h2 class="h2">{$character.className}</h2>
     </header>
-    <div class="right">
-        <button class="b">Omens</button>
-        <button class="b">Powers</button>
-        <!-- <button>Rest</button>
-        <button>Get Better</button> -->
+    <div class="hp-wrapper">
+        <Initiaitve />
+        <HitPoints />
     </div>
 </div>
 
@@ -20,23 +21,24 @@
 #character-header {
     display: flex;
     align-items: center;
-    padding: .5em;
+    padding: var(--small-padding);
     background-color: yellow;
 }
 
-#character-header > img {
-    padding-right: .5em;
+.hp-wrapper {
+    display: flex;
+    justify-content: right;
+    flex-grow: 1;
 }
 
-.right {
-    flex-grow: 1;
-    text-align: right;
+#character-header > img {
+    padding-right: var(--small-padding);
 }
 
 .h1 {
     width: 150px;
     margin: 0;
-    font-family: Athelas, Cambria, serif;
+    font-family: var(--serif);
     font-size: 1.5rem;
     line-height: .8;
     overflow: hidden;
@@ -45,11 +47,8 @@
 }
 .h2 {
     margin: 0;
-    font-family: Athelas, Cambria, serif;
+    font-family: var(--serif);
     font-size: .875rem;
     line-height: 1;
-}
-.b {
-    margin: 0;
 }
 </style>

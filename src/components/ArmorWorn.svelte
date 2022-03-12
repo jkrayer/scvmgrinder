@@ -23,7 +23,7 @@
         <b>Armor:</b> {armorWorn.name || ''}
     </div>
     <div>
-        <button type="button" on:click={handleToggle}>{toggle ? 'Tiers' : 'Rolls'}</button>
+        <button type="button" on:click={handleToggle}><img src="/images/switch_sm.png" alt="Toggle" /></button>
         {#if toggle}
             <button type="button" on:click={() => alert(roll(2))} class={armorWorn.currentTier === 1 ? 'current button-tier' : 'button-tier'} title="-d2" disabled={armorWorn.currentTier !== 1}>-d2</button>
             <button type="button" on:click={() => alert(roll(4))} class={armorWorn.currentTier === 2 ? 'current button-tier' : 'button-tier'} title="-d4" disabled={armorWorn.currentTier !== 2}>-d4</button>

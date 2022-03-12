@@ -70,14 +70,4 @@
         margin: 0.5em 0;
         text-align: center;
     }
-    .score-name {
-        text-transform: capitalize;
-        font-size: .875em;
-        font-weight: 800;
-        color: #333;
-    }
-    .score {
-        font-size: 1.5em;
-        font-weight: 300;
-    }
 </style>

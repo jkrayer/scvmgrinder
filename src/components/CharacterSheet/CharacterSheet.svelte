@@ -3,13 +3,12 @@
 	import character from '../../stores/Character';
     import Scores from './Scores.svelte';
     import Defense from '../Defense.svelte';
+    import Miseries from './Miseries.svelte';
     import Omens from '../Omens.svelte';
     import Powers from '../Powers.svelte';
     import ArmorWorn from '../ArmorWorn.svelte';
     import WeaponsCarried from '../WeaponsCarried.svelte';
     import Equipment from '../Equipment.svelte';
-    import Initiative from '../Initiaitve.svelte'
-    import HitPoints from '../HitPoints.svelte';
     import Header from './Header.svelte';
     import { roll } from '../../lib';
 
@@ -18,13 +17,17 @@
 
 {#if !isEmpty($character)}
 <article>
+    <Miseries />
     <Header />
     <Scores />
-    <Defense />
-
-    
-    <HitPoints />
-    <Initiative />
+    <!-- <Defense /> -->
+    <!-- <HitPoints /> -->
+    <div class="right">
+        <button class="b">Omens</button>
+        <button class="b">Powers</button>
+        <button>Rest</button>
+        <button>Get Better</button>
+    </div>
     <!--  -->
     <ArmorWorn />
     <WeaponsCarried />
@@ -32,28 +35,5 @@
     <Powers /> -->
     <div>Silver: {$character.silver}</div>
     <Equipment />
-
-    <div>Miseries:
-        <button type="button" title="Misery 1">1</button>
-        <button type="button" title="Misery 2">2</button>
-        <button type="button" title="Misery 3">3</button>
-        <button type="button" title="Misery 4">4</button>
-        <button type="button" title="Misery 5">5</button>
-        <button type="button" title="Misery 6">6</button>
-        <button type="button" title="Misery 7">7</button>
-    </div>
-    <section>
-        <h2>Description</h2>
-        {@html $character.description}
-    </section>
 </article>   
 {/if}
-
-<style>
-    .row {
-        display: flex;
-    }
-    .col {
-        flex-basis: 50%;
-    }
-</style>
