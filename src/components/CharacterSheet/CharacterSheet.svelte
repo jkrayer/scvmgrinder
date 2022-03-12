@@ -13,8 +13,8 @@
     import { roll } from '../../lib';
     import SlideIn from '../SlideIn.svelte';
 
-    $: showOmens = false;
-    $: console.log(17, showOmens)
+    let showOmens = false;
+    let showPowers = false;
 </script>
 
 {#if !isEmpty($character)}
@@ -30,13 +30,20 @@
                 type="button"
                 class="b"
                 disabled={$character?.omens?.current === 0}
-                on:click={() => showOmens = !showOmens}
+                on:click={() => showOmens = true}
             >
                 Omens ({$character?.omens?.current})
             </button>
         </div>
         <div>
-            <button type="button" class="b">Powers</button>
+            <button
+                type="button"
+                class="b"
+                disabled={$character?.powers === 0}
+                on:click={() => showPowers = true}
+            >
+                Powers ({$character?.powers || 0})
+            </button>
         </div>
         <div>
             <button type="button" disabled class="b">Rest</button>
@@ -48,13 +55,13 @@
     </div>
     <!--  -->
     <ArmorWorn />
-    <WeaponsCarried />
-    <!--
-    <Powers /> -->
+    <WeaponsCarried />    
     <div>Silver: {$character.silver}</div>
     <Equipment />
     <Omens show={showOmens} onClose={() => showOmens = false} />
+    <Powers show={showPowers} onClose={() => showPowers = false } />
 </article>   
+
 {/if}
 
 <style>
