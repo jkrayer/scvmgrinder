@@ -18,26 +18,84 @@
 </script>
 
 {#if !isEmpty(armorWorn)}
-<div class="row">
+<div class="row-padded r">
     <div>
         <b>Armor:</b> {armorWorn.name || ''}
     </div>
     <div>
-        <button type="button" on:click={handleToggle}><img src="/images/switch_sm.png" alt="Toggle" /></button>
+        <button
+            type="button"
+            on:click={handleToggle}
+            class="button-tier"
+            title={`Show ${ toggle ? 'Tiers' : 'Rolls' }`}
+        >
+            <img src="/images/switch_sm.png" alt="" />
+        </button>
         {#if toggle}
-            <button type="button" on:click={() => alert(roll(2))} class={armorWorn.currentTier === 1 ? 'current button-tier' : 'button-tier'} title="-d2" disabled={armorWorn.currentTier !== 1}>-d2</button>
-            <button type="button" on:click={() => alert(roll(4))} class={armorWorn.currentTier === 2 ? 'current button-tier' : 'button-tier'} title="-d4" disabled={armorWorn.currentTier !== 2}>-d4</button>
-            <button type="button" on:click={() => alert(roll(6))} class={armorWorn.currentTier === 3 ? 'current button-tier' : 'button-tier'} title="-d6" disabled={armorWorn.currentTier !== 3}>-d6</button>
+            <button
+                type="button"
+                on:click={() => alert(roll(2))}
+                class={armorWorn.currentTier === 1 ? 'current button-tier' : 'button-tier'}
+                title="-d2" 
+                disabled={armorWorn.currentTier !== 1}
+            >
+                -d2
+            </button>
+            <button
+                type="button"
+                on:click={() => alert(roll(4))}
+                class={armorWorn.currentTier === 2 ? 'current button-tier' : 'button-tier'}
+                title="-d4" 
+                disabled={armorWorn.currentTier !== 2}
+            >
+                -d4
+            </button>
+            <button
+                type="button"
+                on:click={() => alert(roll(6))}
+                class={armorWorn.currentTier === 3 ? 'current button-tier' : 'button-tier'}
+                title="-d6" 
+                disabled={armorWorn.currentTier !== 3}
+            >
+                -d6
+            </button>
         {:else}
-            <button type="button" on:click={handleTierClick(1)} class={armorWorn.currentTier === 1 ? 'current button-tier' : 'button-tier'} title="Tier 1, -d2">1</button>
-            <button type="button" on:click={handleTierClick(2)} class={armorWorn.currentTier === 2 ? 'current button-tier' : 'button-tier'} title="Tier 2, -d4">2</button>
-            <button type="button" on:click={handleTierClick(3)} class={armorWorn.currentTier === 3 ? 'current button-tier' : 'button-tier'} title="Tier 3, -d6">3</button>
+            <button
+                type="button"
+                on:click={handleTierClick(1)}
+                class={armorWorn.currentTier === 1 ? 'current button-tier' : 'button-tier'}
+                title="Tier 1, -d2"
+            >
+                1
+            </button>
+            <button
+                type="button"
+                on:click={handleTierClick(2)}
+                class={armorWorn.currentTier === 2 ? 'current button-tier' : 'button-tier'}
+                title="Tier 2, -d4"
+            >
+                2
+            </button>
+            <button
+                type="button"
+                on:click={handleTierClick(3)}
+                class={armorWorn.currentTier === 3 ? 'current button-tier' : 'button-tier'}
+                title="Tier 3, -d6"
+            >
+                3
+            </button>
         {/if}
     </div>
 </div>    
 {/if}
 
 <style>
+    .r {
+        justify-content: space-between;
+        align-items: center;
+    }
+    .r > div { flex-basis: auto;}
+
     .current { background-color: yellow; }
     button:disabled { background-color: gray; }
 
@@ -47,5 +105,10 @@
         padding: 3px;
         border-radius: 50%;
         font-size: .75em;
+    }
+    .button-tier > img {
+        position: relative;
+        top: 1px;
+        width: 100%;
     }
 </style>
