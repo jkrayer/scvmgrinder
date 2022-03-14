@@ -20,7 +20,8 @@
 
     const isWeapon = propSatisfies((x) => x === 'weapon', 'type');
     const isUnbroken = propSatisfies((x) => x === false, 'broken');
-    const isUnbrokenWeapon = (weapon) => isWeapon(weapon) && isUnbroken(weapon);
+    const isEquipped = propSatisfies((x) => x === true, 'equipped');
+    const isUnbrokenWeapon = (weapon) => isWeapon(weapon) && isEquipped(weapon) && isUnbroken(weapon);
     const getWeapons = filter(isUnbrokenWeapon);
 
     const rol = (die) => typeof die === 'string' ? rollString(die) : roll(die)

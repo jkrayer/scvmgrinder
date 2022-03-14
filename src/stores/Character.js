@@ -39,24 +39,20 @@ export const setSelected = (id) => {
 };
 
 //
-const toggleArmor = (itemId) => (value) => {
-  const { type, _id, equipped } = value;
+const toggleEquip = (itemId) => (value) => {
+  const { _id, equipped } = value;
 
-  if (type !== "armor") {
-    return value;
-  }
-
-  return { ...value, equipped: itemId === _id ? !equipped : false };
+  return { ...value, equipped: itemId === _id ? !equipped : equipped };
 };
 
 //
-export const equipArmor = (itemId) =>
+export const equip = (itemId) =>
   character.update((currentCharacter) => {
     const { equipment } = currentCharacter;
 
     return {
       ...currentCharacter,
-      equipment: map(toggleArmor(itemId), equipment),
+      equipment: map(toggleEquip(itemId), equipment),
     };
   });
 

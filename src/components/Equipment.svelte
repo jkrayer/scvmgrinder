@@ -1,22 +1,35 @@
 <script>
-    import { partial } from 'ramda';
+    import { partial, propIs } from 'ramda';
     import Equipable from './EquipmentTypes/Equipable.svelte';
     import Equipment from './EquipmentTypes/Equipment.svelte';
 	import character, { dropEquipment } from '../stores/Character';
 
-    const encumbrance = 8 + $character.abilities.strength;
+    const isEquippable = propIs(Boolean, 'equipped');
+
+    /**
+     * because JS is bad at floating point math we're going to use 100 to represent a "full size item"
+     * partial sized items will have 100 / number to fill one slot. 
+     * Ex: Arrows will have a weight 5 fitting 20 into a single slot
+     */
+    const encumbranceNumber = 8 + $character.abilities.strength;
+    const maxEquipmentRows = encumbranceNumber * 2;
+    const calculatedEncumbrance = encumbranceNumber * 100;
+
+    $: equipmentWeight = $character.equipment.reduce((acc, eq) => acc + (!!eq.equipped === false ? eq.weight * eq.quantity : 0) , 0)
+    $: isEncumbered = calculatedEncumbrance <= equipmentWeight;
+    $: console.log(20, equipmentWeight, isEncumbered)
 </script>
 
-<div class="equipment">
+<div class="equipment" class:encumbered={isEncumbered}>
     <div class="row r">
         <h2 class="title">Equipment</h2>
-        <p class="text">Strength + 8 items or DR+2 on Agility/Strength tests</p>
+        <p class="text">Strength + 8 ({encumbranceNumber}) items or DR+2 on Agility/Strength tests</p>
     </div>
 
     <ul class="list-clear list">
-        {#each $character.equipment as e, i }
-            <li class={ i >= encumbrance ? 'list-item empty' : 'list-item'} key={e._id}>
-                {#if e.type === 'armor'}
+        {#each $character.equipment as e, i (e._id)}
+            <li class="list-item">
+                {#if isEquippable(e)}
                     <Equipable item={e} />
                 {:else}
                     <Equipment item={e} />
@@ -49,7 +62,7 @@
         line-height: 1;
     }
 
-    .empty {
+    .encumbered {
         background-color: rgba(255,0,0, .2)
     }
     .list {

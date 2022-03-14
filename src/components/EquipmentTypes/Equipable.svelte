@@ -1,7 +1,8 @@
 <script>
-    import { partial } from 'ramda';
-    import { equipArmor } from '../../stores/Character';
-    export let item = {}
+  import { partial } from 'ramda';
+  import { equip } from '../../stores/Character';
+
+  export let item = {}
 </script>
 
 <div class="r">
@@ -13,7 +14,7 @@
   <button
     class="mb0"
     type="button"
-    on:click={partial(equipArmor, [item._id])}
+    on:click={partial(equip, [item._id])}
     disabled={item.broken}
   >
     {item.equipped ? 'Remove' : 'Equip'}

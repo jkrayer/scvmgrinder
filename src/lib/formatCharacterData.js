@@ -1,13 +1,27 @@
-import { compose, last, split } from "ramda";
+import { __, compose, filter, head } from "ramda";
 import { nanSafeInt, rollString, getDie } from "../lib";
-import { getWeapon, getArmor, getEquipment, getFollower } from "../data";
+import equipment from "../data/equipment";
 
-const GETTERS = {
-  armor: getArmor,
-  equipment: getEquipment,
-  follower: getFollower,
-  weapons: getWeapon,
-  undefined: (x) => x,
+const getByName = compose(head, filter(__, equipment));
+
+const waterskin = getByName(({ name }) => name === "Waterskin");
+const food = getByName(({ name }) => name === "Dried food");
+
+const parseEquipment = (arr, quantity) => {
+  const equipment = [waterskin, { ...food, quantity }];
+  const followers = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] !== "-1" && arr[i] !== undefined) {
+      const json = JSON.parse(arr[i]);
+
+      json.forEach((a) =>
+        a.type === "follower" ? followers.push(a) : equipment.push(equipment)
+      );
+    }
+  }
+
+  return { equipment, followers };
 };
 
 export const formatCharacterData = (formData) => {
@@ -29,20 +43,14 @@ export const formatCharacterData = (formData) => {
     ...rest
   } = formData;
 
-  const equipment = [
+  const tables = [
     armor,
     weapons,
     classEquipment,
     equipmentOne,
     equipmentTwo,
     equipmentThree,
-  ]
-    .reduce((acc, val) => {
-      if (val === "-1" || val === undefined) return acc;
-
-      return [...acc, JSON.parse(val)];
-    }, [])
-    .flat();
+  ];
 
   return {
     ...rest,
@@ -68,12 +76,7 @@ export const formatCharacterData = (formData) => {
       presence: nanSafeInt(presence),
       toughness: nanSafeInt(toughness),
     },
-    equipment,
-    provisions: {
-      waterskin: true,
-      daysOfWater: 4,
-      daysOfFood: nanSafeInt(provisions),
-    },
+    ...parseEquipment(tables, nanSafeInt(provisions)),
     silver: nanSafeInt(silver),
   };
 };
