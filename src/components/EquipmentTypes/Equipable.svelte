@@ -9,7 +9,7 @@
   <div >
     {item.name}
     <div class="equipment-content">
-      <p class="desc">{item.description}</p>
+      <p class="desc">{item.description || ''}</p>
     </div>
   </div>
   <button
