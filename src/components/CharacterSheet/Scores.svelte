@@ -1,18 +1,11 @@
 <script>
     import character from '../../stores/Character';
     import RollButton from '../Buttons/RollButton.svelte';
-    import { symbol } from '../../lib';
+    import { symbol, alertRoll } from '../../lib';
 
     const SCORES = ['strength', 'agility', 'presence', 'toughness'];
 
     const { tests, abilities } = $character
-
-    const alertRoll = (dr, score) => (roll) => {
-        const total = roll + score;
-        const hit = total >= dr ? 'Hits' : 'Misses';
-
-        alert(`D20 ${roll} + ${score} = ${total}; ${hit} DR${dr}`);
-    }
 </script>
 
 <div class="row-padded">

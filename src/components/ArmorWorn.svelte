@@ -8,7 +8,7 @@
 
     let toggle = true;
     $: armorWorn = getWornArmor($character.equipment);
-
+    $: hasArmor = !isEmpty(armorWorn);
 
     // Handlers
     const handleToggle = () => toggle = !toggle;
@@ -17,77 +17,78 @@
     const handleTierClick = (tier) => () => setArmorTier(armorWorn._id, tier);
 </script>
 
-{#if !isEmpty(armorWorn)}
+
 <div class="row-padded r">
     <div>
-        <b>Armor:</b> {armorWorn.name || ''}
+        <b>Armor:</b> {hasArmor ? armorWorn.name : 'None'}
     </div>
     <div>
-        <button
-            type="button"
-            on:click={handleToggle}
-            class="button-tier"
-            title={`Show ${ toggle ? 'Tiers' : 'Rolls' }`}
-        >
-            <img src="/images/switch_sm.png" alt="" />
-        </button>
-        {#if toggle}
+        {#if hasArmor}
             <button
                 type="button"
-                on:click={() => alert(roll(2))}
-                class={armorWorn.currentTier === 1 ? 'current button-tier' : 'button-tier'}
-                title="-d2" 
-                disabled={armorWorn.currentTier !== 1}
+                on:click={handleToggle}
+                class="button-tier"
+                title={`Show ${ toggle ? 'Tiers' : 'Rolls' }`}
             >
-                -d2
+                <img src="/images/switch_sm.png" alt="" />
             </button>
-            <button
-                type="button"
-                on:click={() => alert(roll(4))}
-                class={armorWorn.currentTier === 2 ? 'current button-tier' : 'button-tier'}
-                title="-d4" 
-                disabled={armorWorn.currentTier !== 2}
-            >
-                -d4
-            </button>
-            <button
-                type="button"
-                on:click={() => alert(roll(6))}
-                class={armorWorn.currentTier === 3 ? 'current button-tier' : 'button-tier'}
-                title="-d6" 
-                disabled={armorWorn.currentTier !== 3}
-            >
-                -d6
-            </button>
-        {:else}
-            <button
-                type="button"
-                on:click={handleTierClick(1)}
-                class={armorWorn.currentTier === 1 ? 'current button-tier' : 'button-tier'}
-                title="Tier 1, -d2"
-            >
-                1
-            </button>
-            <button
-                type="button"
-                on:click={handleTierClick(2)}
-                class={armorWorn.currentTier === 2 ? 'current button-tier' : 'button-tier'}
-                title="Tier 2, -d4"
-            >
-                2
-            </button>
-            <button
-                type="button"
-                on:click={handleTierClick(3)}
-                class={armorWorn.currentTier === 3 ? 'current button-tier' : 'button-tier'}
-                title="Tier 3, -d6"
-            >
-                3
-            </button>
+            {#if toggle}
+                <button
+                    type="button"
+                    on:click={() => alert(roll(2))}
+                    class={armorWorn.currentTier === 1 ? 'current button-tier' : 'button-tier'}
+                    title="-d2" 
+                    disabled={armorWorn.currentTier !== 1}
+                >
+                    -d2
+                </button>
+                <button
+                    type="button"
+                    on:click={() => alert(roll(4))}
+                    class={armorWorn.currentTier === 2 ? 'current button-tier' : 'button-tier'}
+                    title="-d4" 
+                    disabled={armorWorn.currentTier !== 2}
+                >
+                    -d4
+                </button>
+                <button
+                    type="button"
+                    on:click={() => alert(roll(6))}
+                    class={armorWorn.currentTier === 3 ? 'current button-tier' : 'button-tier'}
+                    title="-d6" 
+                    disabled={armorWorn.currentTier !== 3}
+                >
+                    -d6
+                </button>
+            {:else}
+                <button
+                    type="button"
+                    on:click={handleTierClick(1)}
+                    class={armorWorn.currentTier === 1 ? 'current button-tier' : 'button-tier'}
+                    title="Tier 1, -d2"
+                >
+                    1
+                </button>
+                <button
+                    type="button"
+                    on:click={handleTierClick(2)}
+                    class={armorWorn.currentTier === 2 ? 'current button-tier' : 'button-tier'}
+                    title="Tier 2, -d4"
+                >
+                    2
+                </button>
+                <button
+                    type="button"
+                    on:click={handleTierClick(3)}
+                    class={armorWorn.currentTier === 3 ? 'current button-tier' : 'button-tier'}
+                    title="Tier 3, -d6"
+                >
+                    3
+                </button>
+            {/if}
         {/if}
     </div>
 </div>    
-{/if}
 
 <style>
     .r {

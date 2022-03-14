@@ -116,3 +116,10 @@ export const getAbilityScore = (num) =>
     : 3;
 
 export const getDie = compose(prop(2), parseRollString);
+
+export const alertRoll = (dr, score) => (roll) => {
+  const total = roll + score;
+  const hit = total >= dr ? "Hits" : "Misses";
+
+  alert(`D20 ${roll} + ${score} = ${total}; ${hit} DR${dr}`);
+};

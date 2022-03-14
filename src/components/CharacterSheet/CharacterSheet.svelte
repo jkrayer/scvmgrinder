@@ -55,9 +55,9 @@
     </div>
     <!--  -->
     <ArmorWorn />
-    <WeaponsCarried />    
-    <div>Silver: {$character.silver}</div>
+    <WeaponsCarried />
     <Equipment />
+    <div>Silver: {$character.silver}</div>
     <Omens show={showOmens} onClose={() => showOmens = false} />
     <Powers show={showPowers} onClose={() => showPowers = false } />
 </article>   

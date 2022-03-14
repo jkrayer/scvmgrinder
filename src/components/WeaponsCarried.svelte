@@ -1,13 +1,21 @@
 <script>
     import { filter, partial, propSatisfies } from 'ramda';
     import character, { breakWeapon } from '../stores/Character';
-    import { symbol, roll, rollString } from '../lib';
+    import RollButton from './Buttons/RollButton.svelte';
+    import { alertRoll, roll, rollString, symbol } from '../lib';
 
     const { strength, presence } = $character.abilities;
+    const { melee, ranged } = $character.tests;
 
-    const COMBAT_BONUS_MAP = {
-        melee: strength,
-        ranged: presence
+    const COMBAT_MAP = {
+        melee: {
+            bonus: strength,
+            roll: alertRoll(melee, strength)
+        },
+        ranged: {
+            bonus: presence,
+            roll: alertRoll(ranged, presence)
+        }
     };
 
     const isWeapon = propSatisfies((x) => x === 'weapon', 'type');
@@ -31,16 +39,34 @@
     </thead>
     <tbody>
     {#each weapons as weapon }
+        {@const damageType = typeof weapon.damageDie}
+        {@const attackType = COMBAT_MAP[weapon.weaponType]}
         <tr>
             <td>{weapon.name}</td>
             <td>
-                <button type="button" on:click={partial(breakWeapon, [weapon._id])}>Break</button>
+                <button
+                    type="button"
+                    on:click={partial(breakWeapon, [weapon._id])}
+                >
+                    Break
+                </button>
             </td>
             <td>
-                <button type="button" on:click={()=> alert(roll(20) + COMBAT_BONUS_MAP[weapon.weaponType])} title="To Hit">{symbol(COMBAT_BONUS_MAP[weapon.weaponType])}</button>
+                <RollButton
+                    diceString="1d20"
+                    onRoll={attackType.roll}
+                >
+                    {symbol(attackType.bonus)}
+                </RollButton>
             </td>
             <td>
-                <button type="button" on:click={()=> alert(rol(weapon.damageDie))} title="Damage">{`d${weapon.damageDie}`}</button>
+                <button
+                    type="button"
+                    on:click={()=> alert(rol(weapon.damageDie))}
+                    title="Damage"
+                >
+                    {damageType === 'string' ? weapon.damageDie : `d${weapon.damageDie}`}
+                </button>
             </td>
         </tr>
     {/each}
