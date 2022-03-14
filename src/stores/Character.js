@@ -1,4 +1,4 @@
-import { map } from "ramda";
+import { clamp, map } from "ramda";
 import { writable } from "svelte/store";
 import { setSelectedCharacterId } from "./Settings";
 
@@ -97,6 +97,19 @@ export const incrementHp = () =>
           },
         }
       : currentCharacter;
+  });
+
+export const addHealth = (hp) =>
+  character.update((oldState) => {
+    const { current, maximum } = oldState.hitpoints;
+
+    return {
+      ...oldState,
+      hitpoints: {
+        current: clamp(1, maximum, current + hp),
+        maximum,
+      },
+    };
   });
 
 export const decrementHp = () =>

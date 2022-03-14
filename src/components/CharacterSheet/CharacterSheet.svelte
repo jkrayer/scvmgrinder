@@ -3,6 +3,7 @@
 	import character from '../../stores/Character';
     import Scores from './Scores.svelte';
     import Defense from '../Defense.svelte';
+    import Rest from './Rest.svelte';
     import Miseries from './Miseries.svelte';
     import Omens from '../Omens.svelte';
     import Powers from '../Powers.svelte';
@@ -15,6 +16,7 @@
 
     let showOmens = false;
     let showPowers = false;
+    let showRest = false;
 </script>
 
 {#if !isEmpty($character)}
@@ -46,7 +48,13 @@
             </button>
         </div>
         <div>
-            <button type="button" disabled class="b">Rest</button>
+            <button
+                type="button"
+                class="b"
+                on:click={() => showRest = true}
+            >
+                Rest
+            </button>
         </div>
         <div>
             <button type="button" disabled class="b">Get Better</button>
@@ -60,6 +68,7 @@
     <div>Silver: {$character.silver}</div>
     <Omens show={showOmens} onClose={() => showOmens = false} />
     <Powers show={showPowers} onClose={() => showPowers = false } />
+    <Rest show={showRest} onClose={() => showRest = false } />
 </article>   
 
 {/if}
