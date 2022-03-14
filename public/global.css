@@ -5,6 +5,8 @@
  * 4. Buttons
  * 5. Sidebar
  * 6. Typography
+ * 7. Helpers
+ * 8. Equipment
 */
 :root {
   --small-padding: 0.5em;
@@ -235,4 +237,18 @@ table > tbody > tr > td:first-of-type {
 .score {
   font-size: 1.5em;
   font-weight: 300;
+}
+
+/* 7. Helpers */
+.mb0 {
+  margin-bottom: 0;
+}
+
+/* 8. Equipment */
+.equipment-content,
+.equipment-content > p {
+  margin: 0;
+  font-size: 0.875em;
+  font-style: oblique;
+  font-weight: 500;
 }

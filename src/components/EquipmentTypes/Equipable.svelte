@@ -6,10 +6,11 @@
 </script>
 
 <div class="r">
-  <div>
+  <div >
     {item.name}
-    <p class="desc">{item.description}</p>
-    
+    <div class="equipment-content">
+      <p class="desc">{item.description}</p>
+    </div>
   </div>
   <button
     class="mb0"
@@ -27,14 +28,5 @@
     justify-content: space-between;
     align-items: center;
     flex-grow: 1;
-  }
-  .desc {
-    margin: 0;
-    font-size: .875em;
-    font-style: oblique;
-    font-weight: 500;
-  }
-  .mb0 {
-    margin-bottom: 0;
   }
 </style>

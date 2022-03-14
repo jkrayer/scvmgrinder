@@ -183,3 +183,39 @@ export const dropEquipment = (index) =>
       equipment: equipment.filter((value, i) => i !== index),
     };
   });
+
+export const subtractEquipment = (id) =>
+  character.update((oldState) => {
+    const { equipment } = oldState;
+
+    const updatedEquipment = equipment.reduce((acc, eq) => {
+      if (eq._id !== id) return acc.concat(eq);
+
+      const nextQ = eq.quantity - 1;
+
+      return nextQ === 0 ? acc : acc.concat({ ...eq, quantity: nextQ });
+    }, []);
+
+    return {
+      ...oldState,
+      equipment: updatedEquipment,
+    };
+  });
+
+export const addEquipment = (id) =>
+  character.update((oldState) => {
+    const { equipment } = oldState;
+
+    const updatedEquipment = equipment.map((eq) => {
+      if (eq._id !== id) return eq;
+
+      const nextQ = eq.quantity + 1;
+
+      return nextQ * eq.weight <= 100 ? { ...eq, quantity: nextQ } : acc;
+    });
+
+    return {
+      ...oldState,
+      equipment: updatedEquipment,
+    };
+  });

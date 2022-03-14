@@ -1,10 +1,12 @@
 <script>
-    import { partial, propIs } from 'ramda';
+    import { partial, propIs, propSatisfies } from 'ramda';
     import Equipable from './EquipmentTypes/Equipable.svelte';
     import Equipment from './EquipmentTypes/Equipment.svelte';
+    import Countable from './EquipmentTypes/Countable.svelte';
 	import character, { dropEquipment } from '../stores/Character';
 
     const isEquippable = propIs(Boolean, 'equipped');
+    const isCountable = propSatisfies((x) => x < 100 && x > 0, 'weight');
 
     /**
      * because JS is bad at floating point math we're going to use 100 to represent a "full size item"
@@ -31,6 +33,8 @@
             <li class="list-item">
                 {#if isEquippable(e)}
                     <Equipable item={e} />
+                {:else if isCountable(e)}
+                    <Countable item={e} />
                 {:else}
                     <Equipment item={e} />
                 {/if}
@@ -75,9 +79,5 @@
         justify-content: space-between;
         margin-bottom: .5em;
         /* flex-basis: 50%; */
-    }
-
-    .mb0 {
-        margin-bottom: 0;
     }
 </style>
