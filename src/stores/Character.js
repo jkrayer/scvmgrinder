@@ -232,3 +232,14 @@ export const addEquipment = (id) =>
       equipment: updatedEquipment,
     };
   });
+
+export const setSilver = (num) =>
+  character.update((oldState) => {
+    const { silver } = oldState;
+    const nextSilver = silver + num;
+
+    return {
+      ...oldState,
+      silver: nextSilver,
+    };
+  });

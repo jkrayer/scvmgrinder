@@ -1,6 +1,6 @@
 <script>
-    import { isEmpty } from 'ramda';
-	import character from '../../stores/Character';
+    import { isEmpty, partial } from 'ramda';
+	import character, { setSilver } from '../../stores/Character';
     import Scores from './Scores.svelte';
     import Defense from '../Defense.svelte';
     import Rest from './Rest.svelte';
@@ -13,6 +13,7 @@
     import Header from './Header.svelte';
     import { roll } from '../../lib';
     import SlideIn from '../SlideIn.svelte';
+    import Incrementer from './Incrementer.svelte';
 
     let showOmens = false;
     let showPowers = false;
@@ -65,12 +66,18 @@
     <ArmorWorn />
     <WeaponsCarried />
     <Equipment />
-    <div>Silver: {$character.silver}</div>
+    <Incrementer
+        title="Silver"
+        value={$character.silver}
+        increment={partial(setSilver, [1])}
+        decrement={partial(setSilver, [-1])}
+        set={(num) => setSilver(num)}
+    />
+    <!-- <div>Silver: {}</div> -->
     <Omens show={showOmens} onClose={() => showOmens = false} />
     <Powers show={showPowers} onClose={() => showPowers = false } />
     <Rest show={showRest} onClose={() => showRest = false } />
-</article>   
-
+</article>
 {/if}
 
 <style>
