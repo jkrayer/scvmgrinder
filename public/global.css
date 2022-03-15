@@ -305,6 +305,19 @@ table > tbody > tr > td:first-of-type {
   background-color: #000;
 }
 
+.theme-black a {
+  color: yellow;
+  text-decoration: none;
+}
+
+.theme-black a:hover {
+  text-decoration: underline;
+}
+
+.theme-black a:visited {
+  color: magenta;
+}
+
 .theme-white {
   color: #000;
   background-color: #fff;

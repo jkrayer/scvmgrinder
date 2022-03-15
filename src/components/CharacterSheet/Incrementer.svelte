@@ -30,7 +30,7 @@
         >
         {#if showInput }
             <form action="" on:submit|preventDefault={handleSubmit}>
-                <input type="number" bind:value={val} autofocus />
+                <input type="number" bind:value={val} />
                 <button type="submit">Submit</button>
             </form>
         {:else}

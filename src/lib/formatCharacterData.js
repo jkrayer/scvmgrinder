@@ -1,5 +1,5 @@
 import { __, compose, filter, head } from "ramda";
-import { nanSafeInt, rollString, getDie } from "../lib";
+import { rollString } from "../lib";
 import equipment from "../data/equipment";
 
 const getByName = compose(head, filter(__, equipment));
@@ -25,58 +25,29 @@ const parseEquipment = (arr, quantity) => {
 };
 
 export const formatCharacterData = (formData) => {
-  const {
-    provisions,
-    silver,
-    agility,
-    strength,
-    presence,
-    toughness,
-    omens,
-    hp = 1,
-    armor,
-    classEquipment,
-    equipmentOne,
-    equipmentThree,
-    equipmentTwo,
-    weapons,
-    ...rest
-  } = formData;
+  const { food, hitpoints, omens, ...rest } = formData;
 
-  const tables = [
-    armor,
-    weapons,
-    classEquipment,
-    equipmentOne,
-    equipmentTwo,
-    equipmentThree,
-  ];
+  // const tables = [
+  //   armor,
+  //   weapons,
+  //   classEquipment,
+  //   equipmentOne,
+  //   equipmentTwo,
+  //   equipmentThree,
+  // ];
 
   return {
     ...rest,
-    description: "",
-    // className
-    // clasAbuilities?
-    class: {
-      name: "",
-      powers: [],
-    },
     hitpoints: {
-      maximum: hp,
-      current: hp,
+      maximum: hitpoints,
+      current: hitpoints,
     },
     omens: {
       die: omens,
-      maximum: getDie(omens),
-      current: rollString(omens),
+      maximum: omens,
+      current: rollString(`1d${omens}`),
     },
-    abilities: {
-      agility: nanSafeInt(agility),
-      strength: nanSafeInt(strength),
-      presence: nanSafeInt(presence),
-      toughness: nanSafeInt(toughness),
-    },
-    ...parseEquipment(tables, nanSafeInt(provisions)),
-    silver: nanSafeInt(silver),
+    powers: rollString(`1d4+${rest.abilities.presence}`),
+    // ...parseEquipment(tables, nanSafeInt(provisions)),
   };
 };
