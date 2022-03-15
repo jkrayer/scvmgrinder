@@ -2,7 +2,7 @@
   export let type = 'text';
   export let label;
   export let name;
-  export let value;
+  export let value = null;
   export let readonly = false;
   export let disabled = false;
   export let onChange = () => {}

@@ -29,10 +29,6 @@
     flex-grow: 1;
 }
 
-#character-header > img {
-    padding-right: var(--small-padding);
-}
-
 .h1 {
     width: 150px;
     margin: 0;

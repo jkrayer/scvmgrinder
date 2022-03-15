@@ -9,12 +9,22 @@
  * 8. Equipment
  * 9. Theme
 */
+
+@font-face {
+  font-family: "cloister_blacklight";
+  src: url("/fonts/cloisterblack-webfont.woff2") format("woff2"),
+    url("/fonts/cloisterblack-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --small-padding: 0.5em;
   --sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   --serif: Athelas, Cambria, serif;
   --fixed: "Courier New", Courier, monospace;
+  --callig: "cloister_blacklight";
 }
 
 /* 1. General */
@@ -166,7 +176,6 @@ table > tbody > tr > td:first-of-type {
 #global-footer {
   box-sizing: border-box;
   padding: var(--small-padding);
-  margin-top: 1rem;
   font: 500 0.8125em/1.33333 var(--fixed);
   text-align: center;
 }
