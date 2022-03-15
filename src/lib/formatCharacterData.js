@@ -1,40 +1,26 @@
-import { __, compose, filter, head } from "ramda";
+import { map } from "ramda";
 import { rollString } from "../lib";
-import equipment from "../data/equipment";
 
-const getByName = compose(head, filter(__, equipment));
+const formatItem = (eq) => {
+  const armorTiers = {
+    light: { currentTier: 1, maxTier: 1 },
+    medium: { currentTier: 2, maxTier: 2 },
+    heavy: { currentTier: 3, maxTier: 3 },
+  };
 
-const waterskin = getByName(({ name }) => name === "Waterskin");
-const food = getByName(({ name }) => name === "Dried food");
+  const { type, weaponType, armorType } = eq;
 
-const parseEquipment = (arr, quantity) => {
-  const equipment = [waterskin, { ...food, quantity }];
-  const followers = [];
+  if (weaponType === "ranged") return { ...eq, usesAmmo: true };
+  if (type === "armor" && armorType !== "shield")
+    return { ...eq, ...armorTiers[armorType] };
 
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] !== "-1" && arr[i] !== undefined) {
-      const json = JSON.parse(arr[i]);
-
-      json.forEach((a) =>
-        a.type === "follower" ? followers.push(a) : equipment.push(equipment)
-      );
-    }
-  }
-
-  return { equipment, followers };
+  return eq;
 };
 
-export const formatCharacterData = (formData) => {
-  const { food, hitpoints, omens, ...rest } = formData;
+const formatEquipment = map(formatItem);
 
-  // const tables = [
-  //   armor,
-  //   weapons,
-  //   classEquipment,
-  //   equipmentOne,
-  //   equipmentTwo,
-  //   equipmentThree,
-  // ];
+export const formatCharacterData = (formData) => {
+  const { food, hitpoints, omens, equipment, ...rest } = formData;
 
   return {
     ...rest,
@@ -48,6 +34,10 @@ export const formatCharacterData = (formData) => {
       current: rollString(`1d${omens}`),
     },
     powers: rollString(`1d4+${rest.abilities.presence}`),
-    // ...parseEquipment(tables, nanSafeInt(provisions)),
+    equipment: [
+      { description: "A waterskin with # days of water", quantity: 4 },
+      { description: "# day(s) worth of food", quantity: food },
+      ...formatEquipment(equipment),
+    ],
   };
 };

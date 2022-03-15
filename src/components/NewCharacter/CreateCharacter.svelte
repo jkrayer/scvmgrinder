@@ -1,9 +1,11 @@
 <script>
+    import Equipment from './Equipment.svelte';
     import { formatCharacterData } from '../../lib/formatCharacterData';
 
     // Helpers
     const ownership = (string) => string.endsWith('s') ? `${string}'` : `${string}'s`
 
+    let eq = '';
     let formData = {
         name: '',
         silver: null,
@@ -37,7 +39,14 @@
         // );
     };
 
+    const addEquipment = () => {
+      if (eq === '') return false;
+      
+      formData.equipment = [...formData.equipment, { type: eq, quantity: 1 }];
+      eq = '';
+    }
 
+    const handleRemove = (index) => () => formData.equipment = formData.equipment.filter((__dirname, ind) => ind !== index)
 
     $: console.log(formData, typeof formData.food)
 </script>
@@ -77,14 +86,33 @@
         />
       </p>
     </div>
-    <!--
+    
     <div class="pod">
       <div>
-        <p class="calligraphy">The weight of equipment compresses {ownership(formData.name)} spine.</p>
+        <p class="calligraphy">
+          The weight of equipment compresses {!!formData.name ? ownership(formData.name) : 'your'} spine.
+        </p>
+        {#each formData.equipment as eq, i }
+          <Equipment item={eq} onRemove={handleRemove(i)} />
+        {/each}
+        <p class="text-right">
+          <select class="theme-black-input calligraphy smaller" bind:value={eq}>
+            <option value="">Select</option>
+            <option value="armor">Armor</option>
+            <option value="weapon">Weapon</option>
+            <option value="equipment">Equipment</option>
+            <option value="follower">Follower</option>
+          </select>
+          <button
+            type="button"
+            class="calligraphy btn"
+            on:click={addEquipment}
+            title="Add Equipment"
+          >+</button>
+        </p>
       </div>
     </div>
-    -->
-  
+
     <div class="pod">
       <p class="calligraphy">With scant natural abilities</p>
       <div>
@@ -209,7 +237,7 @@
             </div>
           </div>
         </div>
-        <p class="calligraphy right-aligned">{!!formData.name ? ownership(formData.name) : ''} mettle will be tested...</p>
+        <p class="calligraphy right-aligned">{!!formData.name ? ownership(formData.name) : 'You'} mettle will be tested.</p>
       </div>
   
       <div class="pod">
@@ -260,15 +288,6 @@
     .hidden {
         position: absolute;
         left: -100in;
-    }
-    .theme-black-input {
-      background-color: #000;
-      border: none;
-      border-bottom: 1px solid #fff;
-      color: #fff;
-    }
-    .theme-black-input:focus-visible {
-        outline: none;
     }
     .inline {
         display: inline;
@@ -324,11 +343,14 @@
     .btn {
       display: inline;
       padding: 0 .25em;
-      border: none;
+      border: 2px solid #000;
       border-radius: 0;
       margin: 0;
       font-size: 2.5rem;
       color: #000;
       background: yellow;
+    }
+    .btn:focus {
+      outline: 1px solid yellow;
     }
 </style>

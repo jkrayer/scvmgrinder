@@ -7,6 +7,9 @@
  * 6. Typography
  * 7. Helpers
  * 8. Equipment
+ *   8.1 Magenta
+ *   8.2 Black
+ *   8.3 White
  * 9. Theme
 */
 
@@ -295,11 +298,13 @@ table > tbody > tr > td:first-of-type {
 }
 
 /* 8. Theme */
+/* 8.1 Magenta */
 .theme-magenta {
   color: #000;
   background-color: magenta;
 }
 
+/* 8.2 Black */
 .theme-black {
   color: #fff;
   background-color: #000;
@@ -318,6 +323,17 @@ table > tbody > tr > td:first-of-type {
   color: magenta;
 }
 
+.theme-black-input {
+  border: none;
+  border-bottom: 1px solid #fff;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.theme-black-input:focus-visible {
+  outline: 1px solid yellow;
+}
+
+/* 8.3 White */
 .theme-white {
   color: #000;
   background-color: #fff;
