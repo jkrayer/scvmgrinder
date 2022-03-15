@@ -1,12 +1,11 @@
 <script>
     import character from '../../stores/Character'
     import HitPoints from '../HitPoints.svelte';
-import Initiaitve from '../Initiaitve.svelte';
-    import Initiative from '../Initiaitve.svelte';
+    import Initiaitve from '../Initiaitve.svelte';
 </script>
 
-<div id="character-header">
-    <img src={$character.img} alt={$character.name} width="55" height="55" />
+<div id="character-header" class="theme-black">
+    <!-- <img src={$character.img} alt={$character.name} width="55" height="55" /> -->
     <header>
         <h1 class="h1">{$character.name}</h1>
         <h2 class="h2">{$character.className}</h2>
@@ -22,7 +21,6 @@ import Initiaitve from '../Initiaitve.svelte';
     display: flex;
     align-items: center;
     padding: var(--small-padding);
-    background-color: yellow;
 }
 
 .hp-wrapper {

@@ -22,7 +22,7 @@
 
 {#if !isEmpty($character)}
 <article>
-    <Miseries />
+    <!-- <Miseries /> -->
     <Header />
     <Scores />
     <!-- <Defense /> -->

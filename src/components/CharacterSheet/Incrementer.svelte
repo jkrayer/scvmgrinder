@@ -71,7 +71,7 @@
   border: none;
   border-radius: 0;
   font-weight: 700;
-  color: #fff;
-  background: linear-gradient(0deg, #444, #000)
+  /* color: #fff;
+  background: linear-gradient(0deg, #444, #000) */
 }    
 </style>
