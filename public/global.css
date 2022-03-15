@@ -106,13 +106,16 @@ table > tbody > tr > td:first-of-type {
 .row {
   display: flex;
   align-items: center;
+  padding: 0.25em;
   /* justify-content: space-between; */
 }
 
+.row-polar {
+  justify-content: space-between;
+}
+
 .row-padded {
-  display: flex;
   justify-content: space-around;
-  padding: 0.25em;
 }
 
 .row-padded > div {
@@ -138,11 +141,11 @@ table > tbody > tr > td:first-of-type {
   /* padding: 1rem; */
 }
 
-@media screen and (min-width: 520px) {
+/* @media screen and (min-width: 520px) {
   #stage {
     margin-left: 4rem;
   }
-}
+} */
 
 #global-header {
   padding: var(--small-padding);
@@ -150,8 +153,14 @@ table > tbody > tr > td:first-of-type {
 }
 
 #global-header > h1 {
-  font: 700 1em/1 var(--serif);
+  font: 700 0.875em/1 var(--serif);
   letter-spacing: 1em;
+}
+
+@media screen and (min-width: 375px) {
+  #global-header > h1 {
+    font-size: 1em;
+  }
 }
 
 #global-footer {
@@ -216,18 +225,15 @@ table > tbody > tr > td:first-of-type {
 }
 
 #sidebar-button {
-  position: fixed;
-  top: 0.5em;
-  left: 4.5em;
   border: none;
   background-color: transparent;
 }
 
 #sidebar-button > div {
-  width: 35px;
+  width: 25px;
   height: 3px;
   margin: 0.3em 0;
-  background-color: #333;
+  background-color: #000;
   transition-duration: 300ms;
 }
 
@@ -248,9 +254,6 @@ table > tbody > tr > td:first-of-type {
 }
 
 @media screen and (min-width: 520px) {
-  #sidebar-button {
-    display: none;
-  }
   #test + #sidebar {
     transform: translate3d(0, 0, 0);
   }
@@ -291,4 +294,31 @@ table > tbody > tr > td:first-of-type {
 .theme-black {
   color: #fff;
   background-color: #000;
+}
+
+.theme-white {
+  color: #000;
+  background-color: #fff;
+}
+
+.theme-white-button {
+  background-color: #000;
+  border: none;
+  color: #fff;
+  font-family: var(--serif);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.theme-white-button:disabled {
+  color: #333;
+  background-color: #999;
+}
+
+.theme-white-button:not(:disabled):active {
+  background-color: #666;
+}
+
+.theme-white-button:focus {
+  background-color: #666;
 }

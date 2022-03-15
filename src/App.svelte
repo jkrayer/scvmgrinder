@@ -1,26 +1,34 @@
 <script>
+	import { isNil } from 'ramda';
 	import settings from './stores/Settings'
 	import NewCharacter from './components/NewCharacter.svelte'
 	import CharacterSheet from './components/CharacterSheet/CharacterSheet.svelte';
 	import Sidebar from './components/Sidebar.svelte';
+	import Welcome from './components/Welcome.svelte';
 </script>
 
 
-<header id="global-header" class="theme-magenta">
+<header id="global-header" class="theme-magenta row row-polar">
 	<h1>SCVUMGRINDER</h1>
+	<button type="button" id="sidebar-button" title="Toggle Menu">
+        <div></div>
+        <div></div>
+        <div></div>
+    </button>
 </header>
 
 <main id="app">
 	<div id="stage">
 		{#if $settings.newCharacter}
 			<NewCharacter />
-		{:else if $settings.selectedCharacterId !== null}
+		{:else if !isNil($settings.selectedCharacterId)}
 			<CharacterSheet />
+		{:else}
+			<Welcome />
 		{/if}
 	</div>
 	<input type="checkbox" id="test" />
-	<Sidebar />
-
+	<!-- <Sidebar /> -->
 </main>
 
 <footer id="global-footer" class="theme-black">
