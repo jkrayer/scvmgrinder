@@ -1,5 +1,6 @@
 <script>
     import Equipment from './Equipment.svelte';
+    import { addCharacter } from '../../stores/Characters';
     import { formatCharacterData } from '../../lib/formatCharacterData';
 
     // Helpers
@@ -33,11 +34,7 @@
     };
 
     // Handlers
-    const onSubmit = () => {
-        console.log(46, formatCharacterData(formData))
-        // addCharacter(
-        // );
-    };
+    const onSubmit = () => addCharacter(formatCharacterData(formData));
 
     const addEquipment = () => {
       if (eq === '') return false;
