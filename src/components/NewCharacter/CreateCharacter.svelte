@@ -1,5 +1,5 @@
 <script>
-    import { formatCharacterData } from '../lib/formatCharacterData';
+    import { formatCharacterData } from '../../lib/formatCharacterData';
 
     // Helpers
     const ownership = (string) => string.endsWith('s') ? `${string}'` : `${string}'s`

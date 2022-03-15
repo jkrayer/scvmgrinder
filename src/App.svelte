@@ -1,7 +1,7 @@
 <script>
 	import { isNil } from 'ramda';
 	import settings from './stores/Settings'
-	import NewCharacter from './components/NewCharacter.svelte'
+	import CreateCharacter from './components/NewCharacter/CreateCharacter.svelte';
 	import CharacterSheet from './components/CharacterSheet/CharacterSheet.svelte';
 	import Sidebar from './components/Sidebar.svelte';
 	import Welcome from './components/Welcome.svelte';
@@ -20,7 +20,7 @@
 <main id="app">
 	<div id="stage">
 		{#if $settings.newCharacter}
-			<NewCharacter />
+			<CreateCharacter />
 		{:else if !isNil($settings.selectedCharacterId)}
 			<CharacterSheet />
 		{:else}
