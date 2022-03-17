@@ -7,10 +7,7 @@
 
 <div class="r">
   <div >
-    {item.name}
-    <div class="equipment-content">
-      <p class="desc">{item.description || ''}</p>
-    </div>
+    {item.description}
   </div>
   <button
     class="mb0"

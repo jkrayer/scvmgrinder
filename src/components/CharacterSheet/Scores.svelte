@@ -8,7 +8,7 @@
     const { tests, abilities } = $character
 </script>
 
-<div class="row-padded">
+<div class="row row-padded r">
     {#each SCORES as score }
     <div class="score-wrapper">
         <div class="score-name">
@@ -50,6 +50,9 @@
 </div>
 
 <style>
+    .r {
+        align-items: flex-start;
+    }
     .score-wrapper {
         display: flex;
         flex-direction: column;

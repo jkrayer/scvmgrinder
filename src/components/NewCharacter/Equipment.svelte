@@ -59,7 +59,7 @@
     {#if item.type !== ''}
     <div>
         <label class="small" for="description">Description</label>
-        <input type="text" id="description" class="theme-black-input" bind:value={item.desciption} />
+        <input type="text" id="description" class="theme-black-input" bind:value={item.description} />
         <button type="button" class="btn" on:click={onRemove} title="Remove Equipment">-</button>
     </div>
     {/if}

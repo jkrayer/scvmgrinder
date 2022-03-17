@@ -25,9 +25,8 @@
     <!-- <Miseries /> -->
     <Header />
     <Scores />
-    <!-- <Defense /> -->
-    <!-- <HitPoints /> -->
-    <div class="row-padded">
+
+    <div class="row row-padded">
         <div>
             <button
                 type="button"
@@ -60,9 +59,8 @@
         <div>
             <button type="button" disabled class="b">Get Better</button>
         </div>
-        
     </div>
-    <!--  -->
+
     <ArmorWorn />
     <WeaponsCarried />
     <Equipment />
@@ -73,10 +71,11 @@
         decrement={partial(setSilver, [-1])}
         set={(num) => setSilver(num)}
     />
-    <!-- <div>Silver: {}</div> -->
+
     <Omens show={showOmens} onClose={() => showOmens = false} />
     <Powers show={showPowers} onClose={() => showPowers = false } />
     <Rest show={showRest} onClose={() => showRest = false } />
+    
 </article>
 {/if}
 

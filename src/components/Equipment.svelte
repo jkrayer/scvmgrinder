@@ -1,11 +1,11 @@
 <script>
-    import { partial, propIs, propSatisfies } from 'ramda';
+    import { equals, find, partial, propSatisfies } from 'ramda';
     import Equipable from './EquipmentTypes/Equipable.svelte';
     import Equipment from './EquipmentTypes/Equipment.svelte';
     import Countable from './EquipmentTypes/Countable.svelte';
 	import character, { dropEquipment } from '../stores/Character';
 
-    const isEquippable = propIs(Boolean, 'equipped');
+    const isEquippable = propSatisfies((x) => !!find(equals(x), ['armor', 'weapon']), 'type');
     const isCountable = propSatisfies((x) => x < 100 && x > 0, 'weight');
 
     /**

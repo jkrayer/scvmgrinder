@@ -19,7 +19,7 @@
     };
 
     const isWeapon = propSatisfies((x) => x === 'weapon', 'type');
-    const isUnbroken = propSatisfies((x) => x === false, 'broken');
+    const isUnbroken = propSatisfies((x) => x === false || x === undefined, 'broken');
     const isEquipped = propSatisfies((x) => x === true, 'equipped');
     const isUnbrokenWeapon = (weapon) => isWeapon(weapon) && isEquipped(weapon) && isUnbroken(weapon);
     const getWeapons = filter(isUnbrokenWeapon);
@@ -43,7 +43,7 @@
         {@const damageType = typeof weapon.damageDie}
         {@const attackType = COMBAT_MAP[weapon.weaponType]}
         <tr>
-            <td>{weapon.name}</td>
+            <td>{weapon.description}</td>
             <td>
                 <button
                     type="button"

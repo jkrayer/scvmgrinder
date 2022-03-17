@@ -29,7 +29,7 @@
         },
         className: null,
         omens: 2,
-        desciption: null,
+        description: null,
         equipment: []
     };
 

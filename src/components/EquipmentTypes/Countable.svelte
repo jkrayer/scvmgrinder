@@ -7,10 +7,7 @@
 
 <div class="r">
   <div>
-    {item.name}
-      {#if !!item.description}
-        <div class="equipment-content">{ @html item.description.replace('#', item.quantity) }</div>
-      {/if}
+    {item.description.replace('#', item.quantity)}
   </div>
   <div>
     <button

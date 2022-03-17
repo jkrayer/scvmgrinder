@@ -4,10 +4,7 @@
 
 <div class="r">
   <div>
-    {item.name}
-    {#if !!item.description}
-        <p class="desc">{item.description}</p>    
-    {/if}
+    {item.description}
   </div>
 </div>
 
