@@ -6,10 +6,11 @@ const settings = writable(
   {
     selectedCharacterId: null,
     newCharacter: false,
+    menuOpen: false,
   },
   (set) => {
     const settings = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-    set(settings);
+    set({ ...settings, menuOpen: false });
 
     return (a, b, c, d) => console.log("settings sub", a, b, c, d);
   }
@@ -34,3 +35,6 @@ export const setNewCharacter = (id) =>
     selectedCharacterId: null,
     newCharacter: true,
   }));
+
+export const setMenuState = (menuOpen = false) =>
+  settings.update((oldState) => ({ ...oldState, menuOpen }));

@@ -6,7 +6,7 @@
 	import character, { dropEquipment } from '../stores/Character';
 
     const isEquippable = propSatisfies((x) => !!find(equals(x), ['armor', 'weapon']), 'type');
-    const isCountable = propSatisfies((x) => x < 100 && x > 0, 'weight');
+    const isCountable = propSatisfies((x) => x > 1, 'quantity');
 
     /**
      * because JS is bad at floating point math we're going to use 100 to represent a "full size item"

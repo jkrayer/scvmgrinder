@@ -3,6 +3,7 @@
     import characters, { deleteCharacter } from '../stores/Characters';
     import { setSelected } from '../stores/Character';
     import settings, { setNewCharacter } from '../stores/Settings';
+    import { closeMenu } from '../lib/dom'
 
     $: characterArray = $characters.map((characterId) => {
         // This can break when, if this list and the items in storage fall out of sync
@@ -15,26 +16,19 @@
     const onDeleteCharacter = (id, name) => confirm(`Delete ${name}?`) ? deleteCharacter(id) : null;
 
     // 
-    let selectedId = 0;
     const handleButtonClick = (id) => () => {
-        selectedId = id;
         setSelected(id);
     }
 </script>
 
-<aside id="sidebar">
-    <!-- <label type="button" id="sidebar-button" title="Toggle Menu" for="test">
-        <div></div>
-        <div></div>
-        <div></div>
-    </label> -->
-
+<aside id="sidebar" class:active={$settings.menuOpen}>
+    <button type="button" class="sidebar-button" title="Close Menu" on:click={closeMenu}>X</button>
     <ul class="list-clear">
         {#each characterArray as {id, name} }
             <li key={id}>
                 <button
                     type="button"
-                    class={id === selectedId ? 'sidebar-button active' : 'sidebar-button'}
+                    class={id === $settings.selectedCharacterId ? 'sidebar-button active' : 'sidebar-button'}
                     on:click={handleButtonClick(id)}
                     on:contextmenu|preventDefault={partial(onDeleteCharacter, [id])}>
                     {name}

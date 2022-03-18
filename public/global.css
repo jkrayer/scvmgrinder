@@ -222,18 +222,17 @@ table > tbody > tr > td:first-of-type {
   position: fixed;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: 100vw;
   box-sizing: border-box;
   padding: 0.5rem;
   background-color: #333;
-  transform: translate3d(-4rem, 0, 0);
+  transform: translate3d(0, 0, 0);
   transition-duration: 300ms;
   transition-timing-function: ease-in-out;
 }
 
-#test {
-  position: absolute;
-  left: -100in;
+#sidebar.active {
+  transform: translate3d(-4rem, 0, 0);
 }
 
 #sidebar-button {
@@ -249,10 +248,7 @@ table > tbody > tr > td:first-of-type {
   transition-duration: 300ms;
 }
 
-#test:checked + #sidebar {
-  transform: translate3d(0, 0, 0);
-}
-
+/*
 #test:checked + #sidebar > #sidebar-button > div:nth-of-type(2) {
   display: none;
 }
@@ -270,6 +266,7 @@ table > tbody > tr > td:first-of-type {
     transform: translate3d(0, 0, 0);
   }
 }
+*/
 
 /* 6. Typography */
 .score-name {

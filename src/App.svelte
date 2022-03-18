@@ -5,12 +5,12 @@
 	import CharacterSheet from './components/CharacterSheet/CharacterSheet.svelte';
 	import Sidebar from './components/Sidebar.svelte';
 	import Welcome from './components/Welcome.svelte';
+	import { openMenu } from './lib/dom'
 </script>
-
 
 <header id="global-header" class="theme-magenta row row-polar">
 	<h1>SCVUMGRINDER</h1>
-	<button type="button" id="sidebar-button" title="Toggle Menu">
+	<button type="button" id="sidebar-button" title="Open Menu" on:click={openMenu}>
         <div></div>
         <div></div>
         <div></div>
@@ -27,8 +27,7 @@
 			<Welcome />
 		{/if}
 	</div>
-	<input type="checkbox" id="test" />
-	<!-- <Sidebar /> -->
+	<Sidebar />
 </main>
 
 <footer id="global-footer" class="theme-black">
