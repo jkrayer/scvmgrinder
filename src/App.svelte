@@ -1,33 +1,15 @@
 <script>
-	import { isNil } from 'ramda';
-	import settings from './stores/Settings'
-	import CreateCharacter from './components/NewCharacter/CreateCharacter.svelte';
 	import CharacterSheet from './components/CharacterSheet/CharacterSheet.svelte';
-	import Sidebar from './components/Sidebar.svelte';
-	import Welcome from './components/Welcome.svelte';
-	import { openMenu } from './lib/dom'
 </script>
 
 <header id="global-header" class="theme-magenta row row-polar">
 	<h1>SCVUMGRINDER</h1>
-	<button type="button" id="sidebar-button" title="Open Menu" on:click={openMenu}>
-        <div></div>
-        <div></div>
-        <div></div>
-    </button>
 </header>
 
 <main id="app">
 	<div id="stage">
-		{#if $settings.newCharacter}
-			<CreateCharacter />
-		{:else if !isNil($settings.selectedCharacterId)}
-			<CharacterSheet />
-		{:else}
-			<Welcome />
-		{/if}
+		<CharacterSheet />
 	</div>
-	<Sidebar />
 </main>
 
 <footer id="global-footer" class="theme-black">

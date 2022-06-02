@@ -2,15 +2,13 @@
  * 1. General
  * 2. Layout
  * 3. Lists
- * 4. Buttons
- * 5. Sidebar
- * 6. Typography
- * 7. Helpers
- * 8. Equipment
- *   8.1 Magenta
- *   8.2 Black
- *   8.3 White
- * 9. Theme
+ * 4. Typography
+ * 5. Helpers
+ * 6. Theme
+ *   6.1 Magenta
+ *   6.2 Black
+ *   6.3 White
+ * 7. Equipment
 */
 
 @font-face {
@@ -23,6 +21,7 @@
 
 :root {
   --small-padding: 0.5em;
+  --tiny-padding: 0.25em;
   --sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   --serif: Athelas, Cambria, serif;
@@ -161,7 +160,7 @@ table > tbody > tr > td:first-of-type {
 } */
 
 #global-header {
-  padding: var(--small-padding);
+  padding: var(--tiny-padding) var(--small-padding);
   text-align: center;
 }
 
@@ -172,6 +171,7 @@ table > tbody > tr > td:first-of-type {
 
 @media screen and (min-width: 375px) {
   #global-header > h1 {
+    margin: 0;
     font-size: 1em;
   }
 }
@@ -179,7 +179,7 @@ table > tbody > tr > td:first-of-type {
 #global-footer {
   box-sizing: border-box;
   padding: var(--small-padding);
-  font: 500 0.8125em/1.33333 var(--fixed);
+  font: 500 0.75em/1.33333 var(--fixed);
   text-align: center;
 }
 
@@ -204,70 +204,6 @@ table > tbody > tr > td:first-of-type {
   margin: 0;
 }
 
-/* 4. Buttons */
-.sidebar-button {
-  width: 3rem;
-  height: 3rem;
-  border: none;
-  border-radius: 50%;
-}
-
-.sidebar-button.active {
-  color: #fff;
-  background-color: #0085be;
-}
-
-/* 5. Sidebar */
-#sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 100vw;
-  box-sizing: border-box;
-  padding: 0.5rem;
-  background-color: #333;
-  transform: translate3d(0, 0, 0);
-  transition-duration: 300ms;
-  transition-timing-function: ease-in-out;
-}
-
-#sidebar.active {
-  transform: translate3d(-4rem, 0, 0);
-}
-
-#sidebar-button {
-  border: none;
-  background-color: transparent;
-}
-
-#sidebar-button > div {
-  width: 25px;
-  height: 3px;
-  margin: 0.3em 0;
-  background-color: #000;
-  transition-duration: 300ms;
-}
-
-/*
-#test:checked + #sidebar > #sidebar-button > div:nth-of-type(2) {
-  display: none;
-}
-
-#test:checked + #sidebar > #sidebar-button > div:nth-of-type(1) {
-  transform: rotate(45deg) translate3d(15px, 5px, 0);
-}
-
-#test:checked + #sidebar > #sidebar-button > div:nth-of-type(3) {
-  transform: rotate(-45deg) translate3d(0, 0.5em, 0);
-}
-
-@media screen and (min-width: 520px) {
-  #test + #sidebar {
-    transform: translate3d(0, 0, 0);
-  }
-}
-*/
-
 /* 6. Typography */
 .score-name {
   text-transform: capitalize;
@@ -280,28 +216,19 @@ table > tbody > tr > td:first-of-type {
   font-weight: 300;
 }
 
-/* 7. Helpers */
+/* 5. Helpers */
 .mb0 {
   margin-bottom: 0;
 }
 
-/* 8. Equipment */
-.equipment-content,
-.equipment-content > p {
-  margin: 0;
-  font-size: 0.875em;
-  font-style: oblique;
-  font-weight: 500;
-}
-
-/* 8. Theme */
-/* 8.1 Magenta */
+/* 6. Theme */
+/* 6.1 Magenta */
 .theme-magenta {
   color: #000;
   background-color: magenta;
 }
 
-/* 8.2 Black */
+/* 6.2 Black */
 .theme-black {
   color: #fff;
   background-color: #000;
@@ -330,7 +257,7 @@ table > tbody > tr > td:first-of-type {
   outline: 1px solid yellow;
 }
 
-/* 8.3 White */
+/* 6.3 White */
 .theme-white {
   color: #000;
   background-color: #fff;
@@ -356,4 +283,13 @@ table > tbody > tr > td:first-of-type {
 
 .theme-white-button:focus {
   background-color: #666;
+}
+
+/* 7. Equipment */
+.equipment-content,
+.equipment-content > p {
+  margin: 0;
+  font-size: 0.875em;
+  font-style: oblique;
+  font-weight: 500;
 }

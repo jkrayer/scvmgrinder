@@ -1,4 +1,7 @@
 /node_modules/
 /public/build/
+/docs/build/
+/test_data/
+/src/data/
 
 .DS_Store
