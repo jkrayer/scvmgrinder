@@ -1,62 +1,62 @@
 <script>
-    import character from '../../stores/Character';
-    import RollButton from '../Buttons/RollButton.svelte';
-    import { symbol, alertRoll } from '../../lib';
+  import character from "../../stores/Character";
+  import RollButton from "../Buttons/RollButton.svelte";
+  import { symbol, alertRoll } from "../../lib";
 
-    const SCORES = ['strength', 'agility', 'presence', 'toughness'];
+  const SCORES = ["strength", "agility", "presence", "toughness"];
 
-    const { tests, abilities } = $character
+  const { tests, abilities } = $character;
 </script>
 
 <div class="row row-padded r">
-    {#each SCORES as score }
+  {#each SCORES as score}
     <div class="score-wrapper">
-        <div class="score-name">
-            {score}
-        </div>
-        <div class="score">
-            {symbol(abilities[score])}
-        </div>
+      <div class="score-name">
+        {score}
+      </div>
+      <div class="score">
+        {symbol(abilities[score])}
+      </div>
+      <RollButton
+        diceString="1d20"
+        onRoll={alertRoll(tests[score], abilities[score])}
+      >
+        test {tests[score]}
+      </RollButton>
+      {#if score === "strength"}
         <RollButton
-            diceString="1d20"
-            onRoll={alertRoll(tests[score], abilities[score])}
+          diceString="1d20"
+          onRoll={alertRoll(tests.melee, abilities[score])}
         >
-            test {tests[score]}
+          melee {tests.melee}
         </RollButton>
-        {#if score === "strength"}
+      {:else if score === "agility"}
         <RollButton
-            diceString="1d20"
-            onRoll={alertRoll(tests.melee, abilities[score])}
+          diceString="1d20"
+          onRoll={alertRoll(tests.defence, abilities[score])}
         >
-            melee {tests.melee}
+          defense {tests.defence}
         </RollButton>
-        {:else if score === "agility"}
+      {:else if score === "presence"}
         <RollButton
-            diceString="1d20"
-            onRoll={alertRoll(tests.defence, abilities[score])}
+          diceString="1d20"
+          onRoll={alertRoll(tests.ranged, abilities[score])}
         >
-            defense {tests.defence}
+          ranged {tests.ranged}
         </RollButton>
-        {:else if score === "presence"}
-        <RollButton
-            diceString="1d20"
-            onRoll={alertRoll(tests.ranged, abilities[score])}
-        >
-            ranged {tests.ranged}
-        </RollButton>
-        {/if}
+      {/if}
     </div>
-    {/each}
+  {/each}
 </div>
 
 <style>
-    .r {
-        align-items: flex-start;
-    }
-    .score-wrapper {
-        display: flex;
-        flex-direction: column;
-        margin: 0.5em 0 0;
-        text-align: center;
-    }
+  .r {
+    align-items: flex-start;
+  }
+  .score-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5em 0 0;
+    text-align: center;
+  }
 </style>

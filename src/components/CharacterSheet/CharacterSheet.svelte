@@ -1,31 +1,31 @@
 <script>
-    import { isEmpty, partial } from 'ramda';
-	import character, { setSilver } from '../../stores/Character';
-    import Scores from './Scores.svelte';
-    import Defense from '../Defense.svelte';
-    import Rest from './Rest.svelte';
-    import Miseries from './Miseries.svelte';
-    import Omens from '../Omens.svelte';
-    import Powers from '../Powers.svelte';
-    import ArmorWorn from '../ArmorWorn.svelte';
-    import WeaponsCarried from '../WeaponsCarried.svelte';
-    import Equipment from '../Equipment.svelte';
-    import Header from './Header.svelte';
-    import { roll } from '../../lib';
-    import SlideIn from '../SlideIn.svelte';
-    import Incrementer from './Incrementer.svelte';
+  import { isEmpty, partial } from "ramda";
+  import character, { setSilver } from "../../stores/Character";
+  import Scores from "./Scores.svelte";
+  import Defense from "../Defense.svelte";
+  import Rest from "./Rest.svelte";
+  import Miseries from "./Miseries.svelte";
+  import Omens from "../Omens.svelte";
+  import Powers from "../Powers.svelte";
+  import ArmorWorn from "../ArmorWorn.svelte";
+  import WeaponsCarried from "../WeaponsCarried.svelte";
+  import Equipment from "../Equipment.svelte";
+  import Header from "./Header.svelte";
+  import { roll } from "../../lib";
+  import SlideIn from "../SlideIn.svelte";
+  import Incrementer from "./Incrementer.svelte";
 
-    let showOmens = false;
-    let showPowers = false;
-    let showRest = false;
+  let showOmens = false;
+  let showPowers = false;
+  let showRest = false;
 </script>
 
 {#if !isEmpty($character)}
-<article>
+  <article>
     <!-- <Miseries /> -->
     <Header />
     <Scores />
-
+    <!-- 
     <div class="row row-padded">
         <div>
             <button
@@ -75,12 +75,12 @@
     <Omens show={showOmens} onClose={() => showOmens = false} />
     <Powers show={showPowers} onClose={() => showPowers = false } />
     <Rest show={showRest} onClose={() => showRest = false } />
-    
-</article>
+     -->
+  </article>
 {/if}
 
 <style>
-    .b {
+  /* .b {
         width: 100%;
-    }
+    } */
 </style>

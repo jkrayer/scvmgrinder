@@ -1,5 +1,5 @@
 <script>
-    export let item = {};
+  export let item = {};
 </script>
 
 <div class="r">
@@ -17,7 +17,7 @@
   }
   .desc {
     margin: 0;
-    font-size: .875em;
+    font-size: 0.875em;
     font-style: oblique;
     font-weight: 500;
   }

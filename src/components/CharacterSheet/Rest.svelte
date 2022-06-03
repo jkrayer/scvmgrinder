@@ -1,55 +1,65 @@
 <script>
-  import { always, compose, either, filter, head, identity, ifElse, isNil, prop, propEq, sortBy } from 'ramda';
-  import SlideIn from '../SlideIn.svelte';
-  import character, { subtractEquipment, addHealth } from '../../stores/Character';
-import { rollString } from '../../lib';
+  import {
+    always,
+    compose,
+    either,
+    filter,
+    head,
+    identity,
+    ifElse,
+    isNil,
+    prop,
+    propEq,
+    sortBy,
+  } from "ramda";
+  import SlideIn from "../SlideIn.svelte";
+  import character, {
+    subtractEquipment,
+    addHealth,
+  } from "../../stores/Character";
+  import { rollString } from "../../lib";
 
   export let show = false;
   export let onClose = () => {};
 
   // Helpers
-  const emptyQ = ifElse(isNil, always({quantity: 0}), identity);
+  const emptyQ = ifElse(isNil, always({ quantity: 0 }), identity);
 
-  const getWater = compose(
-    emptyQ,
-    head,
-    filter(propEq('name', 'Waterskin'))
-  );
+  const getWater = compose(emptyQ, head, filter(propEq("name", "Waterskin")));
 
   const getFood = compose(
     emptyQ,
     head,
-    sortBy(prop('quantity')),
-    filter(either(propEq('name', 'Dried food'), propEq('name', 'Lard')))
+    sortBy(prop("quantity")),
+    filter(either(propEq("name", "Dried food"), propEq("name", "Lard")))
   );
 
   // Handlers
   const onRestClick = ({ _id }) => {
     subtractEquipment(_id);
-    const heal = rollString('1d4');
-    alert(`Healing ${heal} points`)
+    const heal = rollString("1d4");
+    alert(`Healing ${heal} points`);
     addHealth(heal);
-    onClose()
-  }
+    onClose();
+  };
 
   const onSleepClick = ({ _id }) => {
     subtractEquipment(_id);
-    const heal = rollString('1d6');
-    alert(`Healing ${heal} points`)
+    const heal = rollString("1d6");
+    alert(`Healing ${heal} points`);
     addHealth(heal);
-    onClose()
-  }
-
+    onClose();
+  };
 
   $: isInfected = !!$character.infected;
   $: water = getWater($character.equipment);
   $: food = getFood($character.equipment);
 </script>
 
-<SlideIn show={show} onClose={onClose}>
+<SlideIn {show} {onClose}>
   <div class:s={isInfected || water.quantity === 0}>
     <p>
-      Catch your breath, 
+      Catch your breath,
       <button
         type="button"
         class="mb0"
@@ -71,14 +81,14 @@ import { rollString } from '../../lib';
       >
         full night’s sleep
       </button>
-       restores d6 HP.
-      </p>
+      restores d6 HP.
+    </p>
   </div>
   <button type="button" on:click={onClose}>Cancel</button>
 </SlideIn>
 
 <style>
-    .s {
-        text-decoration: line-through;
-    }
+  .s {
+    text-decoration: line-through;
+  }
 </style>

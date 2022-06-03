@@ -1,33 +1,17 @@
 import { clamp, map } from "ramda";
 import { writable } from "svelte/store";
 import { setSelectedCharacterId } from "./Settings";
-
-const STORAGE_KEY = "character:";
+import testCharacter from "../../test_data/mb-character";
 
 const character = writable({}, (set) => {
-  const { selectedCharacterId } = JSON.parse(
-    localStorage.getItem("settings") || "{}"
-  );
-
-  if (selectedCharacterId !== undefined) {
-    set(
-      JSON.parse(
-        localStorage.getItem(`${STORAGE_KEY}${selectedCharacterId}`) || "{}"
-      )
-    );
-  }
+  set(testCharacter);
 
   return (a, b, c, d) => console.log("nomoresubs", a, b, c, d);
 });
 
-// More events ... perhaps a way to push changes when the local stops changing
-character.subscribe((value) => {
-  const { id } = value;
-  localStorage.setItem(`${STORAGE_KEY}${id}`, JSON.stringify(value));
-});
-
 export default character;
 
+// ************************************************* //
 export const setSelected = (id) => {
   const selected = localStorage.getItem(`${STORAGE_KEY}${id}`);
 

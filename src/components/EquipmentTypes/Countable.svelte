@@ -1,13 +1,13 @@
 <script>
-    import { partial } from 'ramda';
-    import { subtractEquipment, addEquipment } from '../../stores/Character';
+  import { partial } from "ramda";
+  import { subtractEquipment, addEquipment } from "../../stores/Character";
 
-    export let item = {};
+  export let item = {};
 </script>
 
 <div class="r">
   <div>
-    {item.description.replace('#', item.quantity)}
+    {item.description.replace("#", item.quantity)}
   </div>
   <div>
     <button
@@ -25,15 +25,14 @@
     >
       -
     </button>
-
   </div>
 </div>
 
 <style>
-.r {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-grow: 1;
-}
+  .r {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+  }
 </style>
