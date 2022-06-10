@@ -1,43 +1,24 @@
 <script>
-  import {
-    always,
-    compose,
-    filter,
-    head,
-    identity,
-    ifElse,
-    isEmpty,
-    isNil,
-  } from "ramda";
-  import character, { setArmorTier } from "../stores/Character";
-  import { roll } from "../lib";
+  import { isEmpty } from "ramda";
 
-  const isWornArmor = (equipment) =>
-    equipment.type === "armor" && equipment.equipped;
-  const getWornArmor = compose(
-    ifElse(isNil, always({}), identity),
-    head,
-    filter(isWornArmor)
-  );
+  export let armor = {};
+  export let shield = {};
 
-  let toggle = true;
-  $: armorWorn = getWornArmor($character.equipment);
-  $: hasArmor = !isEmpty(armorWorn);
+  console.log("AW", armor, shield);
 
-  // Handlers
-  const handleToggle = () => (toggle = !toggle);
-  // does this need to be reactive? Would I get stale state for armor worn?, armor is
-  // stale but it doesn't matter in this case
-  const handleTierClick = (tier) => () => setArmorTier(armorWorn._id, tier);
+  const handleToggle = () => {};
+  const handleTierClick = () => {};
+  const roll = () => {};
+  const toggle = false;
 </script>
 
 <div class="row-padded r">
   <div>
     <b>Armor:</b>
-    {hasArmor ? armorWorn.name : "None"}
+    {!isEmpty(armor) ? armor.name : "None"}
   </div>
   <div>
-    {#if hasArmor}
+    {#if !isEmpty(armor)}
       <button
         type="button"
         on:click={handleToggle}
@@ -50,33 +31,33 @@
         <button
           type="button"
           on:click={() => alert(roll(2))}
-          class={armorWorn.currentTier === 1
+          class={armor.tier.current === 1
             ? "current button-tier"
             : "button-tier"}
           title="-d2"
-          disabled={armorWorn.currentTier !== 1}
+          disabled={armor.tier.current !== 1}
         >
           -d2
         </button>
         <button
           type="button"
           on:click={() => alert(roll(4))}
-          class={armorWorn.currentTier === 2
+          class={armor.tier.current === 2
             ? "current button-tier"
             : "button-tier"}
           title="-d4"
-          disabled={armorWorn.currentTier !== 2}
+          disabled={armor.tier.current !== 2}
         >
           -d4
         </button>
         <button
           type="button"
           on:click={() => alert(roll(6))}
-          class={armorWorn.currentTier === 3
+          class={armor.tier.current === 3
             ? "current button-tier"
             : "button-tier"}
           title="-d6"
-          disabled={armorWorn.currentTier !== 3}
+          disabled={armor.tier.current !== 3}
         >
           -d6
         </button>
@@ -84,7 +65,7 @@
         <button
           type="button"
           on:click={handleTierClick(1)}
-          class={armorWorn.currentTier === 1
+          class={armor.tier.current === 1
             ? "current button-tier"
             : "button-tier"}
           title="Tier 1, -d2"
@@ -94,7 +75,7 @@
         <button
           type="button"
           on:click={handleTierClick(2)}
-          class={armorWorn.currentTier === 2
+          class={armor.tier.current === 2
             ? "current button-tier"
             : "button-tier"}
           title="Tier 2, -d4"
@@ -104,7 +85,7 @@
         <button
           type="button"
           on:click={handleTierClick(3)}
-          class={armorWorn.currentTier === 3
+          class={armor.tier.current === 3
             ? "current button-tier"
             : "button-tier"}
           title="Tier 3, -d6"

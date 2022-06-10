@@ -11,14 +11,6 @@
  * 7. Equipment
 */
 
-@font-face {
-  font-family: "cloister_blacklight";
-  src: url("/fonts/cloisterblack-webfont.woff2") format("woff2"),
-    url("/fonts/cloisterblack-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-
 :root {
   --small-padding: 0.5em;
   --tiny-padding: 0.25em;
@@ -26,21 +18,20 @@
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   --serif: Athelas, Cambria, serif;
   --fixed: "Courier New", Courier, monospace;
-  --callig: "cloister_blacklight";
 }
 
 /* 1. General */
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   position: relative;
   width: 100%;
   height: 100%;
-}
-
-body {
-  box-sizing: border-box;
-  margin: 0;
   padding: 0;
+  margin: 0;
   color: #333;
   font-family: var(--sans-serif);
 }

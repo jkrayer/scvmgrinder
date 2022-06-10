@@ -1,62 +1,42 @@
 <script>
-  import character from "../../stores/Character";
-  import RollButton from "../Buttons/RollButton.svelte";
-  import { symbol, alertRoll } from "../../lib";
-
-  const SCORES = ["strength", "agility", "presence", "toughness"];
-
-  const { tests, abilities } = $character;
+  export let strength = 0;
+  export let agility = 0;
+  export let presence = 0;
+  export let toughness = 0;
 </script>
 
-<div class="row row-padded r">
-  {#each SCORES as score}
-    <div class="score-wrapper">
-      <div class="score-name">
-        {score}
-      </div>
-      <div class="score">
-        {symbol(abilities[score])}
-      </div>
-      <RollButton
-        diceString="1d20"
-        onRoll={alertRoll(tests[score], abilities[score])}
-      >
-        test {tests[score]}
-      </RollButton>
-      {#if score === "strength"}
-        <RollButton
-          diceString="1d20"
-          onRoll={alertRoll(tests.melee, abilities[score])}
-        >
-          melee {tests.melee}
-        </RollButton>
-      {:else if score === "agility"}
-        <RollButton
-          diceString="1d20"
-          onRoll={alertRoll(tests.defence, abilities[score])}
-        >
-          defense {tests.defence}
-        </RollButton>
-      {:else if score === "presence"}
-        <RollButton
-          diceString="1d20"
-          onRoll={alertRoll(tests.ranged, abilities[score])}
-        >
-          ranged {tests.ranged}
-        </RollButton>
-      {/if}
-    </div>
-  {/each}
-</div>
+<table class="score-table">
+  <thead>
+    <tr>
+      <th>Strength</th>
+      <th>Agility</th>
+      <th>Presence</th>
+      <th>Toughness</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{strength}</td>
+      <td>{agility}</td>
+      <td>{presence}</td>
+      <td>{toughness}</td>
+    </tr>
+  </tbody>
+</table>
 
 <style>
-  .r {
-    align-items: flex-start;
+  .score-table {
+    padding: 0;
+    border-right: 1px solid #333;
+    border-left: 1px solid #333;
+    border-collapse: collapse;
+    margin: 0;
   }
-  .score-wrapper {
-    display: flex;
-    flex-direction: column;
-    margin: 0.5em 0 0;
+  .score-table td,
+  .score-table th {
+    width: 25%;
+    border-right: 1px solid #333;
+    border-left: 1px solid #333;
     text-align: center;
   }
 </style>

@@ -1,12 +1,19 @@
-import { compose, prop } from "ramda";
+import { mapAccum } from "ramda";
+import { reduce } from "ramda";
+import {
+  __,
+  compose,
+  filter,
+  gt,
+  length,
+  prop,
+  props,
+  propOr,
+  propSatisfies,
+} from "ramda";
 
 export const symbol = (score) =>
   score === 0 ? `±${score}` : score > 0 ? `+${score}` : score;
-
-export const trace = (message) => (x) => {
-  console.log(message, x);
-  return x;
-};
 
 export const generateEmptyCharacter = (id) => ({
   id,
@@ -123,3 +130,36 @@ export const alertRoll = (dr, score) => (roll) => {
 
   alert(`D20 ${roll} + ${score} = ${total}; ${hit} DR${dr}`);
 };
+
+// ****************************************************
+const trace = (msg) => (x) => {
+  console.log(msg, x);
+  return x;
+};
+
+const getEq = propOr([], "equipment");
+
+const equippedArmor = compose(
+  ([type, equipped]) => equipped && ["armor", "shield"].includes(type),
+  props(["type", "equipped"])
+);
+
+export const getWeapons = compose(
+  filter(propSatisfies((type) => type === "weapon", "type")),
+  getEq
+);
+
+export const getArmor = compose(
+  reduce(
+    (acc, eq) => (equippedArmor(eq) ? { ...acc, [eq.type]: eq } : acc),
+    {}
+  ),
+  getEq
+);
+
+export const canCast = compose(
+  gt(__, 0),
+  length,
+  filter(propSatisfies((type) => type === "scroll", "type")),
+  getEq
+);

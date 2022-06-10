@@ -18,13 +18,13 @@
 </header>
 
 <main id="app">
-  {#if campaignData.loading}
+  <!-- {#if campaignData.loading}
     LOADING...
-  {:else}
-    <div id="stage">
-      <CharacterSheet />
-    </div>
-  {/if}
+  {:else} -->
+  <div id="stage">
+    <CharacterSheet />
+  </div>
+  <!-- {/if} -->
 </main>
 
 <footer id="global-footer" class="theme-black">

@@ -1,51 +1,54 @@
 <script>
-  import Character from "../../stores/CharacterSocket";
-  // import character from "../../stores/Character";
-  import HitPoints from "../HitPoints.svelte";
-
-  let character = {};
-
-  Character.subscribe((c) => (character = c.data));
+  export let name;
+  export let className;
+  export let image = {
+    width: 50,
+    height: 50,
+    src: "",
+    alt: "",
+  };
 </script>
 
 <div id="character-header" class="theme-black">
-  <!-- <img src={$character.img} alt={$character.name} width="55" height="55" /> -->
-  <header>
-    <h1 class="h1">{character.name || "your mom"}</h1>
-    <h2 class="h2">$character.className</h2>
-  </header>
-  <div class="hp-wrapper">
-    <HitPoints />
+  <div>
+    <figure id="figure"><img alt="" {...image} /></figure>
+    <header>
+      <h1 class="h1">{name}</h1>
+      <h2 class="h2">{className}</h2>
+    </header>
+  </div>
+  <div>
+    <slot />
   </div>
 </div>
 
 <style>
+  #figure {
+    margin: 0 1em 0 0;
+  }
+
   #character-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: var(--small-padding);
   }
 
-  .hp-wrapper {
+  #character-header > div:first-of-type {
     display: flex;
-    justify-content: right;
-    flex-grow: 1;
+    align-items: center;
   }
 
   .h1 {
-    width: 150px;
-    margin: 0;
-    font-family: var(--serif);
+    margin: 0 0 0.15em;
     font-size: 1.5rem;
-    line-height: 0.8;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1;
     white-space: nowrap;
   }
   .h2 {
     margin: 0;
-    font-family: var(--serif);
-    font-size: 0.875rem;
+    font-size: 0.75rem;
+    font-weight: 400;
     line-height: 1;
   }
 </style>
