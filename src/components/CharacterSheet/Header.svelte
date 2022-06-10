@@ -1,13 +1,18 @@
 <script>
-  import character from "../../stores/Character";
+  import Character from "../../stores/CharacterSocket";
+  // import character from "../../stores/Character";
   import HitPoints from "../HitPoints.svelte";
+
+  let character = {};
+
+  Character.subscribe((c) => (character = c.data));
 </script>
 
 <div id="character-header" class="theme-black">
   <!-- <img src={$character.img} alt={$character.name} width="55" height="55" /> -->
   <header>
-    <h1 class="h1">{$character.name}</h1>
-    <h2 class="h2">{$character.className}</h2>
+    <h1 class="h1">{character.name || "your mom"}</h1>
+    <h2 class="h2">$character.className</h2>
   </header>
   <div class="hp-wrapper">
     <HitPoints />

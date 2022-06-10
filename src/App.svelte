@@ -1,5 +1,16 @@
 <script>
+  import { onMount } from "svelte";
   import CharacterSheet from "./components/CharacterSheet/CharacterSheet.svelte";
+  import game from "./stores/Campaign";
+
+  let campaignData = {};
+
+  onMount(() => {
+    game.subscribe((data) => {
+      console.log("getting data", data);
+      campaignData = data;
+    });
+  });
 </script>
 
 <header id="global-header" class="theme-magenta row row-polar">
@@ -7,9 +18,13 @@
 </header>
 
 <main id="app">
-  <div id="stage">
-    <CharacterSheet />
-  </div>
+  {#if campaignData.loading}
+    LOADING...
+  {:else}
+    <div id="stage">
+      <CharacterSheet />
+    </div>
+  {/if}
 </main>
 
 <footer id="global-footer" class="theme-black">
