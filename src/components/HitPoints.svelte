@@ -6,12 +6,9 @@
   let num = 0;
 
   const handleSubmit = (e) => {
-    const hp =
-      e.submitter.dataset.type === "heal"
-        ? Math.min(maximum, current + num)
-        : current - num;
+    const hp = num < 0 ? num + current : Math.min(maximum, current + num);
     onSet(hp);
-    num = undefined;
+    num = 0;
   };
 </script>
 
@@ -26,8 +23,10 @@
     > -->
     <label for="id-field" class="hidden-field">Adjust Hit Points</label>
     <input type="number" id="hp-field" bind:value={num} size="2" />
-    <button type="submit" class={num > -1 ? "button heal" : "button damage"}
-      >{num > -1 ? "Heal" : "Damage"}</button
+    <button
+      type="submit"
+      class={num > -1 ? "button heal" : "button damage"}
+      disabled={num === 0}>{num > -1 ? "Heal" : "Damage"}</button
     >
   </form>
 </div>
@@ -76,6 +75,10 @@
   .damage {
     border-color: red;
     color: red;
+  }
+  .button:disabled {
+    border-color: #bbb;
+    color: #bbb;
   }
   #hp-field {
     padding: 0;
