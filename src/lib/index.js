@@ -1,15 +1,16 @@
-import { mapAccum } from "ramda";
-import { reduce } from "ramda";
 import {
   __,
   compose,
   filter,
   gt,
+  isNil,
   length,
+  not,
   prop,
   props,
   propOr,
   propSatisfies,
+  reduce,
 } from "ramda";
 
 export const symbol = (score) =>
@@ -144,6 +145,27 @@ const equippedArmor = compose(
   props(["type", "equipped"])
 );
 
+export const sign = (num) => {
+  const s = Math.sign(num);
+
+  if (s === 0) {
+    return "";
+  } else if (s === 1) {
+    return `+${num}`;
+  } else {
+    return `${num}`;
+  }
+};
+
+export const hasScrolls = compose(
+  gt(__, 0),
+  length,
+  filter(propSatisfies((type) => type === "scroll", "type")),
+  getEq
+);
+
+export const hasPowers = propSatisfies(compose(not, isNil), "powers");
+
 export const getWeapons = compose(
   filter(propSatisfies((type) => type === "weapon", "type")),
   getEq
@@ -154,12 +176,5 @@ export const getArmor = compose(
     (acc, eq) => (equippedArmor(eq) ? { ...acc, [eq.type]: eq } : acc),
     {}
   ),
-  getEq
-);
-
-export const canCast = compose(
-  gt(__, 0),
-  length,
-  filter(propSatisfies((type) => type === "scroll", "type")),
   getEq
 );

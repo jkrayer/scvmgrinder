@@ -2,7 +2,9 @@
   import { rollString } from "../../lib";
 
   export let diceString = "";
-  export let onRoll = (roll) => {};
+  export let onRoll = (roll) => {
+    console.log(roll);
+  };
   export let disabled = false;
 
   const handleClick = () => onRoll(rollString(diceString));

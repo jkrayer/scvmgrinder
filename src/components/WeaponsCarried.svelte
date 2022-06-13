@@ -1,4 +1,6 @@
 <script>
+  import RollButton from "./Buttons/RollButton.svelte";
+
   export let abilities = {};
   export let weapons = [];
 
@@ -24,7 +26,7 @@
         <td>{weapon.name}</td>
         <td />
         <td>
-          {COMBAT_MAP[weapon.subType].toHit}
+          <RollButton diceString={COMBAT_MAP[weapon.subType].toHit} />
         </td>
         <td>{weapon.damageDie}</td>
       </tr>

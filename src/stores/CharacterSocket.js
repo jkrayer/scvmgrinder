@@ -1,5 +1,6 @@
-import client from "./Socket";
 import { writable, get } from "svelte/store";
+import client from "./Socket";
+import { setEffects } from "../lib/gameData";
 
 const DATA = {
   name: "",
@@ -19,12 +20,14 @@ const main = async () => {
   try {
     const character = await client
       .service("characters")
-      .get("JEx2BC6COHdTEKMC");
+      .get("UTetg6vHrvwG2o19");
+    // Katla:UTetg6vHrvwG2o19
+    // Brinta:JEx2BC6COHdTEKMC
     // Might need to get by userId and Campaingid
     // .find({ query: { campaignId: "e9lQv3ZyOxnPKyrK" } });
-
+    console.log(28, character);
     CharacterStore.set({
-      data: character,
+      data: setEffects(character),
       loading: false,
       error: null,
     });

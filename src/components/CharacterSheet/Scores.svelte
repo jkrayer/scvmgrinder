@@ -1,8 +1,19 @@
 <script>
-  export let strength = 0;
-  export let agility = 0;
-  export let presence = 0;
-  export let toughness = 0;
+  import RollButton from "../Buttons/RollButton.svelte";
+  import { sign } from "../../lib";
+
+  export let scores = {
+    strength: 0,
+    agility: 0,
+    presence: 0,
+    toughness: 0,
+  };
+  // export let tests = {
+  //   strength: 0,
+  //   agility: 0,
+  //   presence: 0,
+  //   toughness: 0,
+  // };
 </script>
 
 <table class="score-table">
@@ -16,10 +27,18 @@
   </thead>
   <tbody>
     <tr>
-      <td>{strength}</td>
-      <td>{agility}</td>
-      <td>{presence}</td>
-      <td>{toughness}</td>
+      <td>{scores.strength}</td>
+      <td>{scores.agility}</td>
+      <td>{scores.presence}</td>
+      <td>{scores.toughness}</td>
+    </tr>
+    <tr>
+      <td>
+        <RollButton diceString="1d20{sign(scores.strength)}" />
+      </td>
+      <td><RollButton diceString="1d20{sign(scores.agility)}" /></td>
+      <td><RollButton diceString="1d20{sign(scores.presence)}" /></td>
+      <td><RollButton diceString="1d20{sign(scores.toughness)}" /></td>
     </tr>
   </tbody>
 </table>

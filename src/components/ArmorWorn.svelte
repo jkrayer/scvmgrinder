@@ -1,23 +1,26 @@
 <script>
+  import RollButton from "./Buttons/RollButton.svelte";
   import { isEmpty } from "ramda";
+  import { sign } from "../lib";
 
   export let armor = {};
   export let shield = {};
+  export let agility = 0;
+  let toggle = false;
 
-  console.log("AW", armor, shield);
-
-  const handleToggle = () => {};
+  const handleToggle = () => (toggle = !toggle);
   const handleTierClick = () => {};
   const roll = () => {};
-  const toggle = false;
 </script>
 
 <div class="row-padded r">
   <div>
     <b>Armor:</b>
     {!isEmpty(armor) ? armor.name : "None"}
+    {!isEmpty(armor.effect) ? `(${armor.effect.description})` : ""}
   </div>
   <div>
+    Defense: <RollButton diceString="1d20{sign(agility)}" />
     {#if !isEmpty(armor)}
       <button
         type="button"

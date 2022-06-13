@@ -7,7 +7,7 @@
   import Armor from "../ArmorWorn.svelte";
   import Powers from "../Powers.svelte";
   import Omens from "../Omens.svelte";
-  import { getWeapons, getArmor, canCast } from "../../lib";
+  import { getWeapons, getArmor, hasScrolls, hasPowers } from "../../lib";
 
   let character = {};
   let loading = true;
@@ -20,19 +20,22 @@
     character = data.data;
     weapons = getWeapons(data.data);
     armor = getArmor(data.data);
-    canUsePowers = canCast(data.data);
+    canUsePowers = hasScrolls(data.data);
   });
 </script>
 
+<!-- 24vw -->
 {#if !loading}
-  <article style="width:24vw;">
+  <article style="width:460px;">
     <Header name={character.name} className={character.class.name}>
       <HitPoints {...character.hitpoints} onSet={Character.setHp} />
     </Header>
-    <Scores {...character.abilities} />
+    <Scores scores={character.abilities} tests={character.tests} />
     <Weapons abilities={character.abilities} {weapons} />
-    <Armor {...armor} />
-    <Powers canUse={canUsePowers} {...character.powers} />
+    <Armor {...armor} agility={character.abilities.agility} />
+    {#if hasPowers(character)}
+      <Powers canUse={canUsePowers} {...character.powers} />
+    {/if}
     <Omens {...character.omens} />
     <h2>Equipment</h2>
     <ul>
