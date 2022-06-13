@@ -36,7 +36,7 @@
     {#if hasPowers(character)}
       <Powers canUse={canUsePowers} {...character.powers} />
     {/if}
-    <Omens {...character.omens} />
+    <Omens {...character.omens} onSet={Character.setOmens} />
     <h2>Equipment</h2>
     <ul>
       {#each character.equipment as e}

@@ -27,7 +27,8 @@ const main = async () => {
     // .find({ query: { campaignId: "e9lQv3ZyOxnPKyrK" } });
     console.log(28, character);
     CharacterStore.set({
-      data: setEffects(character),
+      // This would create an infinite increase in tests
+      data: character, // setEffects(character),
       loading: false,
       error: null,
     });
@@ -53,12 +54,19 @@ main();
 
 // This is a test. I think it may make more sense to have the UI update the store,
 // subscribe to those changes and then emit them to the server there.
+
 function setHp(current) {
-  console.log(50, current);
   const { data } = get(CharacterStore);
   client
     .service("characters")
     .update(data._id, { ...data, hitpoints: { ...data.hitpoints, current } });
+}
+
+function setOmens(current) {
+  const { data } = get(CharacterStore);
+  client
+    .service("characters")
+    .update(data._id, { ...data, omens: { ...data.omens, current } });
 }
 
 CharacterStore.subscribe((x, y, z) => console.log("subs", x, y, z));
@@ -66,4 +74,5 @@ CharacterStore.subscribe((x, y, z) => console.log("subs", x, y, z));
 export default {
   subscribe: CharacterStore.subscribe,
   setHp,
+  setOmens,
 };
