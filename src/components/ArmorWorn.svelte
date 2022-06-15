@@ -1,6 +1,6 @@
 <script>
   import RollButton from "./Buttons/RollButton.svelte";
-  import { isEmpty } from "ramda";
+  import { isEmpty, isNil } from "ramda";
   import { sign } from "../lib";
 
   export let armor = {};
@@ -17,7 +17,7 @@
   <div>
     <b>Armor:</b>
     {!isEmpty(armor) ? armor.name : "None"}
-    {!isEmpty(armor.effect) ? `(${armor.effect.description})` : ""}
+    {!isNil(armor.effect) ? `(${armor.effect.description})` : ""}
   </div>
   <div>
     Defense: <RollButton diceString="1d20{sign(agility)}" />

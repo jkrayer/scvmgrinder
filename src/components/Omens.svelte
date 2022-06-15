@@ -7,18 +7,20 @@
 
   let visible = false;
 
-  const toggle = () => (visible = !visible);
+  const open = () => (visible = true);
+  const close = () => (visible = false);
+
   const handleUse = () => {
     onSet(current - 1);
-    toggle();
+    close();
   };
 </script>
 
 <div>
-  <button type="button" disabled={current === 0} on:click={toggle}>
+  <button type="button" disabled={current === 0} on:click={open}>
     Omens: ({die}/day); current ({current})
   </button>
-  <Modal {visible} onClose={toggle}>
+  <Modal {visible} onClose={close}>
     <p>Use omens to:</p>
     <ul>
       <li>deal maximum damage with one attack</li>
@@ -28,7 +30,7 @@
       <li>lower one test by DR -4</li>
     </ul>
     <div>
-      <button type="button" on:click={toggle}>Cancel</button>
+      <button type="button" on:click={close}>Cancel</button>
       <button type="button" on:click={handleUse}>Use</button>
     </div>
   </Modal>

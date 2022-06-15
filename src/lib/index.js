@@ -157,12 +157,12 @@ export const sign = (num) => {
   }
 };
 
-export const hasScrolls = compose(
-  gt(__, 0),
-  length,
-  filter(propSatisfies((type) => type === "scroll", "type")),
-  getEq
-);
+// export const hasScrolls = compose(
+//   gt(__, 0),
+//   length,
+//   filter(propSatisfies((type) => type === "scroll", "type")),
+//   getEq
+// );
 
 export const hasPowers = propSatisfies(compose(not, isNil), "powers");
 
@@ -176,5 +176,10 @@ export const getArmor = compose(
     (acc, eq) => (equippedArmor(eq) ? { ...acc, [eq.type]: eq } : acc),
     {}
   ),
+  getEq
+);
+
+export const getScrolls = compose(
+  filter(propSatisfies((type) => type === "scroll", "type")),
   getEq
 );

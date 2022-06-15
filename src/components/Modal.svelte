@@ -2,15 +2,23 @@
   export let visible = true;
   export let onClose = () => {};
 
-  $: visible
-    ? (document.body.style.overflow = "hidden")
-    : (document.body.style.overflow = "auto");
+  const escapeHandler = (e) => (e.key === "Escape" ? onClose() : null);
+
+  $: {
+    if (visible) {
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keyup", escapeHandler);
+    } else {
+      document.body.style.overflow = "auto";
+      document.removeEventListener("keyup", escapeHandler);
+    }
+  }
 </script>
 
 {#if visible}
   <div id="modal-overlay">
     <div id="modal-content">
-      <button type="button" id="modal-close" onClick={onClose}>&times;</button>
+      <button type="button" id="modal-close" on:click={onClose}>&times;</button>
       <slot>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

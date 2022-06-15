@@ -5,9 +5,8 @@
 
   let num = 0;
 
-  const handleSubmit = (e) => {
-    const hp = num < 0 ? num + current : Math.min(maximum, current + num);
-    onSet(hp);
+  const handleSubmit = () => {
+    onSet(num);
     num = 0;
   };
 </script>

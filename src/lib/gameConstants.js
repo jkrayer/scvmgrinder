@@ -14,6 +14,15 @@ export const DIFFICULTY_RATING = {
   18: "should not be possible",
 };
 
+export const DIZZY = {
+  name: "Dizzy",
+  description:
+    "You are dizzy For the next hour. During this time, Powers will always fail in the worst possible way.",
+  // 60 minutes in milliseconds
+  duration: 60 * 60 * 1000,
+  // stub of an idea about there being some sort of gamne time timer the DM can advance
+};
+
 // EFFECT MODEL
 const effect = {
   description: "DR +2 on Agility tests including defence",
