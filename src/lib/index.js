@@ -167,7 +167,7 @@ export const sign = (num) => {
 export const hasPowers = propSatisfies(compose(not, isNil), "powers");
 
 export const getWeapons = compose(
-  filter(propSatisfies((type) => type === "weapon", "type")),
+  filter(({ type, equipped }) => type === "weapon" && equipped === true),
   getEq
 );
 

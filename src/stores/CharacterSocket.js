@@ -103,6 +103,43 @@ function setStatus(newStatus) {
     .update(data._id, { ...data, status: [...status, newStatus] });
 }
 
+function trashEquipment(index) {
+  const { data } = get(CharacterStore);
+  const { equipment } = data;
+  equipment.splice(index, 1);
+
+  client.service("characters").update(data._id, {
+    ...data,
+    equipment,
+  });
+}
+
+function decrementEquipment(index) {
+  const { data } = get(CharacterStore);
+  const { equipment } = data;
+  equipment[index].quantity--;
+
+  if (equipment[index].quantity === 0) {
+    trashEquipment(index);
+  } else {
+    client.service("characters").update(data._id, {
+      ...data,
+      equipment,
+    });
+  }
+}
+
+function toggleEquipment(index) {
+  const { data } = get(CharacterStore);
+  const { equipment } = data;
+  equipment[index].equipped = !equipment[index].equipped;
+
+  client.service("characters").update(data._id, {
+    ...data,
+    equipment,
+  });
+}
+
 CharacterStore.subscribe((x, y, z) => console.log("subs", x, y, z));
 
 export default {
@@ -111,4 +148,7 @@ export default {
   setOmens,
   useScroll,
   setStatus,
+  trashEquipment,
+  decrementEquipment,
+  toggleEquipment,
 };

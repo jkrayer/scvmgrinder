@@ -1,8 +1,9 @@
 <script>
   import Character from "../../stores/CharacterSocket";
   import Header from "./Header.svelte";
-  import HitPoints from "../HitPoints.svelte";
   import Scores from "./Scores.svelte";
+  import Equipment from "./Equipment.svelte";
+  import HitPoints from "../HitPoints.svelte";
   import Weapons from "../WeaponsCarried.svelte";
   import Armor from "../ArmorWorn.svelte";
   import Powers from "../Powers.svelte";
@@ -51,13 +52,7 @@
       {/if}
       <Omens {...character.omens} onSet={Character.setOmens} />
     </div>
-    <h2>Equipment</h2>
-    <ul>
-      {#each character.equipment as e}
-        <li>{e.name || e}</li>
-      {/each}
-      <li>Silver: {character.silver}</li>
-    </ul>
+    <Equipment equipment={character.equipment} silver={character.silver} />
     <div>
       <h2>Class Abilities</h2>
       {@html character.class.abilities}
