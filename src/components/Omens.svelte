@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
   import Modal from "./Modal.svelte";
 
-  export let current = 0;
-  export let die = 4;
-  export let onSet = () => {};
+  export let current: number = 0;
+  export let die: number = 4;
+  export let onSet: (arg1: number) => void = () => {};
 
-  let visible = false;
+  let visible: boolean = false;
 
-  const open = () => (visible = true);
-  const close = () => (visible = false);
+  const open: () => void = () => (visible = true);
+  const close: () => void = () => (visible = false);
 
   const handleUse = () => {
     onSet(current - 1);

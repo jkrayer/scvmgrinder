@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from "svelte";
   import CharacterSheet from "./components/CharacterSheet/CharacterSheet.svelte";
   import game from "./stores/Campaign";
