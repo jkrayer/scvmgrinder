@@ -53,6 +53,14 @@
       {/if}
       <Omens {...character.omens} onSet={Character.setOmens} />
     </div>
+    {#if character.status.length > 0}
+      <h2>Status</h2>
+      <ul>
+        {#each character.status as status}
+          <li><b>{status.name}</b> {status.description}</li>
+        {/each}
+      </ul>
+    {/if}
     <Equipment equipment={character.equipment} silver={character.silver} />
     <div>
       <h2>Class Abilities</h2>

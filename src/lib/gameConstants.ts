@@ -30,4 +30,8 @@ export const DIZZY: Status = {
 export const ENCUMBERED: Status = {
   name: "Encumbered",
   description: "Strength + 8 items or DR+2 on Agility/Strength tests",
+  tests: {
+    agility: 2,
+    strength: 2,
+  },
 };
