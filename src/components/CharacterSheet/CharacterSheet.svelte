@@ -24,6 +24,7 @@
   // let canUsePowers = false;
 
   Character.subscribe((data) => {
+    console.log(27, data);
     loading = data.loading;
     character = data.character;
     weapons = getWeapons(data.character);
@@ -31,8 +32,6 @@
     scrolls = getScrolls(data.character);
     // canUsePowers = hasScrolls(data.data);
   });
-
-  $: console.log(35, character);
 </script>
 
 <!-- 24vw -->

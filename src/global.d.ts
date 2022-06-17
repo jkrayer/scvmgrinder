@@ -32,6 +32,11 @@ export type Status = {
   duration: number; // ms
 };
 
+type Effect = {
+  description: string;
+  tests: Partial<Tests>;
+};
+
 type CommonEquipmentProps = {
   equipped?: boolean;
   name: string;
@@ -46,8 +51,9 @@ export type Scroll = CommonEquipmentProps & {
 };
 
 type Armor = CommonEquipmentProps & {
-  type: "armor";
+  effect?: Effect;
   tier: CurrentMax;
+  type: "armor";
 };
 
 type Weapon = CommonEquipmentProps & {

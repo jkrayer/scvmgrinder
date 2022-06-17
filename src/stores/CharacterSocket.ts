@@ -1,8 +1,10 @@
 import { writable, get } from "svelte/store";
-import type { Equipment, Scroll, TCharacter } from "../global";
 import client from "./Socket";
+import type { Equipment, Scroll, TCharacter, Tests } from "../global";
+import { getTestModifiers } from "../lib/gameData";
 
 const CharacterStore = writable<{
+  testModifiers?: Tests;
   character?: TCharacter;
   loading: boolean;
   error?: string;
@@ -16,12 +18,13 @@ const main = async () => {
   try {
     const character: TCharacter = await client
       .service("characters")
-      .get("JEx2BC6COHdTEKMC");
+      .get("UTetg6vHrvwG2o19");
     // Katla:UTetg6vHrvwG2o19
     // Brinta:JEx2BC6COHdTEKMC
     // Might need to get by userId and Campaingid
     // .find({ query: { campaignId: "e9lQv3ZyOxnPKyrK" } });
     CharacterStore.set({
+      testModifiers: getTestModifiers(character),
       character,
       loading: false,
       error: null,
@@ -37,6 +40,7 @@ const main = async () => {
   // Add any newly created message to the list in real-time
   client.service("characters").on("updated", (character: TCharacter) => {
     CharacterStore.set({
+      testModifiers: getTestModifiers(character),
       character,
       loading: false,
       error: null,
@@ -129,9 +133,6 @@ function toggleEquipment(index: number) {
     equipment,
   });
 }
-
-// @ts-ignore
-CharacterStore.subscribe((x, y, z) => console.log("subs", x, y, z));
 
 export default {
   subscribe: CharacterStore.subscribe,

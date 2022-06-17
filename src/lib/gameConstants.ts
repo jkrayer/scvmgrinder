@@ -23,9 +23,3 @@ export const DIZZY: Status = {
   duration: 60 * 60 * 1000,
   // stub of an idea about there being some sort of gamne time timer the DM can advance
 };
-
-// EFFECT MODEL
-const effect = {
-  description: "DR +2 on Agility tests including defence",
-  tests: { agility: 2, defense: 2 },
-};
