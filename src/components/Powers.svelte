@@ -18,7 +18,7 @@
   const handleRoll = (scroll) => (rolled) => {
     if (rolled >= 12) {
       alert(`${rolled} Success!`);
-      Character.useScroll(current - 1, scroll);
+      Character.useScroll(scroll);
       close();
     } else {
       alert(`${rolled} Failure!\n${DIZZY.description}`);

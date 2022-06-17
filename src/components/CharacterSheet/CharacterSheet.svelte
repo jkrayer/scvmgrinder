@@ -25,12 +25,14 @@
 
   Character.subscribe((data) => {
     loading = data.loading;
-    character = data.data;
-    weapons = getWeapons(data.data);
-    armor = getArmor(data.data);
-    scrolls = getScrolls(data.data);
+    character = data.character;
+    weapons = getWeapons(data.character);
+    armor = getArmor(data.character);
+    scrolls = getScrolls(data.character);
     // canUsePowers = hasScrolls(data.data);
   });
+
+  $: console.log(35, character);
 </script>
 
 <!-- 24vw -->
@@ -46,7 +48,7 @@
       {#if hasPowers(character)}
         <Powers
           {scrolls}
-          {...character.powers}
+          current={character.powers}
           presence={character.abilities.presence}
         />
       {/if}

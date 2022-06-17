@@ -1,7 +1,8 @@
-export const TESTS = Object.freeze({
-  MELEE: 12,
-  RANGED: 12,
-  DEFENSE: 12,
+import type { Status, Tests } from "../global";
+
+export const TESTS: Partial<Tests> = Object.freeze({
+  attack: 12,
+  defense: 12,
 });
 
 export const DIFFICULTY_RATING = {
@@ -14,7 +15,7 @@ export const DIFFICULTY_RATING = {
   18: "should not be possible",
 };
 
-export const DIZZY = {
+export const DIZZY: Status = {
   name: "Dizzy",
   description:
     "You are dizzy For the next hour. During this time, Powers will always fail in the worst possible way.",
