@@ -18,13 +18,13 @@
         <div>
           <b>{eq.name}</b>
           {eq.description || ""}
-          {#if eq.weight < 100}
+          {#if eq.quantity !== undefined}
             ({eq.quantity})
           {/if}
         </div>
       {/if}
       <div>
-        {#if eq.weight < 100}
+        {#if eq.quantity !== undefined}
           <button
             type="button"
             on:click={() => Character.decrementEquipment(index)}

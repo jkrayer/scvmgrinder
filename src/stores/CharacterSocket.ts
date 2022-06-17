@@ -1,7 +1,8 @@
 import { writable, get } from "svelte/store";
 import client from "./Socket";
 import type { Equipment, Scroll, TCharacter, Tests } from "../global";
-import { getTestModifiers } from "../lib/gameData";
+import { ENCUMBERED } from "../lib/gameConstants";
+import { getTestModifiers, isEncumbered } from "../lib/gameData";
 
 const CharacterStore = writable<{
   testModifiers?: Tests;
@@ -18,9 +19,13 @@ const main = async () => {
   try {
     const character: TCharacter = await client
       .service("characters")
-      .get("UTetg6vHrvwG2o19");
+      .get("F7bATPIJ558NwzOu");
     // Katla:UTetg6vHrvwG2o19
     // Brinta:JEx2BC6COHdTEKMC
+    // Wemut:cQ65cmnnFbuEMEDJ
+    // Klort: HxKImT8kJwc4xGC6
+    // Torn: t8xKi3fBbOtlsbBb
+    // Vatan: F7bATPIJ558NwzOu
     // Might need to get by userId and Campaingid
     // .find({ query: { campaignId: "e9lQv3ZyOxnPKyrK" } });
     CharacterStore.set({
@@ -98,11 +103,17 @@ function setStatus(newStatus) {
 
 function trashEquipment(index: number) {
   const { character } = get(CharacterStore);
-  const { equipment } = character;
+  const { equipment, status = [] } = character;
   equipment.splice(index, 1);
+
+  const s = [
+    ...status,
+    isEncumbered(equipment, character.abilities.strength) ? ENCUMBERED : null,
+  ];
 
   client.service("characters").update(character._id, {
     ...character,
+    status: s.filter((stat) => stat !== null),
     equipment,
   });
 }

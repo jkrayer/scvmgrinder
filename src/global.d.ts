@@ -29,7 +29,7 @@ export type Tests = {
 export type Status = {
   name: string;
   description: string;
-  duration: number; // ms
+  duration?: number; // ms
 };
 
 type Effect = {
@@ -47,6 +47,10 @@ type CommonEquipmentProps = {
 export type Scroll = CommonEquipmentProps & {
   type: "scroll";
   subType: "unclean" | "sacred";
+  description: string;
+};
+
+type Potion = CommonEquipmentProps & {
   description: string;
 };
 
@@ -73,7 +77,7 @@ type Food = CommonEquipmentProps & {
   description: string;
 };
 
-export type Equipment = Scroll | Armor | Weapon | Ammunition | Food;
+export type Equipment = Scroll | Armor | Weapon | Ammunition | Food | Potion;
 type StatusTypes = Status | Scroll;
 
 export type TCharacter = {

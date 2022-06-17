@@ -15,6 +15,9 @@ export const DIFFICULTY_RATING = {
   18: "should not be possible",
 };
 
+export const BASE_ENCUMBRANCE = 8;
+
+// STATUSES
 export const DIZZY: Status = {
   name: "Dizzy",
   description:
@@ -22,4 +25,9 @@ export const DIZZY: Status = {
   // 60 minutes in milliseconds
   duration: 60 * 60 * 1000,
   // stub of an idea about there being some sort of gamne time timer the DM can advance
+};
+
+export const ENCUMBERED: Status = {
+  name: "Encumbered",
+  description: "Strength + 8 items or DR+2 on Agility/Strength tests",
 };
