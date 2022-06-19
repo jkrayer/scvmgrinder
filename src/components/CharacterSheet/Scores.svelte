@@ -1,4 +1,5 @@
-<script>
+<script type="ts">
+  import MessageStore from "../MessageService/MessageStore";
   import RollButton from "../Buttons/RollButton.svelte";
   import { sign } from "../../lib";
 
@@ -8,12 +9,30 @@
     presence: 0,
     toughness: 0,
   };
-  // export let tests = {
-  //   strength: 0,
-  //   agility: 0,
-  //   presence: 0,
-  //   toughness: 0,
-  // };
+
+  const strengthTest = `1d20${sign(scores.strength)}`;
+  const agilityTest = `1d20${sign(scores.agility)}`;
+  const presenceTest = `1d20${sign(scores.presence)}`;
+  const toughnessTest = `1d20${sign(scores.toughness)}`;
+
+  const handleTest =
+    (
+      rollFormula: string,
+      target: "Strength" | "Agility" | "Presence" | "Toughness"
+    ) =>
+    (roll: number) => {
+      MessageStore.send({
+        campaignId: "e9lQv3ZyOxnPKyrK",
+        characterId: "F7bATPIJ558NwzOu",
+        message: {
+          name: "Vatan",
+          rollType: "Test",
+          roll,
+          rollFormula,
+          target,
+        },
+      });
+    };
 </script>
 
 <table class="score-table">
@@ -34,11 +53,29 @@
     </tr>
     <tr>
       <td>
-        <RollButton diceString="1d20{sign(scores.strength)}" />
+        <RollButton
+          diceString={strengthTest}
+          onRoll={handleTest(strengthTest, "Strength")}
+        />
       </td>
-      <td><RollButton diceString="1d20{sign(scores.agility)}" /></td>
-      <td><RollButton diceString="1d20{sign(scores.presence)}" /></td>
-      <td><RollButton diceString="1d20{sign(scores.toughness)}" /></td>
+      <td
+        ><RollButton
+          diceString={agilityTest}
+          onRoll={handleTest(agilityTest, "Agility")}
+        /></td
+      >
+      <td
+        ><RollButton
+          diceString={presenceTest}
+          onRoll={handleTest(presenceTest, "Presence")}
+        /></td
+      >
+      <td
+        ><RollButton
+          diceString={toughnessTest}
+          onRoll={handleTest(toughnessTest, "Toughness")}
+        /></td
+      >
     </tr>
   </tbody>
 </table>

@@ -37,6 +37,7 @@
   };
 </script>
 
+<!-- TODO: Scrolls will never work when wielding zweihand weapons or medium/heavy armor. -->
 <div>
   <button type="button" {disabled} on:click={open}>
     Powers: (1d4{sign(presence)}/day); current ({current})

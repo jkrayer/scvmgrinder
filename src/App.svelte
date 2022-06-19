@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import CharacterSheet from "./components/CharacterSheet/CharacterSheet.svelte";
+  import MessageComponent from "./components/MessageService/MessageComponent.svelte";
+  import Messages from "./components/MessageService/MessageComponent.svelte";
   import game from "./stores/Campaign";
 
   let campaignData = {};
@@ -23,6 +25,7 @@
   {:else} -->
   <div id="stage">
     <CharacterSheet />
+    <MessageComponent />
   </div>
   <!-- {/if} -->
 </main>

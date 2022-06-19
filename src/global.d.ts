@@ -1,6 +1,8 @@
 /// <reference types="svelte" />
 
-type Abilities = {
+// ***** Character Types *****
+
+export type Abilities = {
   agility: number;
   presence: number;
   strength: number;
@@ -61,7 +63,7 @@ type Armor = CommonEquipmentProps & {
   type: "armor";
 };
 
-type Weapon = CommonEquipmentProps & {
+export type Weapon = CommonEquipmentProps & {
   damageDie: string;
   type: "weapon";
   subType: "melee" | "ranged";
@@ -95,4 +97,18 @@ export type TCharacter = {
   powers: null | number;
   equipment: Equipment[];
   status: StatusTypes[];
+};
+
+// ***** Message Types *****
+
+type Message = {
+  campaignId: string; // room
+  characterId: string; // sender
+  message: {
+    name: string;
+    rollType: "To Hit" | "Damage" | "Test";
+    roll: number;
+    rollFormula: string;
+    target: string;
+  };
 };
