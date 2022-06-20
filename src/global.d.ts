@@ -41,10 +41,11 @@ type Effect = {
 };
 
 type CommonEquipmentProps = {
-  equipped?: boolean;
   name: string;
+  description?: string;
+  equipped?: boolean;
   quantity?: number;
-  weight: number;
+  weight?: number;
 };
 
 export type Scroll = CommonEquipmentProps & {
@@ -67,6 +68,7 @@ export type Weapon = CommonEquipmentProps & {
   damageDie: string;
   type: "weapon";
   subType: "melee" | "ranged";
+  special?: string;
 };
 
 type Ammunition = CommonEquipmentProps & {
@@ -80,7 +82,19 @@ type Food = CommonEquipmentProps & {
   description: string;
 };
 
-export type Equipment = Scroll | Armor | Weapon | Ammunition | Food | Potion;
+type StandardEquipment = CommonEquipmentProps & {
+  type: "equipment";
+};
+
+export type Equipment =
+  | Scroll
+  | Armor
+  | Weapon
+  | Ammunition
+  | Food
+  | Potion
+  | StandardEquipment;
+
 export type StatusTypes = Status | Scroll;
 
 export type TCharacter = {
@@ -112,4 +126,84 @@ type Message = {
     rollFormula: string;
     target: string;
   };
+};
+
+// ***** Monster Types *****
+type Monster = {
+  name: string;
+  description?: string;
+  hp: number;
+  morale: number;
+  special?: string;
+  armor: null | Armor;
+  weapons: Weapon[];
+};
+
+// ***** Treasure Types *****
+
+type Treasure = {
+  silver: number;
+  items: Equipment[];
+};
+
+// ***** Campaign Types *****
+
+export type Campaign = {
+  _id: string;
+  description: string;
+  miseries: string[];
+  name: string;
+  system: string;
+};
+
+// ***** Handout Types *****
+
+type ImageHandout = {
+  name: string;
+  type: "image";
+  src: string;
+};
+
+// type TextHandout = {
+//   name: string;
+//   type: "text";
+//   body: string;
+// };
+
+export type Handout = ImageHandout; //| TextHandout;
+
+// ***** Map Types *****
+
+type Map = {
+  name: string;
+  src: string;
+};
+
+// ***** Encounter Types *****
+
+type Encounter = {
+  name: string;
+  description: string;
+  table?: any[]; // Not sure what I'm doing with this
+  treasure?: Treasure;
+  encounter?: {
+    number?: number;
+    roll?: string;
+    monster: Monster;
+  };
+};
+
+// ***** Adventure Types *****
+
+export type Adventure = {
+  name: string;
+  poster: string;
+  backgroundColor: string;
+  handouts: Handout[];
+  tables: any[]; // Not sure what I'm doing with this
+  maps: {
+    player: Map[];
+    dm: Map[];
+  };
+  encounters: Encounter[];
 };

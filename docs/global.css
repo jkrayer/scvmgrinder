@@ -152,14 +152,17 @@ table > tbody > tr > td:first-of-type {
 .stage-column {
   flex-basis: 25%;
   display: flex;
+  max-height: calc(100vh - 2rem);
   padding: var(--padding);
 }
 
 .stage-column_campaign {
+  position: relative;
   flex-basis: 75%;
 }
 
 #global-header {
+  position: relative;
   padding: var(--small-padding);
   text-align: center;
 }

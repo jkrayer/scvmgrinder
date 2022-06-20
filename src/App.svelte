@@ -1,28 +1,19 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import Header from "./components/Header.svelte";
   import CharacterSheet from "./components/CharacterSheet/CharacterSheet.svelte";
+  import AdventurePanel from "./components/AdventurePanel/AdventurePanel.svelte";
   import MessageComponent from "./components/MessageService/MessageComponent.svelte";
-  import game from "./stores/Campaign";
-
-  let campaignData = {};
-
-  onMount(() => {
-    game.subscribe((data) => {
-      console.log("getting data", data);
-      campaignData = data;
-    });
-  });
 </script>
 
 <main id="app">
-  <header id="global-header" class="theme-magenta row row-polar">
-    <h1>SCVUMGRINDER</h1>
-  </header>
+  <Header />
   <div id="stage">
     <div class="stage-column">
       <CharacterSheet />
     </div>
-    <div class="stage-column stage-column_campaign" />
+    <div class="stage-column stage-column_campaign">
+      <AdventurePanel />
+    </div>
     <MessageComponent />
   </div>
   <footer id="global-footer" class="theme-black">

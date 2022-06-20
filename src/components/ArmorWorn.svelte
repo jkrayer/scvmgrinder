@@ -14,8 +14,6 @@
   const handleToggle = () => (toggle = !toggle);
   const handleTierClick = () => {};
   const roll = () => {};
-
-  $: console.log(15, armor, shield, agility);
 </script>
 
 <h4>Armor Worn</h4>
