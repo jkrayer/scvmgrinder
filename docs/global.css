@@ -12,8 +12,9 @@
 */
 
 :root {
-  --small-padding: 0.5em;
-  --tiny-padding: 0.25em;
+  --tiny-padding: 0.25rem;
+  --small-padding: 0.5rem;
+  --padding: 1rem;
   --sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   --serif: Athelas, Cambria, serif;
@@ -132,39 +133,41 @@ table > tbody > tr > td:first-of-type {
 }
 
 #app {
-  /* box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end; */
+  flex-direction: column;
 }
 
 #stage {
-  box-sizing: border-box;
-  /* flex-grow: 1; */
-  /* padding: 1rem; */
+  flex-grow: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-evenly;
 }
 
-/* @media screen and (min-width: 520px) {
-  #stage {
-    margin-left: 4rem;
-  }
-} */
+.stage-column {
+  flex-basis: 25%;
+  display: flex;
+  padding: var(--padding);
+}
+
+.stage-column_campaign {
+  flex-basis: 75%;
+}
 
 #global-header {
-  padding: var(--tiny-padding) var(--small-padding);
+  padding: var(--small-padding);
   text-align: center;
 }
 
 #global-header > h1 {
-  font: 700 0.875em/1 var(--serif);
-  letter-spacing: 1em;
-}
-
-@media screen and (min-width: 375px) {
-  #global-header > h1 {
-    margin: 0;
-    font-size: 1em;
-  }
+  margin: 0;
+  font: 700 1rem/1 var(--serif);
+  letter-spacing: 0.5em;
 }
 
 #global-footer {

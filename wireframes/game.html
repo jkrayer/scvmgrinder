@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../docs/global.css" />
+    <style>
+      #app {
+        background-color: aliceblue;
+      }
+
+      #stage {
+        background-color: blue;
+      }
+      .stage-column {
+        background-color: aqua;
+      }
+      .stage-column_campaign {
+        background-color: brown;
+      }
+      .charactersheet,
+      .camp-data {
+        flex-grow: 1;
+        background-color: azure;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app">
+      <header id="global-header" class="theme-magenta row row-polar">
+        <h1>SCVUMGRINDER</h1>
+      </header>
+      <div id="stage">
+        <div class="stage-column">
+          <div class="charactersheet"></div>
+        </div>
+        <div class="stage-column stage-column_campaign">
+          <div class="camp-data"></div>
+        </div>
+      </div>
+
+      <!-- <footer id="global-footer" class="theme-black">
+        <p>
+          Scvmgrinder is an independent production by James Krayer and is not
+          affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is
+          published under the MÖRK BORG Third Party License.
+        </p>
+        <p>
+          MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
+        </p>
+        <p>
+          <a href="https://github.com/jkrayer/scvmgrinder">GitHub</a> |
+          <a href="https://morkborg.com/">MÖRK BORG</a>
+        </p>
+      </footer> -->
+    </main>
+  </body>
+</html>

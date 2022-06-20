@@ -1,5 +1,5 @@
 <script>
-  import Character from "../stores/CharacterSocket";
+  import Character from "../stores/Character";
   import Modal from "./Modal.svelte";
   import RollButton from "./Buttons/RollButton.svelte";
   import { sign, roll } from "../lib";

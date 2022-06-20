@@ -2,9 +2,11 @@ import { writable, get } from "svelte/store";
 import client from "../../stores/Socket";
 import type { Message } from "../../global";
 
-const MessageStore = writable<{
+type TMessageStore = {
   messages: Message[];
-}>({
+};
+
+const MessageStore = writable<TMessageStore>({
   messages: [],
 });
 
@@ -12,7 +14,13 @@ const main = async () => {
   try {
     const { data }: { data: Message[] } = await client
       .service("messages")
-      .find({ query: { campaignId: "e9lQv3ZyOxnPKyrK", $limit: 3 } });
+      .find({
+        query: {
+          campaignId: "e9lQv3ZyOxnPKyrK",
+          $limit: 3,
+          $sort: { createdAt: -1 },
+        },
+      });
 
     MessageStore.set({
       messages: data,
@@ -34,8 +42,17 @@ const main = async () => {
 main();
 
 const send = (message: Message) => client.service("messages").create(message);
+const hide = (id: string) =>
+  MessageStore.update(({ messages }: TMessageStore) => {
+    return {
+      messages: messages.filter(
+        (message: Message): boolean => message._id !== id
+      ),
+    };
+  });
 
 export default {
   subscribe: MessageStore.subscribe,
   send,
+  hide,
 };

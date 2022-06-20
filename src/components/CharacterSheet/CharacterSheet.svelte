@@ -1,5 +1,5 @@
 <script>
-  import Character from "../../stores/CharacterSocket";
+  import Character from "../../stores/Character";
   import Header from "./Header.svelte";
   import Scores from "./Scores.svelte";
   import Equipment from "./Equipment.svelte";
@@ -36,7 +36,7 @@
 
 <!-- 24vw -->
 {#if !loading}
-  <article style="width:460px;">
+  <article>
     <Header name={character.name} className={character.class.name}>
       <HitPoints {...character.hitpoints} onSet={Character.updateHp} />
     </Header>

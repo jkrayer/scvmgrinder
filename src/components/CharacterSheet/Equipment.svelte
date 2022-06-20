@@ -1,6 +1,6 @@
 <script>
   import { has } from "ramda";
-  import Character from "../../stores/CharacterSocket";
+  import Character from "../../stores/Character";
   // TODO: Need state mechanism to handle the effect of being encumbered and max items carried
   export let equipment = [];
   export let silver = 0;

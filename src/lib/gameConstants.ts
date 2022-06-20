@@ -35,3 +35,5 @@ export const ENCUMBERED: Status = {
     strength: 2,
   },
 };
+
+// export const INFECTED: Status = {}

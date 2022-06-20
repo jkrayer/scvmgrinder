@@ -14,8 +14,8 @@
 
 <div id="messages">
   {#each messages as message, index}
-    {#if index === 0}
-      <div class="message-body">
+    {#if index === 0 && message.hidden !== true}
+      <div class="message-body" on:click={() => Messages.hide(message._id)}>
         <div class="message-body-title">
           <span>{message.message.name}:</span>
           <span
@@ -33,8 +33,8 @@
 
         <div class="message-body-target">{message.message.target}: Hit!</div>
       </div>
-    {:else}
-      <div class="message-body">
+    {:else if message.hidden !== true}
+      <div class="message-body" on:click={() => Messages.hide(message._id)}>
         <div class="message-body-title">
           <span>{message.message.name}:</span>
           {message.message.roll}
@@ -50,6 +50,7 @@
     position: fixed;
     right: 1rem;
     bottom: 1rem;
+    z-index: 1;
     display: flex;
     flex-direction: column-reverse;
   }

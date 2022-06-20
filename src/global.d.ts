@@ -102,6 +102,7 @@ export type TCharacter = {
 // ***** Message Types *****
 
 type Message = {
+  _id: string;
   campaignId: string; // room
   characterId: string; // sender
   message: {
