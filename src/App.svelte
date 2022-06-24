@@ -1,8 +1,9 @@
 <script lang="ts">
   import Header from "./components/Header.svelte";
   import CharacterSheet from "./components/CharacterSheet/CharacterSheet.svelte";
-  import AdventurePanel from "./components/AdventurePanel/AdventurePanel.svelte";
   import MessageComponent from "./components/MessageService/MessageComponent.svelte";
+  import AdventurePanel from "./components/AdventurePanel/AdventurePanel.svelte";
+  import CombatTracker from "./components/CombatTracker/CombatTracker.svelte";
 </script>
 
 <main id="app">
@@ -12,6 +13,7 @@
       <CharacterSheet />
     </div>
     <div class="stage-column stage-column_campaign">
+      <CombatTracker />
       <AdventurePanel />
     </div>
     <MessageComponent />

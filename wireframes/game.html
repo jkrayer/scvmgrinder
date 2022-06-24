@@ -23,7 +23,31 @@
       .charactersheet,
       .camp-data {
         flex-grow: 1;
+        display: flex;
         background-color: azure;
+      }
+
+      #tracker {
+        background-color: lightcyan;
+      }
+
+      /* I'm thinking this is either a show on hover or a global on/off setting */
+      .indicator-bar {
+        position: absolute;
+        top: 0;
+
+        bottom: 0;
+        left: -20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+      }
+      .indicator-bar > i {
+        display: block;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: blanchedalmond;
       }
     </style>
   </head>
@@ -37,7 +61,67 @@
           <div class="charactersheet"></div>
         </div>
         <div class="stage-column stage-column_campaign">
-          <div class="camp-data"></div>
+          <div class="camp-data">
+            <div id="tracker">
+              <button type="button">Init</button>
+              <div class="tracker-item ally">
+                <image
+                  src=""
+                  class="tracker-item-portrait"
+                  alt="Ally Name"
+                  width="48"
+                  height="48"
+                />
+                <div class="health-bar">
+                  <div class="health-bar_currant"></div>
+                </div>
+                <div class="indicator-bar">
+                  <!-- Or perhaps a radio -->
+                  <i title="turn taken"></i>
+                  <i title="status list"></i>
+                </div>
+              </div>
+              <div class="tracker-item ally">
+                <image
+                  src=""
+                  class="tracker-item-portrait"
+                  alt="Ally Name"
+                  width="48"
+                  height="48"
+                />
+                <div class="health-bar">
+                  <div class="health-bar_currant"></div>
+                </div>
+              </div>
+              <div class="tracker-item ally">
+                <image
+                  src=""
+                  class="tracker-item-portrait"
+                  alt="Ally Name"
+                  width="48"
+                  height="48"
+                />
+                <div class="health-bar">
+                  <div class="health-bar_currant"></div>
+                </div>
+              </div>
+              <!-- Need a deorative thing -->
+              <hr />
+              <div class="tracker-item enemy">
+                <image
+                  src=""
+                  class="tracker-item-portrait"
+                  alt="Enemy Name"
+                  width="48"
+                  height="48"
+                />
+                <div class="health-bar" style="width: 27%">
+                  <div class="health-bar_currant"></div>
+                </div>
+              </div>
+            </div>
+            <div></div>
+          </div>
         </div>
       </div>
 

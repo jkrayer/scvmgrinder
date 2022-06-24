@@ -2,6 +2,7 @@
   import { pathOr } from "ramda";
   import Game from "../stores/Campaign";
   import Modal from "./Modal.svelte";
+  import EncounterPanel from "./AdventurePanel/Encounter.svelte";
   import type { Handout, Encounter } from "../global";
 
   const getHandouts = pathOr([], ["adventure", "handouts"]);
@@ -73,9 +74,7 @@
     <img src={handOut.src} alt="" />
   </Modal>
   <Modal visible={encounter !== null} onClose={() => (encounter = null)}>
-    <textarea>
-      {JSON.stringify(encounter)}
-    </textarea>
+    <EncounterPanel {encounter} />
   </Modal>
 </header>
 

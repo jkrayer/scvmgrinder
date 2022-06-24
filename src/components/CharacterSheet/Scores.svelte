@@ -1,14 +1,17 @@
 <script type="ts">
+  import type { Abilities } from "../../global";
   import MessageStore from "../MessageService/MessageStore";
   import RollButton from "../Buttons/RollButton.svelte";
   import { sign } from "../../lib";
 
-  export let scores = {
+  export let scores: Abilities = {
     strength: 0,
     agility: 0,
     presence: 0,
     toughness: 0,
   };
+
+  let tests: any = {};
 
   const strengthTest = `1d20${sign(scores.strength)}`;
   const agilityTest = `1d20${sign(scores.agility)}`;

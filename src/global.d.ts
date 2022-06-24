@@ -139,21 +139,16 @@ type Monster = {
   weapons: Weapon[];
 };
 
+type TrackerMonster = Monster & {
+  _id: number;
+  hitpoints: CurrentMax;
+};
+
 // ***** Treasure Types *****
 
 type Treasure = {
   silver: number;
   items: Equipment[];
-};
-
-// ***** Campaign Types *****
-
-export type Campaign = {
-  _id: string;
-  description: string;
-  miseries: string[];
-  name: string;
-  system: string;
 };
 
 // ***** Handout Types *****
@@ -206,4 +201,29 @@ export type Adventure = {
     dm: Map[];
   };
   encounters: Encounter[];
+};
+
+// ***** Tracker *****
+export type TrackerSides = "players" | "monsters";
+
+export type TTrackerStore = {
+  players: TCharacter[];
+};
+
+export type TTrackerCmapaignData = {
+  firstSide: TrackerSides;
+  monsters: TrackerMonster[];
+};
+
+export type TTrackerData = TTrackerStore & TTrackerCmapaignData;
+
+// ***** Campaign Types *****
+
+export type Campaign = {
+  _id: string;
+  description: string;
+  miseries: string[];
+  name: string;
+  system: string;
+  trackerData: TTrackerCampaignData;
 };

@@ -7,8 +7,6 @@
   Game.subscribe((data) => {
     adventure = data.adventure;
   });
-
-  $: console.log("ADVPAN", adventure);
 </script>
 
 {#if adventure !== null}
@@ -20,12 +18,14 @@
 
 <style>
   #adventure-panel {
-    position: absolute;
+    /* position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
-    left: 0;
+    left: 0; */
+    flex-grow: 1;
     background-position: center;
     background-repeat: no-repeat;
+    background-size: contain;
   }
 </style>

@@ -4,6 +4,14 @@ import type { Equipment, Scroll, TCharacter, Tests } from "../global";
 import { ENCUMBERED } from "../lib/gameConstants";
 import { getTestModifiers, isEncumbered } from "../lib/gameData";
 
+const characterId = "F7bATPIJ558NwzOu";
+// Katla:UTetg6vHrvwG2o19
+// Brinta:JEx2BC6COHdTEKMC
+// Wemut:cQ65cmnnFbuEMEDJ
+// Klort: HxKImT8kJwc4xGC6
+// Torn: t8xKi3fBbOtlsbBb
+// Vatan: F7bATPIJ558NwzOu
+
 const CharacterStore = writable<{
   testModifiers?: Tests;
   character?: TCharacter;
@@ -19,15 +27,8 @@ const main = async () => {
   try {
     const character: TCharacter = await client
       .service("characters")
-      .get("F7bATPIJ558NwzOu");
-    // Katla:UTetg6vHrvwG2o19
-    // Brinta:JEx2BC6COHdTEKMC
-    // Wemut:cQ65cmnnFbuEMEDJ
-    // Klort: HxKImT8kJwc4xGC6
-    // Torn: t8xKi3fBbOtlsbBb
-    // Vatan: F7bATPIJ558NwzOu
-    // Might need to get by userId and Campaingid
-    // .find({ query: { campaignId: "e9lQv3ZyOxnPKyrK" } });
+      .get(characterId);
+
     CharacterStore.set({
       testModifiers: getTestModifiers(character),
       character,
@@ -44,12 +45,16 @@ const main = async () => {
 
   // Add any newly created message to the list in real-time
   client.service("characters").on("updated", (character: TCharacter) => {
-    CharacterStore.set({
-      testModifiers: getTestModifiers(character),
-      character,
-      loading: false,
-      error: null,
-    });
+    // Limit updates to self
+    // TODO: Consider Using Rest here chaging local automatically and emitting the change.
+    if (character._id === characterId) {
+      CharacterStore.set({
+        testModifiers: getTestModifiers(character),
+        character,
+        loading: false,
+        error: null,
+      });
+    }
   });
 };
 

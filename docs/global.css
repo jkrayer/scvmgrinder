@@ -159,6 +159,8 @@ table > tbody > tr > td:first-of-type {
 .stage-column_campaign {
   position: relative;
   flex-basis: 75%;
+  display: flex;
+  justify-content: stretch;
 }
 
 #global-header {
@@ -289,4 +291,47 @@ table > tbody > tr > td:first-of-type {
   font-size: 0.875em;
   font-style: oblique;
   font-weight: 500;
+}
+
+/* 8. Tracker */
+#tracker {
+  display: flex;
+  flex-direction: column;
+}
+
+.tracker-item {
+  position: relative;
+  width: 3.5rem;
+  height: 3.5rem;
+  box-sizing: border-box;
+  margin-bottom: 0.5rem;
+  border: 2px solid #ccc;
+}
+.tracker-item.ally {
+  border-color: cadetblue;
+}
+.tracker-item.enemy {
+  border-color: red;
+}
+
+.tracker-item-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  background-color: aqua;
+}
+.health-bar {
+  background-color: cadetblue;
+  height: 0.25rem;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.health-bar_currant {
+  height: 0.25rem;
+  width: 54px;
+  background: linear-gradient(90deg, red, yellow, green);
 }
