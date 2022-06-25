@@ -31,7 +31,8 @@
           </div>
         </div>
 
-        <div class="message-body-target">{message.message.target}: Hit!</div>
+        <div class="message-body-target">{message.message.target}</div>
+        <!-- : Hit! -->
       </div>
     {:else if message.hidden !== true}
       <div class="message-body" on:click={() => Messages.hide(message._id)}>

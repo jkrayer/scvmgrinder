@@ -1,7 +1,9 @@
 <script type="ts">
-  import type { TTrackerData, Campaign, TrackerMonster } from "../../global";
+  import type { TTrackerData } from "../../global";
   import CharactersStore from "../../stores/Characters";
-  import CampaignStore from "../../stores/Campaign";
+  import CampaignStore, { setSide } from "../../stores/Campaign";
+  import MessageStore from "../MessageService/MessageStore";
+  import { roll } from "../../lib";
   import TrackerItem from "./TrackerItem.svelte";
 
   const sides = {
@@ -20,7 +22,6 @@
   });
 
   CampaignStore.subscribe(({ campaign }) => {
-    console.log(23, "tracker", campaign);
     if (campaign !== null) {
       trackerItems.monsters = campaign.trackerData.monsters || [];
       trackerItems.firstSide = campaign.trackerData.firstSide || "players";
@@ -29,11 +30,38 @@
 
   $: firstSide = trackerItems.firstSide;
   $: secondSide = sides[firstSide];
-  $: console.log(31, trackerItems);
+
+  // HANDLERS
+  const handleRollInitiative = () => {
+    const result: number = roll(6);
+    let target: string = "";
+
+    if (result < 4) {
+      setSide("monsters");
+      target = "Monsters Go First!";
+    } else {
+      setSide("players");
+      target = "Players Go First!";
+    }
+
+    MessageStore.send({
+      campaignId: "e9lQv3ZyOxnPKyrK",
+      characterId: "F7bATPIJ558NwzOu",
+      message: {
+        name: "Initiative",
+        rollType: "Test",
+        roll: result,
+        rollFormula: "1d6",
+        target,
+      },
+    });
+
+    // TODO: check players and monsters for init effect
+  };
 </script>
 
 <div id="tracker">
-  <button type="button">Init</button>
+  <button type="button" on:click={handleRollInitiative}>Init</button>
   <ul class="trackerlist">
     {#each trackerItems[firstSide] as item (item)}
       {#key item._id}
@@ -41,6 +69,7 @@
       {/key}
     {/each}
   </ul>
+  <hr class="tracker-divider" />
   <ul class="trackerlist second-list">
     {#each trackerItems[secondSide] as item (item)}
       {#key item._id}
@@ -55,5 +84,12 @@
     padding: 0;
     margin: 0;
     list-style: none;
+  }
+
+  .tracker-divider {
+    width: 100%;
+    border-width: 2px;
+    margin-top: 0;
+    margin-bottom: var(--small-padding);
   }
 </style>

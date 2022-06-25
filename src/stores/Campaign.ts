@@ -1,6 +1,11 @@
 import { writable, get } from "svelte/store";
 import client from "./Socket";
-import type { Campaign, Adventure, TrackerMonster } from "../global";
+import type {
+  Campaign,
+  Adventure,
+  TrackerMonster,
+  TrackerSides,
+} from "../global";
 import shadowKing from "../data/the-shadow-kings-lost-heir";
 
 const SERVICE: string = "campaigns";
@@ -54,9 +59,23 @@ main();
 export default CampaignStore;
 
 export function addMonsters(monsters: TrackerMonster[]) {
+  const { campaign } = get(CampaignStore);
+
   client.service("campaigns").patch("e9lQv3ZyOxnPKyrK", {
     trackerData: {
+      ...campaign.trackerData,
       monsters,
+    },
+  });
+}
+
+export function setSide(firstSide: TrackerSides) {
+  const { campaign } = get(CampaignStore);
+
+  client.service("campaigns").patch("e9lQv3ZyOxnPKyrK", {
+    trackerData: {
+      ...campaign.trackerData,
+      firstSide,
     },
   });
 }

@@ -58,7 +58,7 @@ type Potion = CommonEquipmentProps & {
   description: string;
 };
 
-type Armor = CommonEquipmentProps & {
+export type Armor = CommonEquipmentProps & {
   effect?: Effect;
   tier: CurrentMax;
   type: "armor";
@@ -116,7 +116,8 @@ export type TCharacter = {
 // ***** Message Types *****
 
 type Message = {
-  _id: string;
+  _id?: string;
+  hidden?: boolean;
   campaignId: string; // room
   characterId: string; // sender
   message: {

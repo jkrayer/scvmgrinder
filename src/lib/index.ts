@@ -2,24 +2,24 @@ import {
   __,
   compose,
   filter,
-  gt,
   isNil,
-  length,
   not,
-  prop,
   props,
   propOr,
   propSatisfies,
   reduce,
 } from "ramda";
+import type { Armor, Equipment, Scroll, TCharacter, Weapon } from "../global";
 
 // DEBUGGING
-const trace = (msg) => (x) => {
-  console.log(msg, x);
-  return x;
-};
+const trace =
+  (msg: string) =>
+  (x: any): any => {
+    console.log(msg, x);
+    return x;
+  };
 
-export const roll = (d) => Math.floor(Math.random() * d) + 1;
+export const roll = (d: number): number => Math.floor(Math.random() * d) + 1;
 
 export const rollFormula = ([number, , die, operation, modifier]) => {
   let r = 0;
@@ -45,16 +45,20 @@ export const rollFormula = ([number, , die, operation, modifier]) => {
   return r;
 };
 
-export const toInt = (str) => parseInt(str, 10);
+export const toInt = (str: string): number => parseInt(str, 10);
 
-const toInboundsIndex = (num) => (num === -1 ? Infinity : num);
+const toInboundsIndex = (num: number): number => (num === -1 ? Infinity : num);
 
-const parseRollString = (rs) => {
+type PlusOrMinus = "+" | "-";
+type Roll = [number, "d", number];
+type RollWithMod = [number, "d", number, PlusOrMinus, number];
+
+const parseRollString = (rs: string): Roll | RollWithMod => {
   const dieIndex = rs.indexOf("d");
   let modIndex = toInboundsIndex(rs.search(/[-x\+]/));
   let modNext = modIndex + 1;
 
-  const roll = [
+  const roll: Roll = [
     toInt(rs.slice(0, dieIndex)),
     "d",
     toInt(rs.slice(dieIndex + 1, modIndex)),
@@ -62,19 +66,25 @@ const parseRollString = (rs) => {
 
   return modIndex === Infinity
     ? roll
-    : [...roll, rs.slice(modIndex, modNext), toInt(rs.slice(modNext))];
+    : ([
+        ...roll,
+        rs.slice(modIndex, modNext),
+        toInt(rs.slice(modNext)),
+      ] as RollWithMod);
 };
 
-export const rollString = compose(rollFormula, parseRollString);
+export const rollString = compose(rollFormula, parseRollString) as (
+  arg1: string
+) => number;
 
-const getEq = propOr([], "equipment");
+const getEq = propOr([], "equipment") as (arg1: TCharacter) => Equipment[];
 
 const equippedArmor = compose(
   ([type, equipped]) => equipped && ["armor", "shield"].includes(type),
   props(["type", "equipped"])
-);
+) as (arg1: Equipment[]) => Armor[];
 
-export const sign = (num) => {
+export const sign = (num: number): string => {
   const s = Math.sign(num);
 
   if (s === 0) {
@@ -86,12 +96,14 @@ export const sign = (num) => {
   }
 };
 
-export const hasPowers = propSatisfies(compose(not, isNil), "powers");
+export const hasPowers = propSatisfies(compose(not, isNil), "powers") as (
+  arg1: TCharacter
+) => boolean;
 
 export const getWeapons = compose(
   filter(({ type, equipped }) => type === "weapon" && equipped === true),
   getEq
-);
+) as (arg1: TCharacter) => Weapon[];
 
 export const getArmor = compose(
   reduce(
@@ -99,9 +111,9 @@ export const getArmor = compose(
     {}
   ),
   getEq
-);
+) as (arg1: TCharacter) => { armor: Armor; shield: any };
 
 export const getScrolls = compose(
   filter(propSatisfies((type) => type === "scroll", "type")),
   getEq
-);
+) as (arg1: TCharacter) => Scroll[];
