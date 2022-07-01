@@ -35,7 +35,7 @@
 
 <!-- 24vw -->
 {#if !loading}
-  <article>
+  <article id="character-sheet">
     <Header name={character.name} className={character.class.name}>
       <HitPoints {...character.hitpoints} onSet={Character.updateHp} />
     </Header>
@@ -71,3 +71,9 @@
     </div>
   </article>
 {/if}
+
+<style>
+  #character-sheet {
+    overflow: scroll;
+  }
+</style>
