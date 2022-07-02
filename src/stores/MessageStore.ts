@@ -43,7 +43,9 @@ const main = async () => {
 
 main();
 
-const send = ({
+export default MessageStore;
+
+export const send = ({
   name,
   rollType,
   roll,
@@ -68,7 +70,7 @@ const send = ({
   client.service("messages").create(newMessage);
 };
 
-const hide = (id: string) =>
+export const hide = (id: string) =>
   MessageStore.update(({ messages }: TMessageStore) => {
     return {
       messages: messages.filter(
@@ -76,9 +78,3 @@ const hide = (id: string) =>
       ),
     };
   });
-
-export default {
-  subscribe: MessageStore.subscribe,
-  send,
-  hide,
-};

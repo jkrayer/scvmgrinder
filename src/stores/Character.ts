@@ -60,7 +60,9 @@ const main = async () => {
 
 main();
 
-function updateHp(num: number) {
+export default CharacterStore;
+
+export function updateHp(num: number) {
   const { character } = get(CharacterStore);
   let { current, maximum } = character.hitpoints;
 
@@ -71,7 +73,7 @@ function updateHp(num: number) {
     .update(character._id, { ...character, hitpoints: { current, maximum } });
 }
 
-function setOmens(current: number) {
+export function setOmens(current: number) {
   const { character } = get(CharacterStore);
   client.service("characters").update(character._id, {
     ...character,
@@ -79,7 +81,7 @@ function setOmens(current: number) {
   });
 }
 
-function useScroll(usedEq: Scroll) {
+export function useScroll(usedEq: Scroll) {
   const { character } = get(CharacterStore);
   const { equipment, powers, status = [] } = character;
   const index = equipment.findIndex((eq: Equipment) => eq.name === usedEq.name);
@@ -97,7 +99,7 @@ function useScroll(usedEq: Scroll) {
 
 // TODO: Is it time to learn lenses?
 // to clean up this repetitive state copying?
-function setStatus(newStatus) {
+export function setStatus(newStatus) {
   const { character } = get(CharacterStore);
   const { status = [] } = character;
 
@@ -106,7 +108,7 @@ function setStatus(newStatus) {
     .update(character._id, { ...character, status: [...status, newStatus] });
 }
 
-function trashEquipment(index: number) {
+export function trashEquipment(index: number) {
   const { character } = get(CharacterStore);
   const { equipment, status = [] } = character;
   equipment.splice(index, 1);
@@ -123,7 +125,7 @@ function trashEquipment(index: number) {
   });
 }
 
-function decrementEquipment(index: number) {
+export function decrementEquipment(index: number) {
   const { character } = get(CharacterStore);
   const { equipment } = character;
   equipment[index].quantity--;
@@ -138,7 +140,7 @@ function decrementEquipment(index: number) {
   }
 }
 
-function toggleEquipment(index: number) {
+export function toggleEquipment(index: number) {
   const { character } = get(CharacterStore);
   const { equipment } = character;
 
@@ -149,14 +151,3 @@ function toggleEquipment(index: number) {
     equipment,
   });
 }
-
-export default {
-  subscribe: CharacterStore.subscribe,
-  updateHp,
-  setOmens,
-  useScroll,
-  setStatus,
-  trashEquipment,
-  decrementEquipment,
-  toggleEquipment,
-};
