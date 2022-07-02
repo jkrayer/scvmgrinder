@@ -1,6 +1,6 @@
 <script type="ts">
   import type { Abilities } from "../../global";
-  import MessageStore from "../MessageService/MessageStore";
+  import MessageStore from "../../stores/MessageStore";
   import RollButton from "../Buttons/RollButton.svelte";
   import { sign } from "../../lib";
 
@@ -25,15 +25,10 @@
     ) =>
     (roll: number) => {
       MessageStore.send({
-        campaignId: "e9lQv3ZyOxnPKyrK",
-        characterId: "F7bATPIJ558NwzOu",
-        message: {
-          name: "Vatan",
-          rollType: "Test",
-          roll,
-          rollFormula,
-          target,
-        },
+        rollType: "Test",
+        roll,
+        rollFormula,
+        target,
       });
     };
 </script>

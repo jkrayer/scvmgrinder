@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Message } from "../../global";
-  import Messages from "./MessageStore";
+  import Messages from "../../stores/MessageStore";
 
   let messages: Message[] = [];
 

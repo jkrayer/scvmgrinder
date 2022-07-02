@@ -19,7 +19,7 @@ type CharacterClass = {
   abilities: string;
 };
 
-export type Tests = {
+type Tests = {
   agility: number;
   presence: number;
   strength: number;
@@ -48,7 +48,7 @@ type CommonEquipmentProps = {
   weight?: number;
 };
 
-export type Scroll = CommonEquipmentProps & {
+type Scroll = CommonEquipmentProps & {
   type: "scroll";
   subType: "unclean" | "sacred";
   description: string;
@@ -86,7 +86,7 @@ type StandardEquipment = CommonEquipmentProps & {
   type: "equipment";
 };
 
-export type Equipment =
+type Equipment =
   | Scroll
   | Armor
   | Weapon
@@ -97,7 +97,7 @@ export type Equipment =
 
 export type StatusTypes = Status | Scroll;
 
-export type TCharacter = {
+type TCharacter = {
   _id: string;
   campaignId: string;
   name: string;
@@ -114,19 +114,20 @@ export type TCharacter = {
 };
 
 // ***** Message Types *****
+type MessageBody = {
+  name: string;
+  rollType: "To Hit" | "Damage" | "Test";
+  roll: number;
+  rollFormula: string;
+  target: string;
+};
 
 type Message = {
   _id?: string;
   hidden?: boolean;
   campaignId: string; // room
   characterId: string; // sender
-  message: {
-    name: string;
-    rollType: "To Hit" | "Damage" | "Test";
-    roll: number;
-    rollFormula: string;
-    target: string;
-  };
+  message: MessageBody;
 };
 
 // ***** Monster Types *****

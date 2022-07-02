@@ -1,6 +1,8 @@
 import { writable, get } from "svelte/store";
-import client from "../../stores/Socket";
-import type { Message } from "../../global";
+import client from "./Socket";
+import CampaignStore from "./Campaign";
+import CharacterStore from "./Character";
+import type { Message, MessageBody } from "../global";
 
 type TMessageStore = {
   messages: Message[];
@@ -41,7 +43,31 @@ const main = async () => {
 
 main();
 
-const send = (message: Message) => client.service("messages").create(message);
+const send = ({
+  name,
+  rollType,
+  roll,
+  rollFormula,
+  target = "",
+}: Partial<MessageBody>) => {
+  const { campaign } = get(CampaignStore);
+  const { character } = get(CharacterStore);
+
+  const newMessage: Message = {
+    campaignId: campaign._id,
+    characterId: character._id,
+    message: {
+      name: name || character.name,
+      rollType,
+      roll,
+      rollFormula,
+      target,
+    },
+  };
+
+  client.service("messages").create(newMessage);
+};
+
 const hide = (id: string) =>
   MessageStore.update(({ messages }: TMessageStore) => {
     return {

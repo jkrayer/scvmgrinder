@@ -2,7 +2,7 @@
   import type { TTrackerData } from "../../global";
   import CharactersStore from "../../stores/Characters";
   import CampaignStore, { setSide } from "../../stores/Campaign";
-  import MessageStore from "../MessageService/MessageStore";
+  import MessageStore from "../../stores/MessageStore";
   import { roll } from "../../lib";
   import TrackerItem from "./TrackerItem.svelte";
 
@@ -45,15 +45,11 @@
     }
 
     MessageStore.send({
-      campaignId: "e9lQv3ZyOxnPKyrK",
-      characterId: "F7bATPIJ558NwzOu",
-      message: {
-        name: "Initiative",
-        rollType: "Test",
-        roll: result,
-        rollFormula: "1d6",
-        target,
-      },
+      name: "Initiative",
+      rollType: "Test",
+      roll: result,
+      rollFormula: "1d6",
+      target,
     });
 
     // TODO: check players and monsters for init effect

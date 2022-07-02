@@ -1,7 +1,7 @@
 <script type="ts">
   import type { Abilities, Message, Weapon } from "../global";
   import RollButton from "./Buttons/RollButton.svelte";
-  import MessageStore from "./MessageService/MessageStore";
+  import MessageStore from "../stores/MessageStore";
 
   export let abilities: Partial<Abilities> = {};
   export let weapons: Weapon[] = [];
@@ -15,15 +15,10 @@
   const handleRoll =
     (rollFormula: string, rollType: "To Hit" | "Damage") => (roll: number) => {
       MessageStore.send({
-        campaignId: "e9lQv3ZyOxnPKyrK",
-        characterId: "F7bATPIJ558NwzOu",
-        message: {
-          name: "Vatan",
-          rollType,
-          roll,
-          rollFormula,
-          target: "",
-        },
+        rollType,
+        roll,
+        rollFormula,
+        target: "",
       });
     };
 </script>
