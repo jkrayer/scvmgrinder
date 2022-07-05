@@ -114,6 +114,7 @@ type TCharacter = {
 };
 
 // ***** Message Types *****
+// TODO: Add TEST Number Here
 type MessageBody = {
   name: string;
   rollType: "To Hit" | "Damage" | "Test";
@@ -145,6 +146,8 @@ type TrackerMonster = Monster & {
   _id: number;
   hitpoints: CurrentMax;
 };
+
+export type TrackerItem = TrackerMonster | TCharacter;
 
 // ***** Treasure Types *****
 

@@ -307,9 +307,11 @@ table > tbody > tr > td:first-of-type {
   margin-bottom: 0.5rem;
   border: 2px solid #ccc;
 }
+
 .tracker-item.ally {
   border-color: cadetblue;
 }
+
 .tracker-item.enemy {
   border-color: red;
 }
@@ -320,6 +322,7 @@ table > tbody > tr > td:first-of-type {
   height: auto;
   background-color: aqua;
 }
+
 .health-bar {
   background-color: cadetblue;
   height: 0.25rem;

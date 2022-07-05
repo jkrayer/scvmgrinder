@@ -1,15 +1,9 @@
 <script type="ts">
   import type { TTrackerData } from "../../global";
-  import CharactersStore from "../../stores/Characters";
-  import CampaignStore, { setSide } from "../../stores/Campaign";
-  import { send } from "../../stores/MessageStore";
-  import { roll } from "../../lib";
+  import TrackerStore, { rollInitiative } from "../../stores/Tracker";
+  import { SIDES } from "../../lib/gameConstants";
   import TrackerItem from "./TrackerItem.svelte";
-
-  const sides = {
-    players: "monsters",
-    monsters: "players",
-  };
+  import RollButton from "../Buttons/RollButton.svelte";
 
   let trackerItems: TTrackerData = {
     firstSide: "players",
@@ -17,69 +11,42 @@
     monsters: [],
   };
 
-  CharactersStore.subscribe((data) => {
-    trackerItems.players = data.players;
-  });
-
-  CampaignStore.subscribe(({ campaign }) => {
-    if (campaign !== null) {
-      trackerItems.monsters = campaign.trackerData.monsters || [];
-      trackerItems.firstSide = campaign.trackerData.firstSide || "players";
-    }
-  });
-
-  $: firstSide = trackerItems.firstSide;
-  $: secondSide = sides[firstSide];
-
-  // HANDLERS
-  const handleRollInitiative = () => {
-    const result: number = roll(6);
-    let target: string = "";
-
-    if (result < 4) {
-      setSide("monsters");
-      target = "Monsters Go First!";
-    } else {
-      setSide("players");
-      target = "Players Go First!";
-    }
-
-    send({
-      name: "Initiative",
-      rollType: "Test",
-      roll: result,
-      rollFormula: "1d6",
-      target,
-    });
-
-    // TODO: check players and monsters for init effect
-  };
+  TrackerStore.subscribe(
+    (trackerData: TTrackerData) => (trackerItems = trackerData)
+  );
 </script>
 
 <div id="tracker">
-  <button type="button" on:click={handleRollInitiative}>Init</button>
+  <RollButton diceString="1d6" onRoll={rollInitiative}>Init</RollButton>
   <ul class="trackerlist">
-    {#each trackerItems[firstSide] as item (item)}
+    {#each trackerItems[trackerItems.firstSide] as item (item)}
       {#key item._id}
-        <TrackerItem {item} />
+        <TrackerItem {item} targeting={true} />
       {/key}
     {/each}
   </ul>
   <hr class="tracker-divider" />
   <ul class="trackerlist second-list">
-    {#each trackerItems[secondSide] as item (item)}
+    {#each trackerItems[SIDES[trackerItems.firstSide]] as item (item)}
       {#key item._id}
-        <TrackerItem {item} />
+        <TrackerItem {item} targeting={false} />
       {/key}
     {/each}
   </ul>
 </div>
 
 <style>
+  #tracker .tracker-item {
+    cursor: crosshair;
+  }
   .trackerlist {
     padding: 0;
     margin: 0;
     list-style: none;
+  }
+
+  .trackerlist:first-of-type {
+    margin-top: var(--small-padding);
   }
 
   .tracker-divider {

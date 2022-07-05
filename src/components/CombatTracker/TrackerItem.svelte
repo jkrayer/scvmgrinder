@@ -1,16 +1,23 @@
 <script type="ts">
   import type { TrackerItem } from "../../global";
 
-  export let item: TrackerItem;
+  const noop = (item) => {
+    console.log(item);
+  };
 
-  const defaultImage = ""; // item?.portrait
+  export let item: TrackerItem;
+  export let onItemClick = noop;
+  export let targeting: boolean = false;
+
+  const defaultImage =
+    "https://dsgchicago.com/dsgchicago/wp-content/uploads/2019/11/person-placeholder.jpg"; // item?.portrait
   const healthBarWidth = Math.floor(
     (item.hitpoints.current / item.hitpoints.maximum) * 100
   );
 </script>
 
-<li>
-  <div class="tracker-item">
+<li on:click={() => onItemClick(item)}>
+  <div class="tracker-item" class:targeting>
     <img
       src={defaultImage}
       class="tracker-item-portrait"
@@ -23,3 +30,9 @@
     </div>
   </div>
 </li>
+
+<style>
+  .targeting {
+    cursor: crosshair;
+  }
+</style>
