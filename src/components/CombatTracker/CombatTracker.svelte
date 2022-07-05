@@ -2,7 +2,7 @@
   import type { TTrackerData } from "../../global";
   import CharactersStore from "../../stores/Characters";
   import CampaignStore, { setSide } from "../../stores/Campaign";
-  import MessageStore from "../../stores/MessageStore";
+  import { send } from "../../stores/MessageStore";
   import { roll } from "../../lib";
   import TrackerItem from "./TrackerItem.svelte";
 
@@ -44,7 +44,7 @@
       target = "Players Go First!";
     }
 
-    MessageStore.send({
+    send({
       name: "Initiative",
       rollType: "Test",
       roll: result,
