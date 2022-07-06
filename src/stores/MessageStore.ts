@@ -52,6 +52,7 @@ export const send = ({
   roll,
   rollFormula,
   target = "",
+  dc = null,
 }: Partial<MessageBody>) => {
   const { campaign } = get(CampaignStore);
   const { character } = get(CharacterStore);
@@ -65,6 +66,7 @@ export const send = ({
       roll,
       rollFormula,
       target,
+      dc,
     },
   };
 

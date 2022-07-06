@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Message } from "../../global";
-  import Messages from "../../stores/MessageStore";
+  import Messages, { hide } from "../../stores/MessageStore";
 
   let messages: Message[] = [];
 
@@ -15,7 +15,7 @@
 <div id="messages">
   {#each messages as message, index}
     {#if index === 0 && message.hidden !== true}
-      <div class="message-body" on:click={() => Messages.hide(message._id)}>
+      <div class="message-body" on:click={() => hide(message._id)}>
         <div class="message-body-title">
           <span>{message.message.name}:</span>
           <span
@@ -27,7 +27,12 @@
         <div class="message-body-roll-row">
           <div class="message-body-roll">{message.message.roll}</div>
           <div class="message-body-formula">
-            ({message.message.rollFormula})
+            (
+            {message.message.rollFormula}
+            {#if message.message.dc}
+              vs {message.message.dc}
+            {/if}
+            )
           </div>
         </div>
 
@@ -35,7 +40,7 @@
         <!-- : Hit! -->
       </div>
     {:else if message.hidden !== true}
-      <div class="message-body" on:click={() => Messages.hide(message._id)}>
+      <div class="message-body" on:click={() => hide(message._id)}>
         <div class="message-body-title">
           <span>{message.message.name}:</span>
           {message.message.roll}
