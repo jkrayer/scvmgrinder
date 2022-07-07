@@ -1,7 +1,9 @@
 <script type="ts">
   import type { Abilities, Message, Weapon } from "../global";
   import RollButton from "./Buttons/RollButton.svelte";
-  import MessageStore from "../stores/MessageStore";
+  import { send } from "../stores/MessageStore";
+
+  import { setAttack, clearTarget } from "../stores/Attack";
 
   export let abilities: Partial<Abilities> = {};
   export let weapons: Weapon[] = [];
@@ -14,14 +16,14 @@
 
   const handleRoll =
     (rollFormula: string, rollType: "To Hit" | "Damage") => (roll: number) => {
-      MessageStore.send({
-        rollType,
-        roll,
-        rollFormula,
-        target: "",
-      });
+      setAttack({ rollFormula, rollType, roll });
     };
+
+  const keyboardHandler = (e: KeyboardEvent) =>
+    e.code === "Escape" ? clearTarget() : null;
 </script>
+
+<svelte:body on:keyup={keyboardHandler} />
 
 <table>
   <thead>
@@ -38,6 +40,9 @@
         <td>{weapon.name}</td>
         <td />
         <td>
+          <!-- <button type="button" draggable="true"
+            >{COMBAT_MAP[weapon.subType].toHit}</button
+          > -->
           <RollButton
             diceString={COMBAT_MAP[weapon.subType].toHit}
             onRoll={handleRoll(COMBAT_MAP[weapon.subType].toHit, "To Hit")}

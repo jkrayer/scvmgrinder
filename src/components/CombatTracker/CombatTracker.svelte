@@ -1,9 +1,11 @@
 <script type="ts">
-  import type { TTrackerData } from "../../global";
+  import type { TTrackerData, TTrackerItem } from "../../global";
   import TrackerStore, { rollInitiative } from "../../stores/Tracker";
+  import { setTarget } from "../../stores/Attack";
   import { SIDES } from "../../lib/gameConstants";
   import TrackerItem from "./TrackerItem.svelte";
   import RollButton from "../Buttons/RollButton.svelte";
+  import Attack from "../../stores/Attack";
 
   let trackerItems: TTrackerData = {
     firstSide: "players",
@@ -11,9 +13,18 @@
     monsters: [],
   };
 
+  let targeting: boolean = false;
+
   TrackerStore.subscribe(
     (trackerData: TTrackerData) => (trackerItems = trackerData)
   );
+
+  Attack.subscribe((store) => {
+    targeting = !!store.attack;
+  });
+
+  const handleClick = (item: TTrackerItem) =>
+    targeting ? setTarget(item) : null;
 </script>
 
 <div id="tracker">
@@ -21,7 +32,7 @@
   <ul class="trackerlist">
     {#each trackerItems[trackerItems.firstSide] as item (item)}
       {#key item._id}
-        <TrackerItem {item} targeting={true} />
+        <TrackerItem {item} {targeting} onItemClick={handleClick} />
       {/key}
     {/each}
   </ul>
@@ -29,7 +40,7 @@
   <ul class="trackerlist second-list">
     {#each trackerItems[SIDES[trackerItems.firstSide]] as item (item)}
       {#key item._id}
-        <TrackerItem {item} targeting={false} />
+        <TrackerItem {item} {targeting} onItemClick={handleClick} />
       {/key}
     {/each}
   </ul>

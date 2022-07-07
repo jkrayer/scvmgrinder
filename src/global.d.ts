@@ -121,6 +121,7 @@ type MessageBody = {
   roll: number;
   rollFormula: string;
   target: string;
+  dc?: number;
 };
 
 type Message = {
@@ -140,6 +141,7 @@ type Monster = {
   special?: string;
   armor: null | Armor;
   weapons: Weapon[];
+  toHit?: number;
 };
 
 type TrackerMonster = Monster & {
@@ -147,7 +149,7 @@ type TrackerMonster = Monster & {
   hitpoints: CurrentMax;
 };
 
-export type TrackerItem = TrackerMonster | TCharacter;
+export type TTrackerItem = TrackerMonster | TCharacter;
 
 // ***** Treasure Types *****
 

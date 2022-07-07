@@ -151,3 +151,9 @@ export function toggleEquipment(index: number) {
     equipment,
   });
 }
+
+export function getTestModifier(prop: string) {
+  const { testModifiers } = get(CharacterStore);
+
+  return testModifiers[prop] || 0;
+}

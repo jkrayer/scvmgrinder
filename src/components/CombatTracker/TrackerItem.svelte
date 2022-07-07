@@ -1,12 +1,8 @@
 <script type="ts">
-  import type { TrackerItem } from "../../global";
+  import type { TTrackerItem } from "../../global";
 
-  const noop = (item) => {
-    console.log(item);
-  };
-
-  export let item: TrackerItem;
-  export let onItemClick = noop;
+  export let item: TTrackerItem;
+  export let onItemClick: (item: TTrackerItem) => void;
   export let targeting: boolean = false;
 
   const defaultImage =
