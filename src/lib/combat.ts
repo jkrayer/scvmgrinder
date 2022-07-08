@@ -24,3 +24,5 @@
 // ATKQ = {
 //   whichAttack:
 // }
+
+export {};

@@ -1,8 +1,8 @@
 <script type="ts">
-  import type { Abilities } from "../../global";
-  import MessageStore from "../../stores/MessageStore";
-  import RollButton from "../Buttons/RollButton.svelte";
-  import { sign } from "../../lib";
+  import type { Abilities } from "../../../global";
+  import MessageStore from "../../../stores/MessageStore";
+  import RollButton from "../../Buttons/RollButton.svelte";
+  import { sign } from "../../../lib";
 
   export let scores: Abilities = {
     strength: 0,

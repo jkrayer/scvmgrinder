@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { TrackerMonster } from "../../global";
-  import Header from "../Sheets/Header.svelte";
+  import type { TrackerMonster } from "../../../global";
+  import Header from "../Header.svelte";
   import HitPoints from "../HitPoints.svelte";
   import ArmorWorn from "../ArmorWorn.svelte";
   import WeaponsCarried from "../WeaponsCarried.svelte";

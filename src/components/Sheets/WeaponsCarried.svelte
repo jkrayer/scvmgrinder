@@ -1,9 +1,9 @@
 <script type="ts">
-  import type { Abilities, Message, Weapon } from "../global";
-  import RollButton from "./Buttons/RollButton.svelte";
-  import { send } from "../stores/MessageStore";
+  import type { Abilities, Message, Weapon } from "../../global";
+  import RollButton from "../Buttons/RollButton.svelte";
+  import { send } from "../../stores/MessageStore";
 
-  import { setAttack, clearTarget } from "../stores/Attack";
+  import { setAttack, clearTarget } from "../../stores/Attack";
 
   export let abilities: Partial<Abilities> = {};
   export let weapons: Weapon[] = [];

@@ -3,7 +3,7 @@
   import Game from "../../stores/Campaign";
   // TEST
   import type { TrackerMonster } from "../../global";
-  import MonsterSheet from "../MonsterSheet/MonsterSheet.svelte";
+  import MonsterSheet from "../Sheets/MonsterSheet/MonsterSheet.svelte";
 
   const monster: TrackerMonster = {
     _id: 1,

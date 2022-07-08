@@ -1,6 +1,6 @@
 <script lang="ts">
   import Header from "./components/Stage/Header.svelte";
-  import CharacterSheet from "./components/CharacterSheet/CharacterSheet.svelte";
+  import CharacterSheet from "./components/Sheets/CharacterSheet/CharacterSheet.svelte";
   import MessageComponent from "./components/MessageService/MessageComponent.svelte";
   import AdventurePanel from "./components/AdventurePanel/AdventurePanel.svelte";
   import CombatTracker from "./components/CombatTracker/CombatTracker.svelte";

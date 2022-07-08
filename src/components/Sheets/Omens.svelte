@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Modal from "./Modal.svelte";
+  import Modal from "../Modal.svelte";
 
   export let current: number = 0;
   export let die: number = 4;

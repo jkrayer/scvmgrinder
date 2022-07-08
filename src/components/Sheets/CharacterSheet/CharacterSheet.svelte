@@ -1,7 +1,7 @@
 <script>
-  import Character from "../../stores/Character";
-  import Header from "../Sheets/Header.svelte";
-  import Portrait from "../Sheets/Portrait.svelte";
+  import Character from "../../../stores/Character";
+  import Header from "../Header.svelte";
+  import Portrait from "../Portrait.svelte";
   import Scores from "./Scores.svelte";
   import Equipment from "./Equipment.svelte";
   import HitPoints from "../HitPoints.svelte";
@@ -15,7 +15,7 @@
     getScrolls,
     // hasScrolls,
     hasPowers,
-  } from "../../lib";
+  } from "../../../lib";
 
   let character = {};
   let loading = true;

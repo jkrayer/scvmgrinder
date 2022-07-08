@@ -1,7 +1,7 @@
 <script>
-  import RollButton from "./Buttons/RollButton.svelte";
+  import RollButton from "../Buttons/RollButton.svelte";
   import { isEmpty, isNil, pathOr, propOr } from "ramda";
-  import { sign } from "../lib";
+  import { sign } from "../../lib";
 
   const name = propOr("None", "name");
   const effDescription = pathOr("", ["effect", "description"]);

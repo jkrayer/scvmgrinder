@@ -1,9 +1,9 @@
 <script>
-  import Character from "../stores/Character";
-  import Modal from "./Modal.svelte";
-  import RollButton from "./Buttons/RollButton.svelte";
-  import { sign, roll } from "../lib";
-  import { DIZZY } from "../lib/gameConstants";
+  import Character from "../../stores/Character";
+  import Modal from "../Modal.svelte";
+  import RollButton from "../Buttons/RollButton.svelte";
+  import { sign, roll } from "../../lib";
+  import { DIZZY } from "../../lib/gameConstants";
   // import { setEffects } from "../lib/gameData";
 
   export let scrolls = [];
