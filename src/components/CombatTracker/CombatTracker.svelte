@@ -47,9 +47,6 @@
 </div>
 
 <style>
-  #tracker .tracker-item {
-    cursor: crosshair;
-  }
   .trackerlist {
     padding: 0;
     margin: 0;

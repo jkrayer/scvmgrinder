@@ -1,20 +1,16 @@
-<script>
-  export let name;
-  export let className;
-  export let image = {
-    width: 50,
-    height: 50,
-    src: "",
-    alt: "",
-  };
+<script type="ts">
+  export let name: string;
+  export let className: string = null;
 </script>
 
-<div id="character-header" class="theme-black">
+<div class="sheet-header theme-black">
   <div>
-    <figure id="figure"><img alt="" {...image} /></figure>
+    <slot name="portrait" />
     <header>
       <h1 class="h1">{name}</h1>
-      <h2 class="h2">{className}</h2>
+      {#if className !== null}
+        <h2 class="h2">{className}</h2>
+      {/if}
     </header>
   </div>
   <div>
@@ -23,18 +19,14 @@
 </div>
 
 <style>
-  #figure {
-    margin: 0 1em 0 0;
-  }
-
-  #character-header {
+  .sheet-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: var(--small-padding);
   }
 
-  #character-header > div:first-of-type {
+  .sheet-header > div:first-of-type {
     display: flex;
     align-items: center;
   }

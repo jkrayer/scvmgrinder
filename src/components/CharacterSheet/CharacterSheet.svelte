@@ -1,6 +1,7 @@
 <script>
   import Character from "../../stores/Character";
-  import Header from "./Header.svelte";
+  import Header from "../Sheets/Header.svelte";
+  import Portrait from "../Sheets/Portrait.svelte";
   import Scores from "./Scores.svelte";
   import Equipment from "./Equipment.svelte";
   import HitPoints from "../HitPoints.svelte";
@@ -37,6 +38,7 @@
 {#if !loading}
   <article id="character-sheet">
     <Header name={character.name} className={character.class.name}>
+      <Portrait name={character.name} slot="portrait" />
       <HitPoints {...character.hitpoints} onSet={Character.updateHp} />
     </Header>
     <Scores scores={character.abilities} tests={character.tests} />

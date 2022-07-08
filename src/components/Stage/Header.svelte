@@ -1,9 +1,9 @@
 <script lang="ts">
   import { pathOr } from "ramda";
-  import Game from "../stores/Campaign";
-  import Modal from "./Modal.svelte";
-  import EncounterPanel from "./AdventurePanel/Encounter.svelte";
-  import type { Handout, Encounter } from "../global";
+  import Game from "../../stores/Campaign";
+  import Modal from "../Modal.svelte";
+  import EncounterPanel from "../AdventurePanel/Encounter.svelte";
+  import type { Handout, Encounter } from "../../global";
 
   const getHandouts = pathOr([], ["adventure", "handouts"]);
   const getEncounters = pathOr([], ["adventure", "encounters"]);

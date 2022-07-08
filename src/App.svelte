@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Header from "./components/Header.svelte";
+  import Header from "./components/Stage/Header.svelte";
   import CharacterSheet from "./components/CharacterSheet/CharacterSheet.svelte";
   import MessageComponent from "./components/MessageService/MessageComponent.svelte";
   import AdventurePanel from "./components/AdventurePanel/AdventurePanel.svelte";
