@@ -49,9 +49,7 @@
   <div
     id="adventure-panel"
     style={`background-image: url(${adventure.poster})`}
-  >
-    <MonsterSheet {monster} />
-  </div>
+  />
 {/if}
 
 <style>

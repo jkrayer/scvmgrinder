@@ -9,6 +9,8 @@
  *   6.2 Black
  *   6.3 White
  * 7. Equipment
+ * 8. Tracker
+ * 9. Monster Sheet
 */
 
 :root {
@@ -299,6 +301,10 @@ table > tbody > tr > td:first-of-type {
   flex-direction: column;
 }
 
+.tracker-item-wrapper {
+  display: flex;
+}
+
 .tracker-item {
   position: relative;
   width: 3.5rem;
@@ -337,4 +343,16 @@ table > tbody > tr > td:first-of-type {
   height: 0.25rem;
   width: 54px;
   background: linear-gradient(90deg, red, yellow, green);
+}
+
+.tracker-item-functions {
+}
+
+/* 9. Monster Sheet */
+.monster-sheet-header {
+  padding-bottom: 0.25em;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
 }

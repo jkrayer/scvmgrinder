@@ -1,11 +1,17 @@
 <script type="ts">
-  import type { TTrackerData, TTrackerItem } from "../../global";
+  import type {
+    TTrackerData,
+    TTrackerItem,
+    TrackerMonster,
+  } from "../../global";
   import TrackerStore, { rollInitiative } from "../../stores/Tracker";
   import { setTarget } from "../../stores/Attack";
   import { SIDES } from "../../lib/gameConstants";
   import TrackerItem from "./TrackerItem.svelte";
   import RollButton from "../Buttons/RollButton.svelte";
   import Attack from "../../stores/Attack";
+  import Modal from "../Modal.svelte";
+  import MonsterSheet from "../Sheets/MonsterSheet/MonsterSheet.svelte";
 
   let trackerItems: TTrackerData = {
     firstSide: "players",
@@ -23,16 +29,31 @@
     targeting = !!store.attack;
   });
 
+  // LOCAL STATE
+  let selectedMonster: TrackerMonster = null;
+
+  // HANDLERS
   const handleClick = (item: TTrackerItem) =>
     targeting ? setTarget(item) : null;
+
+  const showSheet = (monster: TTrackerItem) => () =>
+    (selectedMonster = monster as TrackerMonster);
+  const closeSheet = () => (selectedMonster = null);
 </script>
 
 <div id="tracker">
+  <Modal visible={!!selectedMonster} onClose={closeSheet} showOverlaw={false}>
+    <MonsterSheet monster={selectedMonster} />
+  </Modal>
   <RollButton diceString="1d6" onRoll={rollInitiative}>Init</RollButton>
   <ul class="trackerlist">
     {#each trackerItems[trackerItems.firstSide] as item (item)}
       {#key item._id}
-        <TrackerItem {item} {targeting} onItemClick={handleClick} />
+        <TrackerItem {item} {targeting} onItemClick={handleClick}>
+          {#if trackerItems.firstSide === "monsters"}
+            <button type="button" on:click={showSheet(item)}>Open</button>
+          {/if}
+        </TrackerItem>
       {/key}
     {/each}
   </ul>
@@ -40,7 +61,11 @@
   <ul class="trackerlist second-list">
     {#each trackerItems[SIDES[trackerItems.firstSide]] as item (item)}
       {#key item._id}
-        <TrackerItem {item} {targeting} onItemClick={handleClick} />
+        <TrackerItem {item} {targeting} onItemClick={handleClick}>
+          {#if trackerItems.firstSide !== "monsters"}
+            <button type="button" on:click={showSheet(item)}>Open</button>
+          {/if}
+        </TrackerItem>
       {/key}
     {/each}
   </ul>
