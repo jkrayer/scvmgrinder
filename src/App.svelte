@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Toast from "./components/Toasts/Toast.svelte";
   import Header from "./components/Stage/Header.svelte";
   import CharacterSheet from "./components/Sheets/CharacterSheet/CharacterSheet.svelte";
   import MessageComponent from "./components/MessageService/MessageComponent.svelte";
@@ -8,6 +9,7 @@
 
 <main id="app">
   <Header />
+  <Toast />
   <div id="stage">
     <div class="stage-column">
       <CharacterSheet />

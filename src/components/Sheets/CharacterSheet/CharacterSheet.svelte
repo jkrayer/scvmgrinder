@@ -5,7 +5,7 @@
   import Scores from "./Scores.svelte";
   import Equipment from "./Equipment.svelte";
   import HitPoints from "../HitPoints.svelte";
-  import Weapons from "../WeaponsCarried.svelte";
+  import Weapons from "../Weapons.svelte";
   import Armor from "../ArmorWorn.svelte";
   import Powers from "../Powers.svelte";
   import Omens from "../Omens.svelte";
@@ -42,7 +42,7 @@
       <HitPoints {...character.hitpoints} onSet={Character.updateHp} />
     </Header>
     <Scores scores={character.abilities} tests={character.tests} />
-    <Weapons abilities={character.abilities} {weapons} />
+    <Weapons {weapons} />
     <Armor {...armor} agility={character.abilities.agility} />
     <div>
       {#if hasPowers(character)}

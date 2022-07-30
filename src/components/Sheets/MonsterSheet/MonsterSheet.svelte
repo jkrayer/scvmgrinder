@@ -3,7 +3,7 @@
   import Header from "../Header.svelte";
   import HitPoints from "../HitPoints.svelte";
   import Armor from "./Armor.svelte";
-  import Weapons from "./Weapons.svelte";
+  import Weapons from "../Weapons.svelte";
   import Description from "../Description.svelte";
 
   export let monster: TrackerMonster;
