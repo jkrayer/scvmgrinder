@@ -1,17 +1,10 @@
 <script type="ts">
+  import { createEventDispatcher } from "svelte";
   import type { Weapon } from "../../global";
-  import { info } from "../Toasts/ToastStore";
 
   export let weapons: Weapon[] = [];
 
-  // Handlers
-  const handleAttack = () => {
-    // TODO: The Entire Attack Process
-    info({
-      text: "Select a target in the tracker",
-      expireIn: 2000,
-    });
-  };
+  const dispatch = createEventDispatcher();
 </script>
 
 <div class="weapons">
@@ -33,7 +26,7 @@
           <button
             type="button"
             class="weapon-attack-button"
-            on:click={handleAttack}>Attack!</button
+            on:click={() => dispatch("attack", weapon)}>Attack!</button
           >
         </div>
       </div>

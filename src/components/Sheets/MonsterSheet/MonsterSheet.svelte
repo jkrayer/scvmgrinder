@@ -7,6 +7,10 @@
   import Description from "../Description.svelte";
 
   export let monster: TrackerMonster;
+
+  const handleAttack = (e: any) => {
+    console.log(e);
+  };
 </script>
 
 <article class="monster-sheet">
@@ -17,7 +21,7 @@
     {#if monster.armor}
       <Armor armor={monster.armor} />
     {/if}
-    <Weapons weapons={monster.weapons} />
+    <Weapons weapons={monster.weapons} on:attack={handleAttack} />
     {#if monster.description}
       <Description description={monster.description} />
     {/if}

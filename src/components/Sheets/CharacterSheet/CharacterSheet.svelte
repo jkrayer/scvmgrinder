@@ -16,6 +16,7 @@
     // hasScrolls,
     hasPowers,
   } from "../../../lib";
+  import attack from "../../../Attack";
 
   let character = {};
   let loading = true;
@@ -32,6 +33,9 @@
     scrolls = getScrolls(data.character);
     // canUsePowers = hasScrolls(data.data);
   });
+
+  //
+  const handleAttack = ({ detail }) => attack(character, detail);
 </script>
 
 <!-- 24vw -->
@@ -42,7 +46,7 @@
       <HitPoints {...character.hitpoints} onSet={Character.updateHp} />
     </Header>
     <Scores scores={character.abilities} tests={character.tests} />
-    <Weapons {weapons} />
+    <Weapons {weapons} on:attack={handleAttack} />
     <Armor {...armor} agility={character.abilities.agility} />
     <div>
       {#if hasPowers(character)}
