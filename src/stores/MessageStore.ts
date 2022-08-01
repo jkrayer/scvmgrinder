@@ -73,6 +73,48 @@ export const send = ({
   client.service("messages").create(newMessage);
 };
 
+// BEGIN:TEST
+// export const send = ({
+//   name,
+//   rollType,
+//   roll,
+//   rollFormula,
+//   target = "",
+//   dc = null,
+// }: Partial<MessageBody>) => {
+//   const { campaign } = get(CampaignStore);
+//   const { character } = get(CharacterStore);
+
+//   const newMessage: Message = {
+//     campaignId: campaign._id,
+//     characterId: character._id,
+//     message: {
+//       name: name || character.name,
+//       rollType,
+//       roll,
+//       rollFormula,
+//       target,
+//       dc,
+//     },
+//   };
+
+//   MessageStore.update((oldStore: TMessageStore): TMessageStore => {
+//     return { messages: [newMessage, ...oldStore.messages] };
+//   });
+// };
+
+// MessageStore.subscribe(({ messages }: TMessageStore) => {
+//   const head = messages[0];
+
+//   if (!!head && head._id === undefined) {
+//     client.service("messages").create(messages[0]);
+//   }
+
+//   console.log("subbed", messages);
+// });
+
+// END:TEST
+
 export const hide = (id: string) =>
   MessageStore.update(({ messages }: TMessageStore) => {
     return {

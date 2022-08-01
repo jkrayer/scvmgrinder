@@ -69,6 +69,7 @@ export type Weapon = CommonEquipmentProps & {
   type: "weapon";
   subType: "melee" | "ranged";
   special?: string;
+  broken?: boolean;
 };
 
 type Ammunition = CommonEquipmentProps & {

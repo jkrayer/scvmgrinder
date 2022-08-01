@@ -16,7 +16,7 @@
     // hasScrolls,
     hasPowers,
   } from "../../../lib";
-  import attack from "../../../Attack";
+  import { setAttacker } from "../../../Combat/Attack";
 
   let character = {};
   let loading = true;
@@ -35,7 +35,7 @@
   });
 
   //
-  const handleAttack = ({ detail }) => attack(character, detail);
+  const handleAttack = ({ detail }) => setAttacker(character, detail);
 </script>
 
 <!-- 24vw -->

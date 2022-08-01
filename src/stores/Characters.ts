@@ -18,9 +18,9 @@ const main = async () => {
       .find({
         query: {
           campaignId: "e9lQv3ZyOxnPKyrK",
-          _id: {
-            $nin: ["F7bATPIJ558NwzOu"],
-          },
+          // _id: {
+          //   $nin: ["F7bATPIJ558NwzOu"],
+          // },
         },
       });
 

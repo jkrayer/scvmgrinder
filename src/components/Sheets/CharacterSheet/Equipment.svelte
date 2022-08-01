@@ -16,7 +16,12 @@
         <div>{eq}</div>
       {:else}
         <div>
-          <b>{eq.name}</b>
+          <span class:broken={eq.broken}>
+            <b>{eq.name}</b>
+            {#if eq.broken}
+              (broken)
+            {/if}
+          </span>
           {eq.description || ""}
           {#if eq.quantity !== undefined}
             ({eq.quantity})
@@ -32,7 +37,7 @@
             -</button
           >
         {/if}
-        {#if equippable(eq)}
+        {#if equippable(eq) && !eq.broken}
           <button
             type="button"
             on:click={() => Character.toggleEquipment(index)}
@@ -64,5 +69,8 @@
   }
   #equipment-list > li:nth-child(even) {
     background-color: rgba(255, 255, 0, 0.5);
+  }
+  .broken {
+    opacity: 0.7;
   }
 </style>

@@ -4,3 +4,9 @@ export type Toast = {
   text: string;
   expireTime?: number;
 };
+
+export type ToastParams = {
+  text;
+  title?: string;
+  expireIn?: number;
+};

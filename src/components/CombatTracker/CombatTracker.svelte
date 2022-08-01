@@ -5,11 +5,13 @@
     TrackerMonster,
   } from "../../global";
   import TrackerStore, { rollInitiative } from "../../stores/Tracker";
-  import { setTarget } from "../../stores/Attack";
+  // import { setTarget } from "../../stores/Attack";
+  import Attack, { setTarget } from "../../Combat/Attack";
+
   import { SIDES } from "../../lib/gameConstants";
   import TrackerItem from "./TrackerItem.svelte";
   import RollButton from "../Buttons/RollButton.svelte";
-  import Attack from "../../stores/Attack";
+  // import Attack from "../../stores/Attack";
   import Modal from "../Modal.svelte";
   import MonsterSheet from "../Sheets/MonsterSheet/MonsterSheet.svelte";
 
@@ -26,15 +28,18 @@
   );
 
   Attack.subscribe((store) => {
-    targeting = !!store.attack;
+    console.log(31, store);
+    targeting = !!store.attacker;
   });
 
   // LOCAL STATE
   let selectedMonster: TrackerMonster = null;
 
   // HANDLERS
-  const handleClick = (item: TTrackerItem) =>
-    targeting ? setTarget(item) : null;
+  const handleClick = (item: TTrackerItem) => {
+    console.log("hadlingtclik", targeting);
+    targeting ? setTarget(item as TrackerMonster) : null;
+  };
 
   const showSheet = (monster: TTrackerItem) => () =>
     (selectedMonster = monster as TrackerMonster);

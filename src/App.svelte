@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { isPlayer } from "./State/User";
   import Toast from "./components/Toasts/Toast.svelte";
   import Header from "./components/Stage/Header.svelte";
   import CharacterSheet from "./components/Sheets/CharacterSheet/CharacterSheet.svelte";
@@ -11,9 +12,11 @@
   <Header />
   <Toast />
   <div id="stage">
-    <div class="stage-column">
-      <CharacterSheet />
-    </div>
+    {#if isPlayer()}
+      <div class="stage-column">
+        <CharacterSheet />
+      </div>
+    {/if}
     <div class="stage-column stage-column_campaign">
       <CombatTracker />
       <AdventurePanel />

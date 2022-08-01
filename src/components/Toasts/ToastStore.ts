@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import type { Toast } from "./type";
+import type { Toast, ToastParams } from "./type";
 
 const ToastStore = writable<Toast[]>([]);
 
@@ -26,15 +26,7 @@ ToastStore.subscribe((currentState: Toast[]) => {
 export default ToastStore;
 
 // HOW TO DO WITH FP - I'M THINKING IO Monad
-export function info({
-  text,
-  title = "",
-  expireIn = -1,
-}: {
-  text;
-  title?: string;
-  expireIn?: number;
-}) {
+export function info({ text, title = "", expireIn = -1 }: ToastParams) {
   const infoMessage: Toast = {
     title,
     color: "blue",

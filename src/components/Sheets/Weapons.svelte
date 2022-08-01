@@ -9,7 +9,7 @@
 
 <div class="weapons">
   {#each weapons as weapon}
-    <div class="weapon">
+    <div class="weapon" class:broken={weapon.broken}>
       <div class="weapon-type">
         <div>
           Weapon <span class="weapon-subtype">({weapon.subType})</span>:
@@ -18,6 +18,9 @@
       <div class="weapon-data">
         <div>
           <span class="weapon-name">{weapon.name}</span>
+          {#if weapon.broken}
+            (broken)
+          {/if}
         </div>
         <div>
           <span>{weapon.damageDie}</span>
@@ -26,6 +29,7 @@
           <button
             type="button"
             class="weapon-attack-button"
+            disabled={weapon.broken}
             on:click={() => dispatch("attack", weapon)}>Attack!</button
           >
         </div>
@@ -44,6 +48,10 @@
     position: relative;
     margin: 0.25rem;
     line-height: 1;
+  }
+
+  .weapon.broken {
+    opacity: 0.7;
   }
 
   .weapon-type {
