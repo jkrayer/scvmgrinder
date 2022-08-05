@@ -18,7 +18,7 @@
       </div>
     {/if}
     <div class="stage-column stage-column_campaign">
-      <CombatTracker />
+      <!-- <CombatTracker /> -->
       <AdventurePanel />
     </div>
     <MessageComponent />

@@ -25,6 +25,7 @@
 
 <header id="global-header" class="theme-magenta row row-polar">
   <h1>SCVUMGRINDER</h1>
+  <!--
   <button
     type="button"
     id="menu-toggle-button"
@@ -69,6 +70,7 @@
       </ul>
     </div>
   {/if}
+
   <Modal visible={handOut !== null} onClose={() => (handOut = null)}>
     <h3>{handOut.name}</h3>
     <img src={handOut.src} alt="" />
@@ -76,6 +78,7 @@
   <Modal visible={encounter !== null} onClose={() => (encounter = null)}>
     <EncounterPanel {encounter} />
   </Modal>
+  -->
 </header>
 
 <style>
