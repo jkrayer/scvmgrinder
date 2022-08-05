@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #button-targets {
+        margin-top: 5px;
+      }
+      #button-targets.active > .a-target {
+        cursor: crosshair;
+      }
+      .a-target {
+        display: inline-block;
+        width: 64px;
+        height: 64px;
+        margin-right: 5px;
+        background-color: aqua;
+      }
+      .gr {
+        background-color: chartreuse;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app">
+      <div id="clicks">
+        <h2>Test Click Targets</h2>
+        <p>Click "To Hit" and then click blue box.</p>
+        <button type="button" id="tohit-button">To Hit</button>
+        <div id="button-targets">
+          <div class="a-target"></div>
+          <div class="a-target"></div>
+          <div class="a-target"></div>
+        </div>
+      </div>
+
+      <div id="drags">
+        <h2>Test Drag and Drop</h2>
+        <p>Drop the "To Hit" button on to a green square.</p>
+        <button type="button" id="drag-button" draggable="true">To Hit</button>
+        <div id="button-targets">
+          <div class="a-target gr"></div>
+          <div class="a-target gr"></div>
+          <div class="a-target gr"></div>
+        </div>
+      </div>
+    </main>
+    <script>
+      // TO HIT Module
+      (function () {
+        let toHitData = null;
+        const targets = document.getElementById("button-targets");
+        const toHitBtn = document.getElementById("tohit-button");
+
+        const handleTargets = (event) => {
+          if (event.path[0].classList.contains("a-target")) {
+            alert("target acquired!");
+            targets.removeEventListener("click", handleTargets);
+            targets.classList.remove("active");
+          }
+        };
+
+        toHitBtn.addEventListener("click", (e) => {
+          targets.addEventListener("click", handleTargets);
+          targets.classList.add("active");
+        });
+      })();
+
+      (function () {
+        const btn = document.getElementById("drag-button");
+        const targets = document.querySelectorAll("#button-targets .a-target");
+
+        function handleDragStart(e) {
+          this.style.opacity = "0.4";
+          dragSrcEl = this;
+          console.log("handleDragStart");
+
+          e.dataTransfer.effectAllowed = "move";
+          e.dataTransfer.setData("text/html", this.innerHTML);
+        }
+
+        function handleDragEnd(e) {
+          console.log("handleDragEnd");
+          this.style.opacity = "1";
+        }
+
+        function handleDragOver(e) {
+          e.preventDefault();
+          console.log("handleDragOver");
+          this.style.border = "1px solid red";
+        }
+
+        function handleDragLeave(e) {
+          console.log("handleDragLeave");
+          this.style.border = "";
+        }
+
+        function handleDrop(e) {
+          e.stopPropagation();
+          console.log("handleDrop");
+
+          console.log("drop");
+
+          if (dragSrcEl !== this) {
+            alert("Target Acquired");
+            // this.innerHTML = e.dataTransfer.getData("text/html");
+          }
+          this.style.border = "";
+          return false;
+        }
+
+        btn.addEventListener("dragstart", handleDragStart);
+        btn.addEventListener("dragend", handleDragEnd);
+        btn.addEventListener("click", () => console.log("click registered"));
+
+        targets.forEach((t) => {
+          t.addEventListener("dragover", handleDragOver);
+          t.addEventListener("dragleave", handleDragLeave);
+          t.addEventListener("drop", handleDrop);
+        });
+      })();
+    </script>
+  </body>
+</html>

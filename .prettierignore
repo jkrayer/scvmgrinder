@@ -1,0 +1,13 @@
+.gitignore
+.prettierignore
+yarn.lock
+yarn-error.log
+package-lock.json
+coverage
+
+node_modules
+docs/build
+test_data
+# src/data
+
+.DS_Store
