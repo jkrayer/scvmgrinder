@@ -23,15 +23,26 @@
           {/if}
         </div>
         <div>
-          <span>{weapon.damageDie}</span>
-        </div>
-        <div>
           <button
+            title={weapon.damageDie}
             type="button"
             class="weapon-attack-button"
             disabled={weapon.broken}
-            on:click={() => dispatch("attack", weapon)}>Attack!</button
+            on:click={() => dispatch("damage", weapon)}
           >
+            Damage!
+          </button>
+        </div>
+        <div>
+          <button
+            title="d20+/-n"
+            type="button"
+            class="weapon-attack-button"
+            disabled={weapon.broken}
+            on:click={() => dispatch("attack", weapon)}
+          >
+            Attack!
+          </button>
         </div>
       </div>
     </div>

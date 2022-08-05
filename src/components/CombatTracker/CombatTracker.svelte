@@ -27,19 +27,16 @@
     (trackerData: TTrackerData) => (trackerItems = trackerData)
   );
 
-  Attack.subscribe((store) => {
-    console.log(31, store);
-    targeting = !!store.attacker;
-  });
+  Attack.subscribe(
+    (store) => (targeting = !!store.attacker || !!store.damager)
+  );
 
   // LOCAL STATE
   let selectedMonster: TrackerMonster = null;
 
   // HANDLERS
-  const handleClick = (item: TTrackerItem) => {
-    console.log("hadlingtclik", targeting);
+  const handleClick = (item: TTrackerItem) =>
     targeting ? setTarget(item as TrackerMonster) : null;
-  };
 
   const showSheet = (monster: TTrackerItem) => () =>
     (selectedMonster = monster as TrackerMonster);

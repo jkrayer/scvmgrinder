@@ -16,7 +16,7 @@
     // hasScrolls,
     hasPowers,
   } from "../../../lib";
-  import { setAttacker } from "../../../Combat/Attack";
+  import { setAttacker, setDamager } from "../../../Combat/Attack";
 
   let character = {};
   let loading = true;
@@ -36,6 +36,7 @@
 
   //
   const handleAttack = ({ detail }) => setAttacker(character, detail);
+  const handleDamage = ({ detail }) => setDamager(character, detail);
 </script>
 
 <!-- 24vw -->
@@ -46,7 +47,7 @@
       <HitPoints {...character.hitpoints} onSet={Character.updateHp} />
     </Header>
     <Scores scores={character.abilities} tests={character.tests} />
-    <Weapons {weapons} on:attack={handleAttack} />
+    <Weapons {weapons} on:attack={handleAttack} on:damage={handleDamage} />
     <Armor {...armor} agility={character.abilities.agility} />
     <div>
       {#if hasPowers(character)}
