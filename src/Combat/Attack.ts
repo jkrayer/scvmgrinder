@@ -139,7 +139,7 @@ AttackStore.subscribe((store) => {
     // if (isCrit) {
     // target.crit() haven't written any modifiers for monsters yet
     // }
-    console.log(93, damager.damageDie);
+
     const damage: number[] = [rollString(damager.damageDie)];
 
     if (isCrit) {

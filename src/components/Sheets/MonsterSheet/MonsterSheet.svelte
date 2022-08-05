@@ -6,9 +6,10 @@
   import Weapons from "../Weapons.svelte";
   import Description from "../Description.svelte";
   import { setAttacker, setDamager } from "../../../Combat/Attack";
+  import { damageMonster } from "../../../stores/Campaign";
 
   export let monster: TrackerMonster;
-
+  console.log(monster);
   //
   const handleAttack = ({ detail }) => setAttacker(monster, detail);
   const handleDamage = ({ detail }) => setDamager(monster, detail);
@@ -16,7 +17,10 @@
 
 <article class="monster-sheet">
   <Header name={monster.name}>
-    <HitPoints {...monster.hitpoints} onSet={() => {}} />
+    <HitPoints
+      {...monster.hitpoints}
+      onSet={(hp) => damageMonster(monster, hp)}
+    />
   </Header>
   <div class="monster-sheet_body">
     {#if monster.armor}

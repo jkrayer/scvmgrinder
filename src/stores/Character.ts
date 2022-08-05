@@ -25,7 +25,7 @@ const Character = writable<CharacterStore>({
     const character: TCharacter = await client
       .service("characters")
       .get(characterId);
-    console.log(28, character);
+    // console.log(28, character);
     Character.set({
       testModifiers: getTestModifiers(character),
       character,

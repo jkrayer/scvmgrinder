@@ -25,6 +25,7 @@ const CampaignStore = writable<{
 const main = async () => {
   try {
     const campaign = await client.service(SERVICE).get("e9lQv3ZyOxnPKyrK");
+
     CampaignStore.set({
       adventure: shadowKing,
       campaign,
@@ -76,6 +77,28 @@ export function setSide(firstSide: TrackerSides) {
     trackerData: {
       ...campaign.trackerData,
       firstSide,
+    },
+  });
+}
+
+export function damageMonster(monster: TrackerMonster, hp: number) {
+  const { campaign } = get(CampaignStore);
+  const monsters = campaign.trackerData.monsters.map((x) =>
+    x._id === monster._id
+      ? {
+          ...x,
+          hitpoints: {
+            maximum: x.hitpoints.maximum,
+            current: x.hitpoints.current + hp,
+          },
+        }
+      : x
+  );
+
+  client.service("campaigns").patch("e9lQv3ZyOxnPKyrK", {
+    trackerData: {
+      ...campaign.trackerData,
+      monsters,
     },
   });
 }

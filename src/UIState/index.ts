@@ -16,5 +16,5 @@ export const unsetTarget = () =>
   UI.update((data) => ({ ...data, targeting: false }));
 
 UI.subscribe((data) => {
-  console.log("UIDATA", data);
+  // console.log("UIDATA", data);
 });

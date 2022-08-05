@@ -1,7 +1,7 @@
-<script>
+<script type="ts">
   export let current = 0;
   export let maximum = 0;
-  export let onSet = () => {};
+  export let onSet = (arg1: number) => {};
 
   let num = 0;
 

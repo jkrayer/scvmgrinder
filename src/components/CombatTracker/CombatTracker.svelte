@@ -1,4 +1,5 @@
 <script type="ts">
+  import { head } from "ramda";
   import type {
     TTrackerData,
     TTrackerItem,
@@ -15,37 +16,55 @@
   import Modal from "../Modal.svelte";
   import MonsterSheet from "../Sheets/MonsterSheet/MonsterSheet.svelte";
 
-  let trackerItems: TTrackerData = {
+  type UIData = TTrackerData & { selectedMonster: TrackerMonster };
+
+  let trackerItems: UIData = {
     firstSide: "players",
     players: [],
     monsters: [],
+    selectedMonster: null,
   };
 
   let targeting: boolean = false;
 
-  TrackerStore.subscribe(
-    (trackerData: TTrackerData) => (trackerItems = trackerData)
-  );
+  TrackerStore.subscribe((trackerData: TTrackerData) => {
+    const getSelectedMonster = () =>
+      trackerItems.selectedMonster === null
+        ? [null]
+        : trackerData.monsters.filter(
+            (m) => m._id === trackerItems.selectedMonster._id
+          );
+
+    trackerItems = {
+      ...trackerData,
+      selectedMonster: head(getSelectedMonster()),
+    };
+    console.log("tracker subs");
+  });
 
   Attack.subscribe(
     (store) => (targeting = !!store.attacker || !!store.damager)
   );
 
   // LOCAL STATE
-  let selectedMonster: TrackerMonster = null;
+  // let selectedMonster: TrackerMonster = null;
 
   // HANDLERS
   const handleClick = (item: TTrackerItem) =>
     targeting ? setTarget(item as TrackerMonster) : null;
 
   const showSheet = (monster: TTrackerItem) => () =>
-    (selectedMonster = monster as TrackerMonster);
-  const closeSheet = () => (selectedMonster = null);
+    (trackerItems.selectedMonster = monster as TrackerMonster);
+  const closeSheet = () => (trackerItems.selectedMonster = null);
 </script>
 
 <div id="tracker">
-  <Modal visible={!!selectedMonster} onClose={closeSheet} showOverlaw={false}>
-    <MonsterSheet monster={selectedMonster} />
+  <Modal
+    visible={!!trackerItems.selectedMonster}
+    onClose={closeSheet}
+    showOverlaw={false}
+  >
+    <MonsterSheet monster={trackerItems.selectedMonster} />
   </Modal>
   <RollButton diceString="1d6" onRoll={rollInitiative}>Init</RollButton>
   <ul class="trackerlist">
