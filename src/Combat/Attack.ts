@@ -1,11 +1,12 @@
 import { writable } from "svelte/store";
-import { sum } from "ramda";
+import { pathOr, sum, find, ifElse, has, compose, propOr } from "ramda";
 import type { TCharacter, TrackerMonster, Weapon } from "../global";
 import { Attack as AttackTip } from "../Tips";
 import { roll, rollString } from "../lib";
 import { toHit, toDamage } from "../api/MessageService";
 import { breakWeapon } from "../stores/Character";
 import { getToHit, rollTier } from "./lib";
+import { getTrackerMonsters } from "../lib/campaign";
 
 type Attacker = {
   characterName: string;
@@ -37,7 +38,10 @@ export default AttackStore;
 // TODO: Refactor
 let isCrit = false;
 
-export const setAttacker = (attacker: TCharacter, weapon: Weapon) => {
+export const setAttacker = (
+  attacker: TCharacter | TrackerMonster,
+  weapon: Weapon
+) => {
   const { damageDie, subType, special, name: weaponName } = weapon;
   const { name: characterName } = attacker;
 
@@ -55,7 +59,10 @@ export const setAttacker = (attacker: TCharacter, weapon: Weapon) => {
   AttackTip();
 };
 
-export const setDamager = (attacker: TCharacter, weapon: Weapon) => {
+export const setDamager = (
+  attacker: TCharacter | TrackerMonster,
+  weapon: Weapon
+) => {
   const { damageDie, subType, special, name: weaponName } = weapon;
   const { name: characterName } = attacker;
 
@@ -75,13 +82,25 @@ export const setDamager = (attacker: TCharacter, weapon: Weapon) => {
 
 // attackDC: 12,
 
-export const setTarget = (target: TrackerMonster) => {
+const getArmorTier = pathOr(0, ["armor", "tier", "current"]);
+const getEquippedArmor = (eq) =>
+  find((eq) => eq.type === "armor" && eq.equipped === true, eq) || {};
+
+// compose(getArmorTier, getEquippedArmor,
+
+const getMonsterOrCharacterArmor = ifElse(
+  has("armor"),
+  getArmorTier,
+  compose(getArmorTier, getEquippedArmor, propOr([], "equipment"))
+);
+
+export const setTarget = (target: TrackerMonster | TCharacter) => {
   AttackStore.update((data: TAttackStore) => ({
     ...data,
     target: {
       targetName: target.name,
       attackDC: getToHit(target),
-      armorTier: target.armor.tier.current,
+      armorTier: getMonsterOrCharacterArmor(target),
     },
   }));
 };

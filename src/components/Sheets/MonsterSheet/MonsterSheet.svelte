@@ -5,12 +5,13 @@
   import Armor from "./Armor.svelte";
   import Weapons from "../Weapons.svelte";
   import Description from "../Description.svelte";
+  import { setAttacker, setDamager } from "../../../Combat/Attack";
 
   export let monster: TrackerMonster;
 
-  const handleAttack = (e: any) => {
-    console.log(e);
-  };
+  //
+  const handleAttack = ({ detail }) => setAttacker(monster, detail);
+  const handleDamage = ({ detail }) => setDamager(monster, detail);
 </script>
 
 <article class="monster-sheet">
@@ -21,7 +22,11 @@
     {#if monster.armor}
       <Armor armor={monster.armor} />
     {/if}
-    <Weapons weapons={monster.weapons} on:attack={handleAttack} />
+    <Weapons
+      weapons={monster.weapons}
+      on:attack={handleAttack}
+      on:damage={handleDamage}
+    />
     {#if monster.description}
       <Description description={monster.description} />
     {/if}
