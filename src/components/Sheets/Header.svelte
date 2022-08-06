@@ -3,7 +3,7 @@
   export let className: string = null;
 </script>
 
-<div class="sheet-header theme-black">
+<div class="sheet-header">
   <div>
     <slot name="portrait" />
     <header>
@@ -23,7 +23,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     padding: var(--small-padding);
+    color: #fff;
+    background-color: #222;
   }
 
   .sheet-header > div:first-of-type {
@@ -33,9 +36,10 @@
 
   .h1 {
     margin: 0 0 0.15em;
-    font-size: 1.5rem;
+    font-size: 2rem;
     line-height: 1;
     white-space: nowrap;
+    font-family: var(--serif);
   }
   .h2 {
     margin: 0;

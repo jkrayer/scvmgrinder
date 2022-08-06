@@ -11,7 +11,16 @@
  * 7. Equipment
  * 8. Tracker
  * 9. Monster Sheet
+ * 9. Character Sheet
 */
+
+@font-face {
+  font-family: "cloister_blacklight";
+  src: url("/fonts/cloisterblack-webfont.woff2") format("woff2"),
+    url("/fonts/cloisterblack-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
 :root {
   --tiny-padding: 0.25rem;
@@ -19,7 +28,7 @@
   --padding: 1rem;
   --sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  --serif: Athelas, Cambria, serif;
+  --serif: "cloister_blacklight", Athelas, Cambria, serif;
   --fixed: "Courier New", Courier, monospace;
 }
 
@@ -35,7 +44,7 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  color: #333;
+  color: #222;
   font-family: var(--sans-serif);
 }
 
@@ -154,6 +163,7 @@ table > tbody > tr > td:first-of-type {
 .stage-column {
   flex-basis: 25%;
   display: flex;
+  min-width: 370px;
   max-height: calc(100vh - 2rem);
   padding: var(--padding);
 }
@@ -355,4 +365,23 @@ table > tbody > tr > td:first-of-type {
   font-size: 1rem;
   font-weight: 600;
   color: #333;
+}
+
+/* 10. Character Sheet */
+.character-sheet-tab-wrapper {
+  padding: var(--small-padding);
+}
+
+.character-sheet-heading {
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid #555;
+  margin: 0;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.character-sheet-class > p {
+  font-size: 0.875rem;
+  line-height: 1.5;
 }

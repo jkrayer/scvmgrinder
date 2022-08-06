@@ -8,50 +8,52 @@
   const equippable = has("equipped");
 </script>
 
-<h2>Equipment</h2>
-<ul id="equipment-list">
-  {#each equipment as eq, index}
-    <li>
-      {#if typeof eq === "string"}
-        <div>{eq}</div>
-      {:else}
-        <div>
-          <span class:broken={eq.broken}>
-            <b>{eq.name}</b>
-            {#if eq.broken}
-              (broken)
+<div class="character-sheet-tab-wrapper">
+  <h2 class="character-sheet-heading">Equipment</h2>
+  <ul id="equipment-list">
+    {#each equipment as eq, index}
+      <li>
+        {#if typeof eq === "string"}
+          <div>{eq}</div>
+        {:else}
+          <div>
+            <span class:broken={eq.broken}>
+              <b>{eq.name}</b>
+              {#if eq.broken}
+                (broken)
+              {/if}
+            </span>
+            {eq.description || ""}
+            {#if eq.quantity !== undefined}
+              ({eq.quantity})
             {/if}
-          </span>
-          {eq.description || ""}
+          </div>
+        {/if}
+        <div>
           {#if eq.quantity !== undefined}
-            ({eq.quantity})
+            <button
+              type="button"
+              on:click={() => Character.decrementEquipment(index)}
+            >
+              -</button
+            >
           {/if}
+          {#if equippable(eq) && !eq.broken}
+            <button
+              type="button"
+              on:click={() => Character.toggleEquipment(index)}
+              >{eq.equipped ? "U " : "E"}</button
+            >
+          {/if}
+          <button type="button" on:click={() => Character.trashEquipment(index)}
+            >T</button
+          >
         </div>
-      {/if}
-      <div>
-        {#if eq.quantity !== undefined}
-          <button
-            type="button"
-            on:click={() => Character.decrementEquipment(index)}
-          >
-            -</button
-          >
-        {/if}
-        {#if equippable(eq) && !eq.broken}
-          <button
-            type="button"
-            on:click={() => Character.toggleEquipment(index)}
-            >{eq.equipped ? "U " : "E"}</button
-          >
-        {/if}
-        <button type="button" on:click={() => Character.trashEquipment(index)}
-          >T</button
-        >
-      </div>
-    </li>
-  {/each}
-  <li>Silver: {silver}</li>
-</ul>
+      </li>
+    {/each}
+    <li>Silver: {silver}</li>
+  </ul>
+</div>
 
 <style>
   #equipment-list {
