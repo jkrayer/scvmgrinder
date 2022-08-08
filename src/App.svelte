@@ -1,29 +1,15 @@
 <script lang="ts">
-  import { isPlayer } from "./State/User";
-  import Toast from "./components/Toasts/Toast.svelte";
-  import Header from "./components/Stage/Header.svelte";
-  import CharacterSheet from "./components/Sheets/CharacterSheet/CharacterSheet.svelte";
-  import MessageComponent from "./components/MessageService/MessageComponent.svelte";
-  import AdventurePanel from "./components/AdventurePanel/AdventurePanel.svelte";
-  import CombatTracker from "./components/CombatTracker/CombatTracker.svelte";
+  import CharacterSheet from "./CharacterSheet/CharacterSheet.svelte";
 </script>
 
 <main id="app">
-  <Header />
-  <Toast />
-  <div id="stage">
-    {#if isPlayer()}
-      <div class="stage-column">
-        <CharacterSheet />
-      </div>
-    {/if}
-    <div class="stage-column stage-column_campaign">
-      <!-- <CombatTracker /> -->
-      <AdventurePanel />
-    </div>
-    <MessageComponent />
-  </div>
-  <footer id="global-footer" class="theme-black">
+  <header id="global-header">
+    <h1 id="logo">SCVUMGRINDER</h1>
+    <span class="tiny-fixed">v0.0.2</span>
+    <p class="tiny-fixed space-tiny">A digital character sheet for MÖRK BORG</p>
+  </header>
+  <CharacterSheet />
+  <footer id="global-footer">
     <p>
       Scvmgrinder is an independent production by James Krayer and is not
       affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is
@@ -36,9 +22,3 @@
     </p>
   </footer>
 </main>
-
-<style>
-  #stage {
-    box-sizing: border-box;
-  }
-</style>

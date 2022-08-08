@@ -11,7 +11,7 @@
  * 7. Equipment
  * 8. Tracker
  * 9. Monster Sheet
- * 9. Character Sheet
+ * 10. Character Sheet
 */
 
 @font-face {
@@ -28,8 +28,12 @@
   --padding: 1rem;
   --sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  --serif: "cloister_blacklight", Athelas, Cambria, serif;
+  --serif: Athelas, Cambria, serif;
   --fixed: "Courier New", Courier, monospace;
+  --handwriting: "cloister_blacklight";
+  --black: #222;
+  --darkBlack: #000;
+  --white: #fff;
 }
 
 /* 1. General */
@@ -37,28 +41,29 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background-color: magenta;
+}
+
 html,
 body {
-  position: relative;
+  /* position: relative;
   width: 100%;
-  height: 100%;
+  height: 100%; */
   padding: 0;
   margin: 0;
-  color: #222;
+  /* color: #222; */
   font-family: var(--sans-serif);
 }
 
-a {
-  color: rgb(0, 100, 200);
+a,
+a:visited {
+  color: yellow;
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
-}
-
-a:visited {
-  color: rgb(0, 80, 160);
 }
 
 label {
@@ -117,6 +122,33 @@ table > tbody > tr > td:first-of-type {
   text-align: left;
 }
 
+.space-zero {
+  padding: 0;
+  margin: 0;
+}
+
+.space-tiny {
+  padding: 0;
+  margin: var(--tiny-padding);
+}
+
+.space-zero {
+  padding: 0;
+  margin: var(--small-padding);
+}
+
+#app {
+  /* position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column; */
+  color: var(--white);
+  background-color: var(--black);
+}
+
 /* 2. Layout */
 .row {
   display: flex;
@@ -139,16 +171,6 @@ table > tbody > tr > td:first-of-type {
 }
 
 .col {
-  display: flex;
-  flex-direction: column;
-}
-
-#app {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   display: flex;
   flex-direction: column;
 }
@@ -181,21 +203,21 @@ table > tbody > tr > td:first-of-type {
   text-align: center;
 }
 
-#global-header > h1 {
+#logo {
   margin: 0;
   font: 700 1rem/1 var(--serif);
   letter-spacing: 0.5em;
+  display: inline;
 }
 
 #global-footer {
-  box-sizing: border-box;
   padding: var(--small-padding);
-  font: 500 0.75em/1.33333 var(--fixed);
+  font: 400 0.75em/1.33333 var(--fixed);
   text-align: center;
 }
 
 #global-footer > p {
-  margin: 0.5em auto;
+  margin: var(--small-padding) auto;
   max-width: 800px;
 }
 
@@ -215,7 +237,11 @@ table > tbody > tr > td:first-of-type {
   margin: 0;
 }
 
-/* 6. Typography */
+/* 4. Typography */
+.tiny-fixed {
+  font: 400 0.625rem/1 var(--fixed);
+}
+
 .score-name {
   text-transform: capitalize;
   font-size: 0.875em;
@@ -230,70 +256,6 @@ table > tbody > tr > td:first-of-type {
 /* 5. Helpers */
 .mb0 {
   margin-bottom: 0;
-}
-
-/* 6. Theme */
-/* 6.1 Magenta */
-.theme-magenta {
-  color: #000;
-  background-color: magenta;
-}
-
-/* 6.2 Black */
-.theme-black {
-  color: #fff;
-  background-color: #000;
-}
-
-.theme-black a {
-  color: yellow;
-  text-decoration: none;
-}
-
-.theme-black a:hover {
-  text-decoration: underline;
-}
-
-.theme-black a:visited {
-  color: magenta;
-}
-
-.theme-black-input {
-  border: none;
-  border-bottom: 1px solid #fff;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.8);
-}
-.theme-black-input:focus-visible {
-  outline: 1px solid yellow;
-}
-
-/* 6.3 White */
-.theme-white {
-  color: #000;
-  background-color: #fff;
-}
-
-.theme-white-button {
-  background-color: #000;
-  border: none;
-  color: #fff;
-  font-family: var(--serif);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.theme-white-button:disabled {
-  color: #333;
-  background-color: #999;
-}
-
-.theme-white-button:not(:disabled):active {
-  background-color: #666;
-}
-
-.theme-white-button:focus {
-  background-color: #666;
 }
 
 /* 7. Equipment */
@@ -368,20 +330,38 @@ table > tbody > tr > td:first-of-type {
 }
 
 /* 10. Character Sheet */
-.character-sheet-tab-wrapper {
+#character-sheet {
   padding: var(--small-padding);
+  display: flex;
 }
-
-.character-sheet-heading {
-  padding-bottom: 0.25em;
-  border-bottom: 1px solid #555;
-  margin: 0;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
+.character-sheet-col {
+  flex-basis: 40%;
 }
-
-.character-sheet-class > p {
-  font-size: 0.875rem;
-  line-height: 1.5;
+.character-sheet-col1 {
+  flex-basis: 20%;
+  padding-right: var(--small-padding);
+  padding-left: var(--small-padding);
+}
+.character-sheet-field {
+  padding: var(--small-padding);
+  margin-bottom: var(--small-padding);
+  color: var(--black);
+  background-color: var(--white);
+}
+.character-sheet-field-label {
+  display: inline;
+  font: 400 1.5rem/1 var(--handwriting);
+}
+.character-sheet-title {
+  display: inline;
+  font-family: var(--fixed);
+  font-weight: 400;
+}
+.character-sheet-ko {
+  background-color: transparent;
+  color: var(--white);
+}
+.character-sheet-copy {
+  margin: 0.5em;
+  font: 400 0.875rem/1.5 var(--fixed);
 }
