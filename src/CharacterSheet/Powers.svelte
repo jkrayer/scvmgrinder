@@ -1,7 +1,8 @@
 <script type="ts">
+  import type { Scroll } from "./type";
   export let powers: null | number = null;
   // Array of scrolls
-  export let scrolls: any[] = [];
+  export let scrolls: Scroll[] = [];
 
   const isDisabled = powers === null;
 </script>
@@ -14,7 +15,11 @@
         <p>You are not able to use powers.</p>
       {:else}
         {#each scrolls as scroll}
-          <p>Scroll Name</p>
+          <p>{scroll.name}</p>
+          <p>{scroll.description}</p>
+          <!-- Roll Presence Check -->
+          <!-- Handle Success and Failure -->
+          <button type="button">Use</button>
         {/each}
       {/if}
     </div>

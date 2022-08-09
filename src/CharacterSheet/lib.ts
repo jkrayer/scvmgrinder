@@ -7,7 +7,13 @@ import {
   propSatisfies,
   reduce,
 } from "ramda";
-import type { ArmorAndShield, CharacterType, Equipment, Weapon } from "./type";
+import type {
+  ArmorAndShield,
+  CharacterType,
+  Equipment,
+  Weapon,
+  Scroll,
+} from "./type";
 
 const toInt = (x: string): number => parseInt(x, 10);
 
@@ -20,6 +26,8 @@ const isTrue = (x: any): boolean => x === true;
 export const isEquipped = propSatisfies(isTrue, "equipped");
 
 export const isWeapon = propSatisfies((x: string) => x === "weapon", "type");
+
+export const isScroll = propSatisfies((x: string) => x === "scroll", "type");
 
 export const isArmor = propSatisfies(
   (x: string) => x === "armor" || x === "shield",
@@ -104,3 +112,7 @@ const trace =
 export const getEquippedWeapons = compose(equippedWeapons, getEquipment);
 
 export const getEquippedArmor = compose(equippedArmor, getEquipment);
+
+export const getScrolls = compose(filter(isScroll), getEquipment) as (
+  arg1: CharacterType
+) => Scroll[];

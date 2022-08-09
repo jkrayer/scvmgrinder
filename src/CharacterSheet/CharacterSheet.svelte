@@ -3,6 +3,7 @@
     update,
     EquippedWeapons,
     EquippedArmor,
+    EqScrolls,
   } from "./store";
   import { incrementHp, useOmen, incrementSilver } from "./lib";
   import Powers from "./Powers.svelte";
@@ -58,7 +59,7 @@
         {@html $CharacterStore.class.abilities}
       </div>
     </div>
-    <Powers scrolls={[]} powers={$CharacterStore.powers} />
+    <Powers scrolls={$EqScrolls} powers={$CharacterStore.powers} />
   </div>
   <div class="character-sheet-col1">
     <HitPoints

@@ -358,8 +358,9 @@ table > tbody > tr > td:first-of-type {
   font-weight: 400;
 }
 .character-sheet-ko {
-  background-color: transparent;
+  padding: 0;
   color: var(--white);
+  background-color: transparent;
 }
 .character-sheet-copy {
   margin: 0.5em;

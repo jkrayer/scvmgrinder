@@ -7,6 +7,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "dev": "rollup -c -w",
     "format": "prettier --write \"./**\"",
+    "precommit": "npm test",
     "start": "sirv docs --no-clear",
     "test": "jest --passWithNoTests"
   },

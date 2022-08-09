@@ -1,97 +1,104 @@
 import { writable, derived, type Readable } from "svelte/store";
-import { getEquippedWeapons, getEquippedArmor } from "./lib";
-import type { CharacterType, Weapon, ArmorAndShield } from "./type";
+import { getEquippedWeapons, getEquippedArmor, getScrolls } from "./lib";
+import type { CharacterType, Weapon, ArmorAndShield, Scroll } from "./type";
 
 const defaultCharacter: CharacterType = {
-  name: "Katlak",
-  silver: 34,
-  status: [],
-  abilities: { agility: 0, presence: -2, strength: 1, toughness: 1 },
-  hitpoints: { current: 3, maximum: 6 },
+  name: "Brinta",
+  silver: 23,
+  abilities: {
+    agility: -3,
+    presence: 1,
+    strength: 2,
+    toughness: -3,
+  },
+  hitpoints: {
+    maximum: 1,
+    current: 1,
+  },
   campaignId: "e9lQv3ZyOxnPKyrK",
   class: {
-    name: "Fanged Deserter",
+    name: "Esoteric Hermit",
     abilities:
-      "<p><b>Clumsy and Dull-witted</b> Agility tests are DR+2, excluding defence. You are incapable of understanding scrolls.</p><p><b>Bite Attack</b>DR10 to attack, d6 damage. You must be close to your target. 1–2 on d6 chance the enemy gets a free attack.</p><p><b>Crumpled Monster Mask</b> Strikes primitive fear into lesser creatures like goblins, gnoums and children. While worn, they check Morale every round.</p>",
-    image: "images/fanged_deserter.png",
+      "<p><b>Initiate of the Invisible College</b></p><p>Once per day you may summon D2 scrolls, whose power can be used only once. Roll a d4, on a 1–2 the scrolls are sacred, on a 3–4, unclean. If the scrolls are not used before sunrise they turn to ash.</p>",
+    image: "images/esoteric_hermit.png",
   },
   tests: {
-    agility: 2,
+    agility: 0,
     presence: 0,
     strength: 0,
     toughness: 0,
     attack: 0,
     defense: 0,
   },
-  omens: { current: 4, maximum: 4 },
+  omens: {
+    current: 4,
+    maximum: 4,
+  },
   description:
-    "<p>Your earliest memories are of suckling a wolf in the wilds of Bergen Chrypt.</p><p>You have thirty or so friends who never let you down: YOUR TEETH. Disloyal, deranged or simply uncontrollable, any group that didn’t boot you out you left anyway. But your parliament of teeth — enormous, protruding, thick and sharp — have always been your allies.</p><p>Vindictive and Cruel. Rotting face, wearing mask. You stutter when lying.</p>",
+    "<p>You remember awakening, adult, in a ritual circle underneath the northern bridge to Grift.</p><p>The stone of your cave is one with the stars. Silence and perfection. Now the chaos of a fallen world disturbs your rituals and the caul of night grows blacker than your cavern’s gloom. Irritating!</p><p>Prone to substance abuse and Wasteful. Covered in (for some) blasphemous tattoos. Permanent phlegm deposit in throat. Continuously coughs, snorts, spits and swallows.</p>",
   equipment: [
-    { type: "equipment", name: "Waterskin and 2 day's worth of food" },
+    { type: "equipment", name: "Waterskin and 1 day's worth of food" },
     {
-      name: "Warhammer",
-      damageDie: "1d6",
+      name: "Femur",
+      damageDie: "d4",
       type: "weapon",
       subType: "melee",
+      weight: 100,
       equipped: true,
-      broken: false,
     },
     {
-      name: "Scale armor",
-      type: "armor",
-      tier: { current: 2, maximum: 2 },
+      name: "Bow",
+      damageDie: "d6",
+      type: "weapon",
+      subType: "ranged",
+      weight: 100,
       equipped: true,
-      broken: true,
-      effect: {
-        description: "DR +2 on Agility tests including defence",
-        tests: { agility: 2, defense: 2 },
-      },
     },
-    { type: "equipment", name: "Sack for 10 normal-sized items" },
-    { type: "equipment", name: "Manacles" },
-    { type: "equipment", name: "Mirror, worth 15s" },
-    { name: "Shield", type: "shield", equipped: true, broken: false },
+    {
+      name: "Arrow",
+      type: "ammunition",
+      subType: "",
+      weight: 5,
+      quantity: 10,
+    },
+    {
+      name: "Padded cloth armor",
+      type: "armor",
+      tier: {
+        current: 1,
+        maximum: 1,
+      },
+      equipped: true,
+      weight: 100,
+    },
+    { type: "equipment", name: "Bear trap (DR14 to spot, d8 damage)" },
+    {
+      name: "Lard",
+      type: "food",
+      subtype: "",
+      description: "(may function as 5 meals in a pinch)",
+      weight: 20,
+      quantity: 5,
+    },
+    {
+      name: "Te-le-kin-esis",
+      type: "scroll",
+      subType: "unclean",
+      description: "Move an object up 1d10×10 feet for d6 minutes",
+      weight: 100,
+    },
+    {
+      name: "Grace of a Dead Saint",
+      type: "scroll",
+      subType: "sacred",
+      description: "d2 creatures regain d10 HP each.",
+      weight: 100,
+    },
   ],
-  equipmentTwo: {
-    weapons: [
-      {
-        name: "Warhammer",
-        damageDie: "1d6",
-        type: "weapon",
-        subType: "melee",
-        equipped: true,
-        broken: false,
-      },
-    ],
-    armor: [
-      {
-        name: "Scale armor",
-        type: "armor",
-        tier: { current: 2, maximum: 2 },
-        equipped: true,
-        effect: {
-          description: "DR +2 on Agility tests including defence",
-          tests: { agility: 2, defense: 2 },
-        },
-      },
-      { name: "Shield", type: "shield", equipped: true, broken: false },
-    ],
-    scrolls: [],
-    food: {
-      waterskin: 0,
-      food: 2,
-    },
-    equipment: [
-      "Sack for 10 normal-sized items",
-      "Manacles",
-      "Mirror, worth 15s",
-    ],
-  },
-
-  powers: null,
-  _id: "UTetg6vHrvwG2o19",
+  status: [],
+  powers: 3,
+  _id: "JEx2BC6COHdTEKMC",
 };
-
 const Character = writable<CharacterType>(defaultCharacter);
 
 export default Character;
@@ -111,3 +118,5 @@ export const EquippedArmor: Readable<ArmorAndShield> = derived(
   Character,
   getEquippedArmor
 );
+
+export const EqScrolls: Readable<Scroll[]> = derived(Character, getScrolls);

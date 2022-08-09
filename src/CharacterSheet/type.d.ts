@@ -93,16 +93,6 @@ export type CharacterType = {
   powers: null | number;
   equipment: Equipment[];
   status: any[]; // StatusTypes[];
-  equipmentTwo: {
-    weapons: Weapon[];
-    armor: Array<Armor | Shield>;
-    scrolls: Scroll[];
-    food: {
-      waterskin: number;
-      food: number;
-    };
-    equipment: string[];
-  };
 };
 
 export type ArmorAndShield = { armor?: Armor; shield?: Shield };
