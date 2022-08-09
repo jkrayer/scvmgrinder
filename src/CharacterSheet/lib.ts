@@ -38,19 +38,21 @@ const equippedWeapons = filter(
   (x: Equipment) => isWeapon(x) && isEquipped(x)
 ) as (arg1: Equipment[]) => Weapon[];
 
-const equippedArmor = reduce(
-  (acc, eq: Equipment) => {
-    if (isArmor(eq) && isEquipped(eq)) {
-      acc[eq.type] = eq;
-    }
+const equippedArmor = (equipment: Equipment[]): ArmorAndShield => {
+  return equipment.reduce(
+    (acc, eq: Equipment) => {
+      if (isArmor(eq) && isEquipped(eq)) {
+        acc[eq.type] = eq;
+      }
 
-    return acc;
-  },
-  {
-    armor: null,
-    shield: null,
-  }
-) as (arg1: Equipment[]) => ArmorAndShield;
+      return acc;
+    },
+    {
+      armor: null,
+      shield: null,
+    } as ArmorAndShield
+  );
+};
 
 // EXPORTS
 
@@ -100,6 +102,30 @@ export const incrementSilver = (num: number) => (character: CharacterType) => {
   };
 };
 
+export const equipmentToggle =
+  (eq: Equipment) =>
+  (character: CharacterType): CharacterType => {
+    const { equipment } = character;
+
+    return {
+      ...character,
+      equipment: equipment.map((e: Equipment) =>
+        e.name === eq.name ? { ...e, equipped: !e.equipped } : e
+      ),
+    };
+  };
+
+export const equipmentDrop =
+  (eq: Equipment) =>
+  (character: CharacterType): CharacterType => {
+    const { equipment } = character;
+
+    return {
+      ...character,
+      equipment: equipment.filter((e: Equipment) => e.name !== eq.name),
+    };
+  };
+
 //
 const trace =
   (msg: string) =>
@@ -108,10 +134,15 @@ const trace =
     return x;
   };
 
-//
+// GETTERS
 export const getEquippedWeapons = compose(equippedWeapons, getEquipment);
 
-export const getEquippedArmor = compose(equippedArmor, getEquipment);
+export const getEquippedArmor = compose(
+  trace("equippedAr"),
+  equippedArmor,
+  trace("getEq"),
+  getEquipment
+);
 
 export const getScrolls = compose(filter(isScroll), getEquipment) as (
   arg1: CharacterType

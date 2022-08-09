@@ -1,4 +1,4 @@
-import type { Armor, CharacterType, Weapon } from "./type";
+import type { Armor, CharacterType, Equipment, Weapon } from "./type";
 import {
   incrementHp,
   useOmen,
@@ -8,8 +8,11 @@ import {
   isEquipped,
   isWeapon,
   isArmor,
+  isScroll,
   getEquippedWeapons,
   getEquippedArmor,
+  equipmentToggle,
+  equipmentDrop,
 } from "./lib";
 
 describe("incrementHp", () => {
@@ -175,6 +178,17 @@ describe("Equipment Tests", () => {
     });
   });
 
+  describe("isScroll", () => {
+    test("it should return true if the type of equpment equals 'scroll'", () => {
+      expect(isScroll({ ...weapon, type: "scroll" })).toBe(true);
+    });
+
+    test("it should return false if the type of equipment is not 'scroll", () => {
+      expect(isScroll(weapon)).toBe(false);
+      expect(isScroll(armor)).toBe(false);
+    });
+  });
+
   describe("getEquippedWeapons", () => {
     test("it should return equipped weapons", () => {
       expect(getEquippedWeapons(eq)).toMatchObject([eq.equipment[1]]);
@@ -202,6 +216,27 @@ describe("Equipment Tests", () => {
         armor: { ...armor, name: "Leather Armor" },
         shield: null,
       });
+    });
+  });
+
+  describe("equipmentToggle", () => {
+    const copyEq = { ...eq, equipment: [armor, weapon] };
+
+    test("it should toggle the equipped state ftom true to false and back", () => {
+      expect(
+        equipmentToggle({ name: "Axe" } as Equipment)(copyEq)
+      ).toMatchObject({
+        ...eq,
+        equipment: [armor, { ...weapon, equipped: true }],
+      });
+    });
+  });
+
+  describe("equipmentDrop", () => {
+    test("it should remove the names piece of equipment", () => {
+      expect(
+        equipmentDrop({ name: "Warhammer" } as Equipment)(eq).equipment.length
+      ).toBe(3);
     });
   });
 });

@@ -5,7 +5,14 @@
     EquippedArmor,
     EqScrolls,
   } from "./store";
-  import { incrementHp, useOmen, incrementSilver } from "./lib";
+  import {
+    incrementHp,
+    useOmen,
+    incrementSilver,
+    equipmentToggle,
+    equipmentDrop,
+  } from "./lib";
+  import type { Equipment as EquipmentType } from "./type";
   import Powers from "./Powers.svelte";
   import HitPoints from "./HitPoints.svelte";
   import AbilityScores from "./AbilityScores.svelte";
@@ -17,12 +24,16 @@
   import MorkBorgLogo from "../components/MorkBorgLogo.svelte";
   import equipment from "../data/equipment";
 
-  // HP
+  // HANDLERS
   const incremenet = () => update(incrementHp(1));
   const decrement = () => update(incrementHp(-1));
   const useomen = () => update(useOmen());
   const updateSilver = ({ detail }: CustomEvent<number>) =>
     update(incrementSilver(detail));
+  const toggleEquipment = ({ detail }: CustomEvent<EquipmentType>) =>
+    update(equipmentToggle(detail));
+  const dropEquipment = ({ detail }: CustomEvent<EquipmentType>) =>
+    update(equipmentDrop(detail));
 </script>
 
 <article id="character-sheet">
@@ -73,7 +84,11 @@
   <div class="character-sheet-col">
     <Weapons weapons={$EquippedWeapons} />
     <Armor {...$EquippedArmor} />
-    <Equipment equipment={$CharacterStore.equipment} />
+    <Equipment
+      equipment={$CharacterStore.equipment}
+      on:toggle:equipment={toggleEquipment}
+      on:trash:equipment={dropEquipment}
+    />
     <Silver silver={$CharacterStore.silver} on:setSilver={updateSilver} />
   </div>
 </article>

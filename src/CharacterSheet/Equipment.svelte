@@ -1,11 +1,16 @@
 <script type="ts">
+  import { createEventDispatcher } from "svelte";
   import { has } from "ramda";
   import type { Equipment } from "./type";
 
   // TODO: Need state mechanism to handle the effect of being encumbered and max items carried
+  // This culd be in the derived equipment store since it will update on a change.
+  // Or perhaps deriving status from state is better elsewhere
   export let equipment: Equipment[] = [];
 
   const equippable = has("equipped");
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <div class="character-sheet-field character-sheet-ko">
@@ -26,12 +31,14 @@
         </div>
         <div>
           {#if equippable(eq)}
-            <button type="button" on:click={() => alert("equip")}
+            <button
+              type="button"
+              on:click={() => dispatch("toggle:equipment", eq)}
               >{eq.equipped ? "U " : "E"}</button
             >
           {/if}
 
-          <button type="button" on:click={() => alert("trashEquipment(index)")}
+          <button type="button" on:click={() => dispatch("trash:equipment", eq)}
             >T</button
           >
         </div>
