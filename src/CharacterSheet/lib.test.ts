@@ -1,5 +1,16 @@
-import type { CharacterType } from "./type";
-import { incrementHp, useOmen, setOmens, incrementSilver } from "./lib";
+import type { Armor, CharacterType, Weapon } from "./type";
+import {
+  incrementHp,
+  useOmen,
+  setOmens,
+  incrementSilver,
+  getEquipment,
+  isEquipped,
+  isWeapon,
+  isArmor,
+  getEquippedWeapons,
+  getEquippedArmor,
+} from "./lib";
 
 describe("incrementHp", () => {
   const hp = { hitpoints: { current: 3, maximum: 6 } } as CharacterType;
@@ -75,6 +86,122 @@ describe("inrementSilver", () => {
   test("it should not decrease silver below 0", () => {
     expect(incrementSilver(-60)(silver)).toMatchObject({
       silver: 0,
+    });
+  });
+});
+
+describe("Equipment Tests", () => {
+  const armor: Armor = {
+    name: "Scale armor",
+    type: "armor",
+    tier: { current: 2, maximum: 2 },
+    equipped: true,
+    broken: true,
+    effect: {
+      description: "DR +2 on Agility tests including defence",
+      tests: { agility: 2, defense: 2 },
+    },
+  };
+  const leatherArmor: Armor = { ...armor, name: "Leather Armor" };
+
+  const eq = {
+    silver: 10,
+    equipment: [
+      { type: "equipment", name: "Waterskin and 2 day's worth of food" },
+      {
+        name: "Warhammer",
+        damageDie: "1d6",
+        type: "weapon",
+        subType: "melee",
+        equipped: true,
+        broken: false,
+      },
+      {
+        name: "Sword",
+        damageDie: "1d8",
+        type: "weapon",
+        subType: "melee",
+        equipped: false,
+        broken: false,
+      },
+      armor,
+    ],
+  } as CharacterType;
+  const weapon: Weapon = {
+    name: "Axe",
+    type: "weapon",
+    damageDie: "1d6",
+    subType: "melee",
+  };
+
+  describe("getEquipment", () => {
+    test("it should get equipment", () => {
+      expect(getEquipment(eq)).toMatchObject(eq.equipment);
+    });
+
+    test("it should return [] if euipment is not found", () => {
+      expect(getEquipment({} as CharacterType)).toMatchObject([]);
+    });
+  });
+
+  describe("isEquipped", () => {
+    test("it should be true when equipped is true", () => {
+      expect(isEquipped({ ...weapon, equipped: true })).toBe(true);
+    });
+
+    test("it should be false when equipped is not boolean true", () => {
+      expect(isEquipped(weapon)).toBe(false);
+    });
+  });
+
+  describe("isWeapon", () => {
+    test("it should return true if type is weapon", () => {
+      expect(isWeapon(weapon)).toBe(true);
+    });
+
+    test("it should return false if type is not weapon", () => {
+      expect(isWeapon({ ...weapon, type: "armor" })).toBe(false);
+    });
+  });
+
+  describe("isArmor", () => {
+    test("it should return true if type is weapon or shield", () => {
+      expect(isArmor({ ...weapon, type: "armor" })).toBe(true);
+      expect(isArmor({ ...weapon, type: "shield" })).toBe(true);
+    });
+
+    test("it should return false if type is not armor or shield", () => {
+      expect(isArmor(weapon)).toBe(false);
+    });
+  });
+
+  describe("getEquippedWeapons", () => {
+    test("it should return equipped weapons", () => {
+      expect(getEquippedWeapons(eq)).toMatchObject([eq.equipment[1]]);
+    });
+  });
+
+  describe("getEquippedArmor", () => {
+    test("it should return object of nulls if no armor or shield is found", () => {
+      expect(
+        getEquippedArmor({ equipment: [] } as CharacterType)
+      ).toMatchObject({ armor: null, shield: null });
+    });
+
+    test("it should return armor and shield if they're found", () => {
+      expect(getEquippedArmor(eq)).toMatchObject({
+        armor: armor,
+        shield: null,
+      });
+    });
+
+    test("it should return the last equipped armor", () => {
+      expect(
+        getEquippedArmor({ ...eq, equipment: [...eq.equipment, leatherArmor] })
+      ).toMatchObject({
+        armor: { ...armor, name: "Leather Armor" },
+        shield: null,
+      });
     });
   });
 });

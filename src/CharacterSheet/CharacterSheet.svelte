@@ -1,12 +1,20 @@
 <script lang="ts">
-  import CharacterStore, { update } from "./store";
+  import CharacterStore, {
+    update,
+    EquippedWeapons,
+    EquippedArmor,
+  } from "./store";
   import { incrementHp, useOmen, incrementSilver } from "./lib";
   import Powers from "./Powers.svelte";
   import HitPoints from "./HitPoints.svelte";
   import AbilityScores from "./AbilityScores.svelte";
   import Omens from "./Omens.svelte";
+  import Weapons from "./Weapons.svelte";
+  import Armor from "./Armor.svelte";
+  import Equipment from "./Equipment.svelte";
   import Silver from "./Silver.svelte";
   import MorkBorgLogo from "../components/MorkBorgLogo.svelte";
+  import equipment from "../data/equipment";
 
   // HP
   const incremenet = () => update(incrementHp(1));
@@ -62,10 +70,9 @@
     <Omens {...$CharacterStore.omens} on:use:omen={useomen} />
   </div>
   <div class="character-sheet-col">
-    <div>Weapon:</div>
-    <div>Weapon:</div>
-    <div>Armor:</div>
-    <div>Equipment:</div>
+    <Weapons weapons={$EquippedWeapons} />
+    <Armor {...$EquippedArmor} />
+    <Equipment equipment={$CharacterStore.equipment} />
     <Silver silver={$CharacterStore.silver} on:setSilver={updateSilver} />
   </div>
 </article>

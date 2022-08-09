@@ -1,5 +1,6 @@
-import { writable } from "svelte/store";
-import type { CharacterType } from "./type";
+import { writable, derived, type Readable } from "svelte/store";
+import { getEquippedWeapons, getEquippedArmor } from "./lib";
+import type { CharacterType, Weapon, ArmorAndShield } from "./type";
 
 const defaultCharacter: CharacterType = {
   name: "Katlak",
@@ -26,7 +27,7 @@ const defaultCharacter: CharacterType = {
   description:
     "<p>Your earliest memories are of suckling a wolf in the wilds of Bergen Chrypt.</p><p>You have thirty or so friends who never let you down: YOUR TEETH. Disloyal, deranged or simply uncontrollable, any group that didn’t boot you out you left anyway. But your parliament of teeth — enormous, protruding, thick and sharp — have always been your allies.</p><p>Vindictive and Cruel. Rotting face, wearing mask. You stutter when lying.</p>",
   equipment: [
-    "Waterskin and 2 day's worth of food",
+    { type: "equipment", name: "Waterskin and 2 day's worth of food" },
     {
       name: "Warhammer",
       damageDie: "1d6",
@@ -40,16 +41,53 @@ const defaultCharacter: CharacterType = {
       type: "armor",
       tier: { current: 2, maximum: 2 },
       equipped: true,
+      broken: true,
       effect: {
         description: "DR +2 on Agility tests including defence",
         tests: { agility: 2, defense: 2 },
       },
     },
-    "Sack for 10 normal-sized items",
-    "Manacles",
-    "Mirror, worth 15s",
+    { type: "equipment", name: "Sack for 10 normal-sized items" },
+    { type: "equipment", name: "Manacles" },
+    { type: "equipment", name: "Mirror, worth 15s" },
     { name: "Shield", type: "shield", equipped: true, broken: false },
   ],
+  equipmentTwo: {
+    weapons: [
+      {
+        name: "Warhammer",
+        damageDie: "1d6",
+        type: "weapon",
+        subType: "melee",
+        equipped: true,
+        broken: false,
+      },
+    ],
+    armor: [
+      {
+        name: "Scale armor",
+        type: "armor",
+        tier: { current: 2, maximum: 2 },
+        equipped: true,
+        effect: {
+          description: "DR +2 on Agility tests including defence",
+          tests: { agility: 2, defense: 2 },
+        },
+      },
+      { name: "Shield", type: "shield", equipped: true, broken: false },
+    ],
+    scrolls: [],
+    food: {
+      waterskin: 0,
+      food: 2,
+    },
+    equipment: [
+      "Sack for 10 normal-sized items",
+      "Manacles",
+      "Mirror, worth 15s",
+    ],
+  },
+
   powers: null,
   _id: "UTetg6vHrvwG2o19",
 };
@@ -61,3 +99,15 @@ export default Character;
 export function update(fn: (arg1: CharacterType) => CharacterType): void {
   Character.update(fn);
 }
+
+//   Readable<Weapon[]>, (arg1: CharacterType) => Weapon[]
+
+export const EquippedWeapons: Readable<Weapon[]> = derived(
+  Character,
+  getEquippedWeapons
+);
+
+export const EquippedArmor: Readable<ArmorAndShield> = derived(
+  Character,
+  getEquippedArmor
+);
