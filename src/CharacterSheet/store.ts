@@ -54,14 +54,10 @@ const defaultCharacter: CharacterType = {
       weight: 100,
       equipped: true,
       ammunitionType: "arrow",
-      ammunition: {
-        name: "Arrows",
-        type: "ammunition",
-        subType: "arrow",
-        quantity: {
-          current: 10,
-          maximum: 20,
-        },
+      ammunitionName: "Arrow(s)",
+      quantity: {
+        current: 10,
+        maximum: 20,
       },
     },
     {

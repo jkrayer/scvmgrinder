@@ -126,6 +126,26 @@ export const equipmentDrop =
     };
   };
 
+export const equipmentQuantity = (eq: Equipment, difference: number) => {
+  if (eq.quantity.current + difference === 0 && eq.type !== "weapon") {
+    return equipmentDrop(eq);
+  }
+
+  return (character: CharacterType): CharacterType => {
+    const { equipment } = character;
+
+    return {
+      ...character,
+      equipment: equipment.map((e: Equipment) => {
+        if (e.name === eq.name) {
+          const { current, maximum } = e.quantity;
+          return { ...e, quantity: { current: current + difference, maximum } };
+        }
+        return e;
+      }),
+    };
+  };
+};
 //
 const trace =
   (msg: string) =>

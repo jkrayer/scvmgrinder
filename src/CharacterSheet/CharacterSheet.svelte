@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { pathOr, propOr } from "ramda";
   import CharacterStore, {
     update,
     EquippedWeapons,
@@ -11,6 +12,7 @@
     incrementSilver,
     equipmentToggle,
     equipmentDrop,
+    equipmentQuantity,
   } from "./lib";
   import type { Equipment as EquipmentType } from "./type";
   import Powers from "./Powers.svelte";
@@ -34,6 +36,10 @@
     update(equipmentToggle(detail));
   const dropEquipment = ({ detail }: CustomEvent<EquipmentType>) =>
     update(equipmentDrop(detail));
+  const incrementEq =
+    (x: number) =>
+    ({ detail }: CustomEvent<EquipmentType>) =>
+      update(equipmentQuantity(detail, x));
 </script>
 
 <article id="character-sheet">
@@ -88,6 +94,8 @@
       equipment={$CharacterStore.equipment}
       on:toggle:equipment={toggleEquipment}
       on:trash:equipment={dropEquipment}
+      on:quantity:decrement={incrementEq(-1)}
+      on:quantity:increment={incrementEq(1)}
     />
     <Silver silver={$CharacterStore.silver} on:setSilver={updateSilver} />
   </div>

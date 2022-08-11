@@ -46,7 +46,7 @@ type Ammunition = CommonEquipmentProps & {
 type RangedWeapon = CommonWeaponProps & {
   subType: "ranged";
   ammunitionType: AmmunitionTypes;
-  ammunition?: Ammunition;
+  ammunitionName: "Arrow(s)" | "Bolt(s)";
 };
 
 export type Weapon = MeleeWeapon | RangedWeapon;
