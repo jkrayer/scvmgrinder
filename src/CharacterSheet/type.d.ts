@@ -21,17 +21,35 @@ type CommonEquipmentProps = {
   name: string;
   description?: string;
   equipped?: boolean;
-  quantity?: number;
+  quantity?: CurrentMax;
   weight?: number;
   broken?: boolean;
 };
 
-export type Weapon = CommonEquipmentProps & {
+type CommonWeaponProps = CommonEquipmentProps & {
   damageDie: string;
   type: "weapon";
-  subType: "melee" | "ranged";
   special?: string;
 };
+
+type MeleeWeapon = CommonWeaponProps & {
+  subType: "melee";
+};
+
+type AmmunitionTypes = "arrow" | "bolt";
+
+type Ammunition = CommonEquipmentProps & {
+  type: "ammunition";
+  subType: AmmunitionTypes;
+};
+
+type RangedWeapon = CommonWeaponProps & {
+  subType: "ranged";
+  ammunitionType: AmmunitionTypes;
+  ammunition?: Ammunition;
+};
+
+export type Weapon = MeleeWeapon | RangedWeapon;
 
 export type Armor = CommonEquipmentProps & {
   effect?: Effect;
@@ -54,11 +72,6 @@ type Potion = CommonEquipmentProps & {
   description: string;
 };
 
-type Ammunition = CommonEquipmentProps & {
-  type: "ammunition";
-  subType?: string;
-};
-
 type Food = CommonEquipmentProps & {
   type: "food";
   subtype?: string;
@@ -73,7 +86,8 @@ export type Equipment =
   | Scroll
   | Armor
   | Shield
-  | Weapon
+  | RangedWeapon
+  | MeleeWeapon
   | Ammunition
   | Food
   | Potion

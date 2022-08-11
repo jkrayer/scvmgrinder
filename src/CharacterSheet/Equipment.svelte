@@ -25,8 +25,15 @@
       <li class="character-sheet-field">
         <div class:broken={eq.broken}>
           {eq.name}
+          {#if eq.quantity}
+            {eq.quantity.current}/{eq.quantity.maximum}
+          {/if}
           {#if eq.broken}
             (broken)
+          {/if}
+          <!-- @ts-ignore -->
+          {#if eq.ammunition}
+            and {eq.ammunition.quantity.current} {eq.ammunition.name}
           {/if}
         </div>
         <div>

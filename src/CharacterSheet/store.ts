@@ -53,13 +53,16 @@ const defaultCharacter: CharacterType = {
       subType: "ranged",
       weight: 100,
       equipped: true,
-    },
-    {
-      name: "Arrow",
-      type: "ammunition",
-      subType: "",
-      weight: 5,
-      quantity: 10,
+      ammunitionType: "arrow",
+      ammunition: {
+        name: "Arrows",
+        type: "ammunition",
+        subType: "arrow",
+        quantity: {
+          current: 10,
+          maximum: 20,
+        },
+      },
     },
     {
       name: "Padded cloth armor",
@@ -78,7 +81,10 @@ const defaultCharacter: CharacterType = {
       subtype: "",
       description: "(may function as 5 meals in a pinch)",
       weight: 20,
-      quantity: 5,
+      quantity: {
+        current: 5,
+        maximum: 5,
+      },
     },
     {
       name: "Te-le-kin-esis",
