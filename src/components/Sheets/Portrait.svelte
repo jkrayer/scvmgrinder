@@ -1,24 +1,12 @@
 <script type="ts">
-  type Image = {
-    width: number;
-    height: number;
-    src: string;
-    alt: string;
-  };
-
-  export let name: string;
-  export let image: Image = {
-    width: 50,
-    height: 50,
-    src: "",
-    alt: "",
-  };
+  export let alt: string = "";
+  export let src: string = "";
 </script>
 
-<figure class="sheet-image"><img alt={name} {...image} /></figure>
+<figure class="portrait"><img {src} {alt} width="50" height="50" /></figure>
 
 <style>
-  .sheet-image {
-    margin: 0 1em 0 0;
+  .portrait {
+    margin: 0 0.5rem 0 0;
   }
 </style>

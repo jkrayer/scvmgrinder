@@ -36,18 +36,18 @@
 <table class="score-table">
   <thead>
     <tr>
-      <th>Strength</th>
-      <th>Agility</th>
-      <th>Presence</th>
-      <th>Toughness</th>
+      <th class="score-table-title">Strength</th>
+      <th class="score-table-title">Agility</th>
+      <th class="score-table-title">Presence</th>
+      <th class="score-table-title">Toughness</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>{scores.strength}</td>
-      <td>{scores.agility}</td>
-      <td>{scores.presence}</td>
-      <td>{scores.toughness}</td>
+      <td class="score-table-score">{scores.strength}</td>
+      <td class="score-table-score">{scores.agility}</td>
+      <td class="score-table-score">{scores.presence}</td>
+      <td class="score-table-score">{scores.toughness}</td>
     </tr>
     <tr>
       <td>
@@ -81,16 +81,24 @@
 <style>
   .score-table {
     padding: 0;
-    border-right: 1px solid #333;
-    border-left: 1px solid #333;
     border-collapse: collapse;
-    margin: 0;
+    margin: 1rem 0;
   }
   .score-table td,
   .score-table th {
     width: 25%;
-    border-right: 1px solid #333;
-    border-left: 1px solid #333;
+    /* border-right: 1px solid #333;
+    border-left: 1px solid #333; */
     text-align: center;
+  }
+  .score-table-score {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+  }
+
+  .score-table-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 </style>
