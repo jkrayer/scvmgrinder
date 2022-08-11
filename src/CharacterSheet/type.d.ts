@@ -107,6 +107,7 @@ export type CharacterType = {
   powers: null | number;
   equipment: Equipment[];
   status: any[]; // StatusTypes[];
+  miseries?: [boolean, boolean, boolean, boolean, boolean, boolean, boolean];
 };
 
 export type ArmorAndShield = { armor?: Armor; shield?: Shield };

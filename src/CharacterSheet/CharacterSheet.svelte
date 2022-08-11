@@ -23,8 +23,8 @@
   import Armor from "./Armor.svelte";
   import Equipment from "./Equipment.svelte";
   import Silver from "./Silver.svelte";
+  import Miseries from "./Miseries.svelte";
   import MorkBorgLogo from "../components/MorkBorgLogo.svelte";
-  import equipment from "../data/equipment";
 
   // HANDLERS
   const incremenet = () => update(incrementHp(1));
@@ -98,5 +98,6 @@
       on:quantity:increment={incrementEq(1)}
     />
     <Silver silver={$CharacterStore.silver} on:setSilver={updateSilver} />
+    <Miseries bind:miseries={$CharacterStore.miseries} />
   </div>
 </article>
