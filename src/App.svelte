@@ -1,14 +1,16 @@
 <script lang="ts">
   import CharacterSheet from "./CharacterSheet/CharacterSheet.svelte";
+  import Messages from "./Messages/Messages.svelte";
 </script>
 
 <main id="app">
   <header id="global-header">
     <h1 id="logo">SCVUMGRINDER</h1>
-    <span class="tiny-fixed">v0.0.2</span>
+    <span class="tiny-fixed">v0.0.3</span>
     <p class="tiny-fixed space-tiny">A digital character sheet for MÖRK BORG</p>
   </header>
   <CharacterSheet />
+  <Messages />
   <footer id="global-footer">
     <p>
       Scvmgrinder is an independent production by James Krayer and is not

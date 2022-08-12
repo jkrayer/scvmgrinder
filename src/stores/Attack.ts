@@ -1,6 +1,6 @@
 import type { MessageBody, TTrackerItem } from "../global";
 import { writable, get } from "svelte/store";
-import { send } from "./MessageStore";
+import { send } from "../Messages/state/MessageStore";
 import { getTestModifier } from "./Character";
 import { getToHit } from "../lib/monster";
 

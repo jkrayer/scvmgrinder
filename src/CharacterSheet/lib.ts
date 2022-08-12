@@ -157,12 +157,7 @@ const trace =
 // GETTERS
 export const getEquippedWeapons = compose(equippedWeapons, getEquipment);
 
-export const getEquippedArmor = compose(
-  trace("equippedAr"),
-  equippedArmor,
-  trace("getEq"),
-  getEquipment
-);
+export const getEquippedArmor = compose(equippedArmor, getEquipment);
 
 export const getScrolls = compose(filter(isScroll), getEquipment) as (
   arg1: CharacterType
