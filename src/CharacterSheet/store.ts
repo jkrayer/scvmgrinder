@@ -40,7 +40,7 @@ const defaultCharacter: CharacterType = {
     { type: "equipment", name: "Waterskin and 1 day's worth of food" },
     {
       name: "Femur",
-      damageDie: "d4",
+      damageDie: "1d4",
       type: "weapon",
       subType: "melee",
       weight: 100,
@@ -48,7 +48,7 @@ const defaultCharacter: CharacterType = {
     },
     {
       name: "Bow",
-      damageDie: "d6",
+      damageDie: "1d6",
       type: "weapon",
       subType: "ranged",
       weight: 100,

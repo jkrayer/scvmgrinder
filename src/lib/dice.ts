@@ -15,6 +15,7 @@ const d10 = IO.of(10).map(roll);
 const d8 = IO.of(8).map(roll);
 const d6 = IO.of(6).map(roll);
 const d4 = IO.of(4).map(roll);
+const d2 = IO.of(2).map(roll);
 
 export const rollD20 = () => d20.run();
 export const rollD12 = () => d12.run();
@@ -22,3 +23,6 @@ export const rollD10 = () => d10.run();
 export const rollD8 = () => d8.run();
 export const rollD6 = () => d6.run();
 export const rollD4 = () => d4.run();
+export const rollD2 = () => d2.run();
+
+// IO.of(20).map(roll).map(add(-2));

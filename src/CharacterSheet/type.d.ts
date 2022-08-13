@@ -10,6 +10,12 @@ type CharacterClass = {
   abilities: string;
 };
 
+export type AbilityScoreName =
+  | "agility"
+  | "presence"
+  | "strength"
+  | "toughness";
+
 export type AbilityScores = {
   agility: number;
   presence: number;

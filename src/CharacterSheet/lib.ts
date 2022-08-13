@@ -3,6 +3,7 @@ import {
   filter,
   max,
   min,
+  path,
   propOr,
   propSatisfies,
   reduce,
@@ -13,9 +14,8 @@ import type {
   Equipment,
   Weapon,
   Scroll,
+  AbilityScoreName,
 } from "./type";
-
-const toInt = (x: string): number => parseInt(x, 10);
 
 export const getEquipment = propOr([], "equipment") as (
   x: CharacterType
@@ -162,3 +162,8 @@ export const getEquippedArmor = compose(equippedArmor, getEquipment);
 export const getScrolls = compose(filter(isScroll), getEquipment) as (
   arg1: CharacterType
 ) => Scroll[];
+
+export const getAbilityScore = (
+  character: CharacterType,
+  score: AbilityScoreName
+): number => path(["abilities", score], character);

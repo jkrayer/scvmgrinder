@@ -6,6 +6,7 @@
     EquippedArmor,
     EqScrolls,
   } from "./store";
+  import { addMessage } from "../Messages/state/MessageStore";
   import {
     incrementHp,
     useOmen,
@@ -13,8 +14,22 @@
     equipmentToggle,
     equipmentDrop,
     equipmentQuantity,
+    getAbilityScore,
   } from "./lib";
-  import type { Equipment as EquipmentType } from "./type";
+  import {
+    testMessage,
+    attackMessage,
+    damageMessage,
+    armorMessage,
+    usePowerMessage,
+  } from "../Messages/lib";
+  import type {
+    CharacterType,
+    Equipment as EquipmentType,
+    Weapon,
+    Scroll,
+  } from "./type";
+  import { Violence } from "./enums";
   import Powers from "./Powers.svelte";
   import HitPoints from "./HitPoints.svelte";
   import AbilityScores from "./AbilityScores.svelte";
@@ -25,21 +40,62 @@
   import Silver from "./Silver.svelte";
   import Miseries from "./Miseries.svelte";
   import MorkBorgLogo from "../components/MorkBorgLogo.svelte";
+  import weapons from "../data/weapons";
 
   // HANDLERS
   const incremenet = () => update(incrementHp(1));
+
   const decrement = () => update(incrementHp(-1));
+
   const useomen = () => update(useOmen());
+
   const updateSilver = ({ detail }: CustomEvent<number>) =>
     update(incrementSilver(detail));
+
   const toggleEquipment = ({ detail }: CustomEvent<EquipmentType>) =>
     update(equipmentToggle(detail));
+
   const dropEquipment = ({ detail }: CustomEvent<EquipmentType>) =>
     update(equipmentDrop(detail));
+
   const incrementEq =
     (x: number) =>
     ({ detail }: CustomEvent<EquipmentType>) =>
       update(equipmentQuantity(detail, x));
+
+  const handleAbilityTest = ({
+    detail,
+  }: CustomEvent<{ score: string; modifier: number }>) =>
+    addMessage(testMessage({ ...detail, name: $CharacterStore.name }));
+
+  const handleAttack = ({ detail }: CustomEvent<Weapon>) =>
+    addMessage(
+      attackMessage(
+        detail,
+        $CharacterStore.name,
+        getAbilityScore(
+          $CharacterStore as CharacterType,
+          Violence[detail.subType]
+        )
+      )
+    );
+
+  const handleDamage = ({ detail }: CustomEvent<Weapon>) =>
+    addMessage(damageMessage(detail, $CharacterStore.name));
+
+  const handleArmorTier = ({
+    detail,
+  }: CustomEvent<{ tier: number; shield: boolean }>) =>
+    addMessage(armorMessage({ ...detail, name: $CharacterStore.name }));
+
+  const handleUseScroll = ({ detail }: CustomEvent<Scroll>) =>
+    addMessage(
+      usePowerMessage(
+        detail,
+        $CharacterStore.name,
+        getAbilityScore($CharacterStore as CharacterType, "presence")
+      )
+    );
 </script>
 
 <article id="character-sheet">
@@ -76,7 +132,11 @@
         {@html $CharacterStore.class.abilities}
       </div>
     </div>
-    <Powers scrolls={$EqScrolls} powers={$CharacterStore.powers} />
+    <Powers
+      scrolls={$EqScrolls}
+      powers={$CharacterStore.powers}
+      on:use:scroll={handleUseScroll}
+    />
   </div>
   <div class="character-sheet-col1">
     <HitPoints
@@ -84,12 +144,19 @@
       on:increment={incremenet}
       on:decrement={decrement}
     />
-    <AbilityScores abilityScores={$CharacterStore.abilities} />
+    <AbilityScores
+      abilityScores={$CharacterStore.abilities}
+      on:test={handleAbilityTest}
+    />
     <Omens {...$CharacterStore.omens} on:use:omen={useomen} />
   </div>
   <div class="character-sheet-col">
-    <Weapons weapons={$EquippedWeapons} />
-    <Armor {...$EquippedArmor} />
+    <Weapons
+      weapons={$EquippedWeapons}
+      on:attack={handleAttack}
+      on:damage={handleDamage}
+    />
+    <Armor {...$EquippedArmor} on:tier={handleArmorTier} />
     <Equipment
       equipment={$CharacterStore.equipment}
       on:toggle:equipment={toggleEquipment}

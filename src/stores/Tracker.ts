@@ -2,8 +2,10 @@ import { derived, Readable } from "svelte/store";
 import { getTrackerMonsters, getTrackerSide } from "../lib/campaign";
 import CharactersStore from "./Characters";
 import CampaignStore, { setSide } from "./Campaign";
-import { send } from "../Messages/state/MessageStore";
+// import { send } from "../Messages/state/MessageStore";
 import type { TTrackerData } from "../global";
+
+const send = () => {};
 
 const INITIAL_STATE: TTrackerData = Object.freeze({
   firstSide: "players",
