@@ -1,5 +1,6 @@
 import type { MessageBody } from "./types";
 import type { Weapon, Scroll } from "../CharacterSheet/type";
+import { ARMOR_TIERS } from "../CharacterSheet/enums";
 import {
   rollD2,
   rollD4,
@@ -89,8 +90,6 @@ export const armorMessage = ({
   shield: boolean;
   name: string;
 }): MessageBody => {
-  const ARMOR_TIERS = ["0", "1d2", "1d4", "1d6"];
-
   const roll: number = SINGLES[ARMOR_TIERS[tier]]();
   const total: number = roll + Number(shield);
   const rollFormula = roll + (shield ? " + 1" : "");

@@ -13,6 +13,7 @@
     incrementSilver,
     equipmentToggle,
     equipmentDrop,
+    equipmentTier,
     equipmentQuantity,
     getAbilityScore,
   } from "./lib";
@@ -28,6 +29,7 @@
     Equipment as EquipmentType,
     Weapon,
     Scroll,
+    Armor as ArmorType,
   } from "./type";
   import { Violence } from "./enums";
   import Powers from "./Powers.svelte";
@@ -49,26 +51,33 @@
 
   const useomen = () => update(useOmen());
 
-  const updateSilver = ({ detail }: CustomEvent<number>) =>
+  const updateSilver = ({ detail }: CustomEvent<number>): void =>
     update(incrementSilver(detail));
 
-  const toggleEquipment = ({ detail }: CustomEvent<EquipmentType>) =>
+  const toggleEquipment = ({ detail }: CustomEvent<EquipmentType>): void =>
     update(equipmentToggle(detail));
 
-  const dropEquipment = ({ detail }: CustomEvent<EquipmentType>) =>
+  const dropEquipment = ({ detail }: CustomEvent<EquipmentType>): void =>
     update(equipmentDrop(detail));
+
+  const handleChangeTier = ({
+    detail,
+  }: CustomEvent<{ newTier: number; armor: ArmorType }>): void => {
+    const { newTier, armor } = detail;
+    update(equipmentTier(armor, newTier));
+  };
 
   const incrementEq =
     (x: number) =>
-    ({ detail }: CustomEvent<EquipmentType>) =>
+    ({ detail }: CustomEvent<EquipmentType>): void =>
       update(equipmentQuantity(detail, x));
 
   const handleAbilityTest = ({
     detail,
-  }: CustomEvent<{ score: string; modifier: number }>) =>
+  }: CustomEvent<{ score: string; modifier: number }>): void =>
     addMessage(testMessage({ ...detail, name: $CharacterStore.name }));
 
-  const handleAttack = ({ detail }: CustomEvent<Weapon>) =>
+  const handleAttack = ({ detail }: CustomEvent<Weapon>): void =>
     addMessage(
       attackMessage(
         detail,
@@ -80,15 +89,15 @@
       )
     );
 
-  const handleDamage = ({ detail }: CustomEvent<Weapon>) =>
+  const handleDamage = ({ detail }: CustomEvent<Weapon>): void =>
     addMessage(damageMessage(detail, $CharacterStore.name));
 
   const handleArmorTier = ({
     detail,
-  }: CustomEvent<{ tier: number; shield: boolean }>) =>
+  }: CustomEvent<{ tier: number; shield: boolean }>): void =>
     addMessage(armorMessage({ ...detail, name: $CharacterStore.name }));
 
-  const handleUseScroll = ({ detail }: CustomEvent<Scroll>) =>
+  const handleUseScroll = ({ detail }: CustomEvent<Scroll>): void =>
     addMessage(
       usePowerMessage(
         detail,
@@ -156,7 +165,12 @@
       on:attack={handleAttack}
       on:damage={handleDamage}
     />
-    <Armor {...$EquippedArmor} on:tier={handleArmorTier} />
+    <!-- if there is equippmed Armor/Shield -->
+    <Armor
+      {...$EquippedArmor}
+      on:tier={handleArmorTier}
+      on:change:tier={handleChangeTier}
+    />
     <Equipment
       equipment={$CharacterStore.equipment}
       on:toggle:equipment={toggleEquipment}

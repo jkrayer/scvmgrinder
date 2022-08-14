@@ -12,6 +12,7 @@ import type {
   ArmorAndShield,
   CharacterType,
   Equipment,
+  Armor,
   Weapon,
   Scroll,
   AbilityScoreName,
@@ -123,6 +124,24 @@ export const equipmentDrop =
     return {
       ...character,
       equipment: equipment.filter((e: Equipment) => e.name !== eq.name),
+    };
+  };
+
+export const equipmentTier =
+  (armor: Armor, nextTier: number) =>
+  (character: CharacterType): CharacterType => {
+    const { equipment } = character;
+    const { maximum } = armor.tier;
+    const tier = {
+      current: nextTier > maximum ? maximum : nextTier,
+      maximum,
+    };
+
+    return {
+      ...character,
+      equipment: equipment.map((eq: Equipment) =>
+        eq.name === armor.name ? { ...eq, tier } : eq
+      ),
     };
   };
 

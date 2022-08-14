@@ -70,6 +70,11 @@ const defaultCharacter: CharacterType = {
       equipped: true,
       weight: 100,
     },
+    {
+      name: "Kite Shield",
+      type: "shield",
+      equipped: true,
+    },
     { type: "equipment", name: "Bear trap (DR14 to spot, d8 damage)" },
     {
       name: "Lard",
