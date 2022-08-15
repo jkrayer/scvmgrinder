@@ -1,10 +1,15 @@
 <script type="ts">
+  import { createEventDispatcher } from "svelte";
   import type { Scroll } from "./type";
   export let powers: null | number = null;
   // Array of scrolls
   export let scrolls: Scroll[] = [];
 
   const isDisabled = powers === null;
+
+  type Event = Scroll & { EventKey: "use:scroll" };
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <div class:disabled={isDisabled}>
@@ -17,9 +22,9 @@
         {#each scrolls as scroll}
           <p>{scroll.name}</p>
           <p>{scroll.description}</p>
-          <!-- Roll Presence Check -->
-          <!-- Handle Success and Failure -->
-          <button type="button">Use</button>
+          <button type="button" on:click={() => dispatch("use:scroll", scroll)}
+            >Use</button
+          >
         {/each}
       {/if}
     </div>

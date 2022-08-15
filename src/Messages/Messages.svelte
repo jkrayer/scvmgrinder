@@ -1,49 +1,41 @@
 <script lang="ts">
-  import type { Message } from "../../global";
-  import Messages, { hide } from "../../stores/MessageStore";
-
-  let messages: Message[] = [];
-
-  Messages.subscribe((data) => {
-    messages = data.messages;
-  });
+  import type { Message } from "./types";
+  import Messages, { hide } from "./state/MessageStore";
 
   const rollTypeClass = (x: string): string =>
     x.toLocaleLowerCase().replace(/\s/g, "-");
 </script>
 
 <div id="messages">
-  {#each messages as message, index}
-    {#if index === 0 && message.hidden !== true}
-      <div class="message-body" on:click={() => hide(message._id)}>
+  {#each $Messages as message, index}
+    {#if index === 0}
+      <div class="message-body" on:click={() => hide(index)}>
         <div class="message-body-title">
-          <span>{message.message.name}:</span>
-          <span
-            class={`message-body-title_${rollTypeClass(
-              message.message.rollType
-            )}`}>{message.message.rollType}</span
+          <span>{message.name}:</span>
+          <span class={`message-body-title_${rollTypeClass(message.rollType)}`}
+            >{message.rollType}</span
           >
         </div>
         <div class="message-body-roll-row">
-          <div class="message-body-roll">{message.message.roll}</div>
+          <div class="message-body-roll">{message.roll}</div>
           <div class="message-body-formula">
             (
-            {message.message.rollFormula}
-            {#if message.message.dc}
-              vs {message.message.dc}
+            {message.rollFormula}
+            {#if message.dc}
+              vs {message.dc}
             {/if}
             )
           </div>
         </div>
 
-        <div class="message-body-target">{message.message.target}</div>
+        <div class="message-body-target">{message.target}</div>
         <!-- : Hit! -->
       </div>
-    {:else if message.hidden !== true}
-      <div class="message-body" on:click={() => hide(message._id)}>
+    {:else}
+      <div class="message-body" on:click={() => hide(index)}>
         <div class="message-body-title">
-          <span>{message.message.name}:</span>
-          {message.message.roll}
+          <span>{message.name}:</span>
+          {message.roll}
         </div>
       </div>
     {/if}
@@ -74,6 +66,7 @@
   .message-body-target {
     font-size: 0.8125rem;
     line-height: 1;
+    text-transform: capitalize;
   }
   .message-body-title {
     text-transform: uppercase;

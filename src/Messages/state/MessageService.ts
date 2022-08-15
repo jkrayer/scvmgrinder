@@ -1,9 +1,9 @@
 import { get } from "svelte/store";
-import type { Message, MessageBody } from "../global";
-import client from "../stores/Socket";
-import { MESSAGE_SERVICE } from "./api_constants";
-import CampaignStore from "../stores/Campaign";
-import CharacterStore from "../stores/Character";
+import type { Message, MessageBody } from "../types";
+import client from "../../stores/Socket";
+import { MESSAGE_SERVICE } from "../../api/api_constants";
+import CampaignStore from "../../stores/Campaign";
+import CharacterStore from "../../stores/Character";
 
 // Message Types
 // type {}

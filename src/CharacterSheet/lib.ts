@@ -3,6 +3,7 @@ import {
   filter,
   max,
   min,
+  path,
   propOr,
   propSatisfies,
   reduce,
@@ -11,11 +12,11 @@ import type {
   ArmorAndShield,
   CharacterType,
   Equipment,
+  Armor,
   Weapon,
   Scroll,
+  AbilityScoreName,
 } from "./type";
-
-const toInt = (x: string): number => parseInt(x, 10);
 
 export const getEquipment = propOr([], "equipment") as (
   x: CharacterType
@@ -126,6 +127,24 @@ export const equipmentDrop =
     };
   };
 
+export const equipmentTier =
+  (armor: Armor, nextTier: number) =>
+  (character: CharacterType): CharacterType => {
+    const { equipment } = character;
+    const { maximum } = armor.tier;
+    const tier = {
+      current: nextTier > maximum ? maximum : nextTier,
+      maximum,
+    };
+
+    return {
+      ...character,
+      equipment: equipment.map((eq: Equipment) =>
+        eq.name === armor.name ? { ...eq, tier } : eq
+      ),
+    };
+  };
+
 export const equipmentQuantity = (eq: Equipment, difference: number) => {
   if (eq.quantity.current + difference === 0 && eq.type !== "weapon") {
     return equipmentDrop(eq);
@@ -146,6 +165,7 @@ export const equipmentQuantity = (eq: Equipment, difference: number) => {
     };
   };
 };
+
 //
 const trace =
   (msg: string) =>
@@ -157,13 +177,32 @@ const trace =
 // GETTERS
 export const getEquippedWeapons = compose(equippedWeapons, getEquipment);
 
-export const getEquippedArmor = compose(
-  trace("equippedAr"),
-  equippedArmor,
-  trace("getEq"),
-  getEquipment
-);
+export const getEquippedArmor = compose(equippedArmor, getEquipment);
 
 export const getScrolls = compose(filter(isScroll), getEquipment) as (
   arg1: CharacterType
 ) => Scroll[];
+
+export const getAbilityScore = (
+  character: CharacterType,
+  score: AbilityScoreName
+): number => path(["abilities", score], character);
+
+// TESTS
+const hasEquipment = (eqName: string) => (character: CharacterType) => {
+  const eq: Equipment[] = getEquipment(character);
+  const size = eq.length;
+
+  for (let i = 0; i < size; i++) {
+    if (eq[i].name === eqName) return true;
+  }
+
+  return false;
+};
+
+// hasFood
+// hasWater
+// return compose (
+//   equipmentQuantity(eq, -1)
+//   incrementHp(x)
+// )

@@ -1,4 +1,5 @@
 <script type="ts">
+  import { createEventDispatcher } from "svelte";
   import type { AbilityScores } from "./type";
 
   export let abilityScores: AbilityScores = {
@@ -8,13 +9,24 @@
     toughness: 0,
   };
 
+  const dispatch = createEventDispatcher();
+
   $: scores = Object.entries(abilityScores);
 </script>
 
 {#each scores as [key, value]}
   <div class="field">
     <div class="field-label">{key}</div>
-    <div><button>Test</button></div>
+    <div>
+      <button
+        type="button"
+        on:click={() =>
+          dispatch("test", {
+            score: key,
+            modifier: value,
+          })}>Test</button
+      >
+    </div>
     <span>{value}</span>
   </div>
 {/each}
