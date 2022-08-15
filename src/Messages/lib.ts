@@ -9,20 +9,10 @@ import {
   rollD10,
   rollD12,
   rollD20,
+  DICE_MAP,
 } from "../lib/dice";
 
-const sign = (x: number) => (x < 0 ? "-" : "+");
-
-const SINGLES = Object.freeze({
-  "0": () => 0,
-  "1d2": rollD2,
-  "1d4": rollD4,
-  "1d6": rollD6,
-  "1d8": rollD8,
-  "1d10": rollD10,
-  "1d12": rollD12,
-  "1d20": rollD20,
-});
+export const sign = (x: number) => (x < 0 ? "-" : "+");
 
 export const testMessage = ({
   name,
@@ -48,6 +38,22 @@ export const testMessage = ({
   };
 };
 
+export const diceMessage = (
+  name: string,
+  rollFormula: string,
+  roll: number,
+  target: string
+): MessageBody => {
+  return {
+    name,
+    rollType: "Test",
+    roll,
+    rollFormula,
+    target,
+    dc: null,
+  };
+};
+
 export const attackMessage = (
   weapon: Weapon,
   name: string,
@@ -69,7 +75,7 @@ export const attackMessage = (
 };
 
 export const damageMessage = (weapon: Weapon, name: string): MessageBody => {
-  const roll: number = SINGLES[weapon.damageDie]();
+  const roll: number = DICE_MAP[weapon.damageDie]();
 
   return {
     name,
@@ -90,7 +96,7 @@ export const armorMessage = ({
   shield: boolean;
   name: string;
 }): MessageBody => {
-  const roll: number = SINGLES[ARMOR_TIERS[tier]]();
+  const roll: number = DICE_MAP[ARMOR_TIERS[tier]]();
   const total: number = roll + Number(shield);
   const rollFormula = roll + (shield ? " + 1" : "");
 

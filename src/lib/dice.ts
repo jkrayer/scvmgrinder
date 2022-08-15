@@ -26,3 +26,13 @@ export const rollD4 = () => d4.run();
 export const rollD2 = () => d2.run();
 
 // IO.of(20).map(roll).map(add(-2));
+export const DICE_MAP = Object.freeze({
+  "0": () => 0,
+  "1d2": rollD2,
+  "1d4": rollD4,
+  "1d6": rollD6,
+  "1d8": rollD8,
+  "1d10": rollD10,
+  "1d12": rollD12,
+  "1d20": rollD20,
+});

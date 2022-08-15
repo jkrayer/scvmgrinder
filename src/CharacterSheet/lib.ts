@@ -165,6 +165,7 @@ export const equipmentQuantity = (eq: Equipment, difference: number) => {
     };
   };
 };
+
 //
 const trace =
   (msg: string) =>
@@ -186,3 +187,22 @@ export const getAbilityScore = (
   character: CharacterType,
   score: AbilityScoreName
 ): number => path(["abilities", score], character);
+
+// TESTS
+const hasEquipment = (eqName: string) => (character: CharacterType) => {
+  const eq: Equipment[] = getEquipment(character);
+  const size = eq.length;
+
+  for (let i = 0; i < size; i++) {
+    if (eq[i].name === eqName) return true;
+  }
+
+  return false;
+};
+
+// hasFood
+// hasWater
+// return compose (
+//   equipmentQuantity(eq, -1)
+//   incrementHp(x)
+// )

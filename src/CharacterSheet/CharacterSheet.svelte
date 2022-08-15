@@ -42,7 +42,7 @@
   import Silver from "./Silver.svelte";
   import Miseries from "./Miseries.svelte";
   import MorkBorgLogo from "../components/MorkBorgLogo.svelte";
-  import weapons from "../data/weapons";
+  import DiceRoller from "./DiceRoller.svelte";
 
   // HANDLERS
   const incremenet = () => update(incrementHp(1));
@@ -182,3 +182,4 @@
     <Miseries bind:miseries={$CharacterStore.miseries} />
   </div>
 </article>
+<DiceRoller name={$CharacterStore.name} />

@@ -37,7 +37,15 @@ const defaultCharacter: CharacterType = {
   description:
     "<p>You remember awakening, adult, in a ritual circle underneath the northern bridge to Grift.</p><p>The stone of your cave is one with the stars. Silence and perfection. Now the chaos of a fallen world disturbs your rituals and the caul of night grows blacker than your cavern’s gloom. Irritating!</p><p>Prone to substance abuse and Wasteful. Covered in (for some) blasphemous tattoos. Permanent phlegm deposit in throat. Continuously coughs, snorts, spits and swallows.</p>",
   equipment: [
-    { type: "equipment", name: "Waterskin and 1 day's worth of food" },
+    {
+      type: "food",
+      name: "Waterskin and 1 day's worth of food",
+      description: "",
+      quantity: {
+        maximum: 5,
+        current: 1,
+      },
+    },
     {
       name: "Femur",
       damageDie: "1d4",
