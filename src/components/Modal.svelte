@@ -1,23 +1,8 @@
 <script type="ts">
+  import { closeModal } from "svelte-modals";
   import { fly } from "svelte/transition";
 
   export let visible: boolean = true;
-  export let onClose: () => void = () => {};
-  export let showOverlaw: boolean = true;
-
-  const escapeHandler = (e) => (e.key === "Escape" ? onClose() : null);
-
-  $: {
-    if (visible) {
-      document.body.style.width = "calc(100% - 15px)";
-      document.body.style.overflow = "hidden";
-      document.addEventListener("keyup", escapeHandler);
-    } else {
-      document.body.style.width = "auto";
-      document.body.style.overflow = "auto";
-      document.removeEventListener("keyup", escapeHandler);
-    }
-  }
 </script>
 
 <!-- aria-labelledby="modal-title" -->
@@ -33,7 +18,7 @@
       type="button"
       id="modal-close"
       title="Click or Press Escape to close"
-      on:click={onClose}>&times;</button
+      on:click={closeModal}>&times;</button
     >
     <div id="modal-body">
       <slot>
@@ -49,22 +34,9 @@
       </slot>
     </div>
   </div>
-  {#if showOverlaw}
-    <div id="modal-overlay" />
-  {/if}
 {/if}
 
 <style>
-  #modal-overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    z-index: 3;
-  }
-
   #modal-content {
     position: fixed;
     top: 0;

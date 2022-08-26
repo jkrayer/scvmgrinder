@@ -1,14 +1,13 @@
 <script type="ts">
+  import { openModal } from "svelte-modals";
   import { Pencil1 } from "radix-icons-svelte";
   import { formatListDescription } from "./lib";
   import Manager from "./EquipmentManager.svelte";
   import CharacterStore from "../store";
-  import Modal from "../../components/Modal.svelte";
 
   let encumbrance: number = 8;
   let encumbranceIndex: number = 7;
   let isEncumbered: boolean = false;
-  let showManager: boolean = true;
 
   $: {
     encumbrance = 8 + $CharacterStore.abilities.strength;
@@ -16,8 +15,7 @@
     isEncumbered = $CharacterStore.equipment.length > encumbrance;
   }
 
-  let show = () => (showManager = true);
-  let hide = () => (showManager = false);
+  let show = () => openModal(Manager);
 </script>
 
 <div class="grid">
@@ -50,8 +48,6 @@
     {$CharacterStore.silver}
   </div>
 </div>
-
-<Modal visible={showManager} onClose={hide}><Manager /></Modal>
 
 <style>
   .note {

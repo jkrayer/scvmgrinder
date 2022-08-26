@@ -2,6 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import CharacterStore, { update } from "./store";
   import { incrementHp } from "./lib";
+  import Modal from "../components/Modal.svelte";
 
   let modifier: number = 0;
   const current: number = $CharacterStore.hitpoints.current;
@@ -21,36 +22,42 @@
   };
 </script>
 
-<div class="grid">
-  <h2 class="label box">Hit Points</h2>
-  <div
-    class="flex-center hp {modifier > 0
-      ? 'healing'
-      : modifier < 0
-      ? 'damage'
-      : ''}"
-  >
-    {modifier}
-  </div>
-  <div class="col">
-    <button
-      type="button"
-      class="btn heal"
-      on:click={increment}
-      disabled={next >= $CharacterStore.hitpoints.maximum}>+</button
+<Modal>
+  <div class="grid">
+    <h2 class="label box">Hit Points</h2>
+    <div
+      class="flex-center hp {modifier > 0
+        ? 'healing'
+        : modifier < 0
+        ? 'damage'
+        : ''}"
     >
-    <button type="button" class="btn harm" on:click={decrement}>-</button>
+      {modifier}
+    </div>
+    <div class="col">
+      <button
+        type="button"
+        class="btn heal"
+        on:click={increment}
+        disabled={next >= $CharacterStore.hitpoints.maximum}>+</button
+      >
+      <button type="button" class="btn harm" on:click={decrement}>-</button>
+    </div>
+    <div class="flex-center hp">{next}/{$CharacterStore.hitpoints.maximum}</div>
+    <div class="box">
+      <button
+        type="button"
+        class="btn save {modifier > 0
+          ? 'healing'
+          : modifier < 0
+          ? 'damage'
+          : ''}"
+        on:click={save}
+        disabled={modifier === 0}>Save</button
+      >
+    </div>
   </div>
-  <div class="flex-center hp">{next}/{$CharacterStore.hitpoints.maximum}</div>
-  <div class="box">
-    <button
-      type="button"
-      class="btn save {modifier > 0 ? 'healing' : modifier < 0 ? 'damage' : ''}"
-      on:click={save}
-      disabled={modifier === 0}>Save</button
-    >
-  </div>
-</div>
+</Modal>
 
 <style>
   .grid {

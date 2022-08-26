@@ -1,20 +1,28 @@
 <script type="ts">
+  import { openModal } from "svelte-modals";
   import CharacterStore from "./store";
   import HitPoints from "./HitPoints.svelte";
   import Omens from "./Omens.svelte";
-  import Modal from "../components/Modal.svelte";
+  import Description from "./Description.svelte";
 
   type ModalKeys = "description" | "classDescription" | "hitpoints" | "omens";
 
-  const modals: { [key in ModalKeys]: boolean } = {
-    description: false,
-    classDescription: false,
-    hitpoints: false,
-    omens: false,
+  const modals: { [key in ModalKeys]: () => void } = {
+    description: () =>
+      openModal(Description, {
+        title: `You Are ${$CharacterStore.name}`,
+        body: $CharacterStore.description,
+      }),
+    classDescription: () =>
+      openModal(Description, {
+        title: $CharacterStore.class.name,
+        body: $CharacterStore.class.abilities,
+      }),
+    hitpoints: () => openModal(HitPoints),
+    omens: () => openModal(Omens),
   };
 
-  const show = (key: ModalKeys) => () => (modals[key] = true);
-  const hide = (key: ModalKeys) => () => (modals[key] = false);
+  const show = (key: ModalKeys) => () => modals[key]();
 </script>
 
 <header class="character-sheet-header">
@@ -50,24 +58,6 @@
     </div>
   </div>
 </header>
-
-<Modal visible={modals.description} onClose={hide("description")}>
-  <h2>You Are {$CharacterStore.name}</h2>
-  {@html $CharacterStore.description}
-</Modal>
-
-<Modal visible={modals.classDescription} onClose={hide("classDescription")}>
-  <h2>{$CharacterStore.class.name}</h2>
-  {@html $CharacterStore.class.abilities}
-</Modal>
-
-<Modal visible={modals.hitpoints} onClose={hide("hitpoints")}>
-  <HitPoints on:saved={hide("hitpoints")} />
-</Modal>
-
-<Modal visible={modals.omens} onClose={hide("omens")}>
-  <Omens on:use:omen={hide("omens")} />
-</Modal>
 
 <style>
   .grid {

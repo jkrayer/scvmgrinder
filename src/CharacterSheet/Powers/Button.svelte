@@ -1,12 +1,11 @@
 <script type="ts">
-  import CharacterStore, { update, EqScrolls } from "./store";
-  import { equipmentDrop } from "./lib";
-  import type { Scroll } from "./type";
-  import { addMessage } from "../Messages/state/MessageStore";
-  import { usePowerMessage } from "../Messages/lib";
-  import { rollD20 } from "../lib/dice";
-  import { POWERS } from "../lib/gameConstants";
-  import Modal from "../components/Modal.svelte";
+  import { openModal } from "svelte-modals";
+  import Use from "./Use.svelte";
+  import CharacterStore, { EqScrolls } from "../store";
+  import { addMessage } from "../../Messages/state/MessageStore";
+  import { usePowerMessage } from "../../Messages/lib";
+  import { rollD20 } from "../../lib/dice";
+  import { POWERS } from "../../lib/gameConstants";
 
   let isDisabled: boolean = false;
   let scrollNames: string = "";
@@ -20,8 +19,6 @@
 
     scrollNames = $EqScrolls.map(({ name }) => name).join(", ");
   }
-
-  let showPowers: boolean = false;
 
   // Handlers
   const canIUsePower = () => {
@@ -40,15 +37,8 @@
     if (total < POWERS.dc) {
       // dizzyEffect
     } else {
-      showPowers = true;
+      openModal(Use);
     }
-  };
-
-  const handleUseScroll = (scroll: Scroll) => () => {
-    update(equipmentDrop(scroll));
-    showPowers = false;
-    // add Effect
-    // emit use
   };
 </script>
 
@@ -65,16 +55,8 @@
   {/if}
 </button>
 
-<Modal visible={showPowers} onClose={() => (showPowers = false)}>
-  <h2 id="power-class" class="character-sheet-field-label">Powers:</h2>
-  {#each $EqScrolls as scroll}
-    <p>{scroll.name}</p>
-    <p>{scroll.description}</p>
-    <button type="button" on:click={handleUseScroll(scroll)}>Use</button>
-  {/each}
-</Modal>
-
 <style>
+  /* TODO STyles */
   .power-button {
     width: 100%;
   }

@@ -2,6 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import CharacterStore, { update } from "./store";
   import { useOmen } from "./lib";
+  import Modal from "../components/Modal.svelte";
 
   const dispatch = createEventDispatcher();
 
@@ -11,7 +12,7 @@
   };
 </script>
 
-<div>
+<Modal>
   <div class="character-sheet-field">
     <h2 class="character-sheet-field-label">Omens:</h2>
     <div>(d{$CharacterStore.omens.maximum}/day)</div>
@@ -25,7 +26,7 @@
   <p class="character-sheet-copy">
     Maximum damage, Reroll, –d6 damage, DR –4, No Crit/Fumble
   </p>
-</div>
+</Modal>
 
 <style>
   .disabled {

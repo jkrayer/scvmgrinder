@@ -1,4 +1,5 @@
 <script type="ts">
+  import { openModal } from "svelte-modals";
   import { Circle, CrossCircled, Minus, Plus, Trash } from "radix-icons-svelte";
   import {
     isCountable,
@@ -7,6 +8,7 @@
     formatManagertDescription,
   } from "./lib";
   import Silver from "./Silver.svelte";
+  import AddEquipmentForm from "./AddEquipmentForm.svelte";
   import CharacterStore, { update } from "../store";
   // move?
   import {
@@ -16,15 +18,7 @@
     incrementSilver,
   } from "../lib";
   import type { Equipment } from "../type";
-
-  // import { equipmentQuantity, equipmentToggle, equipmentDrop } from "./lib";
-  // import { isEncumbered } from "../lib/gameData";
-
-  // TODO: Need state mechanism to handle the effect of being encumbered and max items carried
-  // This culd be in the derived equipment store since it will update on a change.
-  // Or perhaps deriving status from state is better elsewhere
-
-  let silver: number = 0;
+  import Modal from "../../components/Modal.svelte";
 
   // HANDLERS
   const toggleEquipment = (eq: Equipment) => () => update(equipmentToggle(eq));
@@ -36,98 +30,105 @@
 
   const updateSilver = ({ detail }: CustomEvent<number>): void =>
     update(incrementSilver(detail));
+
+  const show = () => openModal(AddEquipmentForm);
 </script>
 
-<h2 class="character-sheet-field-label">Manage Equipment</h2>
-<table class="equipment-table">
-  <colgroup>
-    <col span="1" style="width: 80%;" />
-    <col span="1" style="width: 10%;" />
-    <col span="1" style="width: 5%;" />
-    <col span="1" style="width: 5%;" />
-  </colgroup>
-  <thead class="equipment-table-head">
-    <tr>
-      <th>Name</th>
-      <th title="Increment">Inc.</th>
-      <th>Trash</th>
-      <th>Equip.</th>
-    </tr>
-  </thead>
-  <tbody class="equipment-table-body">
-    {#each $CharacterStore.equipment as eq}
-      {@const quantity = eq.quantity}
+<Modal>
+  <h2 class="character-sheet-field-label">Manage Equipment</h2>
+  <table class="equipment-table">
+    <colgroup>
+      <col span="1" style="width: 80%;" />
+      <col span="1" style="width: 10%;" />
+      <col span="1" style="width: 5%;" />
+      <col span="1" style="width: 5%;" />
+    </colgroup>
+    <thead class="equipment-table-head">
       <tr>
-        <td class="text-overflow">
-          {eq.name}
+        <th>Name</th>
+        <th title="Increment">Inc.</th>
+        <th>Trash</th>
+        <th>Equip.</th>
+      </tr>
+    </thead>
+    <tbody class="equipment-table-body">
+      {#each $CharacterStore.equipment as eq}
+        {@const quantity = eq.quantity}
+        <tr>
+          <td class="text-overflow">
+            {eq.name}
+            {#if isCountable(eq)}
+              {formatManagertDescription(eq)}
+            {/if}
+          </td>
           {#if isCountable(eq)}
-            {formatManagertDescription(eq)}
+            <td>
+              <button
+                type="button"
+                class="button"
+                on:click={incrementEq(1, eq)}
+                disabled={quantity.current === quantity.maximum}
+                title="Add"
+              >
+                <Plus />
+              </button>
+              <button
+                type="button"
+                class="button"
+                on:click={incrementEq(-1, eq)}
+                disabled={quantity.current === 0}
+                title="Subtract"
+              >
+                <Minus />
+              </button>
+            </td>
+          {:else}
+            <td />
           {/if}
-        </td>
-        {#if isCountable(eq)}
           <td>
             <button
               type="button"
               class="button"
-              on:click={incrementEq(1, eq)}
-              disabled={quantity.current === quantity.maximum}
-              title="Add"
+              on:click={dropEquipment(eq)}
+              title="Drop"><Trash size={20} /></button
             >
-              <Plus />
-            </button>
-            <button
-              type="button"
-              class="button"
-              on:click={incrementEq(-1, eq)}
-              disabled={quantity.current === 0}
-              title="Subtract"
-            >
-              <Minus />
-            </button>
           </td>
-        {:else}
-          <td />
-        {/if}
-        <td>
-          <button
-            type="button"
-            class="button"
-            on:click={dropEquipment(eq)}
-            title="Drop"><Trash size={20} /></button
-          >
-        </td>
-        <td>
-          {#if isEquippable(eq)}
-            <button
-              type="button"
-              class="button"
-              on:click={toggleEquipment(eq)}
-              title={isEquipped(eq) ? "Equipped" : "Carried"}
-            >
-              {#if isEquipped(eq)}
-                <CrossCircled />
-              {:else}
-                <Circle />
-              {/if}
-            </button>
-          {/if}
-        </td>
+          <td>
+            {#if isEquippable(eq)}
+              <button
+                type="button"
+                class="button"
+                on:click={toggleEquipment(eq)}
+                title={isEquipped(eq) ? "Equipped" : "Carried"}
+              >
+                {#if isEquipped(eq)}
+                  <CrossCircled />
+                {:else}
+                  <Circle />
+                {/if}
+              </button>
+            {/if}
+          </td>
+        </tr>
+      {/each}
+    </tbody>
+    <tfoot class="equipment-table-foot">
+      <tr>
+        <td
+          ><Silver
+            silver={$CharacterStore.silver}
+            on:setSilver={updateSilver}
+          /></td
+        >
+        <td colspan="3"
+          ><button type="button" class="btn-magenta" on:click={show}
+            >+ Equipment</button
+          ></td
+        >
       </tr>
-    {/each}
-  </tbody>
-  <tfoot class="equipment-table-foot">
-    <tr>
-      <td
-        ><Silver
-          silver={$CharacterStore.silver}
-          on:setSilver={updateSilver}
-        /></td
-      >
-      <td colspan="3">Add Button</td>
-    </tr>
-  </tfoot>
-</table>
-<p>Ability to manually additmes, this will be a form so lets do this next</p>
+    </tfoot>
+  </table>
+</Modal>
 
 <style>
   .equipment-table {
