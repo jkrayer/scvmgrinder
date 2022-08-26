@@ -17,10 +17,10 @@
 
 <article class="monster-sheet">
   <Header name={monster.name}>
-    <HitPoints
+    <!-- <HitPoints
       {...monster.hitpoints}
       onSet={(hp) => damageMonster(monster, hp)}
-    />
+    /> -->
   </Header>
   <div class="monster-sheet_body">
     {#if monster.armor}

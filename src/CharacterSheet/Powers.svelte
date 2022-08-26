@@ -1,41 +1,87 @@
 <script type="ts">
-  import { createEventDispatcher } from "svelte";
+  import CharacterStore, { update, EqScrolls } from "./store";
+  import { equipmentDrop } from "./lib";
   import type { Scroll } from "./type";
-  export let powers: null | number = null;
-  // Array of scrolls
-  export let scrolls: Scroll[] = [];
+  import { addMessage } from "../Messages/state/MessageStore";
+  import { usePowerMessage } from "../Messages/lib";
+  import { rollD20 } from "../lib/dice";
+  import { POWERS } from "../lib/gameConstants";
+  import Modal from "../components/Modal.svelte";
 
-  const isDisabled = powers === null;
+  let isDisabled: boolean = false;
+  let scrollNames: string = "";
 
-  type Event = Scroll & { EventKey: "use:scroll" };
+  $: {
+    // isDizzy
+    isDisabled =
+      $EqScrolls.length === 0 || // no scrolls
+      $CharacterStore.powers === 0 || // powers used
+      $CharacterStore.powers === null; // no powers
 
-  const dispatch = createEventDispatcher();
+    scrollNames = $EqScrolls.map(({ name }) => name).join(", ");
+  }
+
+  let showPowers: boolean = false;
+
+  // Handlers
+  const canIUsePower = () => {
+    const roll: number = rollD20();
+    const total: number = roll + $CharacterStore.abilities.presence;
+
+    addMessage(
+      usePowerMessage(
+        $CharacterStore.name,
+        $CharacterStore.abilities.presence,
+        roll,
+        POWERS.dc
+      )
+    );
+
+    if (total < POWERS.dc) {
+      // dizzyEffect
+    } else {
+      showPowers = true;
+    }
+  };
+
+  const handleUseScroll = (scroll: Scroll) => () => {
+    update(equipmentDrop(scroll));
+    showPowers = false;
+    // add Effect
+    // emit use
+  };
 </script>
 
-<div class:disabled={isDisabled}>
-  <div class="character-sheet-field">
-    <h2 id="power-class" class="character-sheet-field-label">Powers:</h2>
-    <div class="character-sheet-copy">
-      {#if isDisabled}
-        <p>You are not able to use powers.</p>
-      {:else}
-        {#each scrolls as scroll}
-          <p>{scroll.name}</p>
-          <p>{scroll.description}</p>
-          <button type="button" on:click={() => dispatch("use:scroll", scroll)}
-            >Use</button
-          >
-        {/each}
-      {/if}
-    </div>
-  </div>
-  <p class="character-sheet-copy">
-    Presence DR12, or -d2 HP and no Powers for 1 hr.
-  </p>
-</div>
+<button
+  type="button"
+  disabled={isDisabled}
+  class="power-button"
+  on:click={canIUsePower}
+>
+  {#if $CharacterStore.powers === null}
+    You are not able to use powers.
+  {:else}
+    Powers({$CharacterStore.powers}): {scrollNames}
+  {/if}
+</button>
+
+<Modal visible={showPowers} onClose={() => (showPowers = false)}>
+  <h2 id="power-class" class="character-sheet-field-label">Powers:</h2>
+  {#each $EqScrolls as scroll}
+    <p>{scroll.name}</p>
+    <p>{scroll.description}</p>
+    <button type="button" on:click={handleUseScroll(scroll)}>Use</button>
+  {/each}
+</Modal>
 
 <style>
-  .disabled {
-    opacity: 0.8;
+  .power-button {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .power-button:disabled {
+    opacity: 0.7;
   }
 </style>

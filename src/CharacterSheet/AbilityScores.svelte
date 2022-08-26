@@ -1,49 +1,38 @@
 <script type="ts">
-  import { createEventDispatcher } from "svelte";
-  import type { AbilityScores } from "./type";
+  import CharacterStore from "./store";
+  import { addMessage } from "../Messages/state/MessageStore";
+  import { testMessage } from "../Messages/lib";
 
-  export let abilityScores: AbilityScores = {
-    agility: 0,
-    presence: 0,
-    strength: 0,
-    toughness: 0,
-  };
+  const scores = Object.entries($CharacterStore.abilities);
 
-  const dispatch = createEventDispatcher();
-
-  $: scores = Object.entries(abilityScores);
+  const handleAbilityTest = (score: string, modifier: number) => () =>
+    addMessage(testMessage({ score, modifier, name: $CharacterStore.name }));
 </script>
 
-{#each scores as [key, value]}
-  <div class="field">
-    <div class="field-label">{key}</div>
-    <div>
+<div class="grid">
+  {#each scores as [key, value]}
+    <div class="flex-center">
       <button
         type="button"
-        on:click={() =>
-          dispatch("test", {
-            score: key,
-            modifier: value,
-          })}>Test</button
+        class="button"
+        on:click={handleAbilityTest(key, value)}
       >
+        <div class="score-title">{key}</div>
+        <span class="score">{value}</span>
+      </button>
     </div>
-    <span>{value}</span>
-  </div>
-{/each}
+  {/each}
+</div>
 
 <style>
-  .field {
-    padding: var(--small-padding);
-    margin-bottom: var(--small-padding);
-    color: var(--black);
-    background-color: var(--white);
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
-  .field-label {
-    display: inline;
+
+  .score-title {
     font: 400 1.5rem/1 var(--handwriting);
   }
-  .h2 {
-    display: inline;
-    font-family: var(--fixed);
+  .score {
+    font-size: 1.25rem;
   }
 </style>

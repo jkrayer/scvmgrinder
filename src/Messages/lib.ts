@@ -115,14 +115,14 @@ export const armorMessage = ({
 // const mod = Math.abs(modifier);
 
 export const usePowerMessage = (
-  scroll: Scroll,
   name: string,
-  modifier: number
+  modifier: number,
+  roll: number,
+  dc: number
 ): MessageBody => {
-  const roll: number = rollD20();
   const total: number = roll + modifier;
   const s = sign(modifier);
-  const status: string = total > 11 ? "Succeeded" : "Failed";
+  const status: string = total < dc ? "Failed" : "Succeeded";
 
   return {
     name,
@@ -130,6 +130,6 @@ export const usePowerMessage = (
     roll: total,
     rollFormula: `${roll} ${s} ${modifier}`,
     target: `${status} Power Test`,
-    dc: 12,
+    dc,
   };
 };

@@ -49,7 +49,7 @@
         src={character.class.image}
         slot="portrait"
       />
-      <HitPoints {...character.hitpoints} onSet={updateHp} />
+      <!-- <HitPoints {...character.hitpoints} onSet={updateHp} /> -->
     </Header>
     <Tabs>
       <Tabs.Tab label="Main">

@@ -1,20 +1,25 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-
-  export let maximum: number = 0;
-  export let current: number = 0;
+  import CharacterStore, { update } from "./store";
+  import { useOmen } from "./lib";
 
   const dispatch = createEventDispatcher();
+
+  const handleUseOmen = () => {
+    update(useOmen());
+    dispatch("use:omen");
+  };
 </script>
 
 <div>
   <div class="character-sheet-field">
     <h2 class="character-sheet-field-label">Omens:</h2>
-    <div>(d{maximum}/day)</div>
+    <div>(d{$CharacterStore.omens.maximum}/day)</div>
     <button
       type="button"
-      on:click={() => dispatch("use:omen")}
-      disabled={current === 0}>use ({current})</button
+      on:click={handleUseOmen}
+      disabled={$CharacterStore.omens.current === 0}
+      >use ({$CharacterStore.omens.current})</button
     >
   </div>
   <p class="character-sheet-copy">

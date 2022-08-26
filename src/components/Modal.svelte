@@ -56,6 +56,7 @@
     padding: 1em;
     transform: translate3d(calc(50vw - 50%), calc(50vh - 50%), 0);
     background-color: #fff;
+    color: #000;
     box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.1);
   }
 

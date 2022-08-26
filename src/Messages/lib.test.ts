@@ -64,11 +64,13 @@ describe("armorMessage message", () => {
 
 describe("usePowerMessage message", () => {
   test("it should return a use power message", () => {
-    const message = usePowerMessage({} as Scroll, "Beth", 4);
+    const message = usePowerMessage("Beth", 1, 4, 12);
 
     expect(message.name).toBe("Beth");
     expect(message.rollType).toBe("Test");
-    // expect(message.target).toBe("Succeded Power Test");
+    expect(message.roll).toBe(5);
+    expect(message.rollFormula).toBe("4 + 1");
+    expect(message.target).toBe("Failed Power Test");
     expect(message.dc).toBe(12);
   });
 });
