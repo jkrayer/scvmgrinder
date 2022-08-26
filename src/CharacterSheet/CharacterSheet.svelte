@@ -14,7 +14,7 @@
   import AbilityScores from "./AbilityScores.svelte";
   import Weapons from "./Weapons.svelte";
   import Armor from "./Armor.svelte";
-  import Equipment from "./Equipment.svelte";
+  import Equipment from "./Equipment/Equipment.svelte";
   import Silver from "./Silver.svelte";
   import Miseries from "./Miseries.svelte";
   import MorkBorgLogo from "../components/MorkBorgLogo.svelte";

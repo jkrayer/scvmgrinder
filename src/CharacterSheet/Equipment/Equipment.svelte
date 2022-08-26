@@ -1,14 +1,15 @@
 <script type="ts">
   import { compose } from "ramda";
   import { Minus, Pencil1, Plus, Trash } from "radix-icons-svelte";
+  import { formatDescription } from "./lib";
   import CharacterStore, {
     update,
     EquippedWeapons,
     EquippedArmor,
-  } from "./store";
-  import type { Equipment } from "./type";
-  import { equipmentQuantity, equipmentToggle, equipmentDrop } from "./lib";
-  import { isEncumbered } from "../lib/gameData";
+  } from "../store";
+  import type { Equipment } from "../type";
+  // import { equipmentQuantity, equipmentToggle, equipmentDrop } from "./lib";
+  // import { isEncumbered } from "../lib/gameData";
 
   // TODO: Need state mechanism to handle the effect of being encumbered and max items carried
   // This culd be in the derived equipment store since it will update on a change.
@@ -23,19 +24,6 @@
 
   // const incrementEq = (x: number, equip: Equipment) => () =>
   //   update(equipmentQuantity(equip, x));
-
-  const parens = (desc: string): string =>
-    ["(", undefined].includes(desc[0]) ? desc : `(${desc})`;
-
-  const insertQuantity = ({
-    description,
-    quantity = { current: -1, maximum: -1 },
-  }: Equipment): string =>
-    quantity.current === -1
-      ? description
-      : description.replace("%", String(quantity.current));
-
-  const formatDescription = compose(parens, insertQuantity);
 
   let encumbrance: number = 8;
   let encumbranceIndex: number = 7;
@@ -123,7 +111,7 @@
 
   .note {
     margin: 0;
-    font: 0.75rem/1 var(--fixed);
+    font: 0.75rem/1.33333 var(--fixed);
     text-align: right;
   }
 
