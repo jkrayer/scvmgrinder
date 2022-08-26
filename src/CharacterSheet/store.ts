@@ -58,7 +58,7 @@ const defaultCharacter: CharacterType = {
     {
       type: "weapon",
       name: "Bow",
-      description: "(1d6 damage)",
+      description: "and % arrows 1d6 damage",
       damageDie: "1d6",
       subType: "ranged",
       weight: 100,
@@ -96,7 +96,7 @@ const defaultCharacter: CharacterType = {
       name: "Lard",
       type: "food",
       subtype: "",
-      description: "(may function as 5 meals in a pinch)",
+      description: "(may function as % meals in a pinch)",
       weight: 20,
       quantity: {
         current: 5,

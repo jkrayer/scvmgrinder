@@ -1,45 +1,32 @@
 <script type="ts">
-  import { compose } from "ramda";
-  import { Minus, Pencil1, Plus, Trash } from "radix-icons-svelte";
-  import { formatDescription } from "./lib";
-  import CharacterStore, {
-    update,
-    EquippedWeapons,
-    EquippedArmor,
-  } from "../store";
-  import type { Equipment } from "../type";
-  // import { equipmentQuantity, equipmentToggle, equipmentDrop } from "./lib";
-  // import { isEncumbered } from "../lib/gameData";
-
-  // TODO: Need state mechanism to handle the effect of being encumbered and max items carried
-  // This culd be in the derived equipment store since it will update on a change.
-  // Or perhaps deriving status from state is better elsewhere
-
-  // const equippable = has("equipped");
-
-  // HANDLERS
-  // const toggleEquipment = (eq: Equipment) => () => update(equipmentToggle(eq));
-
-  // const dropEquipment = (eq: Equipment) => () => update(equipmentDrop(eq));
-
-  // const incrementEq = (x: number, equip: Equipment) => () =>
-  //   update(equipmentQuantity(equip, x));
+  import { Pencil1 } from "radix-icons-svelte";
+  import { formatListDescription } from "./lib";
+  import Manager from "./EquipmentManager.svelte";
+  import CharacterStore from "../store";
+  import Modal from "../../components/Modal.svelte";
 
   let encumbrance: number = 8;
   let encumbranceIndex: number = 7;
   let isEncumbered: boolean = false;
+  let showManager: boolean = true;
 
   $: {
     encumbrance = 8 + $CharacterStore.abilities.strength;
     encumbranceIndex = encumbrance - 1;
     isEncumbered = $CharacterStore.equipment.length > encumbrance;
   }
+
+  let show = () => (showManager = true);
+  let hide = () => (showManager = false);
 </script>
 
 <div class="grid">
-  <div class="title-row">
-    <h2 class="character-sheet-field-label accented">Equipment</h2>
-    <div class="edit"><Pencil1 size={16} /></div>
+  <div class="flex-center-row">
+    <button type="button" class="button flex-center-row" on:click={show}>
+      <h2 class="character-sheet-field-label accented">Equipment</h2>
+      <span class="edit"><Pencil1 size={16} /></span>
+    </button>
+
     <p class="note" class:error={isEncumbered}>
       Strength + 8 items or DR+2 on Agility/Strength tests
     </p>
@@ -53,46 +40,8 @@
       >
         <div class:broken={eq.broken}>
           <span class="equipment-title">{eq.name}</span>
-          {formatDescription(eq)}
-          <!-- {#if eq.quantity}
-            {#if eq.ammunitionName}
-              and {eq.quantity.current}
-              {eq.ammunitionName}
-            {:else}
-              {eq.quantity.current}/{eq.quantity.maximum}
-            {/if}
-          {/if} -->
-          <!-- {#if eq.broken}
-            (broken)
-          {/if} -->
+          {formatListDescription(eq)}
         </div>
-        <!-- <div class="button-row">
-            <div class="count-col">
-              {#if eq.quantity}
-                {@const quantity = eq.quantity}
-                <button
-                  type="button"
-                  on:click={incrementEq(-1, eq)}
-                  disabled={quantity.current === 0}>-</button
-
-              <button
-                  type="button"
-                  on:click={incrementEq(1, eq)}
-                  disabled={quantity.current === quantity.maximum}>+</button
-                >
-              {/if}
-            </div>
-            <div class="equip-col">
-              {#if equippable(eq)}
-                <button type="button" on:click={toggleEquipment(eq)}
-                  >{eq.equipped ? "U " : "E"}</button
-                >
-              {/if}
-            </div>
-            <div class="trash-col">
-              <button type="button" on:click={dropEquipment(eq)}>T</button>
-            </div>
-          </div> -->
       </li>
     {/each}
   </ol>
@@ -102,13 +51,9 @@
   </div>
 </div>
 
-<style>
-  .title-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: var(--small-padding);
-  }
+<Modal visible={showManager} onClose={hide}><Manager /></Modal>
 
+<style>
   .note {
     margin: 0;
     font: 0.75rem/1.33333 var(--fixed);

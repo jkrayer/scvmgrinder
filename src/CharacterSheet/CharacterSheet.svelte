@@ -5,7 +5,7 @@
     EquippedArmor,
   } from "./store";
   import { addMessage } from "../Messages/state/MessageStore";
-  import { incrementSilver, equipmentTier, getAbilityScore } from "./lib";
+  import { equipmentTier, getAbilityScore } from "./lib";
   import { attackMessage, damageMessage, armorMessage } from "../Messages/lib";
   import type { CharacterType, Weapon, Armor as ArmorType } from "./type";
   import Header from "./Header.svelte";
@@ -15,15 +15,11 @@
   import Weapons from "./Weapons.svelte";
   import Armor from "./Armor.svelte";
   import Equipment from "./Equipment/Equipment.svelte";
-  import Silver from "./Silver.svelte";
   import Miseries from "./Miseries.svelte";
   import MorkBorgLogo from "../components/MorkBorgLogo.svelte";
   import DiceRoller from "./DiceRoller.svelte";
 
   // HANDLERS
-
-  const updateSilver = ({ detail }: CustomEvent<number>): void =>
-    update(incrementSilver(detail));
 
   const handleChangeTier = ({
     detail,
@@ -72,7 +68,6 @@
   </div>
   <Equipment />
   <div class="grid">
-    <!-- <Silver silver={$CharacterStore.silver} on:setSilver={updateSilver} /> -->
     <Miseries bind:miseries={$CharacterStore.miseries} />
   </div>
 </article>

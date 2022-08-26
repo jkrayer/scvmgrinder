@@ -55,7 +55,7 @@
 <button
   type="button"
   disabled={isDisabled}
-  class="power-button"
+  class="power-button text-overflow"
   on:click={canIUsePower}
 >
   {#if $CharacterStore.powers === null}
@@ -77,9 +77,6 @@
 <style>
   .power-button {
     width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
   }
   .power-button:disabled {
     opacity: 0.7;
