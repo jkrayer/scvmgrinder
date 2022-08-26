@@ -72,7 +72,7 @@
   </div>
   <Equipment />
   <div class="grid">
-    <Silver silver={$CharacterStore.silver} on:setSilver={updateSilver} />
+    <!-- <Silver silver={$CharacterStore.silver} on:setSilver={updateSilver} /> -->
     <Miseries bind:miseries={$CharacterStore.miseries} />
   </div>
 </article>

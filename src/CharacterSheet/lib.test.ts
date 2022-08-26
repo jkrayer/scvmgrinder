@@ -97,6 +97,7 @@ describe("Equipment Tests", () => {
   const armor: Armor = {
     name: "Scale armor",
     type: "armor",
+    description: "",
     tier: { current: 2, maximum: 2 },
     equipped: true,
     broken: true,
@@ -132,6 +133,7 @@ describe("Equipment Tests", () => {
   } as CharacterType;
   const weapon: Weapon = {
     name: "Axe",
+    description: "",
     type: "weapon",
     damageDie: "1d6",
     subType: "melee",

@@ -25,7 +25,7 @@ export type AbilityScores = {
 
 type CommonEquipmentProps = {
   name: string;
-  description?: string;
+  description: string;
   equipped?: boolean;
   quantity?: CurrentMax;
   weight?: number;

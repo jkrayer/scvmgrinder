@@ -9,12 +9,12 @@
  * 5. Layout
  *   5.1 Grid
  *   5.2 Flex
- * 3. Lists
- * 6. Typography
- * 7. Character Sheet
- * 8. Buttons
- * 9. Tracker (deprecated?)
- * 10. Monster Sheet (deprecated?)
+ * 6. Lists
+ * 7. Typography
+ * 8. Character Sheet
+ * 9. Buttons
+ * 10. Tracker (deprecated?)
+ * 11. Monster Sheet (deprecated?)
  /
 
 /* 1. General */
@@ -98,7 +98,7 @@ input:disabled {
 /* 5. Layout */
 #app {
   color: var(--white);
-  background-color: var(--black);
+  background-color: var(--darkBlack);
 }
 
 #global-header {
@@ -135,7 +135,8 @@ input:disabled {
   column-gap: var(--small-padding);
   row-gap: var(--small-padding);
   max-width: 400px;
-  margin: var(--small-padding);
+  padding: var(--small-padding);
+  margin: 0 auto;
 }
 
 /* 5.2 Flex */
@@ -145,12 +146,31 @@ input:disabled {
   justify-content: center;
 }
 
-/* 6. Typography */
+/* 6. Lists */
+.list-clear {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+/* 7. Typography */
 .tiny-fixed {
   font: 400 0.625rem/1 var(--fixed);
 }
 
-/* 7. Character Sheet */
+.character-sheet-field-label {
+  display: inline;
+  margin: 0;
+  font: 400 2rem/1 var(--handwriting);
+}
+
+.accented {
+  padding: var(--tiny-padding) 0.125rem;
+  color: var(--black);
+  background-color: yellow;
+}
+
+/* 8. Character Sheet */
 #character-sheet {
   padding: var(--small-padding);
   display: flex;
@@ -169,10 +189,7 @@ input:disabled {
   color: var(--black);
   background-color: var(--white);
 }
-.character-sheet-field-label {
-  display: inline;
-  font: 400 1.5rem/1 var(--handwriting);
-}
+
 .character-sheet-title {
   display: inline;
   font-family: var(--fixed);
@@ -188,7 +205,7 @@ input:disabled {
   font: 400 0.875rem/1.5 var(--fixed);
 }
 
-/* 8. Buttons */
+/* 9. Buttons */
 button {
   color: #333;
   background-color: #f4f4f4;
@@ -222,7 +239,7 @@ button:focus {
   cursor: none;
 }
 
-/* 9. Tracker */
+/* 10. Tracker */
 #tracker {
   display: flex;
   flex-direction: column;
@@ -275,7 +292,7 @@ button:focus {
 .tracker-item-functions {
 }
 
-/* 10. Monster Sheet */
+/* 11. Monster Sheet */
 .monster-sheet-header {
   padding-bottom: 0.25em;
   margin: 0;

@@ -39,25 +39,27 @@ const defaultCharacter: CharacterType = {
   equipment: [
     {
       type: "food",
-      name: "Waterskin and 1 day's worth of food",
-      description: "",
+      name: "Waterskin",
+      description: "and % day's worth of food",
       quantity: {
         maximum: 5,
         current: 1,
       },
     },
     {
-      name: "Femur",
-      damageDie: "1d4",
       type: "weapon",
+      name: "Femur",
+      description: "1d4 damage",
+      damageDie: "1d4",
       subType: "melee",
       weight: 100,
       equipped: true,
     },
     {
-      name: "Bow",
-      damageDie: "1d6",
       type: "weapon",
+      name: "Bow",
+      description: "(1d6 damage)",
+      damageDie: "1d6",
       subType: "ranged",
       weight: 100,
       equipped: true,
@@ -69,8 +71,9 @@ const defaultCharacter: CharacterType = {
       },
     },
     {
-      name: "Padded cloth armor",
       type: "armor",
+      name: "Padded cloth armor",
+      description: "tier 1",
       tier: {
         current: 1,
         maximum: 1,
@@ -79,11 +82,16 @@ const defaultCharacter: CharacterType = {
       weight: 100,
     },
     {
-      name: "Kite Shield",
       type: "shield",
+      name: "Kite Shield",
+      description: "",
       equipped: true,
     },
-    { type: "equipment", name: "Bear trap (DR14 to spot, d8 damage)" },
+    {
+      type: "equipment",
+      name: "Bear trap",
+      description: "(DR14 to spot, d8 damage)",
+    },
     {
       name: "Lard",
       type: "food",
