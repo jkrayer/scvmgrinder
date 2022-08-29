@@ -1,7 +1,151 @@
 <script type="ts">
+  import { closeModal } from "svelte-modals";
+  import {
+    AMMUNITION_TYPES,
+    EQUIPMENT_TYPES,
+    ARMOR_TIER_TYPES,
+    DAMAGE_DICE_TYPES,
+  } from "./formdata";
+  import {
+    equipmentAdd,
+    equipmentMax,
+    getFormData,
+    hasSubtypes,
+    getSubtypes,
+  } from "./lib";
+  import type { FormData } from "./type";
+  import { update } from "../store";
   import Modal from "../../components/Modal.svelte";
+  import RadioGroup from "../../components/Form/RadioGroup.svelte";
+  import Input from "../../components/Form/Input.svelte";
+  import InputNumber from "../../components/Form/InputNumber.svelte";
+
+  let nameInput;
+  let oldType = "equipment";
+  let oldSubtype = "";
+
+  let formData: FormData = getFormData("equipment");
+
+  let maxQuantity: number;
+
+  $: {
+    maxQuantity = equipmentMax(formData.subtype);
+
+    // TODO: Replace with a more FP solution
+    if (formData.type !== oldType) {
+      formData = getFormData(formData.type);
+
+      oldType = formData.type;
+    }
+
+    if (formData.subtype !== oldSubtype) {
+      formData = {
+        ...formData,
+
+        quantity: 1,
+      };
+
+      oldSubtype = formData.subtype || null;
+    }
+  }
+
+  //
+  const handleSubmit = (e) => {
+    update(equipmentAdd(formData));
+
+    if (e.submitter.dataset.fn === "close") {
+      closeModal();
+    } else {
+      formData = getFormData("equipment");
+      nameInput?.focus();
+    }
+  };
 </script>
 
+<!-- DAMAGEDIE -->
 <Modal>
-  <p>Ability to manually additmes, this will be a form so lets do this next</p>
+  <h2 class="character-sheet-field-label">Add Equipment</h2>
+  <form on:submit|preventDefault={handleSubmit}>
+    <RadioGroup
+      bind:group={formData.type}
+      values={EQUIPMENT_TYPES}
+      title="Equipment Type"
+    />
+    <div class="grid name-row">
+      <Input label="Name" bind:value={formData.name} bind:ref={nameInput} />
+      {#if hasSubtypes(formData.type)}
+        {@const { title, values } = getSubtypes(formData.type)}
+        <div class="grid balanced">
+          <RadioGroup
+            bind:group={formData.subtype}
+            {values}
+            {title}
+            showLegend={true}
+          />
+          {#if formData.type === "weapon"}
+            <RadioGroup
+              bind:group={formData.ammoType}
+              values={AMMUNITION_TYPES}
+              title="Ammunition Type"
+              showLegend={true}
+            />
+          {/if}
+        </div>
+      {:else if formData.type === "armor"}
+        <RadioGroup
+          bind:group={formData.tier}
+          values={ARMOR_TIER_TYPES}
+          title="Armor Tier"
+          showLegend={true}
+        />
+      {/if}
+    </div>
+
+    <div class="grid description-row">
+      <Input label="Description" bind:value={formData.description} />
+      {#if ["food", "ammunition"].includes(formData.type)}
+        <InputNumber
+          label="Quantity"
+          bind:value={formData.quantity}
+          min={1}
+          max={maxQuantity}
+        />
+      {/if}
+    </div>
+
+    {#if formData.type === "weapon"}
+      <RadioGroup
+        bind:group={formData.damageDie}
+        values={DAMAGE_DICE_TYPES}
+        title="Damage Die"
+        showLegend={true}
+      />
+    {/if}
+
+    <div class="save">
+      <button type="submit" data-fn="save" class="btn-magenta">Save</button>
+      <button type="submit" data-fn="close" class="btn-yellow"
+        >Save & Close</button
+      >
+    </div>
+  </form>
 </Modal>
+
+<style>
+  .name-row {
+    grid-template-columns: 1fr 2fr;
+  }
+  .description-row {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .balanced {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .save {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: right;
+  }
+</style>

@@ -52,7 +52,6 @@ const defaultCharacter: CharacterType = {
       description: "1d4 damage",
       damageDie: "1d4",
       subType: "melee",
-      weight: 100,
       equipped: true,
     },
     {
@@ -61,7 +60,6 @@ const defaultCharacter: CharacterType = {
       description: "and % arrows 1d6 damage",
       damageDie: "1d6",
       subType: "ranged",
-      weight: 100,
       equipped: true,
       ammunitionType: "arrow",
       ammunitionName: "Arrow(s)",
@@ -79,7 +77,6 @@ const defaultCharacter: CharacterType = {
         maximum: 1,
       },
       equipped: true,
-      weight: 100,
     },
     {
       type: "shield",
@@ -95,9 +92,8 @@ const defaultCharacter: CharacterType = {
     {
       name: "Lard",
       type: "food",
-      subtype: "",
       description: "(may function as % meals in a pinch)",
-      weight: 20,
+
       quantity: {
         current: 5,
         maximum: 5,
@@ -108,14 +104,12 @@ const defaultCharacter: CharacterType = {
       type: "scroll",
       subType: "unclean",
       description: "Move an object up 1d10×10 feet for d6 minutes",
-      weight: 100,
     },
     {
       name: "Grace of a Dead Saint",
       type: "scroll",
       subType: "sacred",
       description: "d2 creatures regain d10 HP each.",
-      weight: 100,
     },
   ],
   status: [],

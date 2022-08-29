@@ -135,9 +135,9 @@ input:disabled {
   display: grid;
   column-gap: var(--small-padding);
   row-gap: var(--small-padding);
-  max-width: 400px;
-  padding: var(--small-padding);
-  margin: 0 auto;
+  /* max-width: 400px; */
+  /* padding: var(--small-padding); */
+  /* margin: 0 auto; */
 }
 
 /* 5.2 Flex */
@@ -253,18 +253,26 @@ button:focus {
   cursor: none;
 }
 
-.btn-magenta {
+.btn-magenta,
+.btn-yellow {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: var(--small-padding);
   border: none;
-  color: #fff;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.875rem;
   line-height: 1;
+}
+
+.btn-magenta {
+  color: #fff;
   background-color: magenta;
+}
+.btn-yellow {
+  color: var(--black);
+  background-color: yellow;
 }
 
 /* 10. Tracker */

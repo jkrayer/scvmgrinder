@@ -28,7 +28,6 @@ type CommonEquipmentProps = {
   description: string;
   equipped?: boolean;
   quantity?: CurrentMax;
-  weight?: number;
   broken?: boolean;
 };
 
@@ -80,7 +79,6 @@ type Potion = CommonEquipmentProps & {
 
 type Food = CommonEquipmentProps & {
   type: "food";
-  subtype?: string;
   description: string;
 };
 

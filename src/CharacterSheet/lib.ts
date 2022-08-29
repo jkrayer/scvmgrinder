@@ -167,7 +167,7 @@ export const equipmentQuantity = (eq: Equipment, difference: number) => {
 };
 
 //
-const trace =
+export const trace =
   (msg: string) =>
   (x: any): any => {
     console.log(msg, x);

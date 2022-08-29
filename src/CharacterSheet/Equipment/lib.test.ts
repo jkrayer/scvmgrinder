@@ -79,7 +79,6 @@ describe("formatManagertDescription", () => {
         description: "and % arrows 1d6 damage",
         damageDie: "1d6",
         subType: "ranged",
-        weight: 100,
         equipped: true,
         ammunitionType: "arrow",
         ammunitionName: "Arrow(s)",

@@ -42,7 +42,7 @@
     top: 0;
     left: 0;
     z-index: 4;
-    max-width: 70ex;
+    max-width: 75ex;
     padding: 1em;
     transform: translate3d(calc(50vw - 50%), calc(50vh - 50%), 0);
     background-color: #fff;
