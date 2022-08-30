@@ -6,13 +6,13 @@ const hasEffect = has("effect");
 const hasTests = has("tests") as (arg1: StatusTypes) => boolean;
 const getTests = pathOr({}, ["effect", "tests"]);
 
-const getEquipmentEffects = reduce((acc: Tests[], equipment: Equipment) => {
-  if (hasEffect(equipment)) {
-    return acc.concat(getTests(equipment));
-  }
+// const getEquipmentEffects = reduce((acc: Tests[], equipment: Equipment) => {
+//   if (hasEffect(equipment)) {
+//     return acc.concat(getTests(equipment));
+//   }
 
-  return acc;
-}, []) as (arg1: Equipment[]) => Tests[];
+//   return acc;
+// }, []) as (arg1: Equipment[]) => Tests[];
 
 const getStatusEffects = reduce(
   (acc: Partial<Tests>[], status: StatusTypes) => {
@@ -42,16 +42,16 @@ const sumTestObjects = (
     otherModifiers
   );
 
-export function getTestModifiers(character: TCharacter): Tests {
-  const testModifers: Tests = { ...character.tests };
-  const { equipment, status } = character;
+// export function getTestModifiers(character: TCharacter): Tests {
+//   const testModifers: Tests = { ...character.tests };
+//   const { equipment, status } = character;
 
-  return sumTestObjects(
-    testModifers,
-    ...getEquipmentEffects(equipment),
-    ...getStatusEffects(status)
-  );
-}
+//   return sumTestObjects(
+//     testModifers,
+//     ...getEquipmentEffects(equipment),
+//     ...getStatusEffects(status)
+//   );
+// }
 
 // Strength + 8;
 // Strength + 8 * 2 === max capacity

@@ -27,9 +27,3 @@
     Maximum damage, Reroll, –d6 damage, DR –4, No Crit/Fumble
   </p>
 </Modal>
-
-<style>
-  .disabled {
-    opacity: 0.8;
-  }
-</style>
