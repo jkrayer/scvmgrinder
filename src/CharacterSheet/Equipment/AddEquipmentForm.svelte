@@ -1,4 +1,5 @@
 <script type="ts">
+  import { slide } from "svelte/transition";
   import { closeModal } from "svelte-modals";
   import {
     AMMUNITION_TYPES,
@@ -114,12 +115,14 @@
     </div>
 
     {#if formData.type === "weapon"}
-      <RadioGroup
-        bind:group={formData.damageDie}
-        values={DAMAGE_DICE_TYPES}
-        title="Damage Die"
-        showLegend={true}
-      />
+      <div transition:slide>
+        <RadioGroup
+          bind:group={formData.damageDie}
+          values={DAMAGE_DICE_TYPES}
+          title="Damage Die"
+          showLegend={true}
+        />
+      </div>
     {/if}
 
     <div class="save">

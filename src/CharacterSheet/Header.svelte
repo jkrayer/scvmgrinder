@@ -26,7 +26,7 @@
 </script>
 
 <header class="character-sheet-header">
-  <div class="grid">
+  <div class="grid grid-limit">
     <div>
       <button type="button" class="button" on:click={show("description")}>
         <span class="title">Name</span>

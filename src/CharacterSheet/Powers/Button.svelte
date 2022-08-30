@@ -10,6 +10,7 @@
   let isDisabled: boolean = false;
   let scrollNames: string = "";
 
+  // Scrolls will never work when wielding zweihand weapons or medium/heavy armor.
   $: {
     // isDizzy
     isDisabled =

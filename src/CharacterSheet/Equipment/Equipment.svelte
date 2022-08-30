@@ -18,7 +18,7 @@
   let show = () => openModal(Manager);
 </script>
 
-<div class="grid">
+<div class="grid grid-limit">
   <div class="flex-center-row">
     <button type="button" class="button flex-center-row" on:click={show}>
       <h2 class="character-sheet-field-label accented">Equipment</h2>

@@ -9,7 +9,7 @@
     addMessage(testMessage({ score, modifier, name: $CharacterStore.name }));
 </script>
 
-<div class="grid">
+<div class="grid  grid-limit">
   {#each scores as [key, value]}
     <div class="flex-center">
       <button
