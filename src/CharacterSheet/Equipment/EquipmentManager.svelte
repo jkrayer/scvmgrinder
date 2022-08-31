@@ -11,19 +11,16 @@
   import AddEquipmentForm from "./AddEquipmentForm.svelte";
   import CharacterStore, { update } from "../store";
   // move?
-  import {
-    equipmentDrop,
-    equipmentToggle,
-    equipmentQuantity,
-    incrementSilver,
-  } from "../lib";
+  import { equipmentToggle, equipmentQuantity, incrementSilver } from "../lib";
   import type { Equipment } from "../type";
   import Modal from "../../components/Modal.svelte";
+  import { dropEquipmentWithEncumbrance } from "../../lib/character";
 
   // HANDLERS
   const toggleEquipment = (eq: Equipment) => () => update(equipmentToggle(eq));
 
-  const dropEquipment = (eq: Equipment) => () => update(equipmentDrop(eq));
+  const dropEquipment = (eq: Equipment) => () =>
+    update(dropEquipmentWithEncumbrance(eq));
 
   const incrementEq = (x: number, equip: Equipment) => () =>
     update(equipmentQuantity(equip, x));

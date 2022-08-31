@@ -5,9 +5,9 @@
     EquippedArmor,
   } from "./store";
   import { addMessage } from "../Messages/state/MessageStore";
-  import { equipmentTier, getAbilityScore } from "./lib";
+  import { equipmentTier } from "./lib";
   import { attackMessage, damageMessage, armorMessage } from "../Messages/lib";
-  import type { CharacterType, Weapon, Armor as ArmorType } from "./type";
+  import type { Weapon, Armor as ArmorType } from "./type";
   import Header from "./Header.svelte";
   import { Violence } from "./enums";
   import PowersButton from "./Powers/Button.svelte";
@@ -18,6 +18,8 @@
   import Miseries from "./Miseries.svelte";
   import MorkBorgLogo from "../components/MorkBorgLogo.svelte";
   import DiceRoller from "./DiceRoller.svelte";
+  import StatusList from "./Status/StatusList.svelte";
+  import { getAbilityScore } from "../lib/character/common";
 
   // HANDLERS
 
@@ -33,10 +35,7 @@
       attackMessage(
         detail,
         $CharacterStore.name,
-        getAbilityScore(
-          $CharacterStore as CharacterType,
-          Violence[detail.subType]
-        )
+        getAbilityScore($CharacterStore, Violence[detail.subType])
       )
     );
 
@@ -53,7 +52,7 @@
   <Header />
   <AbilityScores />
   <!-- Violence -->
-  <div class="grid">
+  <div class="grid grid-limit">
     <Weapons
       weapons={$EquippedWeapons}
       on:attack={handleAttack}
@@ -65,9 +64,10 @@
       on:change:tier={handleChangeTier}
     />
     <PowersButton />
+    <StatusList status={$CharacterStore.status} />
   </div>
   <Equipment />
-  <div class="grid">
+  <div class="grid grid-limit">
     <Miseries bind:miseries={$CharacterStore.miseries} />
   </div>
 </article>

@@ -1,4 +1,4 @@
-import type { Armor, CharacterType, Equipment, Weapon } from "./type";
+import type { Armor, Equipment, Weapon } from "./type";
 import {
   incrementHp,
   useOmen,
@@ -12,7 +12,6 @@ import {
   getEquippedWeapons,
   getEquippedArmor,
   equipmentToggle,
-  equipmentDrop,
 } from "./lib";
 
 describe("incrementHp", () => {
@@ -233,12 +232,12 @@ describe("Equipment Tests", () => {
       });
     });
   });
-
-  describe("equipmentDrop", () => {
-    test("it should remove the names piece of equipment", () => {
-      expect(
-        equipmentDrop({ name: "Warhammer" } as Equipment)(eq).equipment.length
-      ).toBe(3);
-    });
-  });
 });
+
+// describe("equipmentDrop", () => {
+//   test("it should remove the names piece of equipment", () => {
+//     expect(
+//       equipmentDrop({ name: "Warhammer" } as Equipment)(eq).equipment.length
+//     ).toBe(3);
+//   });
+// });

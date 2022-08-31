@@ -1,8 +1,4 @@
-import { writable, derived, type Readable } from "svelte/store";
-import { getEquippedWeapons, getEquippedArmor, getScrolls } from "./lib";
-import type { Weapon, ArmorAndShield, Scroll } from "./type";
-
-const defaultCharacter: CharacterType = {
+export const character: CharacterType = {
   name: "Brinta",
   silver: 23,
   abilities: {
@@ -117,24 +113,3 @@ const defaultCharacter: CharacterType = {
   miseries: [false, false, false, false, false, false, false],
   _id: "JEx2BC6COHdTEKMC",
 };
-const Character = writable<CharacterType>(defaultCharacter);
-
-export default Character;
-
-export function update(fn: (arg1: CharacterType) => CharacterType): void {
-  Character.update(fn);
-}
-
-//   Readable<Weapon[]>, (arg1: CharacterType) => Weapon[]
-
-export const EquippedWeapons: Readable<Weapon[]> = derived(
-  Character,
-  getEquippedWeapons
-);
-
-export const EquippedArmor: Readable<ArmorAndShield> = derived(
-  Character,
-  getEquippedArmor
-);
-
-export const EqScrolls: Readable<Scroll[]> = derived(Character, getScrolls);

@@ -151,19 +151,6 @@ const stripNullVals = compose(
 ) as (arg1: FormData) => Partial<FormData>;
 
 // @ts-ignore
-const fdToEq = compose(ammo, tier, quantity, stripNullVals) as (
+export const format = compose(ammo, tier, quantity, stripNullVals) as (
   data: FormData
 ) => Equipment;
-
-//
-export const equipmentAdd =
-  (eq: FormData) =>
-  (character: CharacterType): CharacterType => {
-    const { equipment } = character;
-    const newEquipment: Equipment = fdToEq(eq);
-
-    return {
-      ...character,
-      equipment: equipment.concat(newEquipment),
-    };
-  };

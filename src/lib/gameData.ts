@@ -1,9 +1,7 @@
 import { has, pathOr, reduce, toPairs } from "ramda";
-import { BASE_ENCUMBRANCE } from "./gameConstants";
-import type { Equipment, StatusTypes, TCharacter, Tests } from "../global";
 
 const hasEffect = has("effect");
-const hasTests = has("tests") as (arg1: StatusTypes) => boolean;
+const hasTests = has("tests") as (arg1: any) => boolean;
 const getTests = pathOr({}, ["effect", "tests"]);
 
 // const getEquipmentEffects = reduce((acc: Tests[], equipment: Equipment) => {
@@ -14,17 +12,14 @@ const getTests = pathOr({}, ["effect", "tests"]);
 //   return acc;
 // }, []) as (arg1: Equipment[]) => Tests[];
 
-const getStatusEffects = reduce(
-  (acc: Partial<Tests>[], status: StatusTypes) => {
-    if (hasTests(status)) {
-      // @ts-ignore
-      return acc.concat(status.tests);
-    }
+const getStatusEffects = reduce((acc: Partial<Tests>[], status: any) => {
+  if (hasTests(status)) {
+    // @ts-ignore
+    return acc.concat(status.tests);
+  }
 
-    return acc;
-  },
-  []
-) as (arg1: StatusTypes[]) => Tests[];
+  return acc;
+}, []) as (arg1: any[]) => Tests[];
 
 const sumTestObjects = (
   tests: Tests,
@@ -52,13 +47,3 @@ const sumTestObjects = (
 //     ...getStatusEffects(status)
 //   );
 // }
-
-// Strength + 8;
-// Strength + 8 * 2 === max capacity
-export function isEncumbered(
-  equipment: Equipment[],
-  strength: number = 0
-): boolean {
-  const currentCarryingCapacity = BASE_ENCUMBRANCE + strength;
-  return equipment.length > currentCarryingCapacity;
-}

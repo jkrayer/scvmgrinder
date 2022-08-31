@@ -8,15 +8,7 @@ import {
   propSatisfies,
   reduce,
 } from "ramda";
-import type {
-  ArmorAndShield,
-  CharacterType,
-  Equipment,
-  Armor,
-  Weapon,
-  Scroll,
-  AbilityScoreName,
-} from "./type";
+import type { ArmorAndShield, Equipment, Armor, Weapon, Scroll } from "./type";
 
 export const getEquipment = propOr([], "equipment") as (
   x: CharacterType
@@ -116,17 +108,6 @@ export const equipmentToggle =
     };
   };
 
-export const equipmentDrop =
-  (eq: Equipment) =>
-  (character: CharacterType): CharacterType => {
-    const { equipment } = character;
-
-    return {
-      ...character,
-      equipment: equipment.filter((e: Equipment) => e.name !== eq.name),
-    };
-  };
-
 export const equipmentTier =
   (armor: Armor, nextTier: number) =>
   (character: CharacterType): CharacterType => {
@@ -147,7 +128,7 @@ export const equipmentTier =
 
 export const equipmentQuantity = (eq: Equipment, difference: number) => {
   if (eq.quantity.current + difference === 0 && eq.type !== "weapon") {
-    return equipmentDrop(eq);
+    // return equipmentDrop(eq);
   }
 
   return (character: CharacterType): CharacterType => {
@@ -182,11 +163,6 @@ export const getEquippedArmor = compose(equippedArmor, getEquipment);
 export const getScrolls = compose(filter(isScroll), getEquipment) as (
   arg1: CharacterType
 ) => Scroll[];
-
-export const getAbilityScore = (
-  character: CharacterType,
-  score: AbilityScoreName
-): number => path(["abilities", score], character);
 
 // TESTS
 const hasEquipment = (eqName: string) => (character: CharacterType) => {

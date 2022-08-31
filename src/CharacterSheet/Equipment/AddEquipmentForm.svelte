@@ -8,7 +8,7 @@
     DAMAGE_DICE_TYPES,
   } from "./formdata";
   import {
-    equipmentAdd,
+    format,
     equipmentMax,
     getFormData,
     hasSubtypes,
@@ -20,6 +20,7 @@
   import RadioGroup from "../../components/Form/RadioGroup.svelte";
   import Input from "../../components/Form/Input.svelte";
   import InputNumber from "../../components/Form/InputNumber.svelte";
+  import { addEquipmentWithEncumbrance } from "../../lib/character";
 
   let nameInput;
   let oldType = "equipment";
@@ -52,7 +53,7 @@
 
   //
   const handleSubmit = (e) => {
-    update(equipmentAdd(formData));
+    update(addEquipmentWithEncumbrance(format(formData)));
 
     if (e.submitter.dataset.fn === "close") {
       closeModal();

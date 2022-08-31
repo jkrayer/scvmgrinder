@@ -9,7 +9,6 @@ import {
   propSatisfies,
   reduce,
 } from "ramda";
-import type { Armor, Equipment, Scroll, TCharacter, Weapon } from "../global";
 
 // DEBUGGING
 const trace =
@@ -77,7 +76,7 @@ const parseRollString = (rs: string): Roll | RollWithMod => {
 //   arg1: string
 // ) => number;
 
-const getEq = propOr([], "equipment") as (arg1: TCharacter) => Equipment[];
+const getEq = propOr([], "equipment") as (arg1: CharacterType) => Equipment[];
 
 // const equippedArmor = compose(
 //   ([type, equipped]) => equipped && ["armor", "shield"].includes(type),
@@ -97,7 +96,7 @@ export const sign = (num: number): string => {
 };
 
 export const hasPowers = propSatisfies(compose(not, isNil), "powers") as (
-  arg1: TCharacter
+  arg1: CharacterType
 ) => boolean;
 
 // export const getWeapons = compose(
@@ -116,4 +115,4 @@ export const hasPowers = propSatisfies(compose(not, isNil), "powers") as (
 export const getScrolls = compose(
   filter(propSatisfies((type) => type === "scroll", "type")),
   getEq
-) as (arg1: TCharacter) => Scroll[];
+) as (arg1: CharacterType) => Scroll[];

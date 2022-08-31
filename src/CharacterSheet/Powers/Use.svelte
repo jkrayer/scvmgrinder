@@ -1,12 +1,11 @@
 <script type="ts">
   import { closeModal } from "svelte-modals";
-  import { equipmentDrop } from "../lib";
   import { update, EqScrolls } from "../store";
-  import type { Scroll } from "../type";
+  import { dropEquipmentWithEncumbrance } from "../../lib/character";
   import Modal from "../../components/Modal.svelte";
 
   const handleUseScroll = (scroll: Scroll) => () => {
-    update(equipmentDrop(scroll));
+    update(dropEquipmentWithEncumbrance(scroll));
     closeModal();
     // add Effect
     // emit use
