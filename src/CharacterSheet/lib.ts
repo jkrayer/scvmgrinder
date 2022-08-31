@@ -49,18 +49,6 @@ const equippedArmor = (equipment: Equipment[]): ArmorAndShield => {
 
 // EXPORTS
 
-export const incrementHp = (hp: number) => (character: CharacterType) => {
-  const { current, maximum } = character.hitpoints;
-
-  return {
-    ...character,
-    hitpoints: {
-      current: min(current + hp, maximum),
-      maximum,
-    },
-  };
-};
-
 export const useOmen = () => (character: CharacterType) => {
   const { current, maximum } = character.omens;
 

@@ -1,4 +1,4 @@
-import { curry, filter, type PredTypeguard, type Pred } from "ramda";
+import { curry, filter, pathSatisfies } from "ramda";
 import { getAbilityScore } from "./common";
 import { BASE_ENCUMBRANCE } from "../game_constants";
 
@@ -43,6 +43,7 @@ export const deleteStatus = curry(
  * Tests enncumbrance by comparing 8+strength to the length of the equipment array
  * @param character CharacterType
  * @returns boolean
+ * @todo consider moving into equipment
  */
 export const isEncumbered = (character: CharacterType): boolean =>
   character.equipment.length >

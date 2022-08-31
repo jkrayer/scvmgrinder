@@ -1,6 +1,5 @@
 import type { Armor, Equipment, Weapon } from "./type";
 import {
-  incrementHp,
   useOmen,
   setOmens,
   incrementSilver,
@@ -13,28 +12,6 @@ import {
   getEquippedArmor,
   equipmentToggle,
 } from "./lib";
-
-describe("incrementHp", () => {
-  const hp = { hitpoints: { current: 3, maximum: 6 } } as CharacterType;
-
-  test("it should increase hp", () => {
-    expect(incrementHp(2)(hp)).toMatchObject({
-      hitpoints: { current: 5, maximum: 6 },
-    });
-  });
-
-  test("it should decrease hp", () => {
-    expect(incrementHp(-2)(hp)).toMatchObject({
-      hitpoints: { current: 1, maximum: 6 },
-    });
-  });
-
-  test("it should not increase hp higher than the maximum", () => {
-    expect(incrementHp(27)(hp)).toMatchObject({
-      hitpoints: { current: 6, maximum: 6 },
-    });
-  });
-});
 
 describe("omens", () => {
   const omens = { omens: { current: 2, maximum: 4 } } as CharacterType;

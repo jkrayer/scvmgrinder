@@ -1,8 +1,10 @@
-import { compose, ifElse } from "ramda";
+import { compose, identity, ifElse } from "ramda";
 import { setStatus, deleteStatus, isEncumbered } from "./status";
 import { addEquipment, dropEquipment } from "./equipment";
-import { ENCUMBERED } from "../game_constants/status";
+import { isBroken, updateHp } from "./hp";
+import { ENCUMBERED, BROKEN } from "../game_constants/status";
 
+// Equipment
 const toggleEncumbered = ifElse(
   isEncumbered,
   setStatus(ENCUMBERED),
@@ -14,3 +16,11 @@ export const addEquipmentWithEncumbrance = (eq: Equipment) =>
 
 export const dropEquipmentWithEncumbrance = (eq: Equipment) =>
   compose(toggleEncumbered, dropEquipment(eq));
+
+// Health
+const toggleBroken = ifElse(isBroken, setStatus(BROKEN), identity) as (
+  arg1: CharacterType
+) => CharacterType;
+
+export const updateHpWithBroken = (hp: number) =>
+  compose(toggleBroken, updateHp(hp));

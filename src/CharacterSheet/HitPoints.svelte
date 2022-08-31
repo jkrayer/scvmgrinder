@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { closeModal } from "svelte-modals";
   import CharacterStore, { update } from "./store";
-  import { incrementHp } from "./lib";
+  import { updateHpWithBroken } from "../lib/character";
   import Modal from "../components/Modal.svelte";
 
   let modifier: number = 0;
   const current: number = $CharacterStore.hitpoints.current;
-  const dispatch = createEventDispatcher();
 
   $: next = modifier + current;
 
@@ -14,10 +13,10 @@
   const decrement = () => (modifier -= 1);
 
   const save = () => {
-    if (next !== 0) {
-      update(incrementHp(modifier));
+    if (modifier !== 0) {
+      update(updateHpWithBroken(modifier));
       modifier = 0; // side effect
-      dispatch("saved");
+      closeModal();
     }
   };
 </script>
