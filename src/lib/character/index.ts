@@ -24,3 +24,5 @@ const toggleBroken = ifElse(isBroken, setStatus(BROKEN), identity) as (
 
 export const updateHpWithBroken = (hp: number) =>
   compose(toggleBroken, updateHp(hp));
+
+export const clearBrokenStatus = deleteStatus(BROKEN);

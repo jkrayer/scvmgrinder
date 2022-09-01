@@ -7,12 +7,28 @@
 </script>
 
 {#if !isEmpty(status)}
-  <div transition:slide>
-    <h2>Status:</h2>
-    <p>
-      {#each Object.values(status) as stat (stat.name)}
-        <Stat status={stat} />
-      {/each}
+  <div class="wrapper" transition:slide>
+    <h2 class="character-sheet-field-label header">Status:</h2>
+    <p class="effects">
+      {#each Object.values(status) as stat, index (stat.name)}
+        {index > 0 ? ", " : ""}<Stat status={stat} /><!--
+      -->{/each}
     </p>
   </div>
 {/if}
+
+<style>
+  .wrapper {
+    margin: var(--small-padding) 0;
+  }
+  .header,
+  .effects {
+    display: inline-block;
+    margin: 0;
+  }
+  .effects {
+    text-indent: var(--small-padding);
+    font-family: var(--fixed);
+    letter-spacing: 0.01em;
+  }
+</style>

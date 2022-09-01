@@ -1,40 +1,37 @@
 <script type="ts">
   import { closeModal } from "svelte-modals";
   import { fly } from "svelte/transition";
-
-  export let visible: boolean = true;
 </script>
 
 <!-- aria-labelledby="modal-title" -->
-{#if visible}
-  <div
-    id="modal-content"
-    transition:fly
-    role="dialog"
-    aria-modal="true"
-    aria-describedby="modal-body"
+
+<div
+  id="modal-content"
+  transition:fly={{ x: 0, y: -500 }}
+  role="dialog"
+  aria-modal="true"
+  aria-describedby="modal-body"
+>
+  <button
+    type="button"
+    id="modal-close"
+    title="Click or Press Escape to close"
+    on:click={closeModal}>&times;</button
   >
-    <button
-      type="button"
-      id="modal-close"
-      title="Click or Press Escape to close"
-      on:click={closeModal}>&times;</button
-    >
-    <div id="modal-body">
-      <slot>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-      </slot>
-    </div>
+  <div id="modal-body">
+    <slot>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </p>
+    </slot>
   </div>
-{/if}
+</div>
 
 <style>
   #modal-content {
