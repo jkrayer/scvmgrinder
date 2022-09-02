@@ -1,6 +1,12 @@
 import { writable, derived, type Readable } from "svelte/store";
-import { getEquippedWeapons, getEquippedArmor, getScrolls } from "./lib";
-import type { Weapon, ArmorAndShield, Scroll } from "./type";
+import { getScrolls } from "./lib";
+import type { Weapon, Scroll } from "./type";
+import {
+  getEquippedArmor,
+  isEquippedMediumOrHeavyArmor,
+  getEquippedWeapons,
+  isEquippedZweihander,
+} from "../lib/character/equipment";
 
 const defaultCharacter: CharacterType = {
   name: "Brinta",
@@ -111,6 +117,14 @@ const defaultCharacter: CharacterType = {
       subType: "sacred",
       description: "d2 creatures regain d10 HP each.",
     },
+    {
+      name: "Scale armor",
+      type: "armor",
+      description: "",
+      tier: { current: 2, maximum: 2 },
+      equipped: false,
+      broken: false,
+    },
   ],
   status: {},
   powers: 3,
@@ -138,3 +152,38 @@ export const EquippedArmor: Readable<ArmorAndShield> = derived(
 );
 
 export const EqScrolls: Readable<Scroll[]> = derived(Character, getScrolls);
+
+type TPowers = {
+  powers: null | number;
+  scrolls: Scroll[];
+  message: null | string;
+};
+
+export const POWERS: Readable<TPowers> = derived(
+  [Character, EquippedArmor, EquippedWeapons],
+  ([character, armorAndShield, weapons], set) => {
+    const { powers } = character;
+    const scrolls = getScrolls(character);
+
+    const P: TPowers = {
+      powers,
+      scrolls,
+      message: null,
+    };
+
+    // TODO: (or not) replace logic with Either monad
+    if (powers === null) {
+      P.message = `${character.class.name} can't use powers.`;
+    } else if (powers === 0) {
+      P.message = `${character.name} has no more powers today.`;
+    } else if (scrolls.length === 0) {
+      P.message = `${character.name} needs more scrolls.`;
+    } else if (isEquippedMediumOrHeavyArmor(armorAndShield)) {
+      P.message = `${character.name} can't use scrolls while wearing ${armorAndShield.armor.name}.`;
+    } else if (isEquippedZweihander(weapons)) {
+      P.message = `${character.name} can't use scrolls while wielding a zweihander.`;
+    }
+
+    set(P);
+  }
+);

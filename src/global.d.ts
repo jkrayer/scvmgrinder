@@ -35,6 +35,7 @@ type CommonWeaponProps = CommonEquipmentProps & {
   damageDie: string;
   type: "weapon";
   special?: string;
+  handed?: 1 | 2;
 };
 
 type MeleeWeapon = CommonWeaponProps & {
@@ -128,4 +129,9 @@ type CharacterType = {
   equipment: Equipment[];
   miseries?: [boolean, boolean, boolean, boolean, boolean, boolean, boolean];
   status: { [keys: string]: Status };
+};
+
+type ArmorAndShield = {
+  armor: Armor | null;
+  shield: Shield | null;
 };

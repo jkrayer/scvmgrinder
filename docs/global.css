@@ -273,9 +273,27 @@ button:focus {
   color: #fff;
   background-color: magenta;
 }
+
+.button-header,
+.button-header:active {
+  padding: var(--tiny-padding) 0.125rem;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.button-header:disabled {
+  opacity: 1;
+  cursor: initial;
+}
+
+.button-header:hover,
 .btn-yellow {
   color: var(--black);
   background-color: yellow;
+}
+
+.button-header:disabled:hover {
+  color: #fff;
+  background-color: transparent;
 }
 
 /* 10. Tracker */
@@ -326,9 +344,6 @@ button:focus {
   height: 0.25rem;
   width: 54px;
   background: linear-gradient(90deg, red, yellow, green);
-}
-
-.tracker-item-functions {
 }
 
 /* 11. Monster Sheet */

@@ -1,14 +1,5 @@
-import {
-  compose,
-  filter,
-  max,
-  min,
-  path,
-  propOr,
-  propSatisfies,
-  reduce,
-} from "ramda";
-import type { ArmorAndShield, Equipment, Armor, Weapon, Scroll } from "./type";
+import { compose, filter, max, min, propOr, propSatisfies } from "ramda";
+import type { Equipment, Armor, Scroll } from "./type";
 
 export const getEquipment = propOr([], "equipment") as (
   x: CharacterType
@@ -26,26 +17,6 @@ export const isArmor = propSatisfies(
   (x: string) => x === "armor" || x === "shield",
   "type"
 );
-
-const equippedWeapons = filter(
-  (x: Equipment) => isWeapon(x) && isEquipped(x)
-) as (arg1: Equipment[]) => Weapon[];
-
-const equippedArmor = (equipment: Equipment[]): ArmorAndShield => {
-  return equipment.reduce(
-    (acc, eq: Equipment) => {
-      if (isArmor(eq) && isEquipped(eq)) {
-        acc[eq.type] = eq;
-      }
-
-      return acc;
-    },
-    {
-      armor: null,
-      shield: null,
-    } as ArmorAndShield
-  );
-};
 
 // EXPORTS
 
@@ -144,29 +115,7 @@ export const trace =
   };
 
 // GETTERS
-export const getEquippedWeapons = compose(equippedWeapons, getEquipment);
-
-export const getEquippedArmor = compose(equippedArmor, getEquipment);
 
 export const getScrolls = compose(filter(isScroll), getEquipment) as (
   arg1: CharacterType
 ) => Scroll[];
-
-// TESTS
-const hasEquipment = (eqName: string) => (character: CharacterType) => {
-  const eq: Equipment[] = getEquipment(character);
-  const size = eq.length;
-
-  for (let i = 0; i < size; i++) {
-    if (eq[i].name === eqName) return true;
-  }
-
-  return false;
-};
-
-// hasFood
-// hasWater
-// return compose (
-//   equipmentQuantity(eq, -1)
-//   incrementHp(x)
-// )

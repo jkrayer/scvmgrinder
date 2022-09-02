@@ -1,25 +1,25 @@
 <script type="ts">
   import { openModal } from "svelte-modals";
   import Use from "./Use.svelte";
-  import CharacterStore, { EqScrolls } from "../store";
+  import CharacterStore, { POWERS as Powers } from "../store";
   import { addMessage } from "../../Messages/state/MessageStore";
   import { usePowerMessage } from "../../Messages/lib";
   import { rollD20 } from "../../lib/dice";
-  import { POWERS } from "../../lib/gameConstants";
+  import { POWERS } from "../../lib/game_constants";
 
-  let isDisabled: boolean = false;
-  let scrollNames: string = "";
+  /**
+   * The Flow
+   * Press Button
+   * Roll Random Die
+   * Pass || Fail Send Message to Message System
+   * + Fail Roll Damage Apply and Send to Message System
+   *        Send assStatus to status system
+   */
 
-  // Scrolls will never work when wielding zweihand weapons or medium/heavy armor.
-  $: {
-    // isDizzy
-    isDisabled =
-      $EqScrolls.length === 0 || // no scrolls
-      $CharacterStore.powers === 0 || // powers used
-      $CharacterStore.powers === null; // no powers
-
-    scrollNames = $EqScrolls.map(({ name }) => name).join(", ");
-  }
+  /**
+   * (dieRoll+getPresence(character < cd ? SendFailMessage : SendSuccessMessage))({dieRoll:, dc, character})
+   *
+   */
 
   // Handlers
   const canIUsePower = () => {
@@ -43,25 +43,45 @@
   };
 </script>
 
-<button
-  type="button"
-  disabled={isDisabled}
-  class="power-button text-overflow"
-  on:click={canIUsePower}
->
-  {#if $CharacterStore.powers === null}
-    You are not able to use powers.
-  {:else}
-    Powers({$CharacterStore.powers}): {scrollNames}
-  {/if}
-</button>
+<div class="powers-wrapper flex-center-row">
+  <button
+    type="button"
+    class="button button-header"
+    disabled={$Powers.message !== null}
+  >
+    <h2 class="powers-title character-sheet-field-label">
+      Powers
+      {#if $Powers.powers !== null}
+        <span class="powers-count">&nbsp;&nbsp;({$Powers.powers})</span>
+      {/if}
+    </h2>
+  </button>
+  <p class="note">
+    {#if $Powers.message !== null}
+      {$Powers.message}
+    {:else}
+      {POWERS.text}
+    {/if}
+  </p>
+</div>
 
 <style>
-  /* TODO STyles */
-  .power-button {
-    width: 100%;
+  .powers-wrapper {
+    margin: var(--small-padding) 0;
+    justify-content: space-between;
   }
-  .power-button:disabled {
-    opacity: 0.7;
+  .powers-title {
+    display: flex;
+    align-items: baseline;
+  }
+  .powers-count {
+    font-size: 0.625em;
+    position: relative;
+    left: -7px;
+  }
+  .note {
+    margin: 0;
+    font: 0.75rem/1.33333 var(--fixed);
+    text-align: right;
   }
 </style>

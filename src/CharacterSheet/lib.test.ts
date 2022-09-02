@@ -8,8 +8,6 @@ import {
   isWeapon,
   isArmor,
   isScroll,
-  getEquippedWeapons,
-  getEquippedArmor,
   equipmentToggle,
 } from "./lib";
 
@@ -167,36 +165,6 @@ describe("Equipment Tests", () => {
     });
   });
 
-  describe("getEquippedWeapons", () => {
-    test("it should return equipped weapons", () => {
-      expect(getEquippedWeapons(eq)).toMatchObject([eq.equipment[1]]);
-    });
-  });
-
-  describe("getEquippedArmor", () => {
-    test("it should return object of nulls if no armor or shield is found", () => {
-      expect(
-        getEquippedArmor({ equipment: [] } as CharacterType)
-      ).toMatchObject({ armor: null, shield: null });
-    });
-
-    test("it should return armor and shield if they're found", () => {
-      expect(getEquippedArmor(eq)).toMatchObject({
-        armor: armor,
-        shield: null,
-      });
-    });
-
-    test("it should return the last equipped armor", () => {
-      expect(
-        getEquippedArmor({ ...eq, equipment: [...eq.equipment, leatherArmor] })
-      ).toMatchObject({
-        armor: { ...armor, name: "Leather Armor" },
-        shield: null,
-      });
-    });
-  });
-
   describe("equipmentToggle", () => {
     const copyEq = { ...eq, equipment: [armor, weapon] };
 
@@ -210,11 +178,3 @@ describe("Equipment Tests", () => {
     });
   });
 });
-
-// describe("equipmentDrop", () => {
-//   test("it should remove the names piece of equipment", () => {
-//     expect(
-//       equipmentDrop({ name: "Warhammer" } as Equipment)(eq).equipment.length
-//     ).toBe(3);
-//   });
-// });

@@ -1,4 +1,11 @@
-import { addEquipment, dropEquipment } from "./equipment";
+import {
+  addEquipment,
+  dropEquipment,
+  getEquippedArmor,
+  isEquippedMediumOrHeavyArmor,
+  getEquippedWeapons,
+  isEquippedZweihander,
+} from "./equipment";
 import { character } from "../../_testData/character";
 
 describe("lib/character/equipment", () => {
@@ -59,6 +66,148 @@ describe("lib/character/equipment", () => {
     test("it should return a character object", () => {
       expect(result.name).toBe("Brinta");
       expect(result.silver).toBe(23);
+    });
+  });
+
+  describe("getEquippedArmor", () => {
+    const kiteShield = {
+      type: "shield",
+      name: "Kite Shield",
+      description: "",
+      equipped: true,
+    };
+
+    test("it should return object of nulls if no armor or shield is found", () => {
+      expect(
+        getEquippedArmor({ equipment: [] } as CharacterType)
+      ).toMatchObject({ armor: null, shield: null });
+    });
+
+    test("it should return armor and shield if they're found", () => {
+      expect(getEquippedArmor(character)).toMatchObject({
+        armor: {
+          type: "armor",
+          name: "Padded cloth armor",
+          description: "tier 1",
+          tier: {
+            current: 1,
+            maximum: 1,
+          },
+          equipped: true,
+        },
+        shield: kiteShield,
+      });
+    });
+
+    test("it should return the last equipped armor", () => {
+      const scaleArmor: Armor = {
+        name: "Scale armor",
+        type: "armor",
+        description: "",
+        tier: { current: 2, maximum: 2 },
+        equipped: true,
+        broken: true,
+      };
+
+      const copy: CharacterType = { ...character };
+      copy.equipment.push(scaleArmor);
+
+      expect(getEquippedArmor(copy)).toMatchObject({
+        armor: scaleArmor,
+        shield: kiteShield,
+      });
+    });
+  });
+
+  describe("isEquippedMediumOrHeavyArmor", () => {
+    test("it should return false when armor is null", () => {
+      expect(
+        isEquippedMediumOrHeavyArmor({ armor: null } as ArmorAndShield)
+      ).toBe(false);
+    });
+
+    test("it should return false when the armor tier < 2", () => {
+      const x = {
+        armor: { tier: { current: 1, maximum: 0 } },
+      } as ArmorAndShield;
+      const y = {
+        armor: { tier: { current: 1, maximum: 1 } },
+      } as ArmorAndShield;
+
+      expect(isEquippedMediumOrHeavyArmor(x)).toBe(false);
+      expect(isEquippedMediumOrHeavyArmor(y)).toBe(false);
+    });
+
+    test("it should return true when the armor tier > 1", () => {
+      const x = {
+        armor: { tier: { current: 1, maximum: 3 } },
+      } as ArmorAndShield;
+      const y = {
+        armor: { tier: { current: 1, maximum: 3 } },
+      } as ArmorAndShield;
+
+      expect(isEquippedMediumOrHeavyArmor(x)).toBe(true);
+      expect(isEquippedMediumOrHeavyArmor(y)).toBe(true);
+    });
+  });
+
+  describe("getEquippedWeapons", () => {
+    test("it should return equipped weapons", () => {
+      const copy: CharacterType = { ...character };
+      copy.equipment.push({
+        type: "weapon",
+        name: "Sword",
+        description: "1d6 damage",
+        damageDie: "1d6",
+        subType: "melee",
+        equipped: false,
+      });
+
+      expect(getEquippedWeapons(character)).toMatchObject([
+        {
+          type: "weapon",
+          name: "Femur",
+          description: "1d4 damage",
+          damageDie: "1d4",
+          subType: "melee",
+          equipped: true,
+        },
+        {
+          type: "weapon",
+          name: "Bow",
+          description: "and % arrows 1d6 damage",
+          damageDie: "1d6",
+          subType: "ranged",
+          equipped: true,
+          ammunitionType: "arrow",
+          ammunitionName: "Arrow(s)",
+          quantity: {
+            current: 10,
+            maximum: 20,
+          },
+        },
+      ]);
+    });
+  });
+
+  describe("isEquippedZweihander", () => {
+    test("it should return false if no zweihand weapons are equipped", () => {
+      expect(isEquippedZweihander(getEquippedWeapons(character))).toBe(false);
+    });
+
+    test("it should return true if at least one zweihand weapon is equipped", () => {
+      const weapons: Weapon[] = getEquippedWeapons(character);
+      weapons.splice(1, 0, {
+        type: "weapon",
+        name: "Zweihander",
+        description: "1d10 damage",
+        damageDie: "1d10",
+        subType: "melee",
+        equipped: true,
+        handed: 2,
+      });
+
+      expect(isEquippedZweihander(weapons)).toBe(true);
     });
   });
 });
