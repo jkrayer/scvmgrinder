@@ -10,7 +10,7 @@
   import type { Weapon, Armor as ArmorType } from "./type";
   import Header from "./Header.svelte";
   import { Violence } from "./enums";
-  import PowersButton from "./Powers/Button.svelte";
+  import Powers from "./Powers.svelte";
   import AbilityScores from "./AbilityScores.svelte";
   import Weapons from "./Weapons.svelte";
   import Armor from "./Armor.svelte";
@@ -63,7 +63,7 @@
       on:tier={handleArmorTier}
       on:change:tier={handleChangeTier}
     />
-    <PowersButton />
+    <Powers />
     <StatusList status={$CharacterStore.status} />
   </div>
   <Equipment />

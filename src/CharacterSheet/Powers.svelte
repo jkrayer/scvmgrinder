@@ -1,11 +1,11 @@
 <script type="ts">
   import { openModal } from "svelte-modals";
-  import Use from "./Use.svelte";
-  import CharacterStore, { POWERS as Powers } from "../store";
-  import { addMessage } from "../../Messages/state/MessageStore";
-  import { usePowerMessage } from "../../Messages/lib";
-  import { rollD20 } from "../../lib/dice";
-  import { POWERS } from "../../lib/game_constants";
+  // import Use from "./Use.svelte";
+  import CharacterStore, { POWERS as Powers } from "./store";
+  import { addMessage } from "../Messages/state/MessageStore";
+  import { usePowerMessage } from "../Messages/lib";
+  import { rollD20 } from "../lib/dice";
+  import { POWERS } from "../lib/game_constants";
 
   /**
    * The Flow
@@ -38,7 +38,7 @@
     if (total < POWERS.dc) {
       // dizzyEffect
     } else {
-      openModal(Use);
+      // openModal(Use);
     }
   };
 </script>
