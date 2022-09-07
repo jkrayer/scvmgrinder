@@ -13,5 +13,6 @@ export const DEFENSE_CRIT: string = " gains a free attack.";
 
 export const POWERS = Object.freeze({
   text: "Presence DR12, or -d2 HP and no Powers for 1 hr.",
+  fail: "you lose d2 HP and become dizzy for the next hour.",
   dc: 12,
 });

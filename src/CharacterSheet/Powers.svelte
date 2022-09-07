@@ -1,52 +1,17 @@
 <script type="ts">
-  import { openModal } from "svelte-modals";
-  // import Use from "./Use.svelte";
   import CharacterStore, { POWERS as Powers } from "./store";
-  import { addMessage } from "../Messages/state/MessageStore";
-  import { usePowerMessage } from "../Messages/lib";
-  import { rollD20 } from "../lib/dice";
   import { POWERS } from "../lib/game_constants";
-
-  /**
-   * The Flow
-   * Press Button
-   * Roll Random Die
-   * Pass || Fail Send Message to Message System
-   * + Fail Roll Damage Apply and Send to Message System
-   *        Send assStatus to status system
-   */
-
-  /**
-   * (dieRoll+getPresence(character < cd ? SendFailMessage : SendSuccessMessage))({dieRoll:, dc, character})
-   *
-   */
+  import { powers } from "../lib/character/powers";
 
   // Handlers
-  const canIUsePower = () => {
-    const roll: number = rollD20();
-    const total: number = roll + $CharacterStore.abilities.presence;
-
-    addMessage(
-      usePowerMessage(
-        $CharacterStore.name,
-        $CharacterStore.abilities.presence,
-        roll,
-        POWERS.dc
-      )
-    );
-
-    if (total < POWERS.dc) {
-      // dizzyEffect
-    } else {
-      // openModal(Use);
-    }
-  };
+  const handleClick = () => powers($CharacterStore);
 </script>
 
 <div class="powers-wrapper flex-center-row">
   <button
     type="button"
     class="button button-header"
+    on:click={handleClick}
     disabled={$Powers.message !== null}
   >
     <h2 class="powers-title character-sheet-field-label">
