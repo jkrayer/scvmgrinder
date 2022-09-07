@@ -1,5 +1,5 @@
 import { breakWeaponsAndArmor } from "./equipment";
-import { getAbilityScore } from "./common";
+import { getAbilityScore, rollMessage } from "./common";
 import { rollD20 } from "../dice";
 import { update } from "../../CharacterSheet/store";
 import { rollFormula } from "../../Messages/lib";
@@ -17,8 +17,7 @@ export function attack(character: CharacterType, weapon: Weapon) {
   const modName: AttackScores = ATTACK[subType];
   const mod: number = getAbilityScore(character, modName);
   const roll: number = rollD20();
-  const rollType: string =
-    roll === 1 ? ", Fumble!" : roll === 20 ? ", Critical!" : "";
+  const rollType: string = rollMessage(roll);
 
   const message: MessageBody = {
     name: character.name,

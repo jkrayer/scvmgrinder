@@ -4,6 +4,9 @@ import { addEquipment, dropEquipment } from "./equipment";
 import { isBroken, updateHp } from "./hp";
 import { ENCUMBERED, BROKEN } from "../game_constants/status";
 
+export { attack } from "./attack";
+export { defense } from "./defense";
+
 // Equipment
 const toggleEncumbered = ifElse(
   isEncumbered,

@@ -10,6 +10,15 @@ import {
 import { character } from "../../_testData/character";
 
 describe("lib/character/equipment", () => {
+  const scaleArmor: Armor = {
+    name: "Scale armor",
+    type: "armor",
+    description: "",
+    tier: { current: 2, maximum: 2 },
+    equipped: true,
+    broken: false,
+  };
+
   describe("addEquipment", () => {
     const copy: CharacterType = { ...character };
     const newEq: Equipment = {
@@ -101,15 +110,6 @@ describe("lib/character/equipment", () => {
     });
 
     test("it should return the last equipped armor", () => {
-      const scaleArmor: Armor = {
-        name: "Scale armor",
-        type: "armor",
-        description: "",
-        tier: { current: 2, maximum: 2 },
-        equipped: true,
-        broken: true,
-      };
-
       const copy: CharacterType = { ...character };
       copy.equipment.push(scaleArmor);
 
@@ -213,23 +213,13 @@ describe("lib/character/equipment", () => {
   });
 
   describe("breakWeaponsAndArmor", () => {
-    test("it should break weapons and armor", () => {
+    test("it should break weapons", () => {
       const breakFemur = breakWeaponsAndArmor({
         type: "weapon",
         name: "Femur",
         description: "1d4 damage",
         damageDie: "1d4",
         subType: "melee",
-        equipped: true,
-      })(character);
-      const breakArmor = breakWeaponsAndArmor({
-        type: "armor",
-        name: "Padded cloth armor",
-        description: "tier 1",
-        tier: {
-          current: 1,
-          maximum: 1,
-        },
         equipped: true,
       })(character);
 
@@ -242,13 +232,42 @@ describe("lib/character/equipment", () => {
         equipped: true,
         broken: true,
       });
+    });
+
+    test("it should reduce armor tier without breaking it", () => {
+      const copy: CharacterType = { ...character };
+      copy.equipment = copy.equipment.concat(scaleArmor);
+
+      const breakArmor = breakWeaponsAndArmor(scaleArmor)(character);
+
+      expect(breakArmor.equipment[9]).toMatchObject({
+        name: "Scale armor",
+        type: "armor",
+        description: "",
+        tier: { current: 1, maximum: 2 },
+        equipped: true,
+        broken: false,
+      });
+    });
+
+    test("it should break armor when tier is reduced to 0", () => {
+      const breakArmor = breakWeaponsAndArmor({
+        type: "armor",
+        name: "Padded cloth armor",
+        description: "tier 1",
+        tier: {
+          current: 1,
+          maximum: 1,
+        },
+        equipped: true,
+      })(character);
 
       expect(breakArmor.equipment[3]).toMatchObject({
         type: "armor",
         name: "Padded cloth armor",
         description: "tier 1",
         tier: {
-          current: 1,
+          current: 0,
           maximum: 1,
         },
         equipped: true,

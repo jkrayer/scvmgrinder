@@ -18,26 +18,29 @@
   import MorkBorgLogo from "../components/MorkBorgLogo.svelte";
   import DiceRoller from "./DiceRoller.svelte";
   import StatusList from "./Status/StatusList.svelte";
-  import { attack } from "../lib/character/attack";
+  import { attack, defense } from "../lib/character";
 
   // HANDLERS
-  const handleChangeTier = ({
-    detail,
-  }: CustomEvent<{ newTier: number; armor: ArmorType }>): void => {
-    const { newTier, armor } = detail;
-    update(equipmentTier(armor, newTier));
-  };
-
   const handleAttack = ({ detail }: CustomEvent<Weapon>): void =>
     attack($CharacterStore, detail);
 
   const handleDamage = ({ detail }: CustomEvent<Weapon>): void =>
     addMessage(damageMessage(detail, $CharacterStore.name));
 
+  const handleDefense = ({ detail }: CustomEvent<Armor>) =>
+    defense($CharacterStore, detail);
+
   const handleArmorTier = ({
     detail,
   }: CustomEvent<{ tier: number; shield: boolean }>): void =>
     addMessage(armorMessage({ ...detail, name: $CharacterStore.name }));
+
+  const handleChangeTier = ({
+    detail,
+  }: CustomEvent<{ newTier: number; armor: ArmorType }>): void => {
+    const { newTier, armor } = detail;
+    update(equipmentTier(armor, newTier));
+  };
 </script>
 
 <article>
@@ -52,7 +55,8 @@
     />
     <Armor
       {...$EquippedArmor}
-      on:tier={handleArmorTier}
+      on:defense={handleDefense}
+      on:resist={handleArmorTier}
       on:change:tier={handleChangeTier}
     />
     <Powers />

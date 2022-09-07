@@ -23,6 +23,7 @@ import { filterByName, replaceByName } from "./common";
 
 const EQUIPMENT_KEY = "equipment";
 const CURRENT_QUANTITY = ["quantity", "current"];
+const CURRENT_TIER = ["tier", "current"];
 
 const eqLens = lens<CharacterType, Equipment[]>(
   prop(EQUIPMENT_KEY),
@@ -37,6 +38,13 @@ const quantityLens = lens<Equipment, number>(
 );
 
 const decrementQuantity = over(quantityLens, dec);
+
+const tierLens = lens<Armor, number>(
+  path(CURRENT_TIER),
+  assocPath(CURRENT_TIER)
+);
+
+const decrementTier = over(tierLens, dec);
 
 const isEquipped = propEq("equipped", true);
 
@@ -88,6 +96,16 @@ const equippedArmor = reduce<Equipment, ArmorAndShield>(
   { armor: null, shield: null } as ArmorAndShield
 );
 
+const breakArmor = (a: Armor): Armor => {
+  const next: Armor = decrementTier(a);
+
+  if (next.tier.current === 0) {
+    next.broken = true;
+  }
+
+  return next;
+};
+
 export const getEquippedArmor = compose(equippedArmor, getEquipment) as (
   arg1: CharacterType
 ) => ArmorAndShield;
@@ -110,6 +128,8 @@ const allEquippedWeapons = filter(isEquippedWeapon) as (
   arg1: Equipment[]
 ) => Weapon[];
 
+const breakWeapon = (w: Weapon): Weapon => ({ ...w, broken: true });
+
 export const getEquippedWeapons = compose(allEquippedWeapons, getEquipment) as (
   arg1: CharacterType
 ) => Weapon[];
@@ -120,15 +140,14 @@ export const isEquippedZweihander = reduce(
 ) as (arg1: Weapon[]) => boolean;
 
 // BREAK EQUIPMENT
-const breakWeaponAndArmor = (eq: Weapon | Armor): Weapon | Armor => ({
-  ...eq,
-  broken: true,
-});
+const breakWeaponOrArmor = ifElse(isArmor, breakArmor, breakWeapon) as (
+  arg1: Weapon | Armor
+) => Weapon | Armor;
 
 const breakEquipment = ifElse(
   isRangedWeapon,
   decrementQuantity,
-  breakWeaponAndArmor
+  breakWeaponOrArmor
 ) as (arg1: Weapon | Armor) => Weapon | Armor;
 
 const isWeaponOrArmor = either(isWeapon, isArmorOrShield);

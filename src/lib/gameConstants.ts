@@ -1,8 +1,3 @@
-export const TESTS: Partial<Tests> = Object.freeze({
-  attack: 12,
-  defense: 12,
-});
-
 export const SIDES = Object.freeze({
   players: "monsters",
   monsters: "players",

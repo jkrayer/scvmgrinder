@@ -10,6 +10,9 @@ export const filterByName = <T extends Name>(x: string) =>
 export const replaceByName = <T extends Name>(eq: T) =>
   map((x: T) => (x.name === eq.name ? eq : x));
 
+export const rollMessage = (x: number) =>
+  x === 1 ? ", Fumble!" : x === 20 ? ", Critical!" : "";
+
 /**
  * get the named ability score from the character data object
  * @param character

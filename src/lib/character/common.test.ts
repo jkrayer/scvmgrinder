@@ -1,4 +1,9 @@
-import { filterByName, getAbilityScore, replaceByName } from "./common";
+import {
+  filterByName,
+  getAbilityScore,
+  replaceByName,
+  rollMessage,
+} from "./common";
 import { character } from "../../_testData/character";
 
 describe("lib/character/common", () => {
@@ -64,6 +69,22 @@ describe("lib/character/common", () => {
       expect(fredArr.length).toBe(3);
       expect(fredArr[0]).toMatchObject({ name: "Fred", age: 23 });
       expect(fredArr[2]).toMatchObject({ name: "Fred", age: 21 });
+    });
+  });
+
+  describe("rollMessage", () => {
+    test("it should return 'Fumble'", () => {
+      expect(rollMessage(1)).toBe(", Fumble!");
+    });
+
+    test("it should return 'Critical'", () => {
+      expect(rollMessage(20)).toBe(", Critical!");
+    });
+
+    test("it should return an empty string", () => {
+      expect(rollMessage(2)).toBe("");
+      expect(rollMessage(10)).toBe("");
+      expect(rollMessage(19)).toBe("");
     });
   });
 });
