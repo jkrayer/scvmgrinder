@@ -1,23 +1,28 @@
-// copied from src/CharacterSheet/*
 import {
   __,
   assoc,
+  assocPath,
   both,
   compose,
   concat,
+  dec,
   either,
   filter,
+  identity,
+  ifElse,
   lens,
   over,
+  path,
   pathEq,
   prop,
   propEq,
   reduce,
   view,
 } from "ramda";
-import { filterByName } from "./common";
+import { filterByName, replaceByName } from "./common";
 
 const EQUIPMENT_KEY = "equipment";
+const CURRENT_QUANTITY = ["quantity", "current"];
 
 const eqLens = lens<CharacterType, Equipment[]>(
   prop(EQUIPMENT_KEY),
@@ -25,6 +30,13 @@ const eqLens = lens<CharacterType, Equipment[]>(
 );
 
 const getEquipment = view(eqLens);
+
+const quantityLens = lens<Equipment, number>(
+  path(CURRENT_QUANTITY),
+  assocPath(CURRENT_QUANTITY)
+);
+
+const decrementQuantity = over(quantityLens, dec);
 
 const isEquipped = propEq("equipped", true);
 
@@ -40,6 +52,11 @@ export const dropEquipment =
   ({ name }: Equipment) =>
   (character: CharacterType): CharacterType =>
     over(eqLens, filterByName<Equipment>(name), character);
+
+const updateEquipment =
+  (eq: Equipment) =>
+  (character: CharacterType): CharacterType =>
+    over(eqLens, replaceByName<Equipment>(eq), character);
 
 // ARMOR
 const isArmor = propEq<string>("type", "armor");
@@ -78,7 +95,7 @@ export const getEquippedArmor = compose(equippedArmor, getEquipment) as (
 export const isEquippedMediumOrHeavyArmor = compose(
   isMediumOrHeavyArmor,
   prop("armor")
-);
+) as (arg1: ArmorAndShield) => boolean;
 
 // WEAPONS
 const isWeapon = propEq<string>("type", "weapon");
@@ -86,6 +103,8 @@ const isWeapon = propEq<string>("type", "weapon");
 const isEquippedWeapon = both(isEquipped, isWeapon);
 
 const isZweihander = propEq<string>("handed", 2);
+
+const isRangedWeapon = propEq<string>("subType", "ranged");
 
 const allEquippedWeapons = filter(isEquippedWeapon) as (
   arg1: Equipment[]
@@ -99,3 +118,22 @@ export const isEquippedZweihander = reduce(
   (acc: boolean, eq: Weapon) => acc || isZweihander(eq),
   false
 ) as (arg1: Weapon[]) => boolean;
+
+// BREAK EQUIPMENT
+const breakWeaponAndArmor = (eq: Weapon | Armor): Weapon | Armor => ({
+  ...eq,
+  broken: true,
+});
+
+const breakEquipment = ifElse(
+  isRangedWeapon,
+  decrementQuantity,
+  breakWeaponAndArmor
+) as (arg1: Weapon | Armor) => Weapon | Armor;
+
+const isWeaponOrArmor = either(isWeapon, isArmorOrShield);
+
+export const breakWeaponsAndArmor = compose(
+  updateEquipment,
+  ifElse(isWeaponOrArmor, breakEquipment, identity)
+);

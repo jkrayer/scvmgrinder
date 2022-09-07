@@ -1,5 +1,4 @@
 import { writable } from "svelte/store";
-import type { Message, MessageBody } from "../types";
 
 const MessageStore = writable<MessageBody[]>([]);
 

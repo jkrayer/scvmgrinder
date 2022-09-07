@@ -6,10 +6,9 @@
   } from "./store";
   import { addMessage } from "../Messages/state/MessageStore";
   import { equipmentTier } from "./lib";
-  import { attackMessage, damageMessage, armorMessage } from "../Messages/lib";
+  import { damageMessage, armorMessage } from "../Messages/lib";
   import type { Weapon, Armor as ArmorType } from "./type";
   import Header from "./Header.svelte";
-  import { Violence } from "./enums";
   import Powers from "./Powers.svelte";
   import AbilityScores from "./AbilityScores.svelte";
   import Weapons from "./Weapons.svelte";
@@ -19,10 +18,9 @@
   import MorkBorgLogo from "../components/MorkBorgLogo.svelte";
   import DiceRoller from "./DiceRoller.svelte";
   import StatusList from "./Status/StatusList.svelte";
-  import { getAbilityScore } from "../lib/character/common";
+  import { attack } from "../lib/character/attack";
 
   // HANDLERS
-
   const handleChangeTier = ({
     detail,
   }: CustomEvent<{ newTier: number; armor: ArmorType }>): void => {
@@ -31,13 +29,7 @@
   };
 
   const handleAttack = ({ detail }: CustomEvent<Weapon>): void =>
-    addMessage(
-      attackMessage(
-        detail,
-        $CharacterStore.name,
-        getAbilityScore($CharacterStore, Violence[detail.subType])
-      )
-    );
+    attack($CharacterStore, detail);
 
   const handleDamage = ({ detail }: CustomEvent<Weapon>): void =>
     addMessage(damageMessage(detail, $CharacterStore.name));

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { Message } from "./types";
   import Messages, { hide } from "./state/MessageStore";
 
   const rollTypeClass = (x: string): string =>

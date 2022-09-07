@@ -5,6 +5,7 @@ import {
   isEquippedMediumOrHeavyArmor,
   getEquippedWeapons,
   isEquippedZweihander,
+  breakWeaponsAndArmor,
 } from "./equipment";
 import { character } from "../../_testData/character";
 
@@ -208,6 +209,85 @@ describe("lib/character/equipment", () => {
       });
 
       expect(isEquippedZweihander(weapons)).toBe(true);
+    });
+  });
+
+  describe("breakWeaponsAndArmor", () => {
+    test("it should break weapons and armor", () => {
+      const breakFemur = breakWeaponsAndArmor({
+        type: "weapon",
+        name: "Femur",
+        description: "1d4 damage",
+        damageDie: "1d4",
+        subType: "melee",
+        equipped: true,
+      })(character);
+      const breakArmor = breakWeaponsAndArmor({
+        type: "armor",
+        name: "Padded cloth armor",
+        description: "tier 1",
+        tier: {
+          current: 1,
+          maximum: 1,
+        },
+        equipped: true,
+      })(character);
+
+      expect(breakFemur.equipment[1]).toMatchObject({
+        type: "weapon",
+        name: "Femur",
+        description: "1d4 damage",
+        damageDie: "1d4",
+        subType: "melee",
+        equipped: true,
+        broken: true,
+      });
+
+      expect(breakArmor.equipment[3]).toMatchObject({
+        type: "armor",
+        name: "Padded cloth armor",
+        description: "tier 1",
+        tier: {
+          current: 1,
+          maximum: 1,
+        },
+        equipped: true,
+        broken: true,
+      });
+    });
+
+    test("it should diminish ammunition", () => {
+      const ammo = breakWeaponsAndArmor({
+        type: "weapon",
+        name: "Bow",
+        description: "and % arrows 1d6 damage",
+        damageDie: "1d6",
+        subType: "ranged",
+        equipped: true,
+        ammunitionType: "arrow",
+        ammunitionName: "Arrow(s)",
+        quantity: {
+          current: 10,
+          maximum: 20,
+        },
+      })(character);
+
+      expect(ammo.equipment[2].quantity.current).toBe(9);
+    });
+
+    test("it should not break other equipment", () => {
+      const FOOD = {
+        type: "food",
+        name: "Waterskin",
+        description: "and % day's worth of food",
+        quantity: {
+          maximum: 5,
+          current: 1,
+        },
+      };
+      const breakFood = breakWeaponsAndArmor(FOOD)(character);
+
+      expect(breakFood.equipment[0]).toMatchObject(FOOD);
     });
   });
 });

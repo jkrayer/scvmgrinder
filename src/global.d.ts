@@ -135,3 +135,21 @@ type ArmorAndShield = {
   armor: Armor | null;
   shield: Shield | null;
 };
+
+// MESSAGES
+type MessageBody = {
+  name: string;
+  rollType: "To Hit" | "Damage" | "Test" | "Armor";
+  roll: number;
+  rollFormula: string;
+  target: string;
+  dc?: number;
+};
+
+type Message = {
+  _id?: string;
+  hidden?: boolean;
+  campaignId: string; // room
+  characterId: string; // sender
+  message: MessageBody;
+};
