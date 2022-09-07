@@ -1,22 +1,5 @@
-import {
-  compose,
-  filter,
-  max,
-  min,
-  path,
-  propOr,
-  propSatisfies,
-  reduce,
-} from "ramda";
-import type {
-  ArmorAndShield,
-  CharacterType,
-  Equipment,
-  Armor,
-  Weapon,
-  Scroll,
-  AbilityScoreName,
-} from "./type";
+import { compose, filter, max, min, propOr, propSatisfies } from "ramda";
+import type { Equipment, Armor, Scroll } from "./type";
 
 export const getEquipment = propOr([], "equipment") as (
   x: CharacterType
@@ -35,39 +18,7 @@ export const isArmor = propSatisfies(
   "type"
 );
 
-const equippedWeapons = filter(
-  (x: Equipment) => isWeapon(x) && isEquipped(x)
-) as (arg1: Equipment[]) => Weapon[];
-
-const equippedArmor = (equipment: Equipment[]): ArmorAndShield => {
-  return equipment.reduce(
-    (acc, eq: Equipment) => {
-      if (isArmor(eq) && isEquipped(eq)) {
-        acc[eq.type] = eq;
-      }
-
-      return acc;
-    },
-    {
-      armor: null,
-      shield: null,
-    } as ArmorAndShield
-  );
-};
-
 // EXPORTS
-
-export const incrementHp = (hp: number) => (character: CharacterType) => {
-  const { current, maximum } = character.hitpoints;
-
-  return {
-    ...character,
-    hitpoints: {
-      current: min(current + hp, maximum),
-      maximum,
-    },
-  };
-};
 
 export const useOmen = () => (character: CharacterType) => {
   const { current, maximum } = character.omens;
@@ -116,17 +67,6 @@ export const equipmentToggle =
     };
   };
 
-export const equipmentDrop =
-  (eq: Equipment) =>
-  (character: CharacterType): CharacterType => {
-    const { equipment } = character;
-
-    return {
-      ...character,
-      equipment: equipment.filter((e: Equipment) => e.name !== eq.name),
-    };
-  };
-
 export const equipmentTier =
   (armor: Armor, nextTier: number) =>
   (character: CharacterType): CharacterType => {
@@ -147,7 +87,7 @@ export const equipmentTier =
 
 export const equipmentQuantity = (eq: Equipment, difference: number) => {
   if (eq.quantity.current + difference === 0 && eq.type !== "weapon") {
-    return equipmentDrop(eq);
+    // return equipmentDrop(eq);
   }
 
   return (character: CharacterType): CharacterType => {
@@ -167,7 +107,7 @@ export const equipmentQuantity = (eq: Equipment, difference: number) => {
 };
 
 //
-const trace =
+export const trace =
   (msg: string) =>
   (x: any): any => {
     console.log(msg, x);
@@ -175,34 +115,7 @@ const trace =
   };
 
 // GETTERS
-export const getEquippedWeapons = compose(equippedWeapons, getEquipment);
-
-export const getEquippedArmor = compose(equippedArmor, getEquipment);
 
 export const getScrolls = compose(filter(isScroll), getEquipment) as (
   arg1: CharacterType
 ) => Scroll[];
-
-export const getAbilityScore = (
-  character: CharacterType,
-  score: AbilityScoreName
-): number => path(["abilities", score], character);
-
-// TESTS
-const hasEquipment = (eqName: string) => (character: CharacterType) => {
-  const eq: Equipment[] = getEquipment(character);
-  const size = eq.length;
-
-  for (let i = 0; i < size; i++) {
-    if (eq[i].name === eqName) return true;
-  }
-
-  return false;
-};
-
-// hasFood
-// hasWater
-// return compose (
-//   equipmentQuantity(eq, -1)
-//   incrementHp(x)
-// )

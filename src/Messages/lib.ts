@@ -1,5 +1,3 @@
-import type { MessageBody } from "./types";
-import type { Weapon, Scroll } from "../CharacterSheet/type";
 import { ARMOR_TIERS } from "../CharacterSheet/enums";
 import {
   rollD2,
@@ -13,6 +11,9 @@ import {
 } from "../lib/dice";
 
 export const sign = (x: number) => (x < 0 ? "-" : "+");
+
+export const rollFormula = (roll: number, modifier: number = 0): string =>
+  `${roll} ${sign(modifier)} ${Math.abs(modifier)}`;
 
 export const testMessage = ({
   name,
@@ -50,26 +51,6 @@ export const diceMessage = (
     roll,
     rollFormula,
     target,
-    dc: null,
-  };
-};
-
-export const attackMessage = (
-  weapon: Weapon,
-  name: string,
-  modifier: number
-): MessageBody => {
-  const roll: number = rollD20();
-  const total: number = roll + modifier;
-  const s = sign(modifier);
-  const mod = Math.abs(modifier);
-
-  return {
-    name,
-    rollType: "To Hit",
-    roll: total,
-    rollFormula: `${roll} ${s} ${mod}`,
-    target: weapon.name,
     dc: null,
   };
 };
@@ -115,14 +96,14 @@ export const armorMessage = ({
 // const mod = Math.abs(modifier);
 
 export const usePowerMessage = (
-  scroll: Scroll,
   name: string,
-  modifier: number
+  modifier: number,
+  roll: number,
+  dc: number
 ): MessageBody => {
-  const roll: number = rollD20();
   const total: number = roll + modifier;
   const s = sign(modifier);
-  const status: string = total > 11 ? "Succeeded" : "Failed";
+  const status: string = total < dc ? "Failed" : "Succeeded";
 
   return {
     name,
@@ -130,6 +111,6 @@ export const usePowerMessage = (
     roll: total,
     rollFormula: `${roll} ${s} ${modifier}`,
     target: `${status} Power Test`,
-    dc: 12,
+    dc,
   };
 };

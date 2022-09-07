@@ -1,10 +1,9 @@
-import type { Scroll, Weapon } from "../CharacterSheet/type";
 import {
   testMessage,
-  attackMessage,
   damageMessage,
   armorMessage,
   usePowerMessage,
+  rollFormula,
 } from "./lib";
 
 const inRange = (low: number, high: number) => (x: number) =>
@@ -21,17 +20,6 @@ describe("test message", () => {
     expect(message.name).toBe("Roger");
     expect(message.rollType).toBe("Test");
     expect(message.target).toBe("strength Test");
-    expect(message.dc).toBe(null);
-  });
-});
-
-describe("attack message", () => {
-  test("it should return an attack message", () => {
-    const message = attackMessage({ name: "Axe" } as Weapon, "Jessica", 2);
-
-    expect(message.name).toBe("Jessica");
-    expect(message.rollType).toBe("To Hit");
-    expect(message.target).toBe("Axe");
     expect(message.dc).toBe(null);
   });
 });
@@ -64,11 +52,22 @@ describe("armorMessage message", () => {
 
 describe("usePowerMessage message", () => {
   test("it should return a use power message", () => {
-    const message = usePowerMessage({} as Scroll, "Beth", 4);
+    const message = usePowerMessage("Beth", 1, 4, 12);
 
     expect(message.name).toBe("Beth");
     expect(message.rollType).toBe("Test");
-    // expect(message.target).toBe("Succeded Power Test");
+    expect(message.roll).toBe(5);
+    expect(message.rollFormula).toBe("4 + 1");
+    expect(message.target).toBe("Failed Power Test");
     expect(message.dc).toBe(12);
+  });
+});
+
+describe("rollFormula", () => {
+  test("it should return a roll equation", () => {
+    expect(rollFormula(15, -3)).toBe("15 - 3");
+    expect(rollFormula(17, 1)).toBe("17 + 1");
+    expect(rollFormula(9, 0)).toBe("9 + 0");
+    expect(rollFormula(7)).toBe("7 + 0");
   });
 });

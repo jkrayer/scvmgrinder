@@ -1,6 +1,8 @@
 <script lang="ts">
   import { SvelteUIProvider } from "@svelteuidev/core";
+  import { Modals, closeModal } from "svelte-modals";
   import CharacterSheet from "./CharacterSheet/CharacterSheet.svelte";
+
   import Messages from "./Messages/Messages.svelte";
 </script>
 
@@ -14,6 +16,9 @@
       </p>
     </header>
     <CharacterSheet />
+    <Modals>
+      <div slot="backdrop" class="backdrop" on:click={closeModal} />
+    </Modals>
     <Messages />
     <footer id="global-footer">
       <p>
@@ -31,3 +36,15 @@
     </footer>
   </main>
 </SvelteUIProvider>
+
+<style>
+  .backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+</style>

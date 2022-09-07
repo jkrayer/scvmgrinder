@@ -1,41 +1,52 @@
 <script type="ts">
-  import { createEventDispatcher } from "svelte";
-  import type { Scroll } from "./type";
-  export let powers: null | number = null;
-  // Array of scrolls
-  export let scrolls: Scroll[] = [];
+  import CharacterStore, { POWERS as Powers } from "./store";
+  import { POWERS } from "../lib/game_constants";
+  import { powers } from "../lib/character/powers";
 
-  const isDisabled = powers === null;
-
-  type Event = Scroll & { EventKey: "use:scroll" };
-
-  const dispatch = createEventDispatcher();
+  // Handlers
+  const handleClick = () => powers($CharacterStore);
 </script>
 
-<div class:disabled={isDisabled}>
-  <div class="character-sheet-field">
-    <h2 id="power-class" class="character-sheet-field-label">Powers:</h2>
-    <div class="character-sheet-copy">
-      {#if isDisabled}
-        <p>You are not able to use powers.</p>
-      {:else}
-        {#each scrolls as scroll}
-          <p>{scroll.name}</p>
-          <p>{scroll.description}</p>
-          <button type="button" on:click={() => dispatch("use:scroll", scroll)}
-            >Use</button
-          >
-        {/each}
+<div class="powers-wrapper flex-center-row">
+  <button
+    type="button"
+    class="button button-header"
+    on:click={handleClick}
+    disabled={$Powers.message !== null}
+  >
+    <h2 class="powers-title character-sheet-field-label">
+      Powers
+      {#if $Powers.powers !== null}
+        <span class="powers-count">&nbsp;&nbsp;({$Powers.powers})</span>
       {/if}
-    </div>
-  </div>
-  <p class="character-sheet-copy">
-    Presence DR12, or -d2 HP and no Powers for 1 hr.
+    </h2>
+  </button>
+  <p class="note">
+    {#if $Powers.message !== null}
+      {$Powers.message}
+    {:else}
+      {POWERS.text}
+    {/if}
   </p>
 </div>
 
 <style>
-  .disabled {
-    opacity: 0.8;
+  .powers-wrapper {
+    margin: var(--small-padding) 0;
+    justify-content: space-between;
+  }
+  .powers-title {
+    display: flex;
+    align-items: baseline;
+  }
+  .powers-count {
+    font-size: 0.625em;
+    position: relative;
+    left: -7px;
+  }
+  .note {
+    margin: 0;
+    font: 0.75rem/1.33333 var(--fixed);
+    text-align: right;
   }
 </style>

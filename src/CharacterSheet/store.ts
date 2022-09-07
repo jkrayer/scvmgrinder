@@ -1,6 +1,12 @@
 import { writable, derived, type Readable } from "svelte/store";
-import { getEquippedWeapons, getEquippedArmor, getScrolls } from "./lib";
-import type { CharacterType, Weapon, ArmorAndShield, Scroll } from "./type";
+import { getScrolls } from "./lib";
+import type { Weapon, Scroll } from "./type";
+import {
+  getEquippedArmor,
+  isEquippedMediumOrHeavyArmor,
+  getEquippedWeapons,
+  isEquippedZweihander,
+} from "../lib/character/equipment";
 
 const defaultCharacter: CharacterType = {
   name: "Brinta",
@@ -39,27 +45,27 @@ const defaultCharacter: CharacterType = {
   equipment: [
     {
       type: "food",
-      name: "Waterskin and 1 day's worth of food",
-      description: "",
+      name: "Waterskin",
+      description: "and % day's worth of food",
       quantity: {
         maximum: 5,
         current: 1,
       },
     },
     {
-      name: "Femur",
-      damageDie: "1d4",
       type: "weapon",
+      name: "Femur",
+      description: "1d4 damage",
+      damageDie: "1d4",
       subType: "melee",
-      weight: 100,
       equipped: true,
     },
     {
-      name: "Bow",
-      damageDie: "1d6",
       type: "weapon",
+      name: "Bow",
+      description: "and % arrows 1d6 damage",
+      damageDie: "1d6",
       subType: "ranged",
-      weight: 100,
       equipped: true,
       ammunitionType: "arrow",
       ammunitionName: "Arrow(s)",
@@ -69,27 +75,31 @@ const defaultCharacter: CharacterType = {
       },
     },
     {
-      name: "Padded cloth armor",
       type: "armor",
+      name: "Padded cloth armor",
+      description: "tier 1",
       tier: {
         current: 1,
         maximum: 1,
       },
       equipped: true,
-      weight: 100,
     },
     {
-      name: "Kite Shield",
       type: "shield",
+      name: "Kite Shield",
+      description: "",
       equipped: true,
     },
-    { type: "equipment", name: "Bear trap (DR14 to spot, d8 damage)" },
+    {
+      type: "equipment",
+      name: "Bear trap",
+      description: "(DR14 to spot, d8 damage)",
+    },
     {
       name: "Lard",
       type: "food",
-      subtype: "",
-      description: "(may function as 5 meals in a pinch)",
-      weight: 20,
+      description: "(may function as % meals in a pinch)",
+
       quantity: {
         current: 5,
         maximum: 5,
@@ -100,17 +110,23 @@ const defaultCharacter: CharacterType = {
       type: "scroll",
       subType: "unclean",
       description: "Move an object up 1d10×10 feet for d6 minutes",
-      weight: 100,
     },
     {
       name: "Grace of a Dead Saint",
       type: "scroll",
       subType: "sacred",
       description: "d2 creatures regain d10 HP each.",
-      weight: 100,
+    },
+    {
+      name: "Scale armor",
+      type: "armor",
+      description: "",
+      tier: { current: 2, maximum: 2 },
+      equipped: false,
+      broken: false,
     },
   ],
-  status: [],
+  status: {},
   powers: 3,
   miseries: [false, false, false, false, false, false, false],
   _id: "JEx2BC6COHdTEKMC",
@@ -136,3 +152,38 @@ export const EquippedArmor: Readable<ArmorAndShield> = derived(
 );
 
 export const EqScrolls: Readable<Scroll[]> = derived(Character, getScrolls);
+
+type TPowers = {
+  powers: null | number;
+  scrolls: Scroll[];
+  message: null | string;
+};
+
+export const POWERS: Readable<TPowers> = derived(
+  [Character, EquippedArmor, EquippedWeapons],
+  ([character, armorAndShield, weapons], set) => {
+    const { powers } = character;
+    const scrolls = getScrolls(character);
+
+    const P: TPowers = {
+      powers,
+      scrolls,
+      message: null,
+    };
+
+    // TODO: (or not) replace logic with Either monad
+    if (powers === null) {
+      P.message = `${character.class.name} can't use powers.`;
+    } else if (powers === 0) {
+      P.message = `${character.name} has no more powers today.`;
+    } else if (scrolls.length === 0) {
+      P.message = `${character.name} needs more scrolls.`;
+    } else if (isEquippedMediumOrHeavyArmor(armorAndShield)) {
+      P.message = `${character.name} can't use scrolls while wearing ${armorAndShield.armor.name}.`;
+    } else if (isEquippedZweihander(weapons)) {
+      P.message = `${character.name} can't use scrolls while wielding a zweihander.`;
+    }
+
+    set(P);
+  }
+);

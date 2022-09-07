@@ -1,24 +1,5 @@
 /// <reference types="svelte" />
 
-// ***** Character Types *****
-
-export type Abilities = {
-  agility: number;
-  presence: number;
-  strength: number;
-  toughness: number;
-};
-
-type CurrentMax = {
-  maximum: number;
-  current: number;
-};
-
-type CharacterClass = {
-  name: "Esoteric Hermit" | "Fanged Deserter";
-  abilities: string;
-};
-
 type Tests = {
   agility: number;
   presence: number;
@@ -28,11 +9,11 @@ type Tests = {
   defense: number;
 };
 
-export type Status = {
+type Status = {
   name: string;
+  canCancel: boolean;
   description: string;
-  duration?: number; // ms
-  tests?: Partial<Tests>;
+  tests: Tests;
 };
 
 type Effect = {
@@ -40,12 +21,50 @@ type Effect = {
   tests: Partial<Tests>;
 };
 
+// EQUIPMENT TYPES
+
 type CommonEquipmentProps = {
   name: string;
-  description?: string;
+  description: string;
   equipped?: boolean;
-  quantity?: number;
-  weight?: number;
+  quantity?: CurrentMax;
+  broken?: boolean;
+};
+
+type CommonWeaponProps = CommonEquipmentProps & {
+  damageDie: string;
+  type: "weapon";
+  special?: string;
+  handed?: 1 | 2;
+};
+
+type MeleeWeapon = CommonWeaponProps & {
+  subType: "melee";
+};
+
+type AmmunitionTypes = "arrow" | "bolt";
+
+type Ammunition = CommonEquipmentProps & {
+  type: "ammunition";
+  subType: AmmunitionTypes;
+};
+
+type RangedWeapon = CommonWeaponProps & {
+  subType: "ranged";
+  ammunitionType: AmmunitionTypes;
+  ammunitionName: "Arrow(s)" | "Bolt(s)";
+};
+
+type Weapon = MeleeWeapon | RangedWeapon;
+
+type Armor = CommonEquipmentProps & {
+  effect?: Effect;
+  tier: CurrentMax;
+  type: "armor";
+};
+
+type Shield = CommonEquipmentProps & {
+  type: "shield";
 };
 
 type Scroll = CommonEquipmentProps & {
@@ -55,31 +74,12 @@ type Scroll = CommonEquipmentProps & {
 };
 
 type Potion = CommonEquipmentProps & {
+  type: "potion";
   description: string;
-};
-
-export type Armor = CommonEquipmentProps & {
-  effect?: Effect;
-  tier: CurrentMax;
-  type: "armor";
-};
-
-export type Weapon = CommonEquipmentProps & {
-  damageDie: string;
-  type: "weapon";
-  subType: "melee" | "ranged";
-  special?: string;
-  broken?: boolean;
-};
-
-type Ammunition = CommonEquipmentProps & {
-  type: "ammunition";
-  subType?: string;
 };
 
 type Food = CommonEquipmentProps & {
   type: "food";
-  subtype?: string;
   description: string;
 };
 
@@ -90,35 +90,56 @@ type StandardEquipment = CommonEquipmentProps & {
 type Equipment =
   | Scroll
   | Armor
-  | Weapon
+  | Shield
+  | RangedWeapon
+  | MeleeWeapon
   | Ammunition
   | Food
   | Potion
   | StandardEquipment;
 
-export type StatusTypes = Status | Scroll;
+// CHARACTER TYPES
 
-type TCharacter = {
+type AbilityScoreName = "agility" | "presence" | "strength" | "toughness";
+
+type AbilityScores = {
+  agility: number;
+  presence: number;
+  strength: number;
+  toughness: number;
+};
+
+type CurrentMax = {
+  current: number;
+  maximum: number;
+};
+
+type CharacterType = {
   _id: string;
   campaignId: string;
   name: string;
   silver: number;
-  abilities: Abilities;
+  abilities: AbilityScores;
   hitpoints: CurrentMax;
-  class: CharacterClass;
-  tests: Tests;
+  class: any; // CharacterClass;
+  tests: any; // Tests;
   omens: CurrentMax;
   description: string;
   powers: null | number;
   equipment: Equipment[];
-  status: StatusTypes[];
+  miseries?: [boolean, boolean, boolean, boolean, boolean, boolean, boolean];
+  status: { [keys: string]: Status };
 };
 
-// ***** Message Types *****
-// TODO: Add TEST Number Here
+type ArmorAndShield = {
+  armor: Armor | null;
+  shield: Shield | null;
+};
+
+// MESSAGES
 type MessageBody = {
   name: string;
-  rollType: "To Hit" | "Damage" | "Test";
+  rollType: "To Hit" | "Damage" | "Test" | "Armor";
   roll: number;
   rollFormula: string;
   target: string;
@@ -131,107 +152,4 @@ type Message = {
   campaignId: string; // room
   characterId: string; // sender
   message: MessageBody;
-};
-
-// ***** Monster Types *****
-type Monster = {
-  name: string;
-  description?: string;
-  hp: number;
-  morale: number;
-  special?: string;
-  armor: null | Armor;
-  weapons: Weapon[];
-  toHit?: number;
-};
-
-type TrackerMonster = Monster & {
-  _id: number;
-  hitpoints: CurrentMax;
-};
-
-export type TTrackerItem = TrackerMonster | TCharacter;
-
-// ***** Treasure Types *****
-
-type Treasure = {
-  silver: number;
-  items: Equipment[];
-};
-
-// ***** Handout Types *****
-
-type ImageHandout = {
-  name: string;
-  type: "image";
-  src: string;
-};
-
-// type TextHandout = {
-//   name: string;
-//   type: "text";
-//   body: string;
-// };
-
-export type Handout = ImageHandout; //| TextHandout;
-
-// ***** Map Types *****
-
-type Map = {
-  name: string;
-  src: string;
-};
-
-// ***** Encounter Types *****
-
-type Encounter = {
-  name: string;
-  description: string;
-  table?: any[]; // Not sure what I'm doing with this
-  treasure?: Treasure;
-  encounter?: {
-    number?: number;
-    roll?: string;
-    monster: Monster;
-  };
-};
-
-// ***** Adventure Types *****
-
-export type Adventure = {
-  name: string;
-  poster: string;
-  backgroundColor: string;
-  handouts: Handout[];
-  tables: any[]; // Not sure what I'm doing with this
-  maps: {
-    player: Map[];
-    dm: Map[];
-  };
-  encounters: Encounter[];
-};
-
-// ***** Tracker *****
-export type TrackerSides = "players" | "monsters";
-
-export type TTrackerStore = {
-  players: TCharacter[];
-};
-
-export type TTrackerCmapaignData = {
-  firstSide: TrackerSides;
-  monsters: TrackerMonster[];
-};
-
-export type TTrackerData = TTrackerStore & TTrackerCmapaignData;
-
-// ***** Campaign Types *****
-
-export type Campaign = {
-  _id: string;
-  description: string;
-  miseries: string[];
-  name: string;
-  system: string;
-  trackerData: TTrackerCampaignData;
 };

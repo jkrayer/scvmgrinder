@@ -8,15 +8,19 @@
 </script>
 
 {#each weapons as weapon}
-  <div class="character-sheet-field" class:broken={weapon.broken}>
-    <h2 class="character-sheet-field-label">Weapon:</h2>
-    <p class="character-sheet-title" aria-labelledby="name-label">
-      {weapon.name}({weapon.subType})
-    </p>
+  <div class="grid weapon" class:broken={weapon.broken}>
+    <div>
+      <h2 class="character-sheet-field-label accented">
+        {weapon.name[0]}<span class="drop-line">{weapon.name.substring(1)}</span
+        >
+      </h2>
+    </div>
+    <span class="weapon-type">
+      ({weapon.subType})
+    </span>
     <button
       title={weapon.damageDie}
       type="button"
-      class="weapon-attack-button"
       disabled={weapon.broken}
       on:click={() => dispatch("damage", weapon)}
     >
@@ -25,7 +29,6 @@
     <button
       title="d20+/-n"
       type="button"
-      class="weapon-attack-button"
       disabled={weapon.broken}
       on:click={() => dispatch("attack", weapon)}
     >
@@ -35,12 +38,35 @@
 {/each}
 
 <style>
+  .weapon {
+    position: relative;
+    grid-template-columns: 2fr 1fr 1fr;
+    margin: var(--tiny-padding) 0;
+  }
   .broken {
     opacity: 0.7;
   }
-
-  .weapon-attack-button {
+  .character-sheet-field-label {
+    font-size: 2.25rem;
+  }
+  .drop-line {
+    position: relative;
+    top: -10px;
+    left: 2px;
+    font-size: 0.625em;
+  }
+  .weapon-type {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    font-family: var(--fixed);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: magenta;
+    letter-spacing: 0.05em;
+  }
+  /* .weapon-attack-button {
     padding: 0;
     margin: 0;
-  }
+  } */
 </style>

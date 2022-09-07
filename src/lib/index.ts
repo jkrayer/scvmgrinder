@@ -9,7 +9,6 @@ import {
   propSatisfies,
   reduce,
 } from "ramda";
-import type { Armor, Equipment, Scroll, TCharacter, Weapon } from "../global";
 
 // DEBUGGING
 const trace =
@@ -73,16 +72,16 @@ const parseRollString = (rs: string): Roll | RollWithMod => {
       ] as RollWithMod);
 };
 
-export const rollString = compose(rollFormula, parseRollString) as (
-  arg1: string
-) => number;
+// export const rollString = compose(rollFormula, parseRollString) as (
+//   arg1: string
+// ) => number;
 
-const getEq = propOr([], "equipment") as (arg1: TCharacter) => Equipment[];
+const getEq = propOr([], "equipment") as (arg1: CharacterType) => Equipment[];
 
-const equippedArmor = compose(
-  ([type, equipped]) => equipped && ["armor", "shield"].includes(type),
-  props(["type", "equipped"])
-) as (arg1: Equipment[]) => Armor[];
+// const equippedArmor = compose(
+//   ([type, equipped]) => equipped && ["armor", "shield"].includes(type),
+//   props(["type", "equipped"])
+// ) as (arg1: Equipment[]) => Armor[];
 
 export const sign = (num: number): string => {
   const s = Math.sign(num);
@@ -97,23 +96,23 @@ export const sign = (num: number): string => {
 };
 
 export const hasPowers = propSatisfies(compose(not, isNil), "powers") as (
-  arg1: TCharacter
+  arg1: CharacterType
 ) => boolean;
 
-export const getWeapons = compose(
-  filter(({ type, equipped }) => type === "weapon" && equipped === true),
-  getEq
-) as (arg1: TCharacter) => Weapon[];
+// export const getWeapons = compose(
+//   filter(({ type, equipped }) => type === "weapon" && equipped === true),
+//   getEq
+// ) as (arg1: TCharacter) => Weapon[];
 
-export const getArmor = compose(
-  reduce(
-    (acc, eq) => (equippedArmor(eq) ? { ...acc, [eq.type]: eq } : acc),
-    {}
-  ),
-  getEq
-) as (arg1: TCharacter) => { armor: Armor; shield: any };
+// export const getArmor = compose(
+//   reduce(
+//     (acc, eq) => (equippedArmor(eq) ? { ...acc, [eq.type]: eq } : acc),
+//     {}
+//   ),
+//   getEq
+// ) as (arg1: TCharacter) => { armor: Armor; shield: any };
 
 export const getScrolls = compose(
   filter(propSatisfies((type) => type === "scroll", "type")),
   getEq
-) as (arg1: TCharacter) => Scroll[];
+) as (arg1: CharacterType) => Scroll[];

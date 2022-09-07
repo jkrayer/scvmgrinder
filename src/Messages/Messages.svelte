@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { Message } from "./types";
   import Messages, { hide } from "./state/MessageStore";
 
   const rollTypeClass = (x: string): string =>
@@ -51,6 +50,7 @@
     z-index: 1;
     display: flex;
     flex-direction: column-reverse;
+    width: 30ex;
   }
   .message-body {
     padding: 1rem;
@@ -61,6 +61,7 @@
     letter-spacing: 0.05em;
     background-color: #303030;
   }
+
   .message-body-title,
   .message-body-formula,
   .message-body-target {
@@ -84,6 +85,9 @@
   .message-body-formula,
   .message-body-target {
     color: #ccc;
+  }
+  .message-body-target {
+    line-height: 1.33333;
   }
   .message-body-formula {
     margin-left: 0.25rem;

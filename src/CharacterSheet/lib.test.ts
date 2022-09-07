@@ -1,6 +1,5 @@
-import type { Armor, CharacterType, Equipment, Weapon } from "./type";
+import type { Armor, Equipment, Weapon } from "./type";
 import {
-  incrementHp,
   useOmen,
   setOmens,
   incrementSilver,
@@ -9,33 +8,8 @@ import {
   isWeapon,
   isArmor,
   isScroll,
-  getEquippedWeapons,
-  getEquippedArmor,
   equipmentToggle,
-  equipmentDrop,
 } from "./lib";
-
-describe("incrementHp", () => {
-  const hp = { hitpoints: { current: 3, maximum: 6 } } as CharacterType;
-
-  test("it should increase hp", () => {
-    expect(incrementHp(2)(hp)).toMatchObject({
-      hitpoints: { current: 5, maximum: 6 },
-    });
-  });
-
-  test("it should decrease hp", () => {
-    expect(incrementHp(-2)(hp)).toMatchObject({
-      hitpoints: { current: 1, maximum: 6 },
-    });
-  });
-
-  test("it should not increase hp higher than the maximum", () => {
-    expect(incrementHp(27)(hp)).toMatchObject({
-      hitpoints: { current: 6, maximum: 6 },
-    });
-  });
-});
 
 describe("omens", () => {
   const omens = { omens: { current: 2, maximum: 4 } } as CharacterType;
@@ -97,6 +71,7 @@ describe("Equipment Tests", () => {
   const armor: Armor = {
     name: "Scale armor",
     type: "armor",
+    description: "",
     tier: { current: 2, maximum: 2 },
     equipped: true,
     broken: true,
@@ -132,6 +107,7 @@ describe("Equipment Tests", () => {
   } as CharacterType;
   const weapon: Weapon = {
     name: "Axe",
+    description: "",
     type: "weapon",
     damageDie: "1d6",
     subType: "melee",
@@ -189,36 +165,6 @@ describe("Equipment Tests", () => {
     });
   });
 
-  describe("getEquippedWeapons", () => {
-    test("it should return equipped weapons", () => {
-      expect(getEquippedWeapons(eq)).toMatchObject([eq.equipment[1]]);
-    });
-  });
-
-  describe("getEquippedArmor", () => {
-    test("it should return object of nulls if no armor or shield is found", () => {
-      expect(
-        getEquippedArmor({ equipment: [] } as CharacterType)
-      ).toMatchObject({ armor: null, shield: null });
-    });
-
-    test("it should return armor and shield if they're found", () => {
-      expect(getEquippedArmor(eq)).toMatchObject({
-        armor: armor,
-        shield: null,
-      });
-    });
-
-    test("it should return the last equipped armor", () => {
-      expect(
-        getEquippedArmor({ ...eq, equipment: [...eq.equipment, leatherArmor] })
-      ).toMatchObject({
-        armor: { ...armor, name: "Leather Armor" },
-        shield: null,
-      });
-    });
-  });
-
   describe("equipmentToggle", () => {
     const copyEq = { ...eq, equipment: [armor, weapon] };
 
@@ -229,14 +175,6 @@ describe("Equipment Tests", () => {
         ...eq,
         equipment: [armor, { ...weapon, equipped: true }],
       });
-    });
-  });
-
-  describe("equipmentDrop", () => {
-    test("it should remove the names piece of equipment", () => {
-      expect(
-        equipmentDrop({ name: "Warhammer" } as Equipment)(eq).equipment.length
-      ).toBe(3);
     });
   });
 });

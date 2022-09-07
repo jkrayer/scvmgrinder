@@ -9,60 +9,75 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="character-sheet-field">
-  <h2 class="character-sheet-field-label">Armor:</h2>
-  {#if armor !== null}
-    <p class="character-sheet-title" aria-labelledby="name-label">
-      {armor.name}
-      {#if shield !== null}
-        + {shield.name}
-      {/if}
-    </p>
+<div>
+  <button
+    type="button"
+    class="button button-header"
+    on:click={() => dispatch("defense", armor)}
+  >
+    <h2 class="character-sheet-field-label">Defense</h2>
+  </button>
+  <p class="armor">
+    ({armor.name}<!--
+    -->{#if shield !== null}
+      &nbsp;and {shield.name}<!--
+    -->{/if})
     <button
       type="button"
+      class="button button-header"
       on:click={() =>
-        dispatch("tier", { tier: armor.tier.current, shield: !!shield })}
-      >{ARMOR_TIERS[armor.tier.current]}
-      {#if shield !== null}
-        + 1
-      {/if}
+        dispatch("resist", { tier: armor.tier.current, shield: !!shield })}
+    >
+      <span class="character-sheet-field-label inline">
+        {ARMOR_TIERS[armor.tier.current]}<!--
+      -->{#if shield !== null}
+          +1
+        {/if}
+      </span>
     </button>
-  {:else if shield !== null}
-    <p class="character-sheet-title" aria-labelledby="name-label">
-      {shield.name}
-    </p>
+  </p>
+  {#if armor !== null}
+    <div class="tier-bar">
+      <button
+        class="button-tier"
+        class:active={armor.tier.current === 1}
+        disabled={1 > armor.tier.maximum || armor.broken}
+        on:click={() => dispatch("change:tier", { newTier: 1, armor })}
+        type="button">1</button
+      >
+      <button
+        class="button-tier"
+        class:active={armor.tier.current === 2}
+        disabled={2 > armor.tier.maximum || armor.broken}
+        on:click={() => dispatch("change:tier", { newTier: 2, armor })}
+        type="button">2</button
+      >
+      <button
+        class="button-tier"
+        class:active={armor.tier.current === 3}
+        disabled={3 > armor.tier.maximum || armor.broken}
+        on:click={() => dispatch("change:tier", { newTier: 3, armor })}
+        type="button">3</button
+      >
+    </div>
   {/if}
 </div>
-{#if armor !== null}
-  <div class="tier-bar">
-    <button
-      class="button-tier"
-      class:active={armor.tier.current === 1}
-      disabled={1 > armor.tier.maximum}
-      on:click={() => dispatch("change:tier", { newTier: 1, armor })}
-      type="button">1</button
-    >
-    <button
-      class="button-tier"
-      class:active={armor.tier.current === 2}
-      disabled={2 > armor.tier.maximum}
-      on:click={() => dispatch("change:tier", { newTier: 2, armor })}
-      type="button">2</button
-    >
-    <button
-      class="button-tier"
-      class:active={armor.tier.current === 3}
-      disabled={3 > armor.tier.maximum}
-      on:click={() => dispatch("change:tier", { newTier: 3, armor })}
-      type="button">3</button
-    >
-  </div>
-{/if}
 
 <style>
-  .tier-bar {
-    text-align: right;
+  .armor {
+    display: inline;
+    font-family: var(--fixed);
   }
+  .inline {
+    font-size: 1.75rem;
+  }
+  .tier-bar {
+    display: inline;
+    position: relative;
+    top: -5px;
+    left: 5px;
+  }
+
   .button-tier {
     width: 30px;
     height: 30px;

@@ -1,20 +1,13 @@
-import type { type } from "ramda";
-
 export type CurrentMax = {
   current: number;
   maximum: number;
 };
 
+// "Esoteric Hermit" | "Fanged Deserter"
 type CharacterClass = {
   name: string;
   abilities: string;
 };
-
-export type AbilityScoreName =
-  | "agility"
-  | "presence"
-  | "strength"
-  | "toughness";
 
 export type AbilityScores = {
   agility: number;
@@ -25,10 +18,9 @@ export type AbilityScores = {
 
 type CommonEquipmentProps = {
   name: string;
-  description?: string;
+  description: string;
   equipped?: boolean;
   quantity?: CurrentMax;
-  weight?: number;
   broken?: boolean;
 };
 
@@ -80,7 +72,6 @@ type Potion = CommonEquipmentProps & {
 
 type Food = CommonEquipmentProps & {
   type: "food";
-  subtype?: string;
   description: string;
 };
 
@@ -114,6 +105,7 @@ export type CharacterType = {
   equipment: Equipment[];
   status: any[]; // StatusTypes[];
   miseries?: [boolean, boolean, boolean, boolean, boolean, boolean, boolean];
+  status: { [keys: string]: Status };
 };
 
 export type ArmorAndShield = { armor?: Armor; shield?: Shield };
