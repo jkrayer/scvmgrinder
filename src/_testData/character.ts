@@ -111,5 +111,5 @@ export const character: CharacterType = {
   status: {},
   powers: 3,
   miseries: [false, false, false, false, false, false, false],
-  _id: "JEx2BC6COHdTEKMC",
+  _id: 5,
 };

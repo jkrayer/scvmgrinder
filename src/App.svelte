@@ -1,9 +1,13 @@
 <script lang="ts">
+  import { liveQuery } from "dexie";
   import { SvelteUIProvider } from "@svelteuidev/core";
   import { Modals, closeModal } from "svelte-modals";
+  import { DB } from "./lib/db";
   import CharacterSheet from "./CharacterSheet/CharacterSheet.svelte";
-
   import Messages from "./Messages/Messages.svelte";
+  import CharacterList from "./CharacterList/CharacterList.svelte";
+
+  let characters = liveQuery(() => DB.characters.toArray());
 </script>
 
 <SvelteUIProvider>
@@ -15,11 +19,17 @@
         A digital character sheet for MÖRK BORG
       </p>
     </header>
-    <CharacterSheet />
+    {#if $characters === undefined}
+      <h1>Loading...</h1>
+    {:else if $characters.length === 0}
+      <CharacterList characters={$characters} />
+    {:else}
+      <CharacterSheet />
+      <Messages />
+    {/if}
     <Modals>
       <div slot="backdrop" class="backdrop" on:click={closeModal} />
     </Modals>
-    <Messages />
     <footer id="global-footer">
       <p>
         Scvmgrinder is an independent production by James Krayer and is not

@@ -115,7 +115,7 @@ type CurrentMax = {
 };
 
 type CharacterType = {
-  _id: string;
+  _id: number;
   campaignId: string;
   name: string;
   silver: number;

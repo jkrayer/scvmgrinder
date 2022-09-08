@@ -150,6 +150,12 @@ input:disabled {
   justify-content: center;
 }
 
+.flex-center-right {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
 .flex-center-row {
   display: flex;
   align-items: center;
