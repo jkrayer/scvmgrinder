@@ -1,9 +1,9 @@
 <script type="ts">
   import { openModal } from "svelte-modals";
   import { Pencil1 } from "radix-icons-svelte";
-  import { formatListDescription } from "./lib";
   import Manager from "./EquipmentManager.svelte";
   import CharacterStore from "../store";
+  import EquipmentList from "../../Equipment/EquipmentList.svelte";
 
   let encumbrance: number = 8;
   let encumbranceIndex: number = 7;
@@ -15,7 +15,9 @@
     isEncumbered = $CharacterStore.equipment.length > encumbrance;
   }
 
-  let show = () => openModal(Manager);
+  const show = () => openModal(Manager);
+
+  const setEncumbered = (index: number) => index > encumbranceIndex;
 </script>
 
 <div class="grid grid-limit">
@@ -33,20 +35,10 @@
       Strength + 8 items or DR+2 on Agility/Strength tests
     </p>
   </div>
-  <ol id="equipment-list">
-    {#each $CharacterStore.equipment as eq, index}
-      <li
-        class="list-item"
-        class:broken={eq.broken}
-        class:error={index > encumbranceIndex}
-      >
-        <div class:broken={eq.broken}>
-          <span class="equipment-title">{eq.name}</span>
-          {formatListDescription(eq)}
-        </div>
-      </li>
-    {/each}
-  </ol>
+  <EquipmentList
+    equipment={$CharacterStore.equipment}
+    isEncumbered={setEncumbered}
+  />
   <div class="silver">
     <span class="equipment-title">Silver</span>
     {$CharacterStore.silver}
@@ -63,20 +55,11 @@
     margin-left: var(--small-padding);
   }
 
-  #equipment-list {
-    margin: 0;
-    padding-left: 28px;
-  }
-
-  .list-item,
   .silver {
     margin-top: 0.75em;
     margin-bottom: 0.75em;
     font-family: var(--fixed);
     line-height: 1.33333;
-  }
-  .list-item:last-of-type {
-    margin-bottom: 0;
   }
   .silver {
     margin-top: var(--tiny-padding);
@@ -87,9 +70,6 @@
     font-weight: 700;
   }
 
-  .broken {
-    text-decoration: line-through;
-  }
   .error {
     color: magenta;
   }

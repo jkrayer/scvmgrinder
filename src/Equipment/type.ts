@@ -1,5 +1,3 @@
-import type { Equipment } from "../type";
-
 export type FormData = {
   type:
     | "equipment"

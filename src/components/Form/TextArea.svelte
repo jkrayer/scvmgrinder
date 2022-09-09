@@ -1,25 +1,14 @@
 <script type="ts">
   export let label: string;
-  export let value: number;
-  export let min: number = -Infinity;
-  export let max: number = Infinity;
-  export let step: number = 1;
+  export let value: string;
   export let disabled: boolean = false;
   export let ref: any = null;
 </script>
 
 <label class="input-wrapper">
   <span class="input-label">{label}</span>
-  <input
-    type="number"
-    class="input"
-    bind:value
-    {disabled}
-    bind:this={ref}
-    {min}
-    {max}
-    {step}
-  />
+
+  <textarea class="input" bind:value bind:this={ref} {disabled} />
 </label>
 
 <style>

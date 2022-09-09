@@ -12,3 +12,11 @@ export class ScvmgrinderDB extends Dexie {
 }
 
 export const DB = new ScvmgrinderDB();
+
+export async function addCharacter(character: CharacterType) {
+  try {
+    const id = await DB.characters.add(character);
+  } catch (error) {
+    console.error(`Error ading character to DB ${error}`);
+  }
+}

@@ -1,12 +1,12 @@
 <script type="ts">
+  // import { onMount } from "svelte";
   import { closeModal } from "svelte-modals";
   import { fly } from "svelte/transition";
 </script>
 
 <!-- aria-labelledby="modal-title" -->
-
 <div
-  id="modal-content"
+  class="modal"
   transition:fly={{ x: 0, y: -500 }}
   role="dialog"
   aria-modal="true"
@@ -14,11 +14,11 @@
 >
   <button
     type="button"
-    id="modal-close"
+    class="modal-close"
     title="Click or Press Escape to close"
     on:click={closeModal}>&times;</button
   >
-  <div id="modal-body">
+  <div class="modal-body">
     <slot>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -34,7 +34,7 @@
 </div>
 
 <style>
-  #modal-content {
+  .modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -47,9 +47,15 @@
     box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.1);
   }
 
-  #modal-close {
+  .modal-close {
     position: absolute;
     top: -0.5em;
     right: -0.5em;
+  }
+
+  .modal-body {
+    max-height: calc(90vh - 1em);
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 </style>

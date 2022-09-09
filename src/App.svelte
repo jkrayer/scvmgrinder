@@ -8,6 +8,7 @@
   import CharacterList from "./CharacterList/CharacterList.svelte";
 
   let characters = liveQuery(() => DB.characters.toArray());
+  $: console.log(10, $characters);
 </script>
 
 <SvelteUIProvider>
@@ -21,7 +22,7 @@
     </header>
     {#if $characters === undefined}
       <h1>Loading...</h1>
-    {:else if $characters.length === 0}
+    {:else if $characters.length > -1}
       <CharacterList characters={$characters} />
     {:else}
       <CharacterSheet />

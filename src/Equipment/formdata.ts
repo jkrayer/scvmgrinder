@@ -1,4 +1,4 @@
-import type { ValueObject } from "../../components/Form/types";
+import type { ValueObject } from "../components/Form/types";
 
 export const EQUIPMENT_TYPES: ValueObject[] = [
   {

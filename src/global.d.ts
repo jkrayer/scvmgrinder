@@ -115,8 +115,8 @@ type CurrentMax = {
 };
 
 type CharacterType = {
-  _id: number;
-  campaignId: string;
+  _id?: number;
+  campaignId?: string;
   name: string;
   silver: number;
   abilities: AbilityScores;
