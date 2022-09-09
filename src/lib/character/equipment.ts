@@ -20,6 +20,7 @@ import {
   view,
 } from "ramda";
 import { filterByName, replaceByName } from "./common";
+import { NO_ARMOR } from "../game_constants";
 
 const EQUIPMENT_KEY = "equipment";
 const CURRENT_QUANTITY = ["quantity", "current"];
@@ -93,7 +94,10 @@ const equippedArmor = reduce<Equipment, ArmorAndShield>(
 
     return acc;
   },
-  { armor: null, shield: null } as ArmorAndShield
+  {
+    armor: NO_ARMOR,
+    shield: null,
+  } as ArmorAndShield
 );
 
 const breakArmor = (a: Armor): Armor => {

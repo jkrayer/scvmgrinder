@@ -1,5 +1,6 @@
 <script lang="ts">
   import { openModal } from "svelte-modals";
+  import { deleteCharacter } from "../lib/db";
   import ListItem from "./ListItem.svelte";
   import CreateCharacterForm from "../CharacterCreationFrom/CreateCharacterForm.svelte";
   import { update } from "../CharacterSheet/store";
@@ -8,6 +9,8 @@
 
   // HANDLERS
   const play = (character: CharacterType) => () => update(() => character);
+  const handleDelete = (character: CharacterType) => () =>
+    confirm(`Delete ${character.name}`) ? deleteCharacter(character) : null;
 
   const newCharacter = () => openModal(CreateCharacterForm, {});
 </script>
@@ -18,7 +21,9 @@
   </ListItem>
   {#each characters as character}
     <ListItem name={character.name} klass={character.class.name}>
-      <button type="button" class="">Delete</button>
+      <button type="button" class="" on:click={handleDelete(character)}
+        >Delete</button
+      >
       <button type="button" class="" on:click={play(character)}>Play</button>
     </ListItem>
   {/each}

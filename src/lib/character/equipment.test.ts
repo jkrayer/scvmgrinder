@@ -7,6 +7,7 @@ import {
   isEquippedZweihander,
   breakWeaponsAndArmor,
 } from "./equipment";
+import { NO_ARMOR } from "../game_constants";
 import { character } from "../../_testData/character";
 
 describe("lib/character/equipment", () => {
@@ -90,7 +91,7 @@ describe("lib/character/equipment", () => {
     test("it should return object of nulls if no armor or shield is found", () => {
       expect(
         getEquippedArmor({ equipment: [] } as CharacterType)
-      ).toMatchObject({ armor: null, shield: null });
+      ).toMatchObject({ armor: NO_ARMOR, shield: null });
     });
 
     test("it should return armor and shield if they're found", () => {

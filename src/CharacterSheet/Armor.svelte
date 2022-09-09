@@ -1,10 +1,11 @@
 <script type="ts">
   import { createEventDispatcher } from "svelte";
-  import type { Armor, Shield } from "./type";
   import { ARMOR_TIERS } from "./enums";
 
-  export let armor: Armor | null = null;
+  export let armor: Armor = null;
   export let shield: Shield | null = null;
+
+  console.log(armor, shield);
 
   const dispatch = createEventDispatcher();
 </script>

@@ -2,13 +2,14 @@
   import { liveQuery } from "dexie";
   import { SvelteUIProvider } from "@svelteuidev/core";
   import { Modals, closeModal } from "svelte-modals";
+  import { isNil } from "ramda";
   import { DB } from "./lib/db";
+  import CharacterStore from "./CharacterSheet/store";
   import CharacterSheet from "./CharacterSheet/CharacterSheet.svelte";
   import Messages from "./Messages/Messages.svelte";
   import CharacterList from "./CharacterList/CharacterList.svelte";
 
   let characters = liveQuery(() => DB.characters.toArray());
-  $: console.log(10, $characters);
 </script>
 
 <SvelteUIProvider>
@@ -20,13 +21,13 @@
         A digital character sheet for MÖRK BORG
       </p>
     </header>
-    {#if $characters === undefined}
-      <h1>Loading...</h1>
-    {:else if $characters.length > -1}
-      <CharacterList characters={$characters} />
-    {:else}
+    {#if !isNil($CharacterStore)}
       <CharacterSheet />
       <Messages />
+    {:else if $characters === undefined}
+      <h1>Loading...</h1>
+    {:else}
+      <CharacterList characters={$characters} />
     {/if}
     <Modals>
       <div slot="backdrop" class="backdrop" on:click={closeModal} />

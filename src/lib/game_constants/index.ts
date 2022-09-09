@@ -16,3 +16,10 @@ export const POWERS = Object.freeze({
   fail: "you lose d2 HP and become dizzy for the next hour.",
   dc: 12,
 });
+
+export const NO_ARMOR: Armor = Object.freeze({
+  type: "armor",
+  name: "No armor",
+  description: "",
+  tier: { current: 0, maximum: 0 },
+});

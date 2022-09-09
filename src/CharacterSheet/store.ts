@@ -1,4 +1,5 @@
 import { writable, derived, type Readable } from "svelte/store";
+import { updateCharacter } from "../lib/db";
 import { getScrolls } from "./lib";
 import type { Weapon, Scroll } from "./type";
 import {
@@ -11,6 +12,10 @@ import {
 const Character = writable<CharacterType>();
 
 export default Character;
+
+Character.subscribe((c: CharacterType) => {
+  if (c !== undefined) updateCharacter(c);
+});
 
 export function update(fn: (arg1: CharacterType) => CharacterType): void {
   Character.update(fn);

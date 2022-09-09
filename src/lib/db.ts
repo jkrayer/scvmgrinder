@@ -17,6 +17,22 @@ export async function addCharacter(character: CharacterType) {
   try {
     const id = await DB.characters.add(character);
   } catch (error) {
-    console.error(`Error ading character to DB ${error}`);
+    console.error(`DB: Error adding character: ${error}`);
+  }
+}
+
+export async function deleteCharacter({ _id }: CharacterType) {
+  try {
+    const id = await DB.characters.delete(_id);
+  } catch (error) {
+    console.error(`DB: Error deleting character: ${error}`);
+  }
+}
+
+export async function updateCharacter(character: CharacterType) {
+  try {
+    const id = await DB.characters.put(character);
+  } catch (error) {
+    console.error(`DB: Error updating character" ${error}`);
   }
 }
