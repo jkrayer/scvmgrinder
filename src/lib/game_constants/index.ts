@@ -6,6 +6,10 @@ export const ATTACK_DC: number = 12;
 
 export const DEFENSE_DC: number = 12;
 
+export const MIN_SCORE: number = -3;
+
+export const MAX_SCORE: number = 6;
+
 export const ATTACK_CRIT: string =
   "Double damage and target's armor is reduced one tier.";
 

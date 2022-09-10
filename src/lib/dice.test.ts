@@ -1,4 +1,12 @@
-import { rollD20, rollD12, rollD10, rollD8, rollD6, rollD4 } from "./dice";
+import {
+  rollD20,
+  rollD12,
+  rollD10,
+  rollD8,
+  rollD6,
+  rollD4,
+  rollNDice,
+} from "./dice";
 
 const inRange = (low: number, high: number) => (x: number) =>
   x > low && x < high;
@@ -37,6 +45,14 @@ describe("dice", () => {
   describe("d4", () => {
     test("it should be a number greater than 0 and less than 5", () => {
       expect(inRange(0, 5)(rollD4())).toBe(true);
+    });
+  });
+
+  describe("rollNDice", () => {
+    test("it should be a number greater than 1 and less than 9", () => {
+      expect(inRange(1, 9)(rollNDice(2, rollD4)[0])).toBe(true);
+      expect(inRange(1, 9)(rollNDice(2, rollD4)[0])).toBe(true);
+      expect(inRange(1, 9)(rollNDice(2, rollD4)[0])).toBe(true);
     });
   });
 });

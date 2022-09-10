@@ -8,6 +8,7 @@
   import CharacterSheet from "./CharacterSheet/CharacterSheet.svelte";
   import Messages from "./Messages/Messages.svelte";
   import CharacterList from "./CharacterList/CharacterList.svelte";
+  import ControlBar from "./components/ControlBar.svelte";
 
   let characters = liveQuery(() => DB.characters.toArray());
 </script>
@@ -23,6 +24,7 @@
     </header>
     {#if !isNil($CharacterStore)}
       <CharacterSheet />
+      <ControlBar />
       <Messages />
     {:else if $characters === undefined}
       <h1>Loading...</h1>

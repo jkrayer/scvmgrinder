@@ -83,11 +83,14 @@ export const getFormData = (
   return { ...DD, ...data, type };
 };
 
-export const equipmentMax = (x: "arrow" | "bolt" | "food" | string): number => {
+export const equipmentMax = (
+  x: "arrow" | "bolt" | "food" | "potion" | string
+): number => {
   const maxTable = {
     arrow: 20,
     bolt: 10,
     food: 5,
+    potion: 4,
   };
 
   return maxTable[x] || 1;

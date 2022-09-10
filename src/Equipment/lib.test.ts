@@ -1,4 +1,9 @@
-import { parens, insertQuantity, formatListDescription } from "./lib";
+import {
+  parens,
+  insertQuantity,
+  formatListDescription,
+  equipmentMax,
+} from "./lib";
 
 describe("parens", () => {
   test("it should add parens when the first character is not '(", () => {

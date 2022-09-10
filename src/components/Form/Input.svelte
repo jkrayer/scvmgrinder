@@ -24,6 +24,7 @@
     text-indent: var(--tiny-padding);
   }
   .input {
+    margin-bottom: 0;
     width: 100%;
     border-radius: var(--tiny-padding);
     font-size: 0.875rem;

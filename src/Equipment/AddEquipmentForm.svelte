@@ -27,11 +27,12 @@
   let oldSubtype = "";
 
   let formData: FormData = getFormData("equipment");
+  $: console.log(formData);
 
   let maxQuantity: number;
 
   $: {
-    maxQuantity = equipmentMax(formData.subtype);
+    maxQuantity = equipmentMax(formData.subtype || formData.type);
 
     // TODO: Replace with a more FP solution
     if (formData.type !== oldType) {

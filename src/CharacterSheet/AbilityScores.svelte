@@ -1,16 +1,15 @@
 <script type="ts">
+  import { toPairs } from "ramda";
   import CharacterStore from "./store";
   import { addMessage } from "../Messages/state/MessageStore";
   import { testMessage } from "../Messages/lib";
-
-  const scores = Object.entries($CharacterStore.abilities);
 
   const handleAbilityTest = (score: string, modifier: number) => () =>
     addMessage(testMessage({ score, modifier, name: $CharacterStore.name }));
 </script>
 
 <div class="grid  grid-limit">
-  {#each scores as [key, value]}
+  {#each toPairs($CharacterStore.abilities) as [key, value]}
     <div class="flex-center">
       <button
         type="button"
