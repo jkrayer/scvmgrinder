@@ -59,8 +59,8 @@ export const WEAPON_TYPES: ValueObject[] = [
 
 export const SCROLL_TYPES: ValueObject[] = [
   {
-    label: "Clean",
-    value: "clean",
+    label: "Sacred",
+    value: "sacred",
   },
   {
     label: "Unclean",

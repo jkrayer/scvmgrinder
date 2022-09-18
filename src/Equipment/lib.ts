@@ -74,7 +74,7 @@ export const getFormData = (
       data = { equipped: false };
       break;
     case "scroll":
-      data = { subtype: "clean" };
+      data = { subtype: "sacred" };
       break;
     default:
       break;
