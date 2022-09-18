@@ -87,7 +87,7 @@
           {title}
           showLegend={true}
         />
-        {#if formData.type === "weapon"}
+        {#if formData.subtype === "ranged"}
           <RadioGroup
             bind:group={formData.ammoType}
             values={AMMUNITION_TYPES}
