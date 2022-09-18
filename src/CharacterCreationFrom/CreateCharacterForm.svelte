@@ -9,7 +9,9 @@
   import InputNumber from "../components/Form/InputNumber.svelte";
   import Fieldset from "../components/Form/Fieldset.svelte";
   import AddEquipmentForm from "../Equipment/AddEquipmentForm.svelte";
+  import EquipmentList from "../Equipment/EquipmentList.svelte";
   import { rollD2, rollD4 } from "../lib/dice";
+  import equipment from "../data/equipment";
 
   export let NewCharacter: Partial<CharacterType> = {
     name: "",
@@ -98,11 +100,7 @@
     </Fieldset>
     <InputNumber label="Silver" bind:value={NewCharacter.silver} min={0} />
     <AddEquipmentForm onSave={handleAddEquipment} />
-    <ul>
-      {#each NewCharacter.equipment as eq}
-        <li>{eq.name}</li>
-      {/each}
-    </ul>
+    <EquipmentList equipment={NewCharacter.equipment} />
     <button type="submit">Save Character</button>
   </form>
 </Modal>
