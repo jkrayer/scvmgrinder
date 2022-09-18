@@ -5,8 +5,6 @@
   export let armor: Armor = null;
   export let shield: Shield | null = null;
 
-  console.log(armor, shield);
-
   const dispatch = createEventDispatcher();
 </script>
 

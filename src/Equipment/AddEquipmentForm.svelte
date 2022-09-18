@@ -10,8 +10,8 @@
     format,
     equipmentMax,
     getFormData,
-    hasSubtypes,
-    getSubtypes,
+    hassubTypes,
+    getsubTypes,
   } from "./lib";
   import type { FormData } from "./type";
   import RadioGroup from "../components/Form/RadioGroup.svelte";
@@ -24,14 +24,14 @@
 
   let nameInput;
   let oldType = "equipment";
-  let oldSubtype = "";
+  let oldsubType = "";
 
   let formData: FormData = getFormData("equipment");
 
   let maxQuantity: number;
 
   $: {
-    maxQuantity = equipmentMax(formData.subtype || formData.type);
+    maxQuantity = equipmentMax(formData.subType || formData.type);
 
     // TODO: Replace with a more FP solution
     if (formData.type !== oldType) {
@@ -40,22 +40,20 @@
       oldType = formData.type;
     }
 
-    if (formData.subtype !== oldSubtype) {
+    if (formData.subType !== oldsubType) {
       formData = {
         ...formData,
 
         quantity: 1,
       };
 
-      oldSubtype = formData.subtype || null;
+      oldsubType = formData.subType || null;
     }
   }
 
   //
   const handleSubmit = (e) => {
-    // @ts-ignore
     const equipment: Equipment = format(formData);
-    console.log(56, equipment);
 
     if (onSaveAndClose && e.submitter.dataset.fn === "close") {
       onSaveAndClose(equipment);
@@ -78,16 +76,16 @@
   />
   <div class="grid name-row">
     <Input label="Name" bind:value={formData.name} bind:ref={nameInput} />
-    {#if hasSubtypes(formData.type)}
-      {@const { title, values } = getSubtypes(formData.type)}
+    {#if hassubTypes(formData.type)}
+      {@const { title, values } = getsubTypes(formData.type)}
       <div class="grid balanced">
         <RadioGroup
-          bind:group={formData.subtype}
+          bind:group={formData.subType}
           {values}
           {title}
           showLegend={true}
         />
-        {#if formData.subtype === "ranged"}
+        {#if formData.subType === "ranged"}
           <RadioGroup
             bind:group={formData.ammoType}
             values={AMMUNITION_TYPES}

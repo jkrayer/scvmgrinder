@@ -15,10 +15,10 @@ export const insertQuantity = ({
 
 export const formatListDescription = compose(parens, insertQuantity);
 
-export const hasSubtypes = (x: string): boolean =>
+export const hassubTypes = (x: string): boolean =>
   ["ammunition", "weapon", "scroll"].includes(x);
 
-export const getSubtypes = (x: string) => {
+export const getsubTypes = (x: string) => {
   if (x === "ammunition") {
     return { title: "Type of Ammuntion", values: AMMUNITION_TYPES };
   } else if (x === "scroll") {
@@ -46,7 +46,7 @@ export const getFormData = (
     name: "",
     description: "",
     quantity: 0,
-    subtype: null,
+    subType: null,
     tier: null,
     ammoType: null,
     damageDie: null,
@@ -58,14 +58,14 @@ export const getFormData = (
   switch (type) {
     case "weapon":
       data = {
-        subtype: "melee",
+        subType: "melee",
         ammoType: "arrow",
         damageDie: "1d2",
         equipped: false,
       };
       break;
     case "ammunition":
-      data = { subtype: "arrow" };
+      data = { subType: "arrow" };
       break;
     case "armor":
       data = { tier: 1, equipped: false };
@@ -74,7 +74,7 @@ export const getFormData = (
       data = { equipped: false };
       break;
     case "scroll":
-      data = { subtype: "sacred" };
+      data = { subType: "sacred" };
       break;
     default:
       break;
@@ -103,7 +103,7 @@ const quantity = ({ quantity, ...rest }: Partial<FormData>) =>
         ...rest,
         quantity: {
           current: quantity,
-          maximum: equipmentMax(rest.subtype || rest.type),
+          maximum: equipmentMax(rest.subType || rest.type),
         },
       };
 
