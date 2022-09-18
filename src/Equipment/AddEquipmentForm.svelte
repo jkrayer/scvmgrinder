@@ -27,7 +27,6 @@
   let oldSubtype = "";
 
   let formData: FormData = getFormData("equipment");
-  $: console.log(formData);
 
   let maxQuantity: number;
 
@@ -56,6 +55,7 @@
   const handleSubmit = (e) => {
     // @ts-ignore
     const equipment: Equipment = format(formData);
+    console.log(56, equipment);
 
     if (onSaveAndClose && e.submitter.dataset.fn === "close") {
       onSaveAndClose(equipment);
@@ -107,7 +107,10 @@
   </div>
 
   <div class="grid description-row">
-    <Input label="Description" bind:value={formData.description} />
+    <Input
+      label="Description (add % to show quantity in description)"
+      bind:value={formData.description}
+    />
     {#if ["food", "ammunition"].includes(formData.type)}
       <InputNumber
         label="Quantity"

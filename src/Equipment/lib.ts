@@ -45,7 +45,7 @@ export const getFormData = (
     type: "equipment",
     name: "",
     description: "",
-    quantity: 1,
+    quantity: 0,
     subtype: null,
     tier: null,
     ammoType: null,
@@ -88,7 +88,7 @@ export const equipmentMax = (
 ): number => {
   const maxTable = {
     arrow: 20,
-    bolt: 10,
+    bolt: 20,
     food: 5,
     potion: 4,
   };
@@ -96,11 +96,16 @@ export const equipmentMax = (
   return maxTable[x] || 1;
 };
 
-//
-const quantity = ({ quantity, ...rest }: { quantity: number }) =>
-  quantity == 1
+const quantity = ({ quantity, ...rest }: Partial<FormData>) =>
+  quantity === 0
     ? rest
-    : { ...rest, quantity: { current: quantity, maximum: quantity } };
+    : {
+        ...rest,
+        quantity: {
+          current: quantity,
+          maximum: equipmentMax(rest.subtype || rest.type),
+        },
+      };
 
 const tier = ({ tier, ...rest }: { tier: null | number }) =>
   tier === undefined
