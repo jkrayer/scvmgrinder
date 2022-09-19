@@ -1,6 +1,7 @@
 import { compose, filter, fromPairs, toPairs } from "ramda";
 import { AMMUNITION_TYPES, SCROLL_TYPES, WEAPON_TYPES } from "./formdata";
 import type { FormData } from "./type";
+import { trace } from "../CharacterSheet/lib";
 
 export const parens = (desc: string): string =>
   ["(", undefined].includes(desc[0]) ? desc : `(${desc})`;
@@ -113,15 +114,20 @@ const tier = ({ tier, ...rest }: { tier: null | number }) =>
     : { ...rest, tier: { current: tier, maximum: tier } };
 
 const ammo = ({ ammoType, ...rest }: { ammoType: string }) =>
-  ammoType === undefined
+  // @ts-ignore
+  ammoType === undefined || rest.subType === "melee"
     ? rest
     : {
         ...rest,
-        tier: {
-          ammunitionType: ammoType,
-          ammunitionName: ammoType === "arrow" ? "Arrow(s)" : "Bolt(s)",
-        },
+        ammunitionType: ammoType,
+        ammunitionName: ammoType === "arrow" ? "Arrow(s)" : "Bolt(s)",
       };
+
+const addId = ({ name, ...rest }: { name: string }) => ({
+  _id: `${name}_${Date.now()}`,
+  name,
+  ...rest,
+});
 
 const stripNullVals = compose(
   fromPairs,
@@ -130,6 +136,15 @@ const stripNullVals = compose(
 ) as (arg1: FormData) => Partial<FormData>;
 
 // @ts-ignore
-export const format = compose(ammo, tier, quantity, stripNullVals) as (
-  data: FormData
-) => Equipment;
+export const format = compose(
+  trace("addIdres"),
+  addId,
+  trace("ammo res"),
+  ammo,
+  trace("tier res"),
+  tier,
+  trace("quantity res"),
+  quantity,
+  trace("stripnulsres"),
+  stripNullVals
+) as (data: FormData) => Equipment;

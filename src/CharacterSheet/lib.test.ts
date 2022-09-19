@@ -1,4 +1,3 @@
-import type { Armor, Equipment, Weapon } from "./type";
 import {
   useOmen,
   setOmens,
@@ -69,6 +68,7 @@ describe("inrementSilver", () => {
 
 describe("Equipment Tests", () => {
   const armor: Armor = {
+    _id: "Scale armor_0101010",
     name: "Scale armor",
     type: "armor",
     description: "",
@@ -106,6 +106,7 @@ describe("Equipment Tests", () => {
     ],
   } as CharacterType;
   const weapon: Weapon = {
+    _id: "Axe_928228282",
     name: "Axe",
     description: "",
     type: "weapon",

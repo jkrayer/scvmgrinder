@@ -1,5 +1,4 @@
 import { compose, filter, max, min, propOr, propSatisfies } from "ramda";
-import type { Equipment, Armor, Scroll } from "./type";
 
 export const getEquipment = propOr([], "equipment") as (
   x: CharacterType

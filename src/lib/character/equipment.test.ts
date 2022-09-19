@@ -12,6 +12,7 @@ import { character } from "../../_testData/character";
 
 describe("lib/character/equipment", () => {
   const scaleArmor: Armor = {
+    _id: "Scale armor_1663623607076",
     name: "Scale armor",
     type: "armor",
     description: "",
@@ -23,6 +24,7 @@ describe("lib/character/equipment", () => {
   describe("addEquipment", () => {
     const copy: CharacterType = { ...character };
     const newEq: Equipment = {
+      _id: "Test Equipment_1663623607076",
       type: "equipment",
       name: "Test Equipment",
       description: "A piece of equipment",
@@ -48,6 +50,7 @@ describe("lib/character/equipment", () => {
   describe("dropEquipment", () => {
     const copy: CharacterType = { ...character };
     const armor: Armor = {
+      _id: "Padded cloth armor_1663623607076",
       type: "armor",
       name: "Padded cloth armor",
       description: "tier 1",
@@ -157,6 +160,7 @@ describe("lib/character/equipment", () => {
     test("it should return equipped weapons", () => {
       const copy: CharacterType = { ...character };
       copy.equipment.push({
+        _id: "Sword_1663623607076",
         type: "weapon",
         name: "Sword",
         description: "1d6 damage",
@@ -200,6 +204,7 @@ describe("lib/character/equipment", () => {
     test("it should return true if at least one zweihand weapon is equipped", () => {
       const weapons: Weapon[] = getEquippedWeapons(character);
       weapons.splice(1, 0, {
+        _id: "Zweihander_1663623607076",
         type: "weapon",
         name: "Zweihander",
         description: "1d10 damage",

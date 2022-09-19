@@ -22,6 +22,7 @@ export const POWERS = Object.freeze({
 });
 
 export const NO_ARMOR: Armor = Object.freeze({
+  _id: "noarmor_-1",
   type: "armor",
   name: "No armor",
   description: "",

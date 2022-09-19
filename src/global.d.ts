@@ -24,6 +24,7 @@ type Effect = {
 // EQUIPMENT TYPES
 
 type CommonEquipmentProps = {
+  _id: number | string;
   name: string;
   description: string;
   equipped?: boolean;

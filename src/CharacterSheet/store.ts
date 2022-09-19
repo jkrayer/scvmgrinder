@@ -1,7 +1,6 @@
 import { writable, derived, type Readable } from "svelte/store";
 import { updateCharacter } from "../lib/db";
 import { getScrolls } from "./lib";
-import type { Weapon, Scroll } from "./type";
 import {
   getEquippedArmor,
   isEquippedMediumOrHeavyArmor,
