@@ -31,7 +31,7 @@ export const EQUIPMENT_TYPES: ValueObject[] = [
   },
   {
     label: "Potion",
-    value: "Potion",
+    value: "potion",
   },
 ];
 

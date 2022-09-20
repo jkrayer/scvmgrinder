@@ -94,19 +94,22 @@ export const equipmentMax = (
     potion: 4,
   };
 
-  return maxTable[x] || 1;
+  return maxTable[x] || 0;
 };
 
-const quantity = ({ quantity, ...rest }: Partial<FormData>) =>
-  quantity === 0
+const quantity = ({ quantity, ...rest }: Partial<FormData>) => {
+  const maximum = equipmentMax(rest.ammoType || rest.subType || rest.type);
+
+  return maximum === 0
     ? rest
     : {
         ...rest,
         quantity: {
-          current: quantity,
-          maximum: equipmentMax(rest.subType || rest.type),
+          current: quantity || 1,
+          maximum,
         },
       };
+};
 
 const tier = ({ tier, ...rest }: { tier: null | number }) =>
   tier === undefined
