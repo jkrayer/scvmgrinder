@@ -1,18 +1,18 @@
 import {
-  filterByName,
+  filterById,
   getAbilityScore,
-  replaceByName,
+  replaceById,
   rollMessage,
 } from "./common";
 import { character } from "../../_testData/character";
 
 describe("lib/character/common", () => {
-  describe("filterByName", () => {
-    const deleteFred = filterByName("Fred");
+  describe("filterById", () => {
+    const deleteFred = filterById(27);
     const fredArr = [
-      { name: "Fred", age: 23 },
-      { name: "Karl", age: 25 },
-      { name: "Fred", age: 21 },
+      { name: "Fred", age: 23, _id: 27 },
+      { name: "Karl", age: 25, _id: 28 },
+      { name: "Fred", age: 21, _id: 29 },
     ];
     const result = deleteFred(fredArr);
 
@@ -20,9 +20,10 @@ describe("lib/character/common", () => {
       expect(deleteFred).toBeInstanceOf(Function);
     });
 
-    test("it return a new array where all matching names have been removed", () => {
-      expect(result.length).toBe(1);
-      expect(result[0]).toMatchObject({ name: "Karl", age: 25 });
+    test("it return a new array the item with the  matching ID has been removed", () => {
+      expect(result.length).toBe(2);
+      expect(result[0]).toMatchObject({ name: "Karl", age: 25, _id: 28 });
+      expect(result[1]).toMatchObject({ name: "Fred", age: 21, _id: 29 });
     });
 
     test("it should not mutate the original array", () => {
@@ -42,15 +43,16 @@ describe("lib/character/common", () => {
     });
   });
 
-  describe("replaceByName", () => {
-    const replaceFred = replaceByName({
+  describe("replaceById", () => {
+    const replaceFred = replaceById({
       name: "Fred",
       age: 52,
+      _id: 27,
     });
     const fredArr = [
-      { name: "Fred", age: 23 },
-      { name: "Karl", age: 25 },
-      { name: "Fred", age: 21 },
+      { name: "Fred", age: 23, _id: 27 },
+      { name: "Karl", age: 25, _id: 28 },
+      { name: "Fred", age: 21, _id: 29 },
     ];
 
     const result = replaceFred(fredArr);
@@ -61,14 +63,14 @@ describe("lib/character/common", () => {
 
     test("it return a new array where all matches have been updated", () => {
       expect(result.length).toBe(3);
-      expect(result[0]).toMatchObject({ name: "Fred", age: 52 });
-      expect(result[2]).toMatchObject({ name: "Fred", age: 52 });
+      expect(result[0]).toMatchObject({ name: "Fred", age: 52, _id: 27 });
+      expect(result[2]).toMatchObject({ name: "Fred", age: 21, _id: 29 });
     });
 
     test("it should not mutate the original array", () => {
       expect(fredArr.length).toBe(3);
-      expect(fredArr[0]).toMatchObject({ name: "Fred", age: 23 });
-      expect(fredArr[2]).toMatchObject({ name: "Fred", age: 21 });
+      expect(fredArr[0]).toMatchObject({ name: "Fred", age: 23, _id: 27 });
+      expect(fredArr[2]).toMatchObject({ name: "Fred", age: 21, _id: 29 });
     });
   });
 

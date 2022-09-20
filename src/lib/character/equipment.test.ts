@@ -9,6 +9,7 @@ import {
 } from "./equipment";
 import { NO_ARMOR } from "../game_constants";
 import { character } from "../../_testData/character";
+import { scale } from "svelte/transition";
 
 describe("lib/character/equipment", () => {
   const scaleArmor: Armor = {
@@ -51,15 +52,7 @@ describe("lib/character/equipment", () => {
     const copy: CharacterType = { ...character };
     const armor: Armor = {
       _id: "Padded cloth armor_1663623607076",
-      type: "armor",
-      name: "Padded cloth armor",
-      description: "tier 1",
-      tier: {
-        current: 1,
-        maximum: 1,
-      },
-      equipped: true,
-    };
+    } as Armor;
 
     const result: CharacterType = dropEquipment(armor)(copy);
 
@@ -70,6 +63,7 @@ describe("lib/character/equipment", () => {
     test("it should drop the given equipment", () => {
       expect(result.equipment.length).toBe(8);
       expect(result.equipment[3]).toMatchObject({
+        _id: "Kite Shield_28373",
         type: "shield",
         name: "Kite Shield",
         description: "",
@@ -85,6 +79,7 @@ describe("lib/character/equipment", () => {
 
   describe("getEquippedArmor", () => {
     const kiteShield = {
+      _id: "Kite Shield_28373",
       type: "shield",
       name: "Kite Shield",
       description: "",
@@ -100,6 +95,7 @@ describe("lib/character/equipment", () => {
     test("it should return armor and shield if they're found", () => {
       expect(getEquippedArmor(character)).toMatchObject({
         armor: {
+          _id: "Padded cloth armor_1663623607076",
           type: "armor",
           name: "Padded cloth armor",
           description: "tier 1",
@@ -221,6 +217,7 @@ describe("lib/character/equipment", () => {
   describe("breakWeaponsAndArmor", () => {
     test("it should break weapons", () => {
       const breakFemur = breakWeaponsAndArmor({
+        _id: "Femur_287327276",
         type: "weapon",
         name: "Femur",
         description: "1d4 damage",
@@ -230,6 +227,7 @@ describe("lib/character/equipment", () => {
       })(character);
 
       expect(breakFemur.equipment[1]).toMatchObject({
+        _id: "Femur_287327276",
         type: "weapon",
         name: "Femur",
         description: "1d4 damage",
@@ -247,17 +245,14 @@ describe("lib/character/equipment", () => {
       const breakArmor = breakWeaponsAndArmor(scaleArmor)(character);
 
       expect(breakArmor.equipment[9]).toMatchObject({
-        name: "Scale armor",
-        type: "armor",
-        description: "",
+        ...scaleArmor,
         tier: { current: 1, maximum: 2 },
-        equipped: true,
-        broken: false,
       });
     });
 
     test("it should break armor when tier is reduced to 0", () => {
       const breakArmor = breakWeaponsAndArmor({
+        _id: "Padded cloth armor_1663623607076",
         type: "armor",
         name: "Padded cloth armor",
         description: "tier 1",
@@ -283,6 +278,7 @@ describe("lib/character/equipment", () => {
 
     test("it should diminish ammunition", () => {
       const ammo = breakWeaponsAndArmor({
+        _id: "Bow_287373",
         type: "weapon",
         name: "Bow",
         description: "and % arrows 1d6 damage",

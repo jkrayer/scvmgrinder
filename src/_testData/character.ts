@@ -68,7 +68,7 @@ export const character: CharacterType = {
       },
     },
     {
-      _id: "Padded cloth armor_28373",
+      _id: "Padded cloth armor_1663623607076",
       type: "armor",
       name: "Padded cloth armor",
       description: "tier 1",

@@ -4,11 +4,12 @@ type Name = {
   name: string;
 };
 
-export const filterByName = <T extends Name>(x: string) =>
-  filter<T>(({ name }) => name !== x);
+export const filterById = <T extends { _id: string | number }>(
+  id: string | number
+) => filter<T>(({ _id }) => _id !== id);
 
-export const replaceByName = <T extends Name>(eq: T) =>
-  map((x: T) => (x.name === eq.name ? eq : x));
+export const replaceById = <T extends { _id: string | number }>(eq: T) =>
+  map((x: T) => (x._id === eq._id ? eq : x));
 
 export const rollMessage = (x: number) =>
   x === 1 ? ", Fumble!" : x === 20 ? ", Critical!" : "";

@@ -17,7 +17,7 @@
   <main id="app">
     <header id="global-header">
       <h1 id="logo">SCVUMGRINDER</h1>
-      <span class="tiny-fixed">v0.0.3</span>
+      <span class="tiny-fixed">v0.0.5</span>
       <p class="tiny-fixed space-tiny">
         A digital character sheet for MÖRK BORG
       </p>
