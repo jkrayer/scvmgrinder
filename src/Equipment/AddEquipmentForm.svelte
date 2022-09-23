@@ -17,6 +17,7 @@
   import RadioGroup from "../components/Form/RadioGroup.svelte";
   import Input from "../components/Form/Input.svelte";
   import InputNumber from "../components/Form/InputNumber.svelte";
+  import Button from "../components/Button.svelte";
 
   //
   export let onSaveAndClose: false | ((arg1: Equipment) => void) = false;
@@ -131,11 +132,9 @@
   {/if}
 
   <div class="save">
-    <button type="submit" data-fn="save" class="btn-magenta">Save</button>
+    <Button magenta data-fn="save">Save</Button>
     {#if onSaveAndClose}
-      <button type="submit" data-fn="close" class="btn-yellow"
-        >Save & Close</button
-      >
+      <Button yellow data-fn="close">Save & Close</Button>
     {/if}
   </div>
 </form>

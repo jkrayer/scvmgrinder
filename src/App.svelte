@@ -9,6 +9,7 @@
   import Messages from "./Messages/Messages.svelte";
   import CharacterList from "./CharacterList/CharacterList.svelte";
   import ControlBar from "./components/ControlBar.svelte";
+  import Button from "./components/Button.svelte";
 
   let characters = liveQuery(() => DB.characters.toArray());
 </script>

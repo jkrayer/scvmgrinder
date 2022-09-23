@@ -4,6 +4,7 @@
   import Manager from "./EquipmentManager.svelte";
   import CharacterStore from "../store";
   import EquipmentList from "../../Equipment/EquipmentList.svelte";
+  import Button from "../../components/Button.svelte";
 
   let encumbrance: number = 8;
   let encumbranceIndex: number = 7;
@@ -22,14 +23,10 @@
 
 <div class="grid grid-limit">
   <div class="flex-center-row">
-    <button
-      type="button"
-      class="button button-header flex-center-row"
-      on:click={show}
-    >
+    <Button clear on:click={show}>
       <h2 class="character-sheet-field-label">Equipment</h2>
-      <span class="edit"><Pencil1 size={16} /></span>
-    </button>
+      <Pencil1 size={16} slot="iconRight" />
+    </Button>
 
     <p class="note" class:error={isEncumbered}>
       Strength + 8 items or DR+2 on Agility/Strength tests
@@ -50,9 +47,6 @@
     margin: 0;
     font: 0.75rem/1.33333 var(--fixed);
     text-align: right;
-  }
-  .edit {
-    margin-left: var(--small-padding);
   }
 
   .silver {

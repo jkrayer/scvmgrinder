@@ -1,6 +1,7 @@
 <script type="ts">
   import { createEventDispatcher } from "svelte";
   import { ARMOR_TIERS } from "./enums";
+  import Button from "../components/Button.svelte";
 
   export let armor: Armor = null;
   export let shield: Shield | null = null;
@@ -9,21 +10,16 @@
 </script>
 
 <div>
-  <button
-    type="button"
-    class="button button-header"
-    on:click={() => dispatch("defense", armor)}
-  >
+  <Button clear on:click={() => dispatch("defense", armor)}>
     <h2 class="character-sheet-field-label">Defense</h2>
-  </button>
+  </Button>
   <p class="armor">
     ({armor.name}<!--
     -->{#if shield !== null}
       &nbsp;and {shield.name}<!--
     -->{/if})
-    <button
-      type="button"
-      class="button button-header"
+    <Button
+      clear
       on:click={() =>
         dispatch("resist", { tier: armor.tier.current, shield: !!shield })}
     >
@@ -33,7 +29,7 @@
           +1
         {/if}
       </span>
-    </button>
+    </Button>
   </p>
   {#if armor !== null}
     <div class="tier-bar">

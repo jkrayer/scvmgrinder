@@ -22,12 +22,15 @@
 
   // HANDLERS
   const handleAttack = ({ detail }: CustomEvent<Weapon>): void =>
+    // @ts-ignore
     attack($CharacterStore, detail);
 
   const handleDamage = ({ detail }: CustomEvent<Weapon>): void =>
+    // @ts-ignore
     addMessage(damageMessage(detail, $CharacterStore.name));
 
   const handleDefense = ({ detail }: CustomEvent<Armor>) =>
+    // @ts-ignore
     defense($CharacterStore, detail);
 
   const handleArmorTier = ({
@@ -39,6 +42,7 @@
     detail,
   }: CustomEvent<{ newTier: number; armor: ArmorType }>): void => {
     const { newTier, armor } = detail;
+    // @ts-ignore
     update(equipmentTier(armor, newTier));
   };
 </script>

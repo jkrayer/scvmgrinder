@@ -3,6 +3,7 @@
   import CharacterStore from "./store";
   import { addMessage } from "../Messages/state/MessageStore";
   import { testMessage } from "../Messages/lib";
+  import Button from "../components/Button.svelte";
 
   const handleAbilityTest = (score: string, modifier: number) => () =>
     addMessage(testMessage({ score, modifier, name: $CharacterStore.name }));
@@ -11,14 +12,10 @@
 <div class="grid  grid-limit">
   {#each toPairs($CharacterStore.abilities) as [key, value]}
     <div class="flex-center">
-      <button
-        type="button"
-        class="button"
-        on:click={handleAbilityTest(key, value)}
-      >
+      <Button on:click={handleAbilityTest(key, value)} clear>
         <div class="score-title">{key}</div>
         <span class="score">{value}</span>
-      </button>
+      </Button>
     </div>
   {/each}
 </div>

@@ -2,6 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import { fade } from "svelte/transition";
   import { Check, CircleBackslash } from "radix-icons-svelte";
+  import Button from "../../components/Button.svelte";
 
   export let silver: number = 0;
 
@@ -38,8 +39,8 @@
     {#if focused}
       <span transition:fade>
         = {total}
-        <button type="submit" class="button"><Check /></button>
-        <button type="reset" class="button"><CircleBackslash /></button>
+        <Button type="submit" clear><Check /></Button>
+        <Button type="reset" clear><CircleBackslash /></Button>
       </span>
     {/if}
   </label>
