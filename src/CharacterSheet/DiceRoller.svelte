@@ -1,10 +1,11 @@
 <script type="ts">
   import { sum } from "ramda";
-  import { Button, Group, NumberInput } from "@svelteuidev/core";
   import { Minus, Plus } from "radix-icons-svelte";
   import { addMessage } from "../Messages/state/MessageStore";
   import { diceMessage } from "../Messages/lib";
   import { DICE_MAP } from "../lib/dice";
+  import Button from "../components/Button.svelte";
+  import InputNumber from "../components/Form/InputNumber.svelte";
 
   export let name: string = "";
 
@@ -47,7 +48,8 @@
 </script>
 
 <form on:submit|preventDefault={handleSubmit}>
-  <Group position="center" spacing="xs">
+  <!--  position="center" spacing="xs" -->
+  <div>
     <Button
       type="button"
       disabled={!!die && die !== "1d2"}
@@ -83,22 +85,18 @@
       disabled={!!die && die !== "1d20"}
       on:click={handleClick("1d20")}>1d20</Button
     >
-  </Group>
-  <Group position="center" spacing="xs">
+  </div>
+  <!-- position="center" spacing="xs" -->
+  <div>
     {#if !!die}
       {diceString}
     {/if}
-    <Button
-      type="button"
-      on:click={() => (symbol = "+")}
-      variant={symbol === "+" ? "filled" : "outline"}><Plus /></Button
-    >
-    <Button
-      type="button"
-      on:click={() => (symbol = "-")}
-      variant={symbol === "-" ? "filled" : "outline"}><Minus /></Button
-    >
-    <NumberInput bind:value={modifier} min={0} override={{ width: "75px" }} />
+    <!-- variant={symbol === "+" ? "filled" : "outline"} -->
+    <Button type="button" on:click={() => (symbol = "+")}><Plus /></Button>
+    <!-- variant={symbol === "-" ? "filled" : "outline"} -->
+    <Button type="button" on:click={() => (symbol = "-")}><Minus /></Button>
+    <!-- override={{ width: "75px" }} -->
+    <InputNumber label="LABEL!" bind:value={modifier} min={0} />
     <Button disabled={die === ""}>Roll!</Button>
-  </Group>
+  </div>
 </form>

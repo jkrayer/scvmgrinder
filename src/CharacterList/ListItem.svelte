@@ -9,7 +9,7 @@
       <h1 class="character-sheet-field-label">{name}</h1>
       <h2 class="h2">{klass}</h2>
     </header>
-    <div class="flex-center-right">
+    <div class="button-row">
       <slot />
     </div>
   </article>
@@ -28,5 +28,8 @@
     font-family: var(--fixed);
     font-size: 1rem;
     font-weight: 400;
+  }
+  .button-row {
+    align-self: flex-start;
   }
 </style>

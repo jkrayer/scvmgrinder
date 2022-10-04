@@ -37,8 +37,6 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
-    "@svelteuidev/composables": "^0.7.0",
-    "@svelteuidev/core": "^0.7.0",
     "dexie": "^3.2.2",
     "radix-icons-svelte": "^1.2.1",
     "ramda": "~0.28.0",
