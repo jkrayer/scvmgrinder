@@ -15,7 +15,6 @@
   import Armor from "./Armor.svelte";
   import Equipment from "./Equipment/Equipment.svelte";
   import Miseries from "./Miseries.svelte";
-  import MorkBorgLogo from "../components/MorkBorgLogo.svelte";
   import DiceRoller from "./DiceRoller.svelte";
   import StatusList from "./Status/StatusList.svelte";
   import { attack, defense } from "../lib/character";

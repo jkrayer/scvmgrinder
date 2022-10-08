@@ -1,4 +1,4 @@
-import Dexie, { type Table } from "dexie";
+import Dexie, { liveQuery, type Table } from "dexie";
 
 export class ScvmgrinderDB extends Dexie {
   characters!: Table<CharacterType>;
@@ -34,5 +34,25 @@ export async function updateCharacter(character: CharacterType) {
     const id = await DB.characters.put(character);
   } catch (error) {
     console.error(`DB: Error updating character" ${error}`);
+  }
+}
+
+export async function getCharacter(id: number): Promise<CharacterType> {
+  try {
+    const character: CharacterType = await DB.characters.get(id);
+    return character;
+  } catch (error) {
+    console.error(`DB: Error finding character" ${error}`);
+    return {} as CharacterType;
+  }
+}
+
+export async function getCharacters(): Promise<CharacterType[]> {
+  try {
+    const characters: CharacterType[] = await DB.characters.toArray();
+    return characters;
+  } catch (error) {
+    console.error(`DB: Error finding character" ${error}`);
+    return [{}] as CharacterType[];
   }
 }

@@ -1,15 +1,16 @@
 <script lang="ts">
+  import { navigate } from "svelte-routing";
   import { openModal } from "svelte-modals";
   import { deleteCharacter } from "../lib/db";
   import ListItem from "./ListItem.svelte";
-  import CreateCharacterForm from "../CharacterCreationFrom/CreateCharacterForm.svelte";
-  import { update } from "../CharacterSheet/store";
   import Button from "../components/Button.svelte";
+  import CreateCharacterForm from "../CharacterCreationFrom/CreateCharacterForm.svelte";
 
   export let characters: CharacterType[];
 
   // HANDLERS
-  const play = (character: CharacterType) => () => update(() => character);
+  const play = (path: string) => () => navigate(path);
+
   const handleDelete = (character: CharacterType) => () =>
     confirm(`Delete ${character.name}`) ? deleteCharacter(character) : null;
 
@@ -25,7 +26,9 @@
       <Button buttonColor="magenta" on:click={handleDelete(character)}
         >Delete</Button
       >
-      <Button buttonColor="yellow" on:click={play(character)}>Play</Button>
+      <Button buttonColor="yellow" on:click={play(`/morkborg/${character._id}`)}
+        >Play</Button
+      >
     </ListItem>
   {/each}
 </ul>

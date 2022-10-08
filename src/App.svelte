@@ -1,16 +1,10 @@
 <script lang="ts">
-  import { liveQuery } from "dexie";
+  import { Router, Route } from "svelte-routing";
   import { Modals, closeModal } from "svelte-modals";
-  import { isNil } from "ramda";
-  import { DB } from "./lib/db";
-  import CharacterStore from "./CharacterSheet/store";
-  import CharacterSheet from "./CharacterSheet/CharacterSheet.svelte";
-  import Messages from "./Messages/Messages.svelte";
-  import CharacterList from "./CharacterList/CharacterList.svelte";
-  import ControlBar from "./components/ControlBar.svelte";
-  import Button from "./components/Button.svelte";
+  import Home from "./Pages/Home.svelte";
+  import MorkBorg from "./Pages/MorkBorg.svelte";
 
-  let characters = liveQuery(() => DB.characters.toArray());
+  let url = "";
 </script>
 
 <main id="app">
@@ -19,15 +13,10 @@
     <span class="tiny-fixed">v0.0.5</span>
     <p class="tiny-fixed space-tiny">A digital character sheet for MÖRK BORG</p>
   </header>
-  {#if !isNil($CharacterStore)}
-    <CharacterSheet />
-    <ControlBar />
-    <Messages />
-  {:else if $characters === undefined}
-    <h1>Loading...</h1>
-  {:else}
-    <CharacterList characters={$characters} />
-  {/if}
+  <Router {url}>
+    <Route path="/morkborg/:characterid" component={MorkBorg} />
+    <Route path="/" component={Home} />
+  </Router>
   <Modals>
     <div slot="backdrop" class="backdrop" on:click={closeModal} />
   </Modals>
