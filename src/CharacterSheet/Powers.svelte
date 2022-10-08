@@ -9,7 +9,7 @@
 </script>
 
 <div class="powers-wrapper flex-center-row">
-  <Button clear on:click={handleClick} disabled={$Powers.message !== null}>
+  <Button on:click={handleClick} disabled={$Powers.message !== null}>
     <h2 class="powers-title character-sheet-field-label">
       Powers
       {#if $Powers.powers !== null}

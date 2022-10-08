@@ -12,7 +12,7 @@
 <div class="grid  grid-limit">
   {#each toPairs($CharacterStore.abilities) as [key, value]}
     <div class="flex-center">
-      <Button on:click={handleAbilityTest(key, value)} clear>
+      <Button on:click={handleAbilityTest(key, value)}>
         <div class="score-title">{key}</div>
         <span class="score">{value}</span>
       </Button>

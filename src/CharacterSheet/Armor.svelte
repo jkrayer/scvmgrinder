@@ -10,7 +10,7 @@
 </script>
 
 <div>
-  <Button clear on:click={() => dispatch("defense", armor)}>
+  <Button on:click={() => dispatch("defense", armor)}>
     <h2 class="character-sheet-field-label">Defense</h2>
   </Button>
   <p class="armor">
@@ -19,7 +19,6 @@
       &nbsp;and {shield.name}<!--
     -->{/if})
     <Button
-      clear
       on:click={() =>
         dispatch("resist", { tier: armor.tier.current, shield: !!shield })}
     >

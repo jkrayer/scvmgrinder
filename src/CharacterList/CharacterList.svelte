@@ -4,6 +4,7 @@
   import ListItem from "./ListItem.svelte";
   import CreateCharacterForm from "../CharacterCreationFrom/CreateCharacterForm.svelte";
   import { update } from "../CharacterSheet/store";
+  import Button from "../components/Button.svelte";
 
   export let characters: CharacterType[];
 
@@ -17,14 +18,14 @@
 
 <ul id="character-list" class="list-clear flex">
   <ListItem name="Name" klass="class">
-    <button type="button" on:click={newCharacter} class="">Add</button>
+    <Button buttonColor="yellow" on:click={newCharacter}>Add</Button>
   </ListItem>
   {#each characters as character}
     <ListItem name={character.name} klass={character.class.name}>
-      <button type="button" class="" on:click={handleDelete(character)}
-        >Delete</button
+      <Button buttonColor="magenta" on:click={handleDelete(character)}
+        >Delete</Button
       >
-      <button type="button" class="" on:click={play(character)}>Play</button>
+      <Button buttonColor="yellow" on:click={play(character)}>Play</Button>
     </ListItem>
   {/each}
 </ul>

@@ -1,6 +1,7 @@
 <script type="ts">
   import { createEventDispatcher } from "svelte";
   import type { Weapon } from "./type";
+  import Button from "../components/Button.svelte";
 
   export let weapons: Weapon[] = [];
 
@@ -18,22 +19,22 @@
     <span class="weapon-type">
       ({weapon.subType})
     </span>
-    <button
+    <Button
+      buttonColor="magenta"
       title={weapon.damageDie}
-      type="button"
       disabled={weapon.broken}
       on:click={() => dispatch("damage", weapon)}
     >
       Damage!
-    </button>
-    <button
+    </Button>
+    <Button
+      buttonColor="yellow"
       title="d20+/-n"
-      type="button"
       disabled={weapon.broken}
       on:click={() => dispatch("attack", weapon)}
     >
       Attack!
-    </button>
+    </Button>
   </div>
 {/each}
 

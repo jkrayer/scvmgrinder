@@ -13,11 +13,9 @@
   const open = () => openModal(StatusBubble, { status, onClose: cancel });
 </script>
 
-<Button clear on:click={open}>
+<Button on:click={open}>
   {status.name}
 </Button><!-- -->{#if status.canCancel}<Button
-    clear
-    hover={false}
     title="Dismiss"
     on:click={cancel}
   >

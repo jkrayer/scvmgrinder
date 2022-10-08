@@ -132,9 +132,9 @@
   {/if}
 
   <div class="save">
-    <Button magenta data-fn="save">Save</Button>
+    <Button buttonColor="magenta" data-fn="save">Save</Button>
     {#if onSaveAndClose}
-      <Button yellow data-fn="close">Save & Close</Button>
+      <Button buttonColor="yellow" data-fn="close">Save & Close</Button>
     {/if}
   </div>
 </form>

@@ -2,15 +2,11 @@
   export let type: "button" | "submit" | "reset" = "button";
   export let title: string = "";
   export let disabled: boolean = false;
-  export let clear: boolean = false;
-  export let hover: boolean = true;
-  export let magenta: boolean = false;
-  export let yellow: boolean = false;
+  export let buttonColor: "clear" | "magenta" | "yellow" = "clear";
 
   const hasIcon: string = !!$$slots.iconRight ? "icon" : "";
-  const clearButton: string = clear ? "button" : "";
 
-  const classes: string = `${clearButton} ${hasIcon}`;
+  const classes: string = `button ${buttonColor} ${hasIcon}`;
 </script>
 
 <!-- TODO:
@@ -24,9 +20,6 @@
   aria-disabled={disabled}
   on:click
   class={classes}
-  class:hover
-  class:magenta
-  class:yellow
 >
   <slot />
   {#if $$slots.iconRight}
@@ -48,13 +41,7 @@
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
   }
 
-  .hover:hover {
-    color: var(--black);
-    background-color: yellow;
-  }
-
-  .button:disabled,
-  .hover:hover:disabled {
+  .button:disabled {
     opacity: 1;
     cursor: initial;
     color: inherit;
@@ -68,6 +55,10 @@
 
   .icon-right {
     margin-left: var(--small-padding);
+  }
+
+  .clear {
+    background-color: transparent;
   }
 
   .magenta,

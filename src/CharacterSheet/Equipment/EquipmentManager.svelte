@@ -65,7 +65,6 @@
           {#if isCountable(eq)}
             <td>
               <Button
-                clear
                 on:click={incrementEq(1, eq)}
                 disabled={quantity.current === quantity.maximum}
                 title="Add"
@@ -73,7 +72,6 @@
                 <Plus />
               </Button>
               <Button
-                clear
                 on:click={incrementEq(-1, eq)}
                 disabled={quantity.current === 0}
                 title="Subtract"
@@ -85,14 +83,13 @@
             <td />
           {/if}
           <td>
-            <Button clear on:click={dropEquipment(eq)} title="Drop"
+            <Button on:click={dropEquipment(eq)} title="Drop"
               ><Trash size={20} /></Button
             >
           </td>
           <td>
             {#if isEquippable(eq)}
               <Button
-                clear
                 on:click={toggleEquipment(eq)}
                 title={isEquipped(eq) ? "Equipped" : "Carried"}
               >
@@ -115,7 +112,9 @@
             on:setSilver={updateSilver}
           /></td
         >
-        <td colspan="3"><Button magenta on:click={show}>+ Equipment</Button></td
+        <td colspan="3"
+          ><Button buttonColor="magenta" on:click={show}>+ Equipment</Button
+          ></td
         >
       </tr>
     </tfoot>

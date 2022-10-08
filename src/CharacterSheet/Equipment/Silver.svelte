@@ -39,8 +39,8 @@
     {#if focused}
       <span transition:fade>
         = {total}
-        <Button type="submit" clear><Check /></Button>
-        <Button type="reset" clear><CircleBackslash /></Button>
+        <Button type="submit"><Check /></Button>
+        <Button type="reset"><CircleBackslash /></Button>
       </span>
     {/if}
   </label>

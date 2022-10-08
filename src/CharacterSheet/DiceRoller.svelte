@@ -51,37 +51,37 @@
   <!--  position="center" spacing="xs" -->
   <div>
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d2"}
       on:click={handleClick("1d2")}>1d2</Button
     >
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d4"}
       on:click={handleClick("1d4")}>1d4</Button
     >
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d6"}
       on:click={handleClick("1d6")}>1d6</Button
     >
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d8"}
       on:click={handleClick("1d8")}>1d8</Button
     >
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d10"}
       on:click={handleClick("1d10")}>1d10</Button
     >
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d12"}
       on:click={handleClick("1d12")}>1d12</Button
     >
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d20"}
       on:click={handleClick("1d20")}>1d20</Button
     >
@@ -92,9 +92,13 @@
       {diceString}
     {/if}
     <!-- variant={symbol === "+" ? "filled" : "outline"} -->
-    <Button type="button" on:click={() => (symbol = "+")}><Plus /></Button>
+    <Button buttonColor="yellow" on:click={() => (symbol = "+")}
+      ><Plus /></Button
+    >
     <!-- variant={symbol === "-" ? "filled" : "outline"} -->
-    <Button type="button" on:click={() => (symbol = "-")}><Minus /></Button>
+    <Button buttonColor="yellow" on:click={() => (symbol = "-")}
+      ><Minus /></Button
+    >
     <!-- override={{ width: "75px" }} -->
     <InputNumber label="LABEL!" bind:value={modifier} min={0} />
     <Button disabled={die === ""}>Roll!</Button>

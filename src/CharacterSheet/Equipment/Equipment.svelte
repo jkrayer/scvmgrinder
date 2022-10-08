@@ -23,7 +23,7 @@
 
 <div class="grid grid-limit">
   <div class="flex-center-row">
-    <Button clear on:click={show}>
+    <Button on:click={show}>
       <h2 class="character-sheet-field-label">Equipment</h2>
       <Pencil1 size={16} slot="iconRight" />
     </Button>

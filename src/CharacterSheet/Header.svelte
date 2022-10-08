@@ -29,26 +29,25 @@
 <header class="character-sheet-header">
   <div class="grid grid-limit">
     <div>
-      <Button on:click={show("description")} clear>
+      <Button on:click={show("description")}>
         <span class="title">Name</span>
         {$CharacterStore.name}
       </Button>
     </div>
     <div>
-      <Button clear on:click={show("classDescription")}>
+      <Button on:click={show("classDescription")}>
         <span class="title">Class</span>
         {$CharacterStore.class.name}
       </Button>
     </div>
     <div>
-      <Button clear on:click={show("hitpoints")}>
+      <Button on:click={show("hitpoints")}>
         <span class="title">HP</span>
         {$CharacterStore.hitpoints.current}/{$CharacterStore.hitpoints.maximum}
       </Button>
     </div>
     <div>
       <Button
-        clear
         on:click={show("omens")}
         disabled={$CharacterStore.omens.current === 0}
       >
