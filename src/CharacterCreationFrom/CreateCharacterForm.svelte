@@ -1,6 +1,5 @@
 <script type="ts">
   import { closeModal } from "svelte-modals";
-  // somesortofdbsavecharacter, and an update
   import { addCharacter } from "../lib/db";
   import Modal from "../components/Modal.svelte";
   import Input from "../components/Form/Input.svelte";
@@ -11,7 +10,6 @@
   import AddEquipmentForm from "../Equipment/AddEquipmentForm.svelte";
   import EquipmentList from "../Equipment/EquipmentList.svelte";
   import { rollD2, rollD4 } from "../lib/dice";
-  import equipment from "../data/equipment";
 
   export let NewCharacter: Partial<CharacterType> = {
     name: "",
