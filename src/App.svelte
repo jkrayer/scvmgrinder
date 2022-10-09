@@ -3,6 +3,7 @@
   import { Modals, closeModal } from "svelte-modals";
   import Home from "./Pages/Home.svelte";
   import MorkBorg from "./Pages/MorkBorg.svelte";
+  import ControlBar from "./components/ControlBar.svelte";
 
   let url = "";
 </script>
@@ -14,8 +15,9 @@
     <p class="tiny-fixed space-tiny">A digital character sheet for MÖRK BORG</p>
   </header>
   <Router {url}>
+    <ControlBar />
     <Route path="/morkborg/:characterid" component={MorkBorg} />
-    <Route path="/" component={Home} />
+    <Route path="" component={Home} />
   </Router>
   <Modals>
     <div slot="backdrop" class="backdrop" on:click={closeModal} />

@@ -2,7 +2,6 @@
   import { getCharacter } from "../lib/db";
   import { update } from "../CharacterSheet/store";
   import CharacterSheet from "../CharacterSheet/CharacterSheet.svelte";
-  import ControlBar from "../components/ControlBar.svelte";
   import Messages from "../Messages/Messages.svelte";
 
   export let characterid;
@@ -17,5 +16,4 @@
 {:then character}
   <CharacterSheet />
 {/await}
-<ControlBar />
 <Messages />

@@ -26,6 +26,7 @@
       <Button buttonColor="magenta" on:click={handleDelete(character)}
         >Delete</Button
       >
+      <!-- TODO: Do the button todo and then use link(s) from router -->
       <Button buttonColor="yellow" on:click={play(`/morkborg/${character._id}`)}
         >Play</Button
       >

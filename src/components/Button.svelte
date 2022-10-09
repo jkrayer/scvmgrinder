@@ -4,9 +4,10 @@
   export let disabled: boolean = false;
   export let buttonColor: "clear" | "magenta" | "yellow" = "clear";
 
-  const hasIcon: string = !!$$slots.iconRight ? "icon" : "";
+  const iconClass: string =
+    !!$$slots.iconRight || !!$$slots.iconLeft ? "icon" : "";
 
-  const classes: string = `button ${buttonColor} ${hasIcon}`;
+  const classes: string = `button ${buttonColor} ${iconClass}`;
 </script>
 
 <!-- TODO:
@@ -21,7 +22,14 @@
   on:click
   class={classes}
 >
-  <slot />
+  {#if $$slots.iconLeft}
+    <span class="icon-left">
+      <slot name="iconLeft" />
+    </span>
+  {/if}
+  <span class="copy">
+    <slot />
+  </span>
   {#if $$slots.iconRight}
     <span class="icon-right">
       <slot name="iconRight" />
@@ -42,7 +50,7 @@
   }
 
   .button:disabled {
-    opacity: 1;
+    opacity: 0.5;
     cursor: initial;
     color: inherit;
     background-color: transparent;
@@ -50,11 +58,17 @@
 
   .icon {
     display: flex;
-    align-items: center;
+  }
+
+  .icon > .copy {
+    font-size: 0.875rem;
   }
 
   .icon-right {
     margin-left: var(--small-padding);
+  }
+  .icon-left {
+    margin-right: var(--small-padding);
   }
 
   .clear {

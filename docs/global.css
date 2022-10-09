@@ -98,6 +98,8 @@ input:disabled {
 
 /* 5. Layout */
 #app {
+  width: calc(100vw - 2rem);
+  margin-left: 2rem;
   color: var(--white);
   background-color: var(--darkBlack);
 }
