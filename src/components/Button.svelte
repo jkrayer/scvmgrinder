@@ -21,6 +21,7 @@
   aria-disabled={disabled}
   on:click
   class={classes}
+  {...$$props}
 >
   {#if $$slots.iconLeft}
     <span class="icon-left">
