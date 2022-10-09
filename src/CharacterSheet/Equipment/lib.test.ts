@@ -1,65 +1,10 @@
-import {
-  parens,
-  insertQuantity,
-  formatListDescription,
-  formatManagertDescription,
-} from "./lib";
-import type { Equipment } from "../type";
-
-describe("parens", () => {
-  test("it should add parens when the first character is not '(", () => {
-    expect(parens("some string")).toBe("(some string)");
-    expect(parens("(some string")).toBe("(some string");
-  });
-
-  test("it should not add parens when the first character is 'undefined'", () => {
-    expect(parens("")).toBe("");
-  });
-});
-
-describe("insertQuantity", () => {
-  test("it should add quantity to the '%' character", () => {
-    expect(
-      insertQuantity({
-        description: "quantity is %",
-        quantity: { maximum: 4, current: 1 },
-      } as Equipment)
-    ).toBe("quantity is 1");
-  });
-
-  test("it should not add quantity if the '%' character is not in the description", () => {
-    expect(
-      insertQuantity({
-        description: "quantity is",
-        quantity: { maximum: 4, current: 1 },
-      } as Equipment)
-    ).toBe("quantity is");
-  });
-
-  test("it should not add quantity if quantity is not in the equipment", () => {
-    expect(
-      insertQuantity({
-        description: "quantity is %",
-      } as Equipment)
-    ).toBe("quantity is %");
-  });
-});
-
-describe("formatListDescription", () => {
-  test("it should be a composition of insertQuantity and parens", () => {
-    expect(
-      formatListDescription({
-        description: "quantity is %",
-        quantity: { maximum: 4, current: 1 },
-      } as Equipment)
-    ).toBe("(quantity is 1)");
-  });
-});
+import { formatManagertDescription } from "./lib";
 
 describe("formatManagertDescription", () => {
   test("case:food it should be a composition of insertQuantity", () => {
     expect(
       formatManagertDescription({
+        _id: "Waterskin_1818181",
         type: "food",
         name: "Waterskin",
         description: "and % day's worth of food",
@@ -74,6 +19,7 @@ describe("formatManagertDescription", () => {
   test("case:ranged weapon it should add number of ammo ", () => {
     expect(
       formatManagertDescription({
+        _id: "Bow_837373",
         type: "weapon",
         name: "Bow",
         description: "and % arrows 1d6 damage",
@@ -93,6 +39,7 @@ describe("formatManagertDescription", () => {
   test("case:countable should be a min/max string", () => {
     expect(
       formatManagertDescription({
+        _id: "Arrow_2837363",
         type: "ammunition",
         subType: "arrow",
         name: "Arrow",

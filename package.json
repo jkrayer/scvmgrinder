@@ -1,6 +1,6 @@
 {
   "name": "svelte-app",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "private": true,
   "scripts": {
     "build": "rollup -c",
@@ -9,7 +9,7 @@
     "format": "prettier --write \"./**\"",
     "precommit": "npm test",
     "prepare": "husky install",
-    "start": "sirv docs --no-clear",
+    "start": "sirv docs --no-clear --port 53429 -s",
     "test": "jest --passWithNoTests"
   },
   "devDependencies": {
@@ -37,11 +37,11 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
-    "@svelteuidev/composables": "^0.7.0",
-    "@svelteuidev/core": "^0.7.0",
+    "dexie": "^3.2.2",
     "radix-icons-svelte": "^1.2.1",
     "ramda": "~0.28.0",
     "sirv-cli": "~2.0.0",
-    "svelte-modals": "^1.2.0"
+    "svelte-modals": "^1.2.0",
+    "svelte-routing": "^1.6.0"
   }
 }

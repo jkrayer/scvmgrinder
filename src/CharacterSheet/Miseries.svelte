@@ -4,7 +4,7 @@
   $: firstFalse = miseries.indexOf(false);
 </script>
 
-<div class="character-sheet-field">
+<div>
   <h2 class="character-sheet-field-label">Miseries:</h2>
   {#each miseries as misery, index}
     <input

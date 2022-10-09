@@ -4,6 +4,7 @@
   import HitPoints from "./HitPoints.svelte";
   import Omens from "./Omens.svelte";
   import Description from "./Description.svelte";
+  import Button from "../components/Button.svelte";
 
   type ModalKeys = "description" | "classDescription" | "hitpoints" | "omens";
 
@@ -28,33 +29,31 @@
 <header class="character-sheet-header">
   <div class="grid grid-limit">
     <div>
-      <button type="button" class="button" on:click={show("description")}>
+      <Button on:click={show("description")}>
         <span class="title">Name</span>
         {$CharacterStore.name}
-      </button>
+      </Button>
     </div>
     <div>
-      <button type="button" class="button" on:click={show("classDescription")}>
+      <Button on:click={show("classDescription")}>
         <span class="title">Class</span>
         {$CharacterStore.class.name}
-      </button>
+      </Button>
     </div>
     <div>
-      <button type="button" class="button" on:click={show("hitpoints")}>
+      <Button on:click={show("hitpoints")}>
         <span class="title">HP</span>
         {$CharacterStore.hitpoints.current}/{$CharacterStore.hitpoints.maximum}
-      </button>
+      </Button>
     </div>
     <div>
-      <button
-        type="button"
-        class="button"
+      <Button
         on:click={show("omens")}
         disabled={$CharacterStore.omens.current === 0}
       >
         <span class="title">Omens</span>
         {$CharacterStore.omens.current}/{$CharacterStore.omens.maximum}
-      </button>
+      </Button>
     </div>
   </div>
 </header>

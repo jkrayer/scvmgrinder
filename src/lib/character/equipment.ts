@@ -19,7 +19,8 @@ import {
   reduce,
   view,
 } from "ramda";
-import { filterByName, replaceByName } from "./common";
+import { filterById, replaceById } from "./common";
+import { NO_ARMOR } from "../game_constants";
 
 const EQUIPMENT_KEY = "equipment";
 const CURRENT_QUANTITY = ["quantity", "current"];
@@ -57,14 +58,14 @@ export const addEquipment =
     over(eqLens, concat(__, [eq]), character);
 
 export const dropEquipment =
-  ({ name }: Equipment) =>
+  ({ _id }: Equipment) =>
   (character: CharacterType): CharacterType =>
-    over(eqLens, filterByName<Equipment>(name), character);
+    over(eqLens, filterById<Equipment>(_id), character);
 
 const updateEquipment =
   (eq: Equipment) =>
   (character: CharacterType): CharacterType =>
-    over(eqLens, replaceByName<Equipment>(eq), character);
+    over(eqLens, replaceById<Equipment>(eq), character);
 
 // ARMOR
 const isArmor = propEq<string>("type", "armor");
@@ -93,7 +94,10 @@ const equippedArmor = reduce<Equipment, ArmorAndShield>(
 
     return acc;
   },
-  { armor: null, shield: null } as ArmorAndShield
+  {
+    armor: NO_ARMOR,
+    shield: null,
+  } as ArmorAndShield
 );
 
 const breakArmor = (a: Armor): Armor => {

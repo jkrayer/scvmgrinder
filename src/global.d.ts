@@ -24,6 +24,7 @@ type Effect = {
 // EQUIPMENT TYPES
 
 type CommonEquipmentProps = {
+  _id: number | string;
   name: string;
   description: string;
   equipped?: boolean;
@@ -115,8 +116,8 @@ type CurrentMax = {
 };
 
 type CharacterType = {
-  _id: string;
-  campaignId: string;
+  _id?: number;
+  campaignId?: string;
   name: string;
   silver: number;
   abilities: AbilityScores;

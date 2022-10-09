@@ -2,25 +2,21 @@
   import CharacterStore, { POWERS as Powers } from "./store";
   import { POWERS } from "../lib/game_constants";
   import { powers } from "../lib/character/powers";
+  import Button from "../components/Button.svelte";
 
   // Handlers
   const handleClick = () => powers($CharacterStore);
 </script>
 
 <div class="powers-wrapper flex-center-row">
-  <button
-    type="button"
-    class="button button-header"
-    on:click={handleClick}
-    disabled={$Powers.message !== null}
-  >
+  <Button on:click={handleClick} disabled={$Powers.message !== null}>
     <h2 class="powers-title character-sheet-field-label">
       Powers
       {#if $Powers.powers !== null}
         <span class="powers-count">&nbsp;&nbsp;({$Powers.powers})</span>
       {/if}
     </h2>
-  </button>
+  </Button>
   <p class="note">
     {#if $Powers.message !== null}
       {$Powers.message}

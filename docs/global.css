@@ -12,7 +12,7 @@
  * 6. Lists
  * 7. Typography
  * 8. Character Sheet
- * 9. Buttons
+ * 9. Buttons (see Button.svelte)
  * 10. Tracker (deprecated?)
  * 11. Monster Sheet (deprecated?)
  /
@@ -98,6 +98,8 @@ input:disabled {
 
 /* 5. Layout */
 #app {
+  width: calc(100vw - 2rem);
+  margin-left: 2rem;
   color: var(--white);
   background-color: var(--darkBlack);
 }
@@ -147,6 +149,12 @@ input:disabled {
 .flex-center {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.flex-center-right {
+  display: flex;
+  align-items: flex-end;
   justify-content: center;
 }
 
@@ -218,82 +226,6 @@ input:disabled {
 .character-sheet-copy {
   margin: 0.5em;
   font: 400 0.875rem/1.5 var(--fixed);
-}
-
-/* 9. Buttons */
-/* TO DO: Powers Button */
-/* button {
-  color: #333;
-  background-color: #f4f4f4;
-  outline: none;
-}
-
-button:disabled {
-  color: #999;
-}
-
-button:not(:disabled):active {
-  background-color: #ddd;
-}
-
-button:focus {
-  border-color: #666;
-} */
-
-.button,
-.button:active {
-  padding: 0;
-  border: none;
-  margin: 0;
-  color: inherit;
-  background-color: transparent;
-  cursor: pointer;
-  appearance: none;
-}
-
-.button:disabled {
-  opacity: 0.5;
-  cursor: none;
-}
-
-.btn-magenta,
-.btn-yellow {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: var(--small-padding);
-  border: none;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 0.875rem;
-  line-height: 1;
-}
-
-.btn-magenta {
-  color: #fff;
-  background-color: magenta;
-}
-
-.button-header,
-.button-header:active {
-  padding: var(--tiny-padding) 0.125rem;
-  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-}
-
-.button-header:disabled {
-  opacity: 1;
-  cursor: initial;
-}
-
-.button-header:hover,
-.btn-yellow {
-  color: var(--black);
-  background-color: yellow;
-}
-
-.button-header:disabled:hover {
-  color: #fff;
-  background-color: transparent;
 }
 
 /* 10. Tracker */

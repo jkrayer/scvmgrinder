@@ -1,10 +1,11 @@
 <script type="ts">
   import { sum } from "ramda";
-  import { Button, Group, NumberInput } from "@svelteuidev/core";
   import { Minus, Plus } from "radix-icons-svelte";
   import { addMessage } from "../Messages/state/MessageStore";
   import { diceMessage } from "../Messages/lib";
   import { DICE_MAP } from "../lib/dice";
+  import Button from "../components/Button.svelte";
+  import InputNumber from "../components/Form/InputNumber.svelte";
 
   export let name: string = "";
 
@@ -47,58 +48,59 @@
 </script>
 
 <form on:submit|preventDefault={handleSubmit}>
-  <Group position="center" spacing="xs">
+  <!--  position="center" spacing="xs" -->
+  <div>
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d2"}
       on:click={handleClick("1d2")}>1d2</Button
     >
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d4"}
       on:click={handleClick("1d4")}>1d4</Button
     >
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d6"}
       on:click={handleClick("1d6")}>1d6</Button
     >
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d8"}
       on:click={handleClick("1d8")}>1d8</Button
     >
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d10"}
       on:click={handleClick("1d10")}>1d10</Button
     >
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d12"}
       on:click={handleClick("1d12")}>1d12</Button
     >
     <Button
-      type="button"
+      buttonColor="yellow"
       disabled={!!die && die !== "1d20"}
       on:click={handleClick("1d20")}>1d20</Button
     >
-  </Group>
-  <Group position="center" spacing="xs">
+  </div>
+  <!-- position="center" spacing="xs" -->
+  <div>
     {#if !!die}
       {diceString}
     {/if}
-    <Button
-      type="button"
-      on:click={() => (symbol = "+")}
-      variant={symbol === "+" ? "filled" : "outline"}><Plus /></Button
+    <!-- variant={symbol === "+" ? "filled" : "outline"} -->
+    <Button buttonColor="yellow" on:click={() => (symbol = "+")}
+      ><Plus /></Button
     >
-    <Button
-      type="button"
-      on:click={() => (symbol = "-")}
-      variant={symbol === "-" ? "filled" : "outline"}><Minus /></Button
+    <!-- variant={symbol === "-" ? "filled" : "outline"} -->
+    <Button buttonColor="yellow" on:click={() => (symbol = "-")}
+      ><Minus /></Button
     >
-    <NumberInput bind:value={modifier} min={0} override={{ width: "75px" }} />
+    <!-- override={{ width: "75px" }} -->
+    <InputNumber label="LABEL!" bind:value={modifier} min={0} />
     <Button disabled={die === ""}>Roll!</Button>
-  </Group>
+  </div>
 </form>

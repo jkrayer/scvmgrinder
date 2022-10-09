@@ -1,4 +1,4 @@
-import type { ValueObject } from "../../components/Form/types";
+import type { ValueObject } from "../components/Form/types";
 
 export const EQUIPMENT_TYPES: ValueObject[] = [
   {
@@ -31,7 +31,7 @@ export const EQUIPMENT_TYPES: ValueObject[] = [
   },
   {
     label: "Potion",
-    value: "Potion",
+    value: "potion",
   },
 ];
 
@@ -59,8 +59,8 @@ export const WEAPON_TYPES: ValueObject[] = [
 
 export const SCROLL_TYPES: ValueObject[] = [
   {
-    label: "Clean",
-    value: "clean",
+    label: "Sacred",
+    value: "sacred",
   },
   {
     label: "Unclean",

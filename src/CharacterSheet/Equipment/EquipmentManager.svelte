@@ -15,14 +15,18 @@
   import type { Equipment } from "../type";
   import Modal from "../../components/Modal.svelte";
   import { dropEquipmentWithEncumbrance } from "../../lib/character";
+  import Button from "../../components/Button.svelte";
 
   // HANDLERS
+  // @ts-ignore
   const toggleEquipment = (eq: Equipment) => () => update(equipmentToggle(eq));
 
   const dropEquipment = (eq: Equipment) => () =>
+    // @ts-ignore
     update(dropEquipmentWithEncumbrance(eq));
 
   const incrementEq = (x: number, equip: Equipment) => () =>
+    // @ts-ignore
     update(equipmentQuantity(equip, x));
 
   const updateSilver = ({ detail }: CustomEvent<number>): void =>
@@ -60,41 +64,32 @@
           </td>
           {#if isCountable(eq)}
             <td>
-              <button
-                type="button"
-                class="button"
+              <Button
                 on:click={incrementEq(1, eq)}
                 disabled={quantity.current === quantity.maximum}
                 title="Add"
               >
                 <Plus />
-              </button>
-              <button
-                type="button"
-                class="button"
+              </Button>
+              <Button
                 on:click={incrementEq(-1, eq)}
                 disabled={quantity.current === 0}
                 title="Subtract"
               >
                 <Minus />
-              </button>
+              </Button>
             </td>
           {:else}
             <td />
           {/if}
           <td>
-            <button
-              type="button"
-              class="button"
-              on:click={dropEquipment(eq)}
-              title="Drop"><Trash size={20} /></button
+            <Button on:click={dropEquipment(eq)} title="Drop"
+              ><Trash size={20} /></Button
             >
           </td>
           <td>
             {#if isEquippable(eq)}
-              <button
-                type="button"
-                class="button"
+              <Button
                 on:click={toggleEquipment(eq)}
                 title={isEquipped(eq) ? "Equipped" : "Carried"}
               >
@@ -103,7 +98,7 @@
                 {:else}
                   <Circle />
                 {/if}
-              </button>
+              </Button>
             {/if}
           </td>
         </tr>
@@ -118,8 +113,7 @@
           /></td
         >
         <td colspan="3"
-          ><button type="button" class="btn-magenta" on:click={show}
-            >+ Equipment</button
+          ><Button buttonColor="magenta" on:click={show}>+ Equipment</Button
           ></td
         >
       </tr>

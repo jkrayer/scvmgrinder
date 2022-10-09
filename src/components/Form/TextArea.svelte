@@ -8,7 +8,7 @@
 <label class="input-wrapper">
   <span class="input-label">{label}</span>
 
-  <input type="text" class="input" bind:value bind:this={ref} {disabled} />
+  <textarea class="input" bind:value bind:this={ref} {disabled} />
 </label>
 
 <style>
@@ -24,7 +24,6 @@
     text-indent: var(--tiny-padding);
   }
   .input {
-    margin-bottom: 0;
     width: 100%;
     border-radius: var(--tiny-padding);
     font-size: 0.875rem;
