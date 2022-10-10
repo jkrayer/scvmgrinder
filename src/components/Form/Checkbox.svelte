@@ -8,7 +8,13 @@
 <label class="input-wrapper">
   <span class="input-label">{label}</span>
 
-  <input type="checkbox" class="input" bind:value bind:this={ref} {disabled} />
+  <input
+    type="checkbox"
+    class="input"
+    bind:checked={value}
+    bind:this={ref}
+    {disabled}
+  />
 </label>
 
 <style>
