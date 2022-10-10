@@ -2,6 +2,7 @@
   import { navigate } from "svelte-routing";
   import { openModal } from "svelte-modals";
   import { deleteCharacter } from "../lib/db";
+  import { deleteCharacter as delC } from "../Stores/CharactersStore";
   import ListItem from "./ListItem.svelte";
   import Button from "../components/Button.svelte";
   import CreateCharacterForm from "../CharacterCreationFrom/CreateCharacterForm.svelte";
@@ -12,7 +13,9 @@
   const play = (path: string) => () => navigate(path);
 
   const handleDelete = (character: CharacterType) => () =>
-    confirm(`Delete ${character.name}`) ? deleteCharacter(character) : null;
+    confirm(`Delete ${character.name}`)
+      ? deleteCharacter(character).then(delC)
+      : null;
 
   const newCharacter = () => openModal(CreateCharacterForm, {});
 </script>

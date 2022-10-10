@@ -1,12 +1,17 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { isEmpty } from "ramda";
+  import CharactersStore, { addCharacters } from "../Stores/CharactersStore";
   import { getCharacters } from "../lib/db";
   import CharacterList from "../CharacterList/CharacterList.svelte";
 
-  let charactersPromise = getCharacters();
+  onMount(() => {
+    getCharacters().then((characters) => addCharacters(characters));
+  });
 </script>
 
-{#await charactersPromise}
+{#if isEmpty($CharactersStore)}
   <h1>Loading...</h1>
-{:then characters}
-  <CharacterList {characters} />
-{/await}
+{:else}
+  <CharacterList characters={$CharactersStore} />
+{/if}

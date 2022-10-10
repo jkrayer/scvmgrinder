@@ -1,6 +1,7 @@
 <script type="ts">
   import { closeModal } from "svelte-modals";
   import { addCharacter } from "../lib/db";
+  import { addCharacters } from "../Stores/CharactersStore";
   import Modal from "../components/Modal.svelte";
   import Input from "../components/Form/Input.svelte";
   import TextArea from "../components/Form/TextArea.svelte";
@@ -10,6 +11,7 @@
   import AddEquipmentForm from "../Equipment/AddEquipmentForm.svelte";
   import EquipmentList from "../Equipment/EquipmentList.svelte";
   import { rollD2, rollD4 } from "../lib/dice";
+  import Button from "../components/Button.svelte";
 
   export let NewCharacter: Partial<CharacterType> = {
     name: "",
@@ -46,8 +48,10 @@
       status: {},
     } as CharacterType;
 
-    addCharacter(char);
-    closeModal();
+    addCharacter(char).then((character: CharacterType) => {
+      addCharacters([character]);
+      closeModal();
+    });
   };
 
   const handleAddEquipment = (eq: Equipment) => {
@@ -99,6 +103,6 @@
     <InputNumber label="Silver" bind:value={NewCharacter.silver} min={0} />
     <AddEquipmentForm onSave={handleAddEquipment} />
     <EquipmentList equipment={NewCharacter.equipment} />
-    <button type="submit">Save Character</button>
+    <Button type="submit" buttonColor="yellow">Save Character</Button>
   </form>
 </Modal>
