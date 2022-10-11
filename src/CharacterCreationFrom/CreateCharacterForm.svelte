@@ -1,5 +1,6 @@
 <script type="ts">
   import { closeModal } from "svelte-modals";
+  import { toPairs, map } from "ramda";
   import { addCharacter } from "../lib/db";
   import { addCharacters } from "../Stores/CharactersStore";
   import Modal from "../components/Modal.svelte";
@@ -7,11 +8,12 @@
   import TextArea from "../components/Form/TextArea.svelte";
   import Checkbox from "../components/Form/Checkbox.svelte";
   import InputNumber from "../components/Form/InputNumber.svelte";
-  import Fieldset from "../components/Form/Fieldset.svelte";
   import AddEquipmentForm from "../Equipment/AddEquipmentForm.svelte";
   import EquipmentList from "../Equipment/EquipmentList.svelte";
   import { rollD2, rollD4 } from "../lib/dice";
   import Button from "../components/Button.svelte";
+  import ScoreRoller from "../components/ScoreRoller.svelte";
+  import { getScore } from "../lib/character/scores";
 
   export let NewCharacter: Partial<CharacterType> = {
     name: "",
@@ -57,6 +59,15 @@
   const handleAddEquipment = (eq: Equipment) => {
     NewCharacter.equipment = [eq, ...NewCharacter.equipment];
   };
+
+  const handlScores = ({ detail }: CustomEvent<ScoreObject>) => {
+    const keys = ["Agility", "Presence", "Strength", "Toughness"];
+
+    keys.forEach((key) => {
+      const k = key.toLowerCase();
+      NewCharacter.abilities[k] = detail[key].modifier;
+    });
+  };
 </script>
 
 <Modal>
@@ -74,32 +85,17 @@
       <InputNumber label="Omens" bind:value={omens} min={2} max={4} step={2} />
     </div>
     <InputNumber label="Hit Points" bind:value={hp} />
-    <Fieldset legend="Ability Scores">
-      <InputNumber
-        label="Strength"
-        bind:value={NewCharacter.abilities.strength}
-        min={-3}
-        max={3}
-      />
-      <InputNumber
-        label="Agility"
-        bind:value={NewCharacter.abilities.agility}
-        min={-3}
-        max={3}
-      />
-      <InputNumber
-        label="Presence"
-        bind:value={NewCharacter.abilities.presence}
-        min={-3}
-        max={3}
-      />
-      <InputNumber
-        label="Toughness"
-        bind:value={NewCharacter.abilities.toughness}
-        min={-3}
-        max={3}
-      />
-    </Fieldset>
+    <ScoreRoller
+      scores={[
+        { name: "Strength", rollFormula: "3d6" },
+        { name: "Agility", rollFormula: "3d6" },
+        { name: "Presence", rollFormula: "3d6" },
+        { name: "Toughness", rollFormula: "3d6" },
+      ]}
+      getModifier={getScore}
+      on:score:update={handlScores}
+    />
+    />
     <InputNumber label="Silver" bind:value={NewCharacter.silver} min={0} />
     <AddEquipmentForm onSave={handleAddEquipment} />
     <EquipmentList equipment={NewCharacter.equipment} />

@@ -27,6 +27,7 @@
     {readonly}
     tabindex={readonly ? -1 : 0}
     on:input={(e) => dispatch("input", e)}
+    on:blur={(e) => dispatch("blur", e)}
   />
 </label>
 

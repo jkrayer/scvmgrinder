@@ -20,7 +20,16 @@ const trace =
 
 export const roll = (d: number): number => Math.floor(Math.random() * d) + 1;
 
-export const rollFormula = ([number, , die, operation, modifier]) => {
+type RollMath = "+" | "-" | "x";
+type ROLLFORMULA = [number, "d", number, RollMath, number];
+
+export const rollFormula = ([
+  number,
+  ,
+  die,
+  operation,
+  modifier,
+]: ROLLFORMULA): number => {
   let r = 0;
 
   for (let i = 0; i < number; i++) {
@@ -48,33 +57,23 @@ export const toInt = (str: string): number => parseInt(str, 10);
 
 const toInboundsIndex = (num: number): number => (num === -1 ? Infinity : num);
 
-type PlusOrMinus = "+" | "-";
-type Roll = [number, "d", number];
-type RollWithMod = [number, "d", number, PlusOrMinus, number];
-
-const parseRollString = (rs: string): Roll | RollWithMod => {
+// pretty easy to cache
+export const parseRollString = (rs: string): ROLLFORMULA => {
   const dieIndex = rs.indexOf("d");
-  let modIndex = toInboundsIndex(rs.search(/[-x\+]/));
-  let modNext = modIndex + 1;
+  const modIndex = toInboundsIndex(rs.search(/[-x\+]/));
 
-  const roll: Roll = [
+  return [
     toInt(rs.slice(0, dieIndex)),
     "d",
     toInt(rs.slice(dieIndex + 1, modIndex)),
+    modIndex === Infinity ? "+" : (rs.charAt(modIndex) as RollMath),
+    modIndex === Infinity ? 0 : toInt(rs.slice(modIndex + 1)),
   ];
-
-  return modIndex === Infinity
-    ? roll
-    : ([
-        ...roll,
-        rs.slice(modIndex, modNext),
-        toInt(rs.slice(modNext)),
-      ] as RollWithMod);
 };
 
-// export const rollString = compose(rollFormula, parseRollString) as (
-//   arg1: string
-// ) => number;
+export const rollString = compose(rollFormula, parseRollString) as (
+  arg1: string
+) => number;
 
 const getEq = propOr([], "equipment") as (arg1: CharacterType) => Equipment[];
 

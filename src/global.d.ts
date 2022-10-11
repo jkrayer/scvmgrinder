@@ -154,3 +154,8 @@ type Message = {
   characterId: string; // sender
   message: MessageBody;
 };
+
+//
+type ScoreObject = {
+  [key: string]: { score: number; modifier: number };
+};

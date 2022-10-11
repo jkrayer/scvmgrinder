@@ -3,6 +3,7 @@
   export let title: string = "";
   export let disabled: boolean = false;
   export let buttonColor: "clear" | "magenta" | "yellow" = "clear";
+  export let stretch: boolean = false;
 
   const iconClass: string =
     !!$$slots.iconRight || !!$$slots.iconLeft ? "icon" : "";
@@ -21,6 +22,7 @@
   aria-disabled={disabled}
   on:click
   class={classes}
+  class:stretch
   {...$$props}
 >
   {#if $$slots.iconLeft}
@@ -104,5 +106,9 @@
 
   .yellow:hover {
     background-color: gold;
+  }
+
+  .stretch {
+    width: 100%;
   }
 </style>
