@@ -116,7 +116,7 @@ type CurrentMax = {
 };
 
 type CharacterType = {
-  _id?: number;
+  _id: number;
   campaignId?: string;
   name: string;
   silver: number;
@@ -153,4 +153,17 @@ type Message = {
   campaignId: string; // room
   characterId: string; // sender
   message: MessageBody;
+};
+
+//
+type ScoreObject = {
+  [key: string]: { score: number; modifier: number };
+};
+
+//
+type RollObject = {
+  dice: string[];
+  rolls: number[];
+  sum: number;
+  formula: string;
 };
