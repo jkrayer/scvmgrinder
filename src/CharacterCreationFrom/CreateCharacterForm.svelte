@@ -95,7 +95,6 @@
       getModifier={getScore}
       on:score:update={handlScores}
     />
-    />
     <InputNumber label="Silver" bind:value={NewCharacter.silver} min={0} />
     <AddEquipmentForm onSave={handleAddEquipment} />
     <EquipmentList equipment={NewCharacter.equipment} />

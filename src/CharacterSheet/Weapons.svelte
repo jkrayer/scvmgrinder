@@ -20,20 +20,20 @@
       ({weapon.subType})
     </span>
     <Button
-      buttonColor="magenta"
-      title={weapon.damageDie}
-      disabled={weapon.broken}
-      on:click={() => dispatch("damage", weapon)}
-    >
-      Damage!
-    </Button>
-    <Button
       buttonColor="yellow"
       title="d20+/-n"
       disabled={weapon.broken}
       on:click={() => dispatch("attack", weapon)}
     >
-      Attack!
+      1d20+{weapon.type === "melee" ? "strength" : "presence"}
+    </Button>
+    <Button
+      buttonColor="magenta"
+      title={weapon.damageDie}
+      disabled={weapon.broken}
+      on:click={() => dispatch("damage", weapon)}
+    >
+      {weapon.damageDie}
     </Button>
   </div>
 {/each}

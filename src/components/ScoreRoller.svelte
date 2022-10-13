@@ -61,8 +61,8 @@
 </script>
 
 <Fieldset legend="Ability Scores">
-  {#each parsedScores as score}
-    <div class="grid score-row">
+  <div class="grid score-row">
+    {#each parsedScores as score}
       <InputNumber
         label={`${score.name} Roll`}
         min={score.min}
@@ -83,13 +83,14 @@
         bind:value={SCORE[score.name].modifier}
         readonly
       />
-    </div>
-  {/each}
+    {/each}
+  </div>
 </Fieldset>
 
 <style>
   .score-row {
-    grid-template-columns: 2fr 1fr 2fr;
+    grid-template-columns: 2fr 1fr 2fr 2fr 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
     align-items: end;
   }
   .score-row > .button-wrapper {

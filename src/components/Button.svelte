@@ -14,6 +14,7 @@
 <!-- TODO:
      Tags: A or BUTTON
      Better (less manual) event binding
+     deal with $$props so we're not expoing non-html props
  -->
 <button
   {type}
@@ -50,6 +51,7 @@
     cursor: pointer;
     appearance: none;
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    overflow: hidden;
   }
 
   .button:disabled {
@@ -98,6 +100,12 @@
     background-color: darkmagenta;
   }
 
+  .magenta:disabled,
+  .magenta:disabled:hover {
+    /* background-color: rgb(255, 0, 200); */
+    background-color: magenta;
+  }
+
   .yellow,
   .yellow:hover {
     color: #000;
@@ -106,6 +114,12 @@
 
   .yellow:hover {
     background-color: gold;
+  }
+
+  .yellow:disabled,
+  .yellow:disabled:hover {
+    background-color: yellow;
+    color: black;
   }
 
   .stretch {
