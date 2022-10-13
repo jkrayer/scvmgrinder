@@ -37,6 +37,7 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
+    "cl-editor": "^2.3.0",
     "dexie": "^3.2.2",
     "radix-icons-svelte": "^1.2.1",
     "ramda": "~0.28.0",

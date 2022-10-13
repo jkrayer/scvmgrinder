@@ -1,11 +1,12 @@
 <script type="ts">
   import { closeModal } from "svelte-modals";
-  import { toPairs, map } from "ramda";
+  import Editor from "cl-editor/src/Editor.svelte";
   import { addCharacter } from "../lib/db";
   import { addCharacters } from "../Stores/CharactersStore";
   import Modal from "../components/Modal.svelte";
   import Input from "../components/Form/Input.svelte";
   import TextArea from "../components/Form/TextArea.svelte";
+  import Label from "../components/Form/Label.svelte";
   import Checkbox from "../components/Form/Checkbox.svelte";
   import InputNumber from "../components/Form/InputNumber.svelte";
   import AddEquipmentForm from "../Equipment/AddEquipmentForm.svelte";
@@ -31,6 +32,19 @@
     silver: 0,
     equipment: [],
   };
+  $: console.log(34, NewCharacter);
+
+  const editorActions = [
+    "b",
+    "i",
+    "u",
+    "h2",
+    "ul",
+    "left",
+    "center",
+    "justify",
+  ];
+  const editorSize = "150px";
 
   let powers: boolean = true;
   let hp: number = 0;
@@ -74,11 +88,26 @@
   <h1>Add Character Form</h1>
   <form on:submit|preventDefault={handleSubmit}>
     <Input label="Name" bind:value={NewCharacter.name} />
-    <TextArea label="Description" bind:value={NewCharacter.description} />
+    <!-- <TextArea label="Description" bind:value={NewCharacter.description} /> -->
+
+    <Label label="Description" />
+    <Editor
+      actions={editorActions}
+      html={NewCharacter.description}
+      on:change={(evt) => (NewCharacter.description = evt.detail)}
+      height={editorSize}
+    />
     <Input label="Class Name" bind:value={NewCharacter.class.name} />
-    <TextArea
+    <!-- <TextArea
       label="Class Description"
       bind:value={NewCharacter.class.abilities}
+    /> -->
+    <Label label="Class Description" />
+    <Editor
+      actions={editorActions}
+      html={NewCharacter.class.abilities}
+      on:change={(evt) => (NewCharacter.class.abilities = evt.detail)}
+      height={editorSize}
     />
     <div>
       <Checkbox label="Powers" bind:value={powers} />

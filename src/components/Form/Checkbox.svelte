@@ -1,13 +1,13 @@
 <script type="ts">
+  import Label from "./Label.svelte";
+
   export let label: string;
   export let value: boolean;
   export let disabled: boolean = false;
   export let ref: any = null;
 </script>
 
-<label class="input-wrapper">
-  <span class="input-label">{label}</span>
-
+<Label {label}>
   <input
     type="checkbox"
     class="input"
@@ -15,20 +15,9 @@
     bind:this={ref}
     {disabled}
   />
-</label>
+</Label>
 
 <style>
-  .input-wrapper {
-    display: block;
-    margin: var(--small-padding) 0;
-  }
-  .input-label {
-    display: block;
-    padding-bottom: var(--tiny-padding);
-    font-size: 0.75rem;
-    font-weight: bold;
-    text-indent: var(--tiny-padding);
-  }
   .input {
     width: 100%;
     border-radius: var(--tiny-padding);
