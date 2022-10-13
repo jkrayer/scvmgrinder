@@ -40,24 +40,27 @@
   };
 
   const onSubmit = () => {
-    const dice = Object.entries(selectedDice)
+    const dice: string[] = Object.entries(selectedDice)
       .filter(([, number]) => number > 0)
-      .flatMap(([die, number]) => new Array(number).fill(`1${die}`));
+      .map(([die, number]) => `${number}${die}`);
 
     if (dice.length === 0) {
       return;
     }
 
-    const rolls = dice.map(rollString);
+    const rolls: number[] = dice.map(rollString);
+    let formula: string = dice.join("+");
 
-    if (modifier !== undefined) {
+    if (modifier !== undefined && modifier !== 0) {
       rolls.push(modifier);
+      formula += modifier < 0 ? modifier : `+${modifier}`;
     }
 
     dispatch("roll", {
       dice,
       rolls,
       sum: sum(rolls),
+      formula,
     });
     onReset();
   };

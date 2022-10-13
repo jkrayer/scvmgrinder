@@ -2,10 +2,18 @@
   import { getAllContexts } from "svelte";
   import { navigate } from "svelte-routing";
   import { openModal } from "svelte-modals";
-  import { ArrowUp, Cross1, Exit, HamburgerMenu } from "radix-icons-svelte";
+  import {
+    ArrowUp,
+    Cross1,
+    Exit,
+    HamburgerMenu,
+    Target,
+  } from "radix-icons-svelte";
   import Button from "./Button.svelte";
   import GetBetter from "./GetBetter.svelte";
   import DiceRoller from "./DiceRoller/DiceRoller.svelte";
+  import { addMessage } from "../Messages/state/MessageStore";
+  import { diceMessage } from "../Messages/lib";
 
   const noop = () => {};
 
@@ -23,10 +31,15 @@
 
   // Helpers
   let close = () => (open = false);
+
   const openGetBetter = () => {
     close();
     openModal(GetBetter);
   };
+
+  // Handlers
+  const onRoll = ({ detail: { sum, formula } }: CustomEvent<RollObject>) =>
+    addMessage(diceMessage("", formula, sum, ""));
 </script>
 
 <nav class="navigation" class:open>
@@ -62,10 +75,7 @@
     </div>
   </div>
   <div>
-    <DiceRoller
-      on:roll={({ detail }) => console.log("roll", detail)}
-      disabled={path === "/"}
-    />
+    <DiceRoller on:roll={onRoll} disabled={path === "/"} />
   </div>
 </nav>
 

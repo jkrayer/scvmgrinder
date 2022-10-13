@@ -159,3 +159,11 @@ type Message = {
 type ScoreObject = {
   [key: string]: { score: number; modifier: number };
 };
+
+//
+type RollObject = {
+  dice: string[];
+  rolls: number[];
+  sum: number;
+  formula: string;
+};
