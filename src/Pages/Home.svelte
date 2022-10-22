@@ -10,8 +10,4 @@
   });
 </script>
 
-{#if isEmpty($CharactersStore)}
-  <h1>Loading...</h1>
-{:else}
-  <CharacterList characters={$CharactersStore} />
-{/if}
+<CharacterList characters={$CharactersStore} />
