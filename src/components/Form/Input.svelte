@@ -5,10 +5,18 @@
   export let value: string;
   export let disabled: boolean = false;
   export let ref: any = null;
+  export let required: boolean = false;
 </script>
 
 <Label {label}>
-  <input type="text" class="input" bind:value bind:this={ref} {disabled} />
+  <input
+    type="text"
+    class="input"
+    bind:value
+    bind:this={ref}
+    {disabled}
+    {required}
+  />
 </Label>
 
 <style>

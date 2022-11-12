@@ -76,7 +76,12 @@
     title="Equipment Type"
   />
   <div class="grid name-row">
-    <Input label="Name" bind:value={formData.name} bind:ref={nameInput} />
+    <Input
+      label="Name"
+      bind:value={formData.name}
+      bind:ref={nameInput}
+      required
+    />
     {#if hassubTypes(formData.type)}
       {@const { title, values } = getsubTypes(formData.type)}
       <div class="grid balanced">
@@ -109,6 +114,7 @@
     <Input
       label="Description (add % to show quantity in description)"
       bind:value={formData.description}
+      required
     />
     {#if ["food", "ammunition"].includes(formData.type)}
       <InputNumber
