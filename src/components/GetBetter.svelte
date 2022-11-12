@@ -9,7 +9,7 @@
   import { rollD10, rollD6 } from "../lib/dice";
   import { getSacredScroll, getUncleanScroll } from "../lib/game_data/index";
 
-  let hp: number = $CharacterStore.hitpoints.current;
+  let hp: number = $CharacterStore.hitpoints.maximum;
   let abilityScores: AbilityScores = {
     strength: 0,
     agility: 0,
@@ -41,9 +41,10 @@
 
     equipment = nextEq === null ? [] : [nextEq];
   };
-
+  console.log(hp);
   // HANDLERS
   const handleSubmit = () => {
+    console.log(hp);
     update(getBetter(hp, abilityScores, silver, equipment));
     closeModal();
   };
@@ -60,7 +61,7 @@
   <h2>Get Better</h2>
   <form on:submit|preventDefault={handleSubmit}>
     <HpUpdater
-      current={$CharacterStore.hitpoints.current}
+      current={$CharacterStore.hitpoints.maximum}
       on:newScore={setHp}
     />
     <div class="grid score-grid">

@@ -18,7 +18,7 @@
   const handleRollSix = () => {
     rolledSix = rollD6();
     nextScore = rolledSix + current;
-    dispatch("newScore", rolledSix);
+    dispatch("newScore", nextScore);
   };
 </script>
 
@@ -37,13 +37,19 @@
       max={6}
       disabled={isDisabled}
     />
-    <InputNumber label="Next" readonly={true} bind:value={nextScore} />
+    <InputNumber
+      label="Next"
+      bind:value={nextScore}
+      on:input={() => dispatch("newScore", nextScore)}
+      min={0}
+      max={current + 6}
+    />
   </div>
 </Fieldset>
 
 <style>
   .ability-row {
-    grid-template-columns: 2rem 3rem 3rem 3rem 3rem 2rem;
+    grid-template-columns: 2rem 3rem 3rem 3rem 3rem 3rem;
     align-items: end;
   }
 </style>

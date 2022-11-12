@@ -14,7 +14,7 @@ const scroll = Object.freeze({
 describe("getBetter", () => {
   const copy: CharacterType = { ...character };
   const nextChar: CharacterType = getBetter(
-    5,
+    6,
     {
       agility: -2,
       presence: 2,
@@ -29,9 +29,12 @@ describe("getBetter", () => {
     expect(copy).toMatchObject(character);
   });
 
-  test("it should update current and maximum hit points", () => {
-    expect(nextChar.hitpoints.current).toBe(6);
+  test("it should update the maximum hit points to the new total", () => {
     expect(nextChar.hitpoints.maximum).toBe(6);
+  });
+
+  test("it should update the current hit points by the amount of new hit points", () => {
+    expect(nextChar.hitpoints.current).toBe(5);
   });
 
   test("it should update ability scores", () => {
@@ -47,5 +50,40 @@ describe("getBetter", () => {
 
   test("it should update silver equipment", () => {
     expect(nextChar.equipment[9]).toMatchObject(scroll);
+  });
+});
+
+describe("getBetter, hp adjusting down", () => {
+  const copy: CharacterType = { ...character };
+  const nextChar: CharacterType = getBetter(
+    100,
+    {
+      agility: -2,
+      presence: 2,
+      strength: 1,
+      toughness: -2,
+    },
+    22,
+    [scroll]
+  )(copy);
+
+  const downChar: CharacterType = getBetter(
+    57,
+    {
+      agility: -2,
+      presence: 2,
+      strength: 1,
+      toughness: -2,
+    },
+    22,
+    [scroll]
+  )(nextChar);
+
+  test("it should update the maximum hit points to the new total", () => {
+    expect(nextChar.hitpoints.maximum).toBe(100);
+  });
+
+  test("it should update the current hit points by the amount of new hit points", () => {
+    expect(downChar.hitpoints.current).toBe(56);
   });
 });
