@@ -8,8 +8,8 @@ export const character: CharacterType = {
     toughness: -3,
   },
   hitpoints: {
-    maximum: 1,
-    current: 1,
+    maximum: 3,
+    current: 2,
   },
   campaignId: "e9lQv3ZyOxnPKyrK",
   class: {

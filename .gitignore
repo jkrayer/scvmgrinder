@@ -3,5 +3,6 @@
 /docs/build/
 /test_data/
 /src/data/
+/scrap_tables/
 
 .DS_Store
