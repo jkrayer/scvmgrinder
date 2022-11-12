@@ -55,6 +55,7 @@
     </div>
     <div class="navigation-item">
       <Button
+        style="overflow:hidden"
         stretch
         on:click={() => navigate("/")}
         title="Exit: Back to Home"
@@ -65,6 +66,7 @@
     </div>
     <div class="navigation-item">
       <Button
+        style="overflow:hidden"
         stretch
         on:click={openGetBetter}
         title="Level Up"
@@ -100,5 +102,9 @@
     padding: var(--small-padding);
     border-bottom: 1px solid #444;
     white-space: nowrap;
+  }
+
+  .nav-button {
+    overflow: hidden;
   }
 </style>

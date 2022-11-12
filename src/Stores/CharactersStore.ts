@@ -14,6 +14,12 @@ export function addCharacters(characters: CharacterType[]): void {
   );
 }
 
+export function replaceCharacters(characters: CharacterType[]): void {
+  CharactersStore.update(
+    (currentCharacters: CharacterType[]): CharacterType[] => characters
+  );
+}
+
 export function deleteCharacter({ _id }: CharacterType): void {
   CharactersStore.update(filterById<CharacterType>(_id));
 }

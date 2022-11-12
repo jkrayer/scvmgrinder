@@ -51,7 +51,7 @@
     cursor: pointer;
     appearance: none;
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-    overflow: hidden;
+    /* overflow: hidden; */
   }
 
   .button:disabled {
