@@ -47,10 +47,7 @@
       </Button>
     </div>
     <div>
-      <Button
-        on:click={show("omens")}
-        disabled={$CharacterStore.omens.current === 0}
-      >
+      <Button on:click={show("omens")}>
         <span class="title">Omens</span>
         {$CharacterStore.omens.current}/{$CharacterStore.omens.maximum}
       </Button>
