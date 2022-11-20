@@ -128,12 +128,19 @@
 
   {#if formData.type === "weapon"}
     <div transition:slide>
-      <RadioGroup
+      <Input
+        label="Damage Die (2d4)"
+        bind:value={formData.damageDie}
+        required
+        pattern="^\dd\d+"
+      />
+
+      <!-- <RadioGroup
         bind:group={formData.damageDie}
         values={DAMAGE_DICE_TYPES}
         title="Damage Die"
         showLegend={true}
-      />
+      /> -->
     </div>
   {/if}
 

@@ -1,3 +1,4 @@
+import { sum } from "ramda";
 import { ARMOR_TIERS } from "../CharacterSheet/enums";
 import {
   rollD2,
@@ -56,12 +57,17 @@ export const diceMessage = (
 };
 
 export const damageMessage = (weapon: Weapon, name: string): MessageBody => {
-  const roll: number = DICE_MAP[weapon.damageDie]();
+  const dice = parseInt(weapon.damageDie.split("d")[0], 10);
+  const rollDie = weapon.damageDie.replace(/^\d+/, "1");
+
+  const roll: number[] = new Array(dice)
+    .fill(null)
+    .map(() => DICE_MAP[rollDie]());
 
   return {
     name,
     rollType: "Damage",
-    roll,
+    roll: sum(roll),
     rollFormula: weapon.damageDie,
     target: weapon.name,
     dc: null,
