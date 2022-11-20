@@ -86,19 +86,21 @@ const isArmorOrShield = either(isArmor, isShield);
 
 const isEquippedArmor = both(isEquipped, isArmorOrShield);
 
-const equippedArmor = reduce<Equipment, ArmorAndShield>(
-  (acc: ArmorAndShield, eq: Equipment) => {
-    if (isEquippedArmor(eq)) {
-      acc[eq.type] = eq;
-    }
+const equippedArmor = (x) =>
+  reduce<Equipment, ArmorAndShield>(
+    (acc: ArmorAndShield, eq: Equipment) => {
+      if (isEquippedArmor(eq)) {
+        acc[eq.type] = eq;
+      }
 
-    return acc;
-  },
-  {
-    armor: NO_ARMOR,
-    shield: null,
-  } as ArmorAndShield
-);
+      return acc;
+    },
+    {
+      armor: NO_ARMOR,
+      shield: null,
+    } as ArmorAndShield,
+    x
+  );
 
 const breakArmor = (a: Armor): Armor => {
   const next: Armor = decrementTier(a);
