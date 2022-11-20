@@ -25,7 +25,7 @@
       disabled={weapon.broken}
       on:click={() => dispatch("attack", weapon)}
     >
-      1d20+{weapon.type === "melee" ? "strength" : "presence"}
+      1d20+{weapon.subType === "melee" ? "strength" : "presence"}
     </Button>
     <Button
       buttonColor="magenta"

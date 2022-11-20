@@ -6,6 +6,7 @@
   export let disabled: boolean = false;
   export let ref: any = null;
   export let required: boolean = false;
+  export let pattern: any = null;
 </script>
 
 <Label {label}>
@@ -16,6 +17,7 @@
     bind:this={ref}
     {disabled}
     {required}
+    {pattern}
   />
 </Label>
 
