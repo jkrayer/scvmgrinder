@@ -1,43 +1,40 @@
 {
-  "name": "svelte-app",
-  "version": "0.1.0",
-  "private": true,
-  "type":"module",
-  "scripts": {
+	"name": "svelte-app",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
 		"build": "vite build",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
 		"dev": "vite dev",
 		"format": "prettier --plugin-search-dir . --write .",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-    "precommit": "echo \"run unit tests here\"",
-    "preview": "vite preview",
+		"precommit": "echo \"run unit tests here\"",
+		"preview": "vite preview",
 		"test": "playwright test",
 		"test:unit": "vitest"
-  },
-  "devDependencies": {
-		"@playwright/test": "~1.28.1",
+	},
+	"devDependencies": {
+		"@playwright/test": "~1.30.0",
 		"@sveltejs/adapter-auto": "~2.0.0",
-		"@sveltejs/kit": "~1.5.0",
-		"eslint": "~8.28.0",
-		"eslint-config-prettier": "~8.5.0",
+		"@sveltejs/kit": "~1.7.1",
+		"eslint": "~8.34.0",
+		"eslint-config-prettier": "~8.6.0",
 		"eslint-plugin-svelte3": "~4.0.0",
-    "husky": "~8.0.1",
+		"husky": "~8.0.1",
 		"prettier": "~2.8.0",
-		"prettier-plugin-svelte": "~2.8.1",
-		"svelte": "~3.54.0",
-		"svelte-check": "~3.0.1",
+		"prettier-plugin-svelte": "~2.9.0",
+		"svelte": "~3.55.0",
+		"svelte-check": "~3.0.3",
 		"typescript": "~4.9.3",
-		"vite": "~4.0.0",
-		"vitest": "~0.25.3"
-  },
-  "dependencies": {
-    "cl-editor": "~2.3.0",
-    "dexie": "~3.2.2",
-    "radix-icons-svelte": "~1.2.1",
-    "ramda": "~0.28.0",
-    "sirv-cli": "~2.0.0",
-    "svelte-modals": "~1.2.0",
-    "svelte-routing": "~1.6.0"
-  }
+		"vite": "~4.1.1",
+		"vitest": "~0.28.5"
+	},
+	"dependencies": {
+		"dexie": "~3.2.2",
+		"radix-icons-svelte": "~1.2.1",
+		"ramda": "~0.28.0",
+		"svelte-modals": "~1.2.0"
+	}
 }
