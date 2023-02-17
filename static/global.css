@@ -1,0 +1,68 @@
+/**
+ * TOC
+ *
+ * 1. Vars
+ * 2. Form
+ * 3. List
+*/
+
+/* 1. Vars */
+:root {
+	--black: #000;
+	--gray: #333;
+	--midGray: #979797;
+	--lightGray: #ccc;
+	--pink: #ff41b4;
+	--white: #fff;
+	--yellow: #ffe800;
+	--sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu,
+		Cantarell, 'Helvetica Neue', sans-serif;
+	--serif: Athelas, Cambria, serif;
+	--fixed: 'Courier New', Courier, monospace;
+	--handwriting: 'UnifrakturCook', cursive;
+	--radius: 5px;
+	--pad: 1rem;
+	--padSmall: 0.5rem;
+	--padTiny: 0.25rem;
+}
+
+html,
+body {
+	font-size: 1rem;
+	font-family: var(--sans-serif);
+	color: var(--gray);
+}
+
+/* 2. Form */
+.control {
+	width: 100%;
+	padding: var(--padSmall) var(--padTiny);
+	border: 1px solid var(--midGray);
+	border-radius: var(--radius);
+	font-size: 1.125rem;
+	color: var(--gray);
+	appearance: none;
+}
+.control::placeholder {
+	color: var(--midGray);
+}
+
+.select-wrapper {
+	position: relative;
+}
+.select-wrapper > svg {
+	position: absolute;
+	top: 8px;
+	right: var(--padTiny);
+}
+
+.select {
+	padding-right: calc(var(--padSmall) + 24px);
+}
+
+/* 3. List */
+.clear-list {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
