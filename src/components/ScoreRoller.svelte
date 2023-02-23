@@ -1,20 +1,32 @@
-<script>
+<script lang="ts">
 	import Label from './Form/Label.svelte';
 	import Input from './Form/Input.svelte';
-	/**
-	 * @type {{key:string, name:string, dice: [number, "d", number, ("+" | "-")?, number?]}[]}
-	 */
-	export let scores;
+	import { toDiceString } from '$lib';
 
-	/**
-	 *
-	 * @param dice {[number, "d", number, ("+"|"-")?, number?]}
-	 */
-	const diceToString = (dice) => dice.join('');
+	export let scores: {
+		key: string;
+		name: string;
+		dice: [number, 'd', number, ('+' | '-')?, number?];
+	}[];
+
+	const cols = scores.length / 2;
 </script>
 
-{#each scores as { name, dice }}
-	<Label title={`${name} (${diceToString(dice)})`}>
-		<Input type="number" />
-	</Label>
-{/each}
+<div class="flex">
+	{#each scores.slice(0, cols) as { name, dice }, index}
+		<div class="flex-col">
+			<Label title={`${name} (${toDiceString(dice)})`}>
+				<Input type="number" />
+			</Label>
+		</div>
+	{/each}
+</div>
+<div class="flex">
+	{#each scores.slice(cols) as { name, dice }, index}
+		<div class="flex-col">
+			<Label title={`${name} (${toDiceString(dice)})`}>
+				<Input type="number" />
+			</Label>
+		</div>
+	{/each}
+</div>

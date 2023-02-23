@@ -7,6 +7,8 @@ declare global {
 		// interface PageData {}
 		// interface Platform {}
 	}
+
+	type Dice = [number, 'd', number, ('+' | '-' | 'x')?, number?];
 }
 
 export {};

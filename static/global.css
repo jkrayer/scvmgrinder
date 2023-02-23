@@ -4,6 +4,7 @@
  * 1. Vars
  * 2. Form
  * 3. List
+ * 4. Layout
 */
 
 /* 1. Vars */
@@ -35,13 +36,16 @@ body {
 
 /* 2. Form */
 .control {
+	box-sizing: border-box;
 	width: 100%;
 	padding: var(--padSmall) var(--padTiny);
 	border: 1px solid var(--midGray);
 	border-radius: var(--radius);
+	margin: 0;
 	font-size: 1.125rem;
 	color: var(--gray);
 	appearance: none;
+	background-color: transparent;
 }
 .control::placeholder {
 	color: var(--midGray);
@@ -65,4 +69,21 @@ body {
 	padding: 0;
 	margin: 0;
 	list-style: none;
+}
+
+/*  4. Layout */
+.narrow-container {
+	width: 100vw;
+	max-width: 20.25rem;
+	margin: 0 auto;
+}
+
+.flex {
+	display: flex;
+	align-items: stretch;
+	gap: 1rem;
+}
+
+.flex-col {
+	flex-grow: 1;
 }

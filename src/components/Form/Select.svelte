@@ -1,15 +1,23 @@
-<script>
-	import { TriangleDown, TriangleUp } from 'radix-icons-svelte';
-	/**
-	 * @type {string[]|object[]}
-	 */
-	export let options = [];
+<script lang="ts">
+	import { TriangleDown } from 'radix-icons-svelte';
+	import { prop } from 'ramda';
+
+	type T = $$Generic<{ _id: string; name: string }>;
+
+	//
+	export let options: T[];
+	export let valueProp: keyof T = '_id';
+	export let labelProp: keyof T = 'name';
+	export let value: string;
+
+	const getVal = prop(valueProp);
+	const getLabel = prop(labelProp);
 </script>
 
 <div class="select-wrapper">
-	<select class="control select" {...$$restProps}>
+	<select class="control select" bind:value {...$$restProps}>
 		{#each options as option}
-			<option value={option}>{option}</option>
+			<option value={getVal(option)}>{getLabel(option)}</option>
 		{/each}
 	</select>
 	<TriangleDown class="icon" color="#979797" size={24} />

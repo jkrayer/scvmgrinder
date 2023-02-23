@@ -1,11 +1,11 @@
-<script>
-	/**
-	 * @type {"button" | "submit" | "reset"} any valid html button type
-	 */
-	export let type = 'button';
+<script lang="ts">
+	export let type: 'button' | 'submit' | 'reset' = 'button';
+	export let disabled: boolean = false;
 </script>
 
-<button {type} {...$$restProps} class="button"><slot /></button>
+<button {type} {disabled} aria-disabled={disabled} on:click {...$$restProps} class="button"
+	><slot />
+</button>
 
 <style>
 	.button {
