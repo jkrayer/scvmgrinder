@@ -1,77 +1,114 @@
 <script lang="ts">
 	import Label from '../components/Form/Label.svelte';
 	import Input from '../components/Form/Input.svelte';
+	import NumberInput from '../components/Form/NumberInput.svelte';
 	import Select from '../components/Form/Select.svelte';
 	import RollTable from '../components/RollTable.svelte';
 	import Button from '../components/Button.svelte';
-	import ScoreRoller from '../components/ScoreRoller.svelte';
-	import { toDiceString } from '$lib';
-	//
+	import Score from '../components/Score.svelte';
+	import { maxRoll, toDiceString, rollToScore } from '$lib';
+	import store, { setSelectedClass } from './new-character-store';
+	import Form from '../components/Form/Form.svelte';
 	import characters from './data/characters.json';
 	import eqTableOne from './data/tables/one';
+	import eqTableTwo from './data/tables/two';
+	import eqTableThree from './data/tables/three';
+	import weaponTable from './data/tables/weapons';
+	import armorTable from './data/tables/armor';
 
+	// TODO: Move this
 	const CHARACTERS = JSON.parse(characters);
-
-	//
 	let classId: string = CHARACTERS[0]._id;
-	// let tableOne: any;
-	// const formData = {};
+	let hpDice: Dice | never[] = [];
 
-	$: selectedClass = CHARACTERS.find((x: any) => x._id === classId);
+	$: {
+		console.log('running block one');
+		let selectedClass = CHARACTERS.find((x: any) => x._id === classId);
+		setSelectedClass(selectedClass);
+	}
 
-	let formData: any = {
-		tableOne: ''
+	$: {
+		const D: [Dice[0], Dice[1], Dice[2]] = $store.selectedClass.hitPoints || [1, 'd', 1];
+		const M: [Dice[3], Dice[4]] = ['+', $store.formData.toughness];
+		hpDice = [...D, ...M];
+	}
+
+	const handleScoreChange = ({
+		detail: { key, score }
+	}: CustomEvent<{ key: AbilityKeys; score: number }>) => {
+		console.log(48, key, score, rollToScore(score));
+		$store.formData[key] = rollToScore(score);
 	};
-
-	$: console.log(16, formData);
 </script>
 
-<form id="create-character-form" class="narrow-container">
+<Form onSubmit={() => null} class="narrow-container">
 	<Label title="Character Class">
 		<Select options={CHARACTERS} bind:value={classId} />
 	</Label>
 
-	<div class="flex">
+	<div class="flex two-col">
 		<div class="flex-col">
 			<Label title="d4 days of food">
-				<Input type="number" placeholder="0" min="1" max="4" />
+				<NumberInput placeholder="0" min="1" max="4" bind:value={$store.formData.food} />
 			</Label>
 		</div>
 
 		<div class="flex-col">
-			<Label title={`${toDiceString(selectedClass.silver)} silver`}>
-				<Input type="number" placeholder="0" />
+			<Label title={`${toDiceString($store.selectedClass.silver)} silver`}>
+				<NumberInput
+					placeholder="0"
+					min="0"
+					max={maxRoll($store.selectedClass.silver)}
+					step="10"
+					bind:value={$store.formData.silver}
+				/>
 			</Label>
 		</div>
 	</div>
 
 	<div class="flex">
 		<div class="flex-col">
-			<!-- eq table one -->
-			<RollTable die={6} options={eqTableOne.rows} bind:group={formData.tableOne} />
-			<!-- eq table three -->
-			<!-- <RollTable die={6} options={eqTableOne.rows} /> -->
-			<!-- armor table  -->
-			<!-- <RollTable die={6} options={eqTableOne.rows} /> -->
+			<RollTable die={6} options={eqTableOne.rows} bind:group={$store.formData.tableOne} />
+			<RollTable die={12} options={eqTableThree.rows} bind:group={$store.formData.tableThree} />
+			<RollTable die={4} options={armorTable.rows} bind:group={$store.formData.armor} />
 		</div>
 		<div class="flex-col">
-			<!-- eq table two -->
-			<RollTable die={6} options={eqTableOne.rows} bind:group={formData.tableOne} />
-			<!-- weapon table -->
-			<!-- <RollTable die={6} options={eqTableOne.rows} /> -->
+			<RollTable die={12} options={eqTableTwo.rows} bind:group={$store.formData.tableTwo} />
+			<RollTable die={10} options={weaponTable.rows} bind:group={$store.formData.weapon} />
 		</div>
 	</div>
 
-	<ScoreRoller scores={selectedClass.abilities} />
+	<!-- <ScoreRoller scores={$store.selectedClass.abilities} modCalc={({}) => {}} on:change={() => {}} /> -->
+	<div class="flex">
+		{#each $store.selectedClass.abilities.slice(0, 2) as score (score.key)}
+			<div class="flex-col">
+				<Score ability={score} mod={$store.formData[score.key]} on:change={handleScoreChange} />
+			</div>
+		{/each}
+	</div>
+	<div class="flex">
+		{#each $store.selectedClass.abilities.slice(2) as score (score.key)}
+			<div class="flex-col">
+				<Score ability={score} mod={$store.formData[score.key]} on:change={handleScoreChange} />
+			</div>
+		{/each}
+	</div>
 
-	<Label title={`Hit Points (${toDiceString(selectedClass.hitPoints)} + toughness())`}>
-		<Input type="number" placeholder="0" />
+	<Label
+		title={`Hit Points (${toDiceString($store.selectedClass.hitPoints)} + toughness(${
+			$store.formData.toughness
+		}))`}
+	>
+		<NumberInput placeholder="0" min="1" max={maxRoll(hpDice)} />
 	</Label>
 
+	<!-- terrible traits -->
+	<!-- broken bodies -->
+	<!-- (41) -->
+	<!-- Arcane Catalyst -->
 	<Label title="Name this one">
 		<Input />
-		<span slot="comments">&hellip; it will not save you</span>
 	</Label>
 
-	<Button type="submit">Save This One</Button>
-</form>
+	<div style="text-align:right;">&hellip; it will not <Button type="submit">Save</Button> you</div>
+</Form>

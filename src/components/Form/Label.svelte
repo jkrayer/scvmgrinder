@@ -1,11 +1,14 @@
-<script>
-	/**
-	 * @type {string}
-	 */
-	export let title;
+<script lang="ts">
+	import type { HTMLLabelAttributes } from 'svelte/elements';
+
+	interface $$Props extends HTMLLabelAttributes {
+		title: string;
+	}
+
+	export let title: string;
 </script>
 
-<label class="label">
+<label class="label" {...$$restProps}>
 	<div>{title}</div>
 	<slot />
 	{#if $$slots.comments}
