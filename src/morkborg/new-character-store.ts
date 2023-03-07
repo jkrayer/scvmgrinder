@@ -14,6 +14,9 @@ export type FormData = {
 	toughness: Score;
 	hitPoints: number;
 	name: string;
+	traits: [string, string];
+	brokenBodies: string;
+	badHabits: string;
 };
 
 type State = { selectedClass: RawClassData | Record<string, never>; formData: FormData };
@@ -32,7 +35,10 @@ const formDataFactory = (): FormData => ({
 	strength: 0,
 	toughness: 0,
 	hitPoints: 1,
-	name: ''
+	name: '',
+	traits: ['', ''],
+	brokenBodies: '',
+	badHabits: ''
 });
 
 const store = writable<State>({

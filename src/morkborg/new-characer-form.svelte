@@ -15,6 +15,9 @@
 	import eqTableThree from './data/tables/three';
 	import weaponTable from './data/tables/weapons';
 	import armorTable from './data/tables/armor';
+	import terribelTraits from './data/tables/terrible-traits';
+	import brokenBodies from './data/tables/broken-bodies';
+	import badHabits from './data/tables/bad-habits';
 
 	// TODO: Move this
 	const CHARACTERS = JSON.parse(characters);
@@ -28,17 +31,18 @@
 	}
 
 	$: {
+		console.log('running block two');
 		const D: [Dice[0], Dice[1], Dice[2]] = $store.selectedClass.hitPoints || [1, 'd', 1];
 		const M: [Dice[3], Dice[4]] = ['+', $store.formData.toughness];
 		hpDice = [...D, ...M];
 	}
 
+	$: console.log('FD', $store.formData);
+
 	const handleScoreChange = ({
 		detail: { key, score }
-	}: CustomEvent<{ key: AbilityKeys; score: number }>) => {
-		console.log(48, key, score, rollToScore(score));
-		$store.formData[key] = rollToScore(score);
-	};
+	}: CustomEvent<{ key: AbilityKeys; score: number }>) =>
+		($store.formData[key] = rollToScore(score));
 </script>
 
 <Form onSubmit={() => null} class="narrow-container">
@@ -78,7 +82,6 @@
 		</div>
 	</div>
 
-	<!-- <ScoreRoller scores={$store.selectedClass.abilities} modCalc={({}) => {}} on:change={() => {}} /> -->
 	<div class="flex">
 		{#each $store.selectedClass.abilities.slice(0, 2) as score (score.key)}
 			<div class="flex-col">
@@ -102,10 +105,24 @@
 		<NumberInput placeholder="0" min="1" max={maxRoll(hpDice)} />
 	</Label>
 
-	<!-- terrible traits -->
-	<!-- broken bodies -->
-	<!-- (41) -->
-	<!-- Arcane Catalyst -->
+	<div class="flex">
+		<div class="flex-col">
+			<RollTable
+				die={20}
+				options={terribelTraits.rows}
+				bind:group={$store.formData.traits}
+				multiple={2}
+			/>
+			<!-- terrible traits -->
+		</div>
+		<div class="flex-col">
+			<RollTable die={20} options={brokenBodies.rows} bind:group={$store.formData.brokenBodies} />
+		</div>
+	</div>
+	<RollTable die={20} options={badHabits.rows} bind:group={$store.formData.badHabits} />
+
+	<!-- Class Tables -->
+
 	<Label title="Name this one">
 		<Input />
 	</Label>

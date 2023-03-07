@@ -2,6 +2,11 @@
 	export let die: number;
 	export let group: any;
 	export let options: { dice: number[]; value: string; label: string }[];
+	export let multiple: number = 1;
+
+	let isDisabled: boolean = false;
+
+	$: isDisabled = group.length >= multiple;
 </script>
 
 <h1 class="title">d{die}</h1>
@@ -9,7 +14,14 @@
 	{#each options as { dice, label, value }}
 		<li class="list-item">
 			<label>
-				<input type="radio" class="radio" {value} bind:group />
+				{#if multiple === 1}
+					<input class="radio" type="radio" {value} bind:group />
+				{:else if isDisabled && group.indexOf(value) === -1}
+					<input class="radio" type="checkbox" {value} bind:group disabled={true} />
+				{:else}
+					<input class="radio" type="checkbox" {value} bind:group />
+				{/if}
+
 				<span class="list-item-text"
 					>{dice[0]}{#if dice.length > 1}-{dice[dice.length - 1]}{/if}
 					{label}</span

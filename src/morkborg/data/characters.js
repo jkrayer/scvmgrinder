@@ -19,7 +19,8 @@
 		terribleTraits: true,
 		brokenBodies: true,
 		badHabits: true,
-		troublingTales: true,
+		origin: [],
+		classAbilities: [],
 		omens: 4
 	},
 	{
@@ -42,7 +43,8 @@
 		terribleTraits: true,
 		brokenBodies: true,
 		badHabits: true,
-		troublingTales: true,
+		origin: [],
+		classAbilities: [],
 		omens: 2
 	},
 	{
@@ -65,7 +67,8 @@
 		terribleTraits: true,
 		brokenBodies: true,
 		badHabits: true,
-		troublingTales: true,
+		origin: [],
+		classAbilities: [],
 		omens: 2
 	},
 	{
@@ -88,7 +91,8 @@
 		terribleTraits: true,
 		brokenBodies: true,
 		badHabits: true,
-		troublingTales: true,
+		origin: [],
+		classAbilities: [],
 		omens: 4
 	},
 	{
@@ -111,7 +115,8 @@
 		terribleTraits: true,
 		brokenBodies: true,
 		badHabits: true,
-		troublingTales: true,
+		origin: [],
+		classAbilities: [],
 		omens: 2
 	},
 	{
@@ -134,7 +139,8 @@
 		terribleTraits: true,
 		brokenBodies: true,
 		badHabits: true,
-		troublingTales: true,
+		origin: [],
+		classAbilities: [],
 		omens: 4
 	},
 	{
@@ -157,7 +163,8 @@
 		terribleTraits: true,
 		brokenBodies: true,
 		badHabits: true,
-		troublingTales: true,
+		origin: [],
+		classAbilities: [],
 		omens: 2
 	}
 ];
