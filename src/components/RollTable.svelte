@@ -3,6 +3,7 @@
 	export let group: any;
 	export let options: { dice: number[]; value: string; label: string }[];
 	export let multiple: number = 1;
+	export let alignItems: 'list-item' | 'inline-block' = 'list-item';
 
 	let isDisabled: boolean = false;
 
@@ -10,7 +11,7 @@
 </script>
 
 <h1 class="title">d{die}</h1>
-<ol class="clear-list list">
+<ol class={`clear-list list ${alignItems}`}>
 	{#each options as { dice, label, value }}
 		<li class="list-item">
 			<label>
@@ -33,7 +34,10 @@
 
 <style>
 	.title {
-		margin: 0;
+		margin: 1.5rem 0 0 0;
+	}
+	.list {
+		margin: 0 0 1.5rem 0;
 	}
 	.radio {
 		position: absolute;
@@ -48,5 +52,8 @@
 	}
 	.radio:checked + .list-item-text {
 		background-color: var(--yellow);
+	}
+	.inline-block > li {
+		display: inline-block;
 	}
 </style>

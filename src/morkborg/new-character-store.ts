@@ -14,7 +14,7 @@ export type FormData = {
 	toughness: Score;
 	hitPoints: number;
 	name: string;
-	traits: [string, string];
+	traits: string[];
 	brokenBodies: string;
 	badHabits: string;
 };
@@ -36,7 +36,7 @@ const formDataFactory = (): FormData => ({
 	toughness: 0,
 	hitPoints: 1,
 	name: '',
-	traits: ['', ''],
+	traits: [],
 	brokenBodies: '',
 	badHabits: ''
 });

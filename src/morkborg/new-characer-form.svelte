@@ -18,6 +18,7 @@
 	import terribelTraits from './data/tables/terrible-traits';
 	import brokenBodies from './data/tables/broken-bodies';
 	import badHabits from './data/tables/bad-habits';
+	import Title from '../components/Title.svelte';
 
 	// TODO: Move this
 	const CHARACTERS = JSON.parse(characters);
@@ -105,21 +106,24 @@
 		<NumberInput placeholder="0" min="1" max={maxRoll(hpDice)} />
 	</Label>
 
-	<div class="flex">
-		<div class="flex-col">
-			<RollTable
-				die={20}
-				options={terribelTraits.rows}
-				bind:group={$store.formData.traits}
-				multiple={2}
-			/>
-			<!-- terrible traits -->
-		</div>
-		<div class="flex-col">
-			<RollTable die={20} options={brokenBodies.rows} bind:group={$store.formData.brokenBodies} />
-		</div>
-	</div>
-	<RollTable die={20} options={badHabits.rows} bind:group={$store.formData.badHabits} />
+	<Title title="Terrible Traits">
+		<span slot="subtitle">(roll twice)</span>
+		<RollTable
+			die={20}
+			options={terribelTraits.rows}
+			bind:group={$store.formData.traits}
+			multiple={2}
+			alignItems="inline-block"
+		/>
+	</Title>
+
+	<Title title="Broken Bodies" align="left">
+		<RollTable die={20} options={brokenBodies.rows} bind:group={$store.formData.brokenBodies} />
+	</Title>
+
+	<Title title="Bad Habits">
+		<RollTable die={20} options={badHabits.rows} bind:group={$store.formData.badHabits} />
+	</Title>
 
 	<!-- Class Tables -->
 
