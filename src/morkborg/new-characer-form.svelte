@@ -19,6 +19,8 @@
 	import brokenBodies from './data/tables/broken-bodies';
 	import badHabits from './data/tables/bad-habits';
 	import Title from '../components/Title.svelte';
+	import OptionButton from '../components/OptionButton.svelte';
+	import RollButton from '../components/RollButton.svelte';
 
 	// TODO: Move this
 	const CHARACTERS = JSON.parse(characters);
@@ -48,18 +50,35 @@
 
 <Form onSubmit={() => null} class="narrow-container">
 	<Label title="Character Class">
+		<OptionButton
+			dice={[1, 'd', 6, '+', 1]}
+			options={CHARACTERS}
+			on:random={({ detail }) => (classId = detail._id)}
+			slot="roll"
+		/>
 		<Select options={CHARACTERS} bind:value={classId} />
 	</Label>
 
 	<div class="flex two-col">
 		<div class="flex-col">
 			<Label title="d4 days of food">
+				<RollButton
+					dice={[1, 'd', 4]}
+					on:roll={({ detail }) => ($store.formData.food = detail)}
+					slot="roll"
+				/>
 				<NumberInput placeholder="0" min="1" max="4" bind:value={$store.formData.food} />
 			</Label>
 		</div>
 
 		<div class="flex-col">
 			<Label title={`${toDiceString($store.selectedClass.silver)} silver`}>
+				<RollButton
+					dice={$store.selectedClass.silver}
+					on:roll={({ detail }) => ($store.formData.silver = detail)}
+					slot="roll"
+				/>
+
 				<NumberInput
 					placeholder="0"
 					min="0"
@@ -75,36 +94,71 @@
 		<div class="flex-col">
 			<RollTable die={6} options={eqTableOne.rows} bind:group={$store.formData.tableOne} />
 			<RollTable die={12} options={eqTableThree.rows} bind:group={$store.formData.tableThree} />
-			<RollTable die={4} options={armorTable.rows} bind:group={$store.formData.armor} />
 		</div>
 		<div class="flex-col">
 			<RollTable die={12} options={eqTableTwo.rows} bind:group={$store.formData.tableTwo} />
-			<RollTable die={10} options={weaponTable.rows} bind:group={$store.formData.weapon} />
+			<Title title="Weapons">
+				<RollTable die={10} options={weaponTable.rows} bind:group={$store.formData.weapon} />
+			</Title>
+		</div>
+	</div>
+
+	<Title title="Armor">
+		<RollTable die={4} options={armorTable.rows} bind:group={$store.formData.armor} />
+	</Title>
+
+	<div class="flex flex2">
+		<div class="flex-col">
+			<Score
+				ability={$store.selectedClass.abilities[0]}
+				mod={$store.formData.agility}
+				on:change={handleScoreChange}
+			/>
+		</div>
+		<div class="flex-col">
+			<Score
+				ability={$store.selectedClass.abilities[1]}
+				mod={$store.formData.presence}
+				on:change={handleScoreChange}
+			/>
+		</div>
+		<div class="flex-col">
+			<Score
+				ability={$store.selectedClass.abilities[2]}
+				mod={$store.formData.strength}
+				on:change={handleScoreChange}
+			/>
+		</div>
+		<div class="flex-col">
+			<Score
+				ability={$store.selectedClass.abilities[3]}
+				mod={$store.formData.toughness}
+				on:change={handleScoreChange}
+			/>
 		</div>
 	</div>
 
 	<div class="flex">
-		{#each $store.selectedClass.abilities.slice(0, 2) as score (score.key)}
-			<div class="flex-col">
-				<Score ability={score} mod={$store.formData[score.key]} on:change={handleScoreChange} />
-			</div>
-		{/each}
+		<div class="flex-col">
+			<Label
+				title={`Hit Points (${toDiceString($store.selectedClass.hitPoints)} + toughness(${
+					$store.formData.toughness
+				}))`}
+			>
+				<RollButton
+					dice={[...$store.selectedClass.hitPoints, '+', $store.formData.toughness]}
+					on:roll={({ detail }) => ($store.formData.hitPoints = detail)}
+					slot="roll"
+				/>
+				<NumberInput
+					placeholder="0"
+					min="1"
+					max={maxRoll(hpDice)}
+					bind:value={$store.formData.hitPoints}
+				/>
+			</Label>
+		</div>
 	</div>
-	<div class="flex">
-		{#each $store.selectedClass.abilities.slice(2) as score (score.key)}
-			<div class="flex-col">
-				<Score ability={score} mod={$store.formData[score.key]} on:change={handleScoreChange} />
-			</div>
-		{/each}
-	</div>
-
-	<Label
-		title={`Hit Points (${toDiceString($store.selectedClass.hitPoints)} + toughness(${
-			$store.formData.toughness
-		}))`}
-	>
-		<NumberInput placeholder="0" min="1" max={maxRoll(hpDice)} />
-	</Label>
 
 	<Title title="Terrible Traits">
 		<span slot="subtitle">(roll twice)</span>
@@ -118,7 +172,12 @@
 	</Title>
 
 	<Title title="Broken Bodies" align="left">
-		<RollTable die={20} options={brokenBodies.rows} bind:group={$store.formData.brokenBodies} />
+		<RollTable
+			die={20}
+			options={brokenBodies.rows}
+			bind:group={$store.formData.brokenBodies}
+			alignItems="inline-block"
+		/>
 	</Title>
 
 	<Title title="Bad Habits">
@@ -131,5 +190,9 @@
 		<Input />
 	</Label>
 
-	<div style="text-align:right;">&hellip; it will not <Button type="submit">Save</Button> you</div>
+	<div class="flex flex-right">
+		<div style="text-align:right;">
+			&hellip; it will not <Button type="submit">Save</Button> you
+		</div>
+	</div>
 </Form>

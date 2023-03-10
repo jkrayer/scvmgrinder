@@ -30,8 +30,8 @@ const BROKEN_BODIES = {
 		},
 		{
 			dice: [11],
-			value: 'Long tangled hair, at lesat one cockroach in residence',
-			label: 'Long tangled hair, at lesat one cockroach in residence'
+			value: 'Long tangled hair, at least one cockroach in residence',
+			label: 'Long tangled hair, at least one cockroach in residence'
 		},
 		{ dice: [12], value: 'Broken crushed ears', label: 'Broken crushed ears' },
 		{

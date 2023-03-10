@@ -1,11 +1,13 @@
-import { sum } from "ramda";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+import { sum } from 'ramda';
 
 const IO = (run) => ({
-  run,
-  map: (f) => IO(() => f(run())),
-  insert: (f) => IO(() => run(f())),
-  chain: (f) => IO(() => f(run()).run()), // when f returns an IO
-  concat: (other) => IO(() => run().concat(other.run())), // when run() returns an IO
+	run,
+	map: (f) => IO(() => f(run())),
+	insert: (f) => IO(() => run(f())),
+	chain: (f) => IO(() => f(run()).run()), // when f returns an IO
+	concat: (other) => IO(() => run().concat(other.run())) // when run() returns an IO
 });
 IO.of = (x) => IO(() => x);
 
@@ -31,18 +33,18 @@ export const rollD2: RollDie = () => d2.run();
 
 // IO.of(20).map(roll).map(add(-2));
 export const DICE_MAP = Object.freeze({
-  "0": () => 0,
-  "1d2": rollD2,
-  "1d4": rollD4,
-  "1d6": rollD6,
-  "1d8": rollD8,
-  "1d10": rollD10,
-  "1d12": rollD12,
-  "1d20": rollD20,
+	'0': () => 0,
+	'1d2': rollD2,
+	'1d4': rollD4,
+	'1d6': rollD6,
+	'1d8': rollD8,
+	'1d10': rollD10,
+	'1d12': rollD12,
+	'1d20': rollD20
 });
 
 export const rollNDice = (n: number, die: RollDie): [number, number[]] => {
-  const dice: number[] = new Array(n).fill(die).map((d) => d());
+	const dice: number[] = new Array(n).fill(die).map((d) => d());
 
-  return [sum(dice), dice];
+	return [sum(dice), dice];
 };

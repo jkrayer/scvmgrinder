@@ -10,34 +10,38 @@
 	$: isDisabled = group.length >= multiple;
 </script>
 
-<h1 class="title">d{die}</h1>
-<ol class={`clear-list list ${alignItems}`}>
-	{#each options as { dice, label, value }}
-		<li class="list-item">
-			<label>
-				{#if multiple === 1}
-					<input class="radio" type="radio" {value} bind:group />
-				{:else if isDisabled && group.indexOf(value) === -1}
-					<input class="radio" type="checkbox" {value} bind:group disabled={true} />
-				{:else}
-					<input class="radio" type="checkbox" {value} bind:group />
-				{/if}
+<div class="wrapper">
+	<h1 class="title">d{die}</h1>
+	<ol class={`clear-list list local ${alignItems}`}>
+		{#each options as { dice, label, value }}
+			<li class="list-item">
+				<label>
+					{#if multiple === 1}
+						<input class="radio" type="radio" {value} bind:group />
+					{:else if isDisabled && group.indexOf(value) === -1}
+						<input class="radio" type="checkbox" {value} bind:group disabled={true} />
+					{:else}
+						<input class="radio" type="checkbox" {value} bind:group />
+					{/if}
 
-				<span class="list-item-text"
-					>{dice[0]}{#if dice.length > 1}-{dice[dice.length - 1]}{/if}
-					{label}</span
-				>
-			</label>
-		</li>
-	{/each}
-</ol>
+					<span class="list-item-text"
+						><span class="dice"
+							>{dice[0]}{#if dice.length > 1}-{dice[dice.length - 1]}{/if}</span
+						>
+						{label}</span
+					>
+				</label>
+			</li>
+		{/each}
+	</ol>
+</div>
 
 <style>
-	.title {
-		margin: 1.5rem 0 0 0;
-	}
-	.list {
+	.wrapper {
 		margin: 0 0 1.5rem 0;
+	}
+	.title {
+		margin: 0;
 	}
 	.radio {
 		position: absolute;
@@ -55,5 +59,8 @@
 	}
 	.inline-block > li {
 		display: inline-block;
+	}
+	.dice {
+		padding-right: 0.5em;
 	}
 </style>

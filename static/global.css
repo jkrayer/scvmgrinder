@@ -82,12 +82,28 @@ body {
 	display: flex;
 	align-items: stretch;
 	gap: 1rem;
+	margin: 1rem 0;
+}
+
+.flex .flex {
+	margin: 0;
+}
+
+.flex-right {
+	justify-content: right;
 }
 
 .flex-col {
-	flex-grow: 1 1;
+	flex: 1 1;
 }
 
-.two-col .flex-col {
+.flex2 {
+	flex-wrap: wrap;
+}
+.flex2 > .flex-col {
 	width: 50%;
 }
+
+/* .two-col .flex-col {
+	width: 50%;
+} */

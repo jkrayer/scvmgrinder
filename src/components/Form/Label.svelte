@@ -9,7 +9,7 @@
 </script>
 
 <label class="label" {...$$restProps}>
-	<div>{title}</div>
+	<div>{title} <slot name="roll" /></div>
 	<slot />
 	{#if $$slots.comments}
 		<div>
@@ -21,9 +21,12 @@
 <style>
 	.label {
 		display: block;
-		margin: var(--pad) 0;
 	}
+
 	.label > div:first-of-type {
+		display: flex;
+		gap: 0.75rem;
+		align-items: center;
 		padding-bottom: var(--padTiny);
 	}
 	.label > div:nth-of-type(2) {
