@@ -11,13 +11,14 @@
 </script>
 
 <div class="wrapper">
-	<h1 class="title">d{die}</h1>
+	<h1 class="title">d{die} <slot /></h1>
 	<ol class={`clear-list list local ${alignItems}`}>
-		{#each options as { dice, label, value }}
+		{#each options as { dice, label, value }, index}
+			{@const isDisabled = !(index < die)}
 			<li class="list-item">
 				<label>
 					{#if multiple === 1}
-						<input class="radio" type="radio" {value} bind:group />
+						<input class="radio" type="radio" {value} bind:group disabled={isDisabled} />
 					{:else if isDisabled && group.indexOf(value) === -1}
 						<input class="radio" type="checkbox" {value} bind:group disabled={true} />
 					{:else}
@@ -56,6 +57,9 @@
 	}
 	.radio:checked + .list-item-text {
 		background-color: var(--yellow);
+	}
+	.radio:disabled + .list-item-text {
+		text-decoration: line-through;
 	}
 	.inline-block > li {
 		display: inline-block;

@@ -56,3 +56,12 @@ export function setSelectedClass(selectedClass: RawClassData) {
 		return { selectedClass, formData };
 	});
 }
+
+export function setTrait(trait: string) {
+	store.update((state: State): State => {
+		const { selectedClass, formData } = state;
+		const [, two] = formData.traits;
+
+		return { selectedClass, formData: { ...formData, traits: [two, trait] } };
+	});
+}

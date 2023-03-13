@@ -331,5 +331,21 @@ export default [
 		ammoType: null,
 		img: 'systems/morkborg/icons/classitems/shepherds-crook.png',
 		effects: [{ toHit: 'DR10' }, { defence: 'DR10' }]
+	},
+	{
+		_id: '6c3ae926d04a2aba5db4031c1b0a5260',
+		name: 'Rusting Hook',
+		type: 'weapon',
+		weaponType: 'melee',
+		description: '',
+		damageDie: '1d6',
+		handed: 1,
+		price: 0,
+		equipped: false,
+		broken: false,
+		usesAmmo: false,
+		ammoType: null,
+		img: '',
+		effects: []
 	}
 ];

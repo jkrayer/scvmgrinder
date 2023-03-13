@@ -7,7 +7,7 @@
 	import Button from '../components/Button.svelte';
 	import Score from '../components/Score.svelte';
 	import { maxRoll, toDiceString, rollToScore } from '$lib';
-	import store, { setSelectedClass } from './new-character-store';
+	import store, { setSelectedClass, setTrait } from './new-character-store';
 	import Form from '../components/Form/Form.svelte';
 	import characters from './data/characters.json';
 	import eqTableOne from './data/tables/one';
@@ -92,19 +92,57 @@
 
 	<div class="flex">
 		<div class="flex-col">
-			<RollTable die={6} options={eqTableOne.rows} bind:group={$store.formData.tableOne} />
-			<RollTable die={12} options={eqTableThree.rows} bind:group={$store.formData.tableThree} />
+			<RollTable die={6} options={eqTableOne.rows} bind:group={$store.formData.tableOne}>
+				<RollButton
+					dice={[1, 'd', 6]}
+					on:roll={({ detail }) => {
+						const index = detail < 2 ? 0 : detail - 1;
+						$store.formData.tableOne = eqTableOne.rows[index].value;
+					}}
+				/>
+			</RollTable>
+			<RollTable die={12} options={eqTableThree.rows} bind:group={$store.formData.tableThree}>
+				<RollButton
+					dice={[1, 'd', 12]}
+					on:roll={({ detail }) =>
+						($store.formData.tableThree = eqTableThree.rows[detail - 1].value)}
+				/>
+			</RollTable>
 		</div>
 		<div class="flex-col">
-			<RollTable die={12} options={eqTableTwo.rows} bind:group={$store.formData.tableTwo} />
+			<RollTable die={12} options={eqTableTwo.rows} bind:group={$store.formData.tableTwo}>
+				<RollButton
+					dice={[1, 'd', 12]}
+					on:roll={({ detail }) => ($store.formData.tableTwo = eqTableTwo.rows[detail - 1].value)}
+				/>
+			</RollTable>
 			<Title title="Weapons">
-				<RollTable die={10} options={weaponTable.rows} bind:group={$store.formData.weapon} />
+				<RollTable
+					die={$store.selectedClass.weaponTable}
+					options={weaponTable.rows}
+					bind:group={$store.formData.weapon}
+				>
+					({$store.selectedClass.weaponTable})
+					<RollButton
+						dice={[1, 'd', $store.selectedClass.weaponTable]}
+						on:roll={({ detail }) => ($store.formData.weapon = weaponTable.rows[detail - 1].value)}
+					/>
+				</RollTable>
 			</Title>
 		</div>
 	</div>
 
 	<Title title="Armor">
-		<RollTable die={4} options={armorTable.rows} bind:group={$store.formData.armor} />
+		<RollTable
+			die={$store.selectedClass.armorTable}
+			options={armorTable.rows}
+			bind:group={$store.formData.armor}
+		>
+			<RollButton
+				dice={[1, 'd', $store.selectedClass.armorTable]}
+				on:roll={({ detail }) => ($store.formData.armor = armorTable.rows[detail - 1].value)}
+			/>
+		</RollTable>
 	</Title>
 
 	<div class="flex flex2">
@@ -168,7 +206,12 @@
 			bind:group={$store.formData.traits}
 			multiple={2}
 			alignItems="inline-block"
-		/>
+		>
+			<RollButton
+				dice={[1, 'd', 20]}
+				on:roll={({ detail }) => setTrait(terribelTraits.rows[detail - 1].value)}
+			/>
+		</RollTable>
 	</Title>
 
 	<Title title="Broken Bodies" align="left">
@@ -177,11 +220,22 @@
 			options={brokenBodies.rows}
 			bind:group={$store.formData.brokenBodies}
 			alignItems="inline-block"
-		/>
+		>
+			<RollButton
+				dice={[1, 'd', 20]}
+				on:roll={({ detail }) =>
+					($store.formData.brokenBodies = brokenBodies.rows[detail - 1].value)}
+			/>
+		</RollTable>
 	</Title>
 
 	<Title title="Bad Habits">
-		<RollTable die={20} options={badHabits.rows} bind:group={$store.formData.badHabits} />
+		<RollTable die={20} options={badHabits.rows} bind:group={$store.formData.badHabits}>
+			<RollButton
+				dice={[1, 'd', 20]}
+				on:roll={({ detail }) => ($store.formData.badHabits = badHabits.rows[detail - 1].value)}
+			/>
+		</RollTable>
 	</Title>
 
 	<!-- Class Tables -->
