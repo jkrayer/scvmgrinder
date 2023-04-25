@@ -288,7 +288,7 @@ export default [
 		name: "Old Sigûrd's sling",
 		type: 'weapon',
 		weaponType: 'ranged',
-		damageDie: '2d4',
+		damageDie: [2, 'd', 4],
 		handed: 1,
 		price: 0,
 		equipped: false,

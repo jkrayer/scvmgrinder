@@ -20,7 +20,12 @@ const TABLE_ONE = {
 				'{"equipment":{"name":"Small Wagon","type":"container","description":"","equipped":false,"price":25,"quantity":1,"capacity":15,"img":"systems/morkborg/icons/items/containers/wagon.png","effects":[],"_id":"eNcMJ17ikUaGuuBF"}}',
 			label: 'small wagon or one item above of your choice'
 		},
-		{ dice: [6], value: 'followers:xZrAhOxxJSj2czwp', label: 'donkey, not bad' }
+		{
+			dice: [6],
+			value:
+				'{"follower":{"_id":"xZrAhOxxJSj2czwp","name":"Donkey","type":"follower","followerType":"container","description":"<p>Not bad.</p>","price":10,"quantity":1,"capacity":15,"img":"systems/morkborg/icons/items/containers/donkey.png","effects":[]}}',
+			label: 'donkey, not bad'
+		}
 	]
 };
 

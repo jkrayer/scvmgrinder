@@ -28,19 +28,15 @@
 	let hpDice: Dice | never[] = [];
 
 	$: {
-		console.log('running block one');
 		let selectedClass = CHARACTERS.find((x: any) => x._id === classId);
 		setSelectedClass(selectedClass);
 	}
 
 	$: {
-		console.log('running block two');
 		const D: [Dice[0], Dice[1], Dice[2]] = $store.selectedClass.hitPoints || [1, 'd', 1];
 		const M: [Dice[3], Dice[4]] = ['+', $store.formData.toughness];
 		hpDice = [...D, ...M];
 	}
-
-	$: console.log('FD', $store.formData);
 
 	const handleScoreChange = ({
 		detail: { key, score }

@@ -74,7 +74,7 @@ body {
 /*  4. Layout */
 .narrow-container {
 	width: 100vw;
-	max-width: 20.25rem;
+	max-width: 30.25rem; /* 20.25rem */
 	margin: 0 auto;
 }
 

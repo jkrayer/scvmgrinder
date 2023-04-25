@@ -229,7 +229,7 @@ export default [
 	{
 		name: 'Lockpicks',
 		type: 'equipment',
-		description: '',
+		description: 'Metal File and Lockpicks',
 		equipped: false,
 		price: 5,
 		quantity: 1,
@@ -528,7 +528,8 @@ export default [
 		_id: 'Jh2uzOSivFQmI1gv',
 		name: 'Wizard Teeth',
 		type: 'equipment',
-		description: '<p>Makes rolls better</p>',
+		description:
+			'<p>Four weird teeth rattle within a blackened pouch. Before battle roll a d6 for each one. For every 6 one of your attacks deals maximum damage.</p>',
 		equipped: false,
 		price: 0,
 		quantity: 1,
@@ -636,5 +637,18 @@ export default [
 		img: '',
 		effects: [],
 		_id: '_iNy14bPxAgkJwXZv'
+	},
+	{
+		name: 'Bard of the Undying',
+		type: 'misc',
+		description:
+			'<b>Bard of the Undying</b> You learnt your melodies in the Otherworld. The music of your Harp gives +D4 on reaction rolls.',
+		equipped: false,
+		price: 0,
+		quantity: 1,
+		capacity: 0,
+		img: '',
+		effects: [],
+		_id: 's5IPLLQcYedhA5mI'
 	}
 ];

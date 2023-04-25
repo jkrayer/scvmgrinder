@@ -16,9 +16,37 @@ declare global {
 
 	type AbilityKeys = 'agility' | 'presence' | 'strength' | 'toughness';
 
+	type Weapon = {
+		_id: string;
+		name: string;
+		type: 'weapon';
+		weaponType: 'melee';
+		damageDie: number;
+		handed: 0 | 1 | 2;
+		price: number;
+		equipped: boolean;
+		broken: boolean;
+		usesAmmo: boolean;
+		ammoType: null;
+		img?: string;
+		effects?: string[];
+	};
+
 	type CurrentMax = {
 		current: number;
 		maximum: number;
+	};
+
+	type TableRow = {
+		dice: number[];
+		value: string;
+		label: string;
+	};
+
+	type Table = {
+		title?: string;
+		dice: Dice;
+		rows: TableRow[];
 	};
 
 	type Ability = { key: AbilityKeys; name: string; dice: Dice };
@@ -39,7 +67,10 @@ declare global {
 		brokenBodies: boolean;
 		badHabits: boolean;
 		troublingTales: boolean;
+		origin: Table;
+		classFeature: Table;
 		omens: number;
+		naturalWeapon?: Weapon;
 	};
 }
 
