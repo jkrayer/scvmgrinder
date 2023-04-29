@@ -1,5 +1,3 @@
-<script>
-	import NewCharacerForm from '../morkborg/new-characer-form.svelte';
-</script>
+<h1>Home</h1>
 
-<NewCharacerForm />
+<a href="/create">+New Character</a>

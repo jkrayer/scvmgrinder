@@ -10,6 +10,8 @@ TODO:
 
 1. Looks like tables aren't really done
    1. BUG: Can same number twice on terrible traits
+   2. tables that spawn tables (rolling for scrolls)
+   3. equipment with rolls, doses, ammunition
 2. Class tables
    1. Just Occult Herbmaster (and should I code feature in to the sheet directly?)
    2. Also the bite from so and so
