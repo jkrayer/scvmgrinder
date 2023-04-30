@@ -1,4 +1,4 @@
-const TABLE_TWO = {
+const TABLE_TWO: Table = {
 	dice: [1, 'd', 12],
 	rows: [
 		{
@@ -15,7 +15,8 @@ const TABLE_TWO = {
 		},
 		{
 			dice: [3],
-			value: '',
+			value:
+				'{"equipment":{"name":"Lantern oil","type":"equipment","description":"<p>Presence + 6 hours.</p>","equipped":false,"price":5,"quantity":6,"img":"systems/morkborg/icons/items/misc/lanternoil.png","effects":[],"_id":"iNy14bPxAgkJwXZv"}}',
 			label: 'lantern with oil for Presence + 6 hours'
 		},
 		{
@@ -24,6 +25,7 @@ const TABLE_TWO = {
 				'{"equipment":{"name":"Magnesium strip","type":"equipment","description":"","equipped":false,"price":4,"quantity":1,"img":"systems/morkborg/icons/items/misc/magnesiumstrip.png","effects":[],"_id":"I4G2ofGuWZsaK3pO"}}',
 			label: 'magnesium strip'
 		},
+		// samesies
 		{ dice: [5], value: 'ruc', label: 'random unclean scroll' },
 		{
 			dice: [6],

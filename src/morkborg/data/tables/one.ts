@@ -1,4 +1,4 @@
-const TABLE_ONE = {
+const TABLE_ONE: Table = {
 	dice: [1, 'd', 6],
 	rows: [
 		{ dice: [1, 2], value: 'nothing', label: 'nothing' },

@@ -1,4 +1,4 @@
-const WEAPONS = {
+const WEAPONS: Table = {
 	dice: [1, 'd', 12],
 	rows: [
 		{

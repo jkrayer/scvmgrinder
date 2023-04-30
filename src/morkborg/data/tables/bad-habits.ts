@@ -1,4 +1,4 @@
-const BAD_HABITS = {
+const BAD_HABITS: Table = {
 	dice: [1, 'd', 20],
 	rows: [
 		{

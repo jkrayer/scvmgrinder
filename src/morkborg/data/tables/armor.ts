@@ -1,4 +1,4 @@
-const TABLE_ONE = {
+const ARMOR_TABLE: Table = {
 	dice: [1, 'd', 4],
 	rows: [
 		{ dice: [1], value: 'no armor', label: 'nothing' },
@@ -23,4 +23,4 @@ const TABLE_ONE = {
 	]
 };
 
-export default TABLE_ONE;
+export default ARMOR_TABLE;

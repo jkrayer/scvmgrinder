@@ -1,4 +1,4 @@
-const BROKEN_BODIES = {
+const BROKEN_BODIES: Table = {
 	dice: [1, 'd', 20],
 	rows: [
 		{ dice: [1], value: 'Staring Manic Gaze', label: 'Staring Manic Gaze' },
@@ -10,7 +10,6 @@ const BROKEN_BODIES = {
 		{ dice: [3], value: 'Rotting face, wears a mask', label: 'Rotting face, wears a mask' },
 		{ dice: [4], value: 'Lost three toes, limps', label: 'Lost three toes, limps' },
 		{ dice: [5], value: 'Starved: gaunt and pale', label: 'Starved: gaunt and pale' },
-		// THis one needs equipment
 		{
 			dice: [6],
 			value:

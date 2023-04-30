@@ -1,4 +1,4 @@
-const TABLE_THREE = {
+const TABLE_THREE: Table = {
 	dice: [1, 'd', 12],
 	rows: [
 		{
@@ -7,6 +7,7 @@ const TABLE_THREE = {
 				'{"equipment":{"name":"Life Elixir","type":"equipment","description":"<p>d4 doses (heals d6 HP and removes infection)</p>","equipped":false,"price":30,"quantity":4,"img":"systems/morkborg/icons/items/misc/potion.png","effects":[],"_id":"xXkP7QnTVlXChAAh"}}',
 			label: 'life elixir d4 doses (heals d6 HP and removes infection)'
 		},
+		// This could either open another table with roll for sacred scroll OR rolle fo a sacred scroll when it mounts and insert into this position.
 		{
 			dice: [2],
 			value: 'rss',

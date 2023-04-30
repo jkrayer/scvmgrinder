@@ -1,4 +1,5 @@
 <script lang="ts">
+	export let tables: CreateCharacterData['tables'];
 	import { isEmpty } from 'ramda';
 	import Label from '../components/Form/Label.svelte';
 	import Input from '../components/Form/Input.svelte';
@@ -10,25 +11,11 @@
 	import { maxRoll, toDiceString, rollToScore } from '$lib';
 	import store, { canSubmit, setSelectedClass, setTrait } from './store/new-character-store';
 	import Form from '../components/Form/Form.svelte';
-	import characters from './data/characters';
-	import eqTableOne from './data/tables/one';
-	import eqTableTwo from './data/tables/two';
-	import eqTableThree from './data/tables/three';
-	import weaponTable from './data/tables/weapons';
-	import armorTable from './data/tables/armor';
-	import terribelTraits from './data/tables/terrible-traits';
-	import brokenBodies from './data/tables/broken-bodies';
-	import badHabits from './data/tables/bad-habits';
 	import Title from '../components/Title.svelte';
 	import OptionButton from '../components/OptionButton.svelte';
 	import RollButton from '../components/RollButton.svelte';
 
-	// LIFECYCLE
-
-	// TODO: Move this
-	// const CHARACTERS = JSON.parse(characters);
-	// !!WTF
-	const CHARACTERS: RawClassData[] = characters;
+	const CHARACTERS: RawClassData[] = tables.characters;
 	let classId: string = CHARACTERS[0]._id;
 	let hpDice: Dice | never[] = [];
 
@@ -49,6 +36,7 @@
 		($store.formData[key] = rollToScore(score));
 </script>
 
+<a href="/" class="banner">Go Home!<br />the path is pain.</a>
 <Form onSubmit={() => null}>
 	<Label title="Character Class">
 		<OptionButton
@@ -93,40 +81,42 @@
 
 	<div class="row">
 		<div class="col-two">
-			<RollTable die={6} options={eqTableOne.rows} bind:group={$store.formData.tableOne}>
+			<RollTable die={6} options={tables.tableOne.rows} bind:group={$store.formData.tableOne}>
 				<RollButton
 					dice={[1, 'd', 6]}
 					on:roll={({ detail }) => {
 						const index = detail < 2 ? 0 : detail - 1;
-						$store.formData.tableOne = eqTableOne.rows[index].value;
+						$store.formData.tableOne = tables.tableOne.rows[index].value;
 					}}
 				/>
 			</RollTable>
-			<RollTable die={12} options={eqTableThree.rows} bind:group={$store.formData.tableThree}>
+			<RollTable die={12} options={tables.tableThree.rows} bind:group={$store.formData.tableThree}>
 				<RollButton
 					dice={[1, 'd', 12]}
 					on:roll={({ detail }) =>
-						($store.formData.tableThree = eqTableThree.rows[detail - 1].value)}
+						($store.formData.tableThree = tables.tableThree.rows[detail - 1].value)}
 				/>
 			</RollTable>
 		</div>
 		<div class="col-two">
-			<RollTable die={12} options={eqTableTwo.rows} bind:group={$store.formData.tableTwo}>
+			<RollTable die={12} options={tables.tableTwo.rows} bind:group={$store.formData.tableTwo}>
 				<RollButton
 					dice={[1, 'd', 12]}
-					on:roll={({ detail }) => ($store.formData.tableTwo = eqTableTwo.rows[detail - 1].value)}
+					on:roll={({ detail }) =>
+						($store.formData.tableTwo = tables.tableTwo.rows[detail - 1].value)}
 				/>
 			</RollTable>
 			<Title title="Weapons">
 				<RollTable
 					die={$store.selectedClass.weaponTable}
-					options={weaponTable.rows}
+					options={tables.weaponTable.rows}
 					bind:group={$store.formData.weapon}
 				>
 					({$store.selectedClass.weaponTable})
 					<RollButton
 						dice={[1, 'd', $store.selectedClass.weaponTable]}
-						on:roll={({ detail }) => ($store.formData.weapon = weaponTable.rows[detail - 1].value)}
+						on:roll={({ detail }) =>
+							($store.formData.weapon = tables.weaponTable.rows[detail - 1].value)}
 					/>
 				</RollTable>
 			</Title>
@@ -136,12 +126,12 @@
 	<Title title="Armor">
 		<RollTable
 			die={$store.selectedClass.armorTable}
-			options={armorTable.rows}
+			options={tables.armorTable.rows}
 			bind:group={$store.formData.armor}
 		>
 			<RollButton
 				dice={[1, 'd', $store.selectedClass.armorTable]}
-				on:roll={({ detail }) => ($store.formData.armor = armorTable.rows[detail - 1].value)}
+				on:roll={({ detail }) => ($store.formData.armor = tables.armorTable.rows[detail - 1].value)}
 			/>
 		</RollTable>
 	</Title>
@@ -203,14 +193,14 @@
 		<span slot="subtitle">(roll twice)</span>
 		<RollTable
 			die={20}
-			options={terribelTraits.rows}
+			options={tables.terribelTraits.rows}
 			bind:group={$store.formData.traits}
 			multiple={2}
 			alignItems="inline-block"
 		>
 			<RollButton
 				dice={[1, 'd', 20]}
-				on:roll={({ detail }) => setTrait(terribelTraits.rows[detail - 1].value)}
+				on:roll={({ detail }) => setTrait(tables.terribelTraits.rows[detail - 1].value)}
 			/>
 		</RollTable>
 	</Title>
@@ -218,23 +208,24 @@
 	<Title title="Broken Bodies" align="left">
 		<RollTable
 			die={20}
-			options={brokenBodies.rows}
+			options={tables.brokenBodies.rows}
 			bind:group={$store.formData.brokenBodies}
 			alignItems="inline-block"
 		>
 			<RollButton
 				dice={[1, 'd', 20]}
 				on:roll={({ detail }) =>
-					($store.formData.brokenBodies = brokenBodies.rows[detail - 1].value)}
+					($store.formData.brokenBodies = tables.brokenBodies.rows[detail - 1].value)}
 			/>
 		</RollTable>
 	</Title>
 
 	<Title title="Bad Habits">
-		<RollTable die={20} options={badHabits.rows} bind:group={$store.formData.badHabits}>
+		<RollTable die={20} options={tables.badHabits.rows} bind:group={$store.formData.badHabits}>
 			<RollButton
 				dice={[1, 'd', 20]}
-				on:roll={({ detail }) => ($store.formData.badHabits = badHabits.rows[detail - 1].value)}
+				on:roll={({ detail }) =>
+					($store.formData.badHabits = tables.badHabits.rows[detail - 1].value)}
 			/>
 		</RollTable>
 	</Title>
@@ -282,3 +273,17 @@
 		</div>
 	</div>
 </Form>
+
+<style>
+	/* may want to move to global */
+	.banner {
+		position: fixed;
+		top: 32px;
+		left: -63px;
+		padding: 0.5em 4rem;
+		border-bottom: 2px solid var(--black);
+		transform: rotate(-45deg);
+		background-color: var(--yellow);
+		text-align: center;
+	}
+</style>

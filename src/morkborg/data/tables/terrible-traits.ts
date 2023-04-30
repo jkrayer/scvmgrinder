@@ -1,4 +1,4 @@
-const TERRIBE_TRAITS = {
+const TERRIBE_TRAITS: Table = {
 	dice: [1, 'd', 20],
 	rows: [
 		{ dice: [1], value: 'Endlessly aggravated', label: 'Endlessly aggravated' },

@@ -73,6 +73,32 @@ declare global {
 		omens: number;
 		naturalWeapon?: Weapon;
 	};
+
+	// EQUIPMENT
+	type Scroll = CommonEquipmentProps & {
+		_id: string;
+		name: string;
+		type: 'scroll';
+		subType: 'unclean' | 'sacred';
+		description: string;
+		equipped: boolean;
+		price: number;
+	};
+
+	//
+	type CreateCharacterData = {
+		tables: {
+			characters: RawClassData[];
+			tableOne: Table;
+			tableTwo: Table;
+			tableThree: Table;
+			weaponTable: Table;
+			armorTable: Table;
+			terribelTraits: Table;
+			brokenBodies: Table;
+			badHabits: Table;
+		};
+	};
 }
 
 export {};
