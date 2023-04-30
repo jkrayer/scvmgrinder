@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { isEmpty } from 'ramda';
 	import Label from '../components/Form/Label.svelte';
 	import Input from '../components/Form/Input.svelte';
 	import NumberInput from '../components/Form/NumberInput.svelte';
@@ -7,9 +8,9 @@
 	import Button from '../components/Button.svelte';
 	import Score from '../components/Score.svelte';
 	import { maxRoll, toDiceString, rollToScore } from '$lib';
-	import store, { setSelectedClass, setTrait } from './new-character-store';
+	import store, { canSubmit, setSelectedClass, setTrait } from './store/new-character-store';
 	import Form from '../components/Form/Form.svelte';
-	import characters from './data/characters.json';
+	import characters from './data/characters';
 	import eqTableOne from './data/tables/one';
 	import eqTableTwo from './data/tables/two';
 	import eqTableThree from './data/tables/three';
@@ -22,14 +23,18 @@
 	import OptionButton from '../components/OptionButton.svelte';
 	import RollButton from '../components/RollButton.svelte';
 
+	// LIFECYCLE
+
 	// TODO: Move this
-	const CHARACTERS = JSON.parse(characters);
+	// const CHARACTERS = JSON.parse(characters);
+	// !!WTF
+	const CHARACTERS: RawClassData[] = characters;
 	let classId: string = CHARACTERS[0]._id;
 	let hpDice: Dice | never[] = [];
 
 	$: {
-		let selectedClass = CHARACTERS.find((x: any) => x._id === classId);
-		setSelectedClass(selectedClass);
+		let selectedClass: RawClassData | undefined = CHARACTERS.find((x: any) => x._id === classId);
+		!!selectedClass && setSelectedClass(selectedClass);
 	}
 
 	$: {
@@ -44,7 +49,7 @@
 		($store.formData[key] = rollToScore(score));
 </script>
 
-<Form onSubmit={() => null} class="narrow-container">
+<Form onSubmit={() => null}>
 	<Label title="Character Class">
 		<OptionButton
 			dice={[1, 'd', 6, '+', 1]}
@@ -55,8 +60,8 @@
 		<Select options={CHARACTERS} bind:value={classId} />
 	</Label>
 
-	<div class="flex two-col">
-		<div class="flex-col">
+	<div class="row">
+		<div class="col-two">
 			<Label title="d4 days of food">
 				<RollButton
 					dice={[1, 'd', 4]}
@@ -67,7 +72,7 @@
 			</Label>
 		</div>
 
-		<div class="flex-col">
+		<div class="col-two">
 			<Label title={`${toDiceString($store.selectedClass.silver)} silver`}>
 				<RollButton
 					dice={$store.selectedClass.silver}
@@ -86,8 +91,8 @@
 		</div>
 	</div>
 
-	<div class="flex">
-		<div class="flex-col">
+	<div class="row">
+		<div class="col-two">
 			<RollTable die={6} options={eqTableOne.rows} bind:group={$store.formData.tableOne}>
 				<RollButton
 					dice={[1, 'd', 6]}
@@ -105,7 +110,7 @@
 				/>
 			</RollTable>
 		</div>
-		<div class="flex-col">
+		<div class="col-two">
 			<RollTable die={12} options={eqTableTwo.rows} bind:group={$store.formData.tableTwo}>
 				<RollButton
 					dice={[1, 'd', 12]}
@@ -141,29 +146,29 @@
 		</RollTable>
 	</Title>
 
-	<div class="flex flex2">
-		<div class="flex-col">
+	<div class="row">
+		<div class="col-two">
 			<Score
 				ability={$store.selectedClass.abilities[0]}
 				mod={$store.formData.agility}
 				on:change={handleScoreChange}
 			/>
 		</div>
-		<div class="flex-col">
+		<div class="col-two">
 			<Score
 				ability={$store.selectedClass.abilities[1]}
 				mod={$store.formData.presence}
 				on:change={handleScoreChange}
 			/>
 		</div>
-		<div class="flex-col">
+		<div class="col-two">
 			<Score
 				ability={$store.selectedClass.abilities[2]}
 				mod={$store.formData.strength}
 				on:change={handleScoreChange}
 			/>
 		</div>
-		<div class="flex-col">
+		<div class="col-two">
 			<Score
 				ability={$store.selectedClass.abilities[3]}
 				mod={$store.formData.toughness}
@@ -172,8 +177,8 @@
 		</div>
 	</div>
 
-	<div class="flex">
-		<div class="flex-col">
+	<div class="row">
+		<div class="col-three">
 			<Label
 				title={`Hit Points (${toDiceString($store.selectedClass.hitPoints)} + toughness(${
 					$store.formData.toughness
@@ -234,15 +239,46 @@
 		</RollTable>
 	</Title>
 
-	<!-- Class Tables -->
+	{#if !isEmpty($store.selectedClass.origin)}
+		<Title title={`${$store.selectedClass.origin.title}...`}>
+			<RollTable
+				die={$store.selectedClass.origin.dice[2]}
+				options={$store.selectedClass.origin.rows}
+				bind:group={$store.formData.origin}
+			>
+				<RollButton
+					dice={$store.selectedClass.origin.dice}
+					on:roll={({ detail }) =>
+						($store.formData.origin = $store.selectedClass.origin.rows[detail - 1].value)}
+				/>
+			</RollTable>
+		</Title>
+	{/if}
+
+	{#if !isEmpty($store.selectedClass.classFeature)}
+		<Title title="Class Feature...">
+			<RollTable
+				die={$store.selectedClass.classFeature.dice[2]}
+				options={$store.selectedClass.classFeature.rows}
+				bind:group={$store.formData.classFeature}
+			>
+				<RollButton
+					dice={$store.selectedClass.classFeature.dice}
+					on:roll={({ detail }) =>
+						($store.formData.classFeature =
+							$store.selectedClass.classFeature.rows[detail - 1].value)}
+				/>
+			</RollTable>
+		</Title>
+	{/if}
 
 	<Label title="Name this one">
-		<Input />
+		<Input bind:value={$store.formData.name} />
 	</Label>
 
-	<div class="flex flex-right">
+	<div class="row row-right">
 		<div style="text-align:right;">
-			&hellip; it will not <Button type="submit">Save</Button> you
+			&hellip; it will not <Button type="submit" disabled={!$canSubmit}>Save</Button> you
 		</div>
 	</div>
 </Form>

@@ -29,7 +29,7 @@
 						><span class="dice"
 							>{dice[0]}{#if dice.length > 1}-{dice[dice.length - 1]}{/if}</span
 						>
-						{label}</span
+						{@html label}</span
 					>
 				</label>
 			</li>

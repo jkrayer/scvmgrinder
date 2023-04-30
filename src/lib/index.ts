@@ -39,7 +39,10 @@ export const rollToScore = (roll: number): Score => {
 };
 
 // DICE
-export const toDiceString = (dice: Dice): string => dice.join('');
+export const toDiceString = (dice: Dice): string => {
+	console.log(43, dice);
+	return dice.join('');
+};
 
 export const minRoll = ([number = 0, , , symbol = '+', modifier = 0]: Dice | never[]): number =>
 	LOCAL_MATH[symbol](number, modifier);

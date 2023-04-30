@@ -25,18 +25,18 @@
 	}
 </script>
 
-<fieldset class="flex fieldset">
-	<legend class="flex-col legend">
+<fieldset class="fieldset">
+	<legend class="legend">
 		{`${ability.name}(${toDiceString(ability.dice)})`}
 		<RollButton dice={ability.dice} on:roll={({ detail }) => (score = detail)} />
 	</legend>
-	<div class="flex">
-		<div class="flex-col">
+	<div class="row">
+		<div class="col-two">
 			<Label title="roll">
 				<NumberInput bind:value={score} min={minRoll(ability.dice)} max={maxRoll(ability.dice)} />
 			</Label>
 		</div>
-		<div class="flex-col">
+		<div class="col-two">
 			<Label title="score" aria-labelledby={`${ability.name}-title`}>
 				<NumberInput readonly value={mod} />
 			</Label>

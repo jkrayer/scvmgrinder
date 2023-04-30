@@ -88,32 +88,28 @@ a:hover {
 	margin: 0 auto;
 }
 
-.flex {
+.row {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: stretch;
-	gap: 1rem;
+	gap: 0.625rem;
 	margin: 1rem 0;
 }
 
-.flex .flex {
+.row .row {
 	margin: 0;
 }
 
-.flex-right {
-	justify-content: right;
+.row-right {
+	justify-content: end;
 }
 
-.flex-col {
-	flex: 1 1;
+.col-one {
+	flex-basis: calc(25% - 5px);
 }
-
-.flex2 {
-	flex-wrap: wrap;
+.col-two {
+	flex-basis: calc(50% - 5px);
 }
-.flex2 > .flex-col {
-	width: 50%;
+.col-three {
+	flex-basis: calc(70% - 5px);
 }
-
-/* .two-col .flex-col {
-	width: 50%;
-} */

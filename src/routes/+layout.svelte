@@ -4,7 +4,9 @@
 	<img src="/CompWith_MORKBORG_horiz.svg" width="270" height="77" alt="Compatible With MÖRK BORG" />
 </header>
 
-<slot />
+<main class="narrow-container">
+	<slot />
+</main>
 
 <footer id="site-footer" class="narrow-container">
 	<p>
@@ -30,7 +32,7 @@
 
 	#site-logo {
 		font: 400 1.125rem/1 var(--serif);
-		letter-spacing: 3.6px;
+		letter-spacing: 4px;
 	}
 
 	#site-tag,

@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import type {
 		HTMLInputAttributes,
-		HTMLInputTypeAttribute,
+		// HTMLInputTypeAttribute,
 		ChangeEventHandler
 	} from 'svelte/elements';
 	import { stringValue } from '../../lib';
@@ -11,20 +11,22 @@
 	// 	type?: HTMLInputAttributes | null;
 	// }
 
-	interface $$Props extends HTMLInputAttributes {}
+	// interface $$Props extends HTMLInputAttributes {}
+	interface $$Props extends Omit<HTMLInputAttributes, 'type'> {}
 
-	const dispatch = createEventDispatcher();
+	// const dispatch = createEventDispatcher();
 
 	// export let type: HTMLInputTypeAttribute | undefined | null = 'text';
 	// export let value: any = '';
 
 	// const handleChange: ChangeEventHandler<HTMLInputElement> = (e) =>
 	// 	dispatch('change', e.target.value);
+	export let value: string = '';
 </script>
 
 <!-- on:change={handleChange} -->
 
-<input class="control" type="tet" />
+<input type="text" class="control" bind:value {...$$restProps} />
 
 <!--
 <script lang="ts">

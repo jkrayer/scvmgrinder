@@ -66,8 +66,9 @@ declare global {
 		terribleTraits: boolean;
 		brokenBodies: boolean;
 		badHabits: boolean;
-		troublingTales: boolean;
-		origin: Table;
+		// troublingTales: boolean;
+		origin: Table | Record<string, never>;
+		classFeature: Table | Record<string, never>;
 		classFeature: Table;
 		omens: number;
 		naturalWeapon?: Weapon;

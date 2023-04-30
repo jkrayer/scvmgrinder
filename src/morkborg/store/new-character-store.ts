@@ -1,4 +1,5 @@
-import { writable } from 'svelte/store';
+import { always, compose, gte, isEmpty, ifElse, lt, lte, not } from 'ramda';
+import { writable, derived, type Readable } from 'svelte/store';
 
 export type FormData = {
 	food: number;
@@ -17,6 +18,8 @@ export type FormData = {
 	traits: string[];
 	brokenBodies: string;
 	badHabits: string;
+	origin: string;
+	classFeature: string;
 };
 
 type State = { selectedClass: RawClassData | Record<string, never>; formData: FormData };
@@ -31,14 +34,16 @@ const formDataFactory = (): FormData => ({
 	weapon: '',
 	armor: '',
 	agility: 0,
-	presence: 5,
+	presence: 0,
 	strength: 0,
 	toughness: 0,
-	hitPoints: 1,
+	hitPoints: 0,
 	name: '',
 	traits: [],
 	brokenBodies: '',
-	badHabits: ''
+	badHabits: '',
+	origin: '',
+	classFeature: ''
 });
 
 const store = writable<State>({
@@ -65,3 +70,36 @@ export function setTrait(trait: string) {
 		return { selectedClass, formData: { ...formData, traits: [two, trait] } };
 	});
 }
+
+// VALIDATORS
+const scoreRange = ifElse<[number], boolean, boolean>(lte(-3), gte(3), always(false));
+const gtZero = lt(0);
+const notEmpty = compose<[any], boolean, boolean>(not, isEmpty);
+
+//
+export const canSubmit = derived<Readable<State>, boolean>(
+	store,
+	({ formData }: State): boolean => {
+		const VALIDATIONS: [keyof FormData, (arg1: any) => boolean][] = [
+			['food', gtZero],
+			['silver', gtZero],
+			['tableOne', notEmpty],
+			['tableTwo', notEmpty],
+			['tableThree', notEmpty],
+			['weapon', notEmpty],
+			['armor', notEmpty],
+			['agility', scoreRange],
+			['presence', scoreRange],
+			['strength', scoreRange],
+			['toughness', scoreRange],
+			['hitPoints', gtZero],
+			['name', notEmpty],
+			['traits', notEmpty],
+			['brokenBodies', notEmpty],
+			['badHabits', notEmpty]
+		];
+
+		return VALIDATIONS.reduce((acc, [key, fn]) => acc && fn(formData[key]), true);
+	},
+	false
+);
