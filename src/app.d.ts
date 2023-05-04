@@ -70,12 +70,13 @@ declare global {
 		origin: Table | Record<string, never>;
 		classFeature: Table | Record<string, never>;
 		classFeature: Table;
-		omens: number;
+		omens: 2 | 4;
+		powers: boolean;
 		naturalWeapon?: Weapon;
 	};
 
 	// EQUIPMENT
-	type Scroll = CommonEquipmentProps & {
+	type Scroll = {
 		_id: string;
 		name: string;
 		type: 'scroll';
@@ -99,6 +100,48 @@ declare global {
 			badHabits: Table;
 		};
 	};
+
+	namespace Character {
+		// type CharacterClasses;
+		type AbilityScore = -3 | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
+		type AbilityScores = {
+			agility: AbilityScore;
+			presence: AbilityScore;
+			strength: AbilityScore;
+			toughness: AbilityScore;
+		};
+
+		type CurrentMax = {
+			current: number;
+			maximum: number;
+		};
+
+		type Equipment = Scroll; //  Weapon |Armor| Eq
+
+		type CharacterData = {
+			_id: number;
+			name: string;
+			className: string;
+			silver: number;
+			abilities: AbilityScores;
+			hitpoints: CurrentMax;
+			omens: CurrentMax;
+			powers: null | number;
+			equipment: unknown[];
+			miseries?: [boolean, string][];
+			followers: Follower[];
+			description: string[];
+			// 	tests: any; // Tests;
+			// 	description: string;
+			//
+			// 	status: { [keys: string]: Status };
+		};
+	}
+
+	type Follower = Record<string, unknown>;
 }
 
 export {};
+
+// function (fd:FormData):CharacterData => {}

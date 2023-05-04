@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let tables: CreateCharacterData['tables'];
+
 	import { isEmpty } from 'ramda';
 	import Label from '../components/Form/Label.svelte';
 	import Input from '../components/Form/Input.svelte';
@@ -14,6 +15,7 @@
 	import Title from '../components/Title.svelte';
 	import OptionButton from '../components/OptionButton.svelte';
 	import RollButton from '../components/RollButton.svelte';
+	import { formToCharacter } from '../morkborg/lib';
 
 	const CHARACTERS: RawClassData[] = tables.characters;
 	let classId: string = CHARACTERS[0]._id;
@@ -34,10 +36,13 @@
 		detail: { key, score }
 	}: CustomEvent<{ key: AbilityKeys; score: number }>) =>
 		($store.formData[key] = rollToScore(score));
+
+	const handleSubmit = () =>
+		console.log(formToCharacter($store.selectedClass as RawClassData, $store.formData));
 </script>
 
 <a href="/" class="banner">Go Home!<br />the path is pain.</a>
-<Form onSubmit={() => null}>
+<Form onSubmit={handleSubmit}>
 	<Label title="Character Class">
 		<OptionButton
 			dice={[1, 'd', 6, '+', 1]}
@@ -246,6 +251,7 @@
 		</Title>
 	{/if}
 
+  <!-- TODO: Show Occult Hermaster Feature as HTML(?) -->
 	{#if !isEmpty($store.selectedClass.classFeature)}
 		<Title title="Class Feature...">
 			<RollTable
@@ -281,7 +287,7 @@
 		top: 32px;
 		left: -63px;
 		padding: 0.5em 4rem;
-		border-bottom: 2px solid var(--black);
+		border-bottom: 1px solid var(--black);
 		transform: rotate(-45deg);
 		background-color: var(--yellow);
 		text-align: center;

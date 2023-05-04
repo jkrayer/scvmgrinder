@@ -13,7 +13,7 @@ const BROKEN_BODIES: Table = {
 		{
 			dice: [6],
 			value:
-				'{"weapon":{"_id":"6c3ae926d04a2aba5db4031c1b0a5260","name":"Rusting Hook","type":"weapon","weaponType":"melee","description":"","damageDie":"1d6","handed":1,"price":0,"equipped":false,"broken":false,"usesAmmo":false,"ammoType":null,"img":"","effects":[]}}',
+				'{"equipment":{"_id":"6c3ae926d04a2aba5db4031c1b0a5260","name":"Rusting Hook","type":"weapon","weaponType":"melee","description":"","damageDie":"1d6","handed":1,"price":0,"equipped":true,"broken":false,"usesAmmo":false,"ammoType":null,"img":"","effects":[]}}',
 			label: 'One hand replaced with a rusting hook. (d6 damage)'
 		},
 		{ dice: [7], value: 'Decaying teeth', label: 'Decaying teeth' },

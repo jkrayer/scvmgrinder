@@ -52,7 +52,7 @@ const TABLE_THREE: Table = {
 		{
 			dice: [9],
 			value:
-				'{"shield":{"_id":"ODqK19IBLTyfDjtD","name":"Shield","type":"shield","containerSpace":1,"description":"<p>-1 damage. You may choose to ignore all damage from one attack but shield breaks.</p>","equipped":false,"broken":false,"price":20,"img":"systems/morkborg/icons/items/armor/shield.png","effects":[]}}',
+				'{"equipment":{"_id":"ODqK19IBLTyfDjtD","name":"Shield","type":"shield","containerSpace":1,"description":"<p>-1 damage. You may choose to ignore all damage from one attack but shield breaks.</p>","equipped":false,"broken":false,"price":20,"img":"systems/morkborg/icons/items/armor/shield.png","effects":[]}}',
 			label: 'shield (-1 HP damage or have the shield break to ignore one attack)'
 		},
 		{

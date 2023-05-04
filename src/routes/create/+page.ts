@@ -1,4 +1,4 @@
-import { compose, curryN, modifyPath } from 'ramda';
+import { compose, modifyPath } from 'ramda';
 import { rollD10 } from '$lib/dice';
 // DATA
 import characters from '../../morkborg/data/characters';
@@ -13,8 +13,12 @@ import badHabits from '../../morkborg/data/tables/bad-habits';
 import scrolls_sacred from '../../morkborg/data/scrolls_sacred';
 import scrolls_unclean from '../../morkborg/data/scrolls_unclean';
 
-const scrollAtIndex = curryN(2, (scrolls: Scroll[], index: number): Scroll => scrolls[index]);
-const stringify = (x: any): string => JSON.stringify(x);
+const scrollAtIndex =
+	(scrolls: Scroll[]) =>
+	(index: number): Scroll =>
+		scrolls[index];
+
+const stringify = (x: any): string => JSON.stringify({ equipment: x });
 // (x) => (fn) => [fn(x), x]
 const nameAndScroll = (x: Scroll): [string, Scroll] => [x.name, x];
 const scrollString = ([name, scroll]: [string, Scroll]): [string, string] => [

@@ -21,7 +21,8 @@ const CHARACTERS: RawClassData[] = [
 		badHabits: true,
 		origin: {},
 		classFeature: {},
-		omens: 4
+		omens: 4,
+		powers: true
 	},
 	{
 		_id: '11f8ab09-1fc8-48fc-af9e-34b29210c5e7',
@@ -93,7 +94,7 @@ const CHARACTERS: RawClassData[] = [
 				{
 					dice: [2],
 					value:
-						'{"weapon":{"_id":"7Ivp3hzydrBn4W7s","name":"The Brown Scimitar of Galgenbeck","type":"weapon","weaponType":"melee","damageDie":6,"handed":1,"price":0,"equipped":false,"broken":false,"usesAmmo":false,"ammoType":null,"img":"systems/morkborg/icons/classitems/brownscimitar.png","effects":[{"toHit":"DR10"},{"defence":"DR10"}]}}',
+						'{"equipment":{"_id":"7Ivp3hzydrBn4W7s","name":"The Brown Scimitar of Galgenbeck","type":"weapon","weaponType":"melee","damageDie":6,"handed":1,"price":0,"equipped":false,"broken":false,"usesAmmo":false,"ammoType":null,"img":"systems/morkborg/icons/classitems/brownscimitar.png","effects":[{"toHit":"DR10"},{"defence":"DR10"}]}}',
 					label:
 						'<b>The Brown Scimitar of Galgenbeck</b> A stinking sword you pulled from a military shit-ditch. D6 damage. DR10 attack and defence while you wield it. 1 in 6 chance a wounded enemy is smitten with potent sepsis, dying in 10 minutes.'
 				},
@@ -106,9 +107,9 @@ const CHARACTERS: RawClassData[] = [
 				},
 				{
 					dice: [4],
-					value: `{"weapon":{"_id":"z5DDfEekUZSqXEgF","name":"Old Sigûrd's sling","type":"weapon","weaponType":"ranged","damageDie":[2,"d",4],"handed":1,"price":0,"equipped":false,"broken":false,"usesAmmo":true,"ammoType":"sling stone","img":"systems/morkborg/icons/classitems/sigurd-sling.png","effects":[]}}`,
+					value: `{"equipment":{"_id":"z5DDfEekUZSqXEgF","name":"Old Sigûrd's sling","type":"weapon","weaponType":"ranged","damageDie":[2,"d",4],"handed":1,"price":0,"equipped":false,"broken":false,"usesAmmo":true,"ammoType":"sling stone","img":"systems/morkborg/icons/classitems/sigurd-sling.png","effects":[]}}`,
 					label:
-						'<b>Old Sigûrd’s sling</b> Sigûrd was the strongest man whose throat you ever gnawed. Woven from his long grey hair, this sling has never failed you. 2d4 damage, requires fist-sized rocks which, perhaps regrettably, are everywhere.'
+						"<b>Old Sigûrd's sling</b> Sigûrd was the strongest man whose throat you ever gnawed. Woven from his long grey hair, this sling has never failed you. 2d4 damage, requires fist-sized rocks which, perhaps regrettably, are everywhere."
 				},
 				{
 					dice: [5],
@@ -119,13 +120,14 @@ const CHARACTERS: RawClassData[] = [
 				},
 				{
 					dice: [6],
-					value: `{"weapon":{"_id":"Z67qRvYbqREr7Y0I","name":"The Shoe of Death's Horse","description":"","type":"weapon","weaponType":"ranged","damageDie":4,"handed":1,"price":0,"equipped":false,"broken":false,"usesAmmo":false,"ammoType":null,"img":"systems/morkborg/icons/classitems/horseshoe.png","effects":[{"toHit":"DR10"}]}}`,
+					value: `{"equipment":{"_id":"Z67qRvYbqREr7Y0I","name":"The Shoe of Death's Horse","description":"","type":"weapon","weaponType":"ranged","damageDie":4,"handed":1,"price":0,"equipped":false,"broken":false,"usesAmmo":false,"ammoType":null,"img":"systems/morkborg/icons/classitems/horseshoe.png","effects":[{"toHit":"DR10"}]}}`,
 					label:
-						'<b>The Shoe of Death’s Horse</b> It looks normal but since finding it in an obscure crypt you are convinced this shoe came from the horse of Death himself. In your hands it hits with DR10, d4 damage. 1 in 6 chance the shoe smashes the skull, instantly killing small-to-medium sized creatures. The shoe returns to your hand like a boomerang.'
+						"<b>The Shoe of Death's Horse</b> It looks normal but since finding it in an obscure crypt you are convinced this shoe came from the horse of Death himself. In your hands it hits with DR10, d4 damage. 1 in 6 chance the shoe smashes the skull, instantly killing small-to-medium sized creatures. The shoe returns to your hand like a boomerang."
 				}
 			]
 		},
 		omens: 2,
+		powers: false,
 		naturalWeapon: {
 			_id: 'fangedDeserterBite',
 			name: 'Bite attack',
@@ -140,7 +142,7 @@ const CHARACTERS: RawClassData[] = [
 			ammoType: null,
 			effects: [
 				'DR10 to attack.',
-				'You mu st be close to your target. 1–2 on d6 chance the enemy gets a free attack.'
+				'You mu st be close to your target. 1-2 on d6 chance the enemy gets a free attack.'
 			]
 		}
 	},
@@ -186,8 +188,8 @@ const CHARACTERS: RawClassData[] = [
 				},
 				{
 					dice: [4],
-					value: 'background:Kicked and beaten beneath a baker’s table in Schleswig.',
-					label: 'Kicked and beaten beneath a baker’s table in Schleswig.'
+					value: "background:Kicked and beaten beneath a baker's table in Schleswig.",
+					label: "Kicked and beaten beneath a baker's table in Schleswig."
 				},
 				{
 					dice: [5],
@@ -207,9 +209,9 @@ const CHARACTERS: RawClassData[] = [
 				{
 					dice: [1],
 					value:
-						'feature:<b>Coward’s Jab</b> When attacking by surprise test Agility DR10. On a success you automatically hit once with a light one-handed weapon, dealing normal damage +3.',
+						"feature:<b>Coward's Jab</b> When attacking by surprise test Agility DR10. On a success you automatically hit once with a light one-handed weapon, dealing normal damage +3.",
 					label:
-						'<b>Coward’s Jab</b> When attacking by surprise test Agility DR10. On a success you automatically hit once with a light one-handed weapon, dealing normal damage +3.'
+						"<b>Coward's Jab</b> When attacking by surprise test Agility DR10. On a success you automatically hit once with a light one-handed weapon, dealing normal damage +3."
 				},
 				{
 					dice: [2],
@@ -248,7 +250,8 @@ const CHARACTERS: RawClassData[] = [
 				}
 			]
 		},
-		omens: 2
+		omens: 2,
+		powers: true
 	},
 	{
 		_id: 'd781a4fb-1f29-4041-8033-eb788561a17d',
@@ -307,9 +310,9 @@ const CHARACTERS: RawClassData[] = [
 				{
 					dice: [6],
 					value:
-						'background:Raised on a lonely island in Lake Onda. No one else has ever heard of this island and you can’t return.',
+						"background:Raised on a lonely island in Lake Onda. No one else has ever heard of this island and you can't return.",
 					label:
-						'Raised on a lonely island in Lake Onda. No one else has ever heard of this island and you can’t return.'
+						"Raised on a lonely island in Lake Onda. No one else has ever heard of this island and you can't return."
 				}
 			]
 		},
@@ -327,9 +330,9 @@ const CHARACTERS: RawClassData[] = [
 				{
 					dice: [2],
 					value:
-						'feature:<b>A Book of Boiling Blood</b> You may open and read from this book once a day. Your enemy must make a DR12 test to prevent this. If they fail D2 Berserker- slayers appear from the depths of a forgotten dimension of blood. Roll a D6. On a 1–4 these creatures fight alongside you. On a 5–6 they turn on you, attempting to kill you and destroy the book. After the battle they return to their imprisonment.',
+						'feature:<b>A Book of Boiling Blood</b> You may open and read from this book once a day. Your enemy must make a DR12 test to prevent this. If they fail D2 Berserker- slayers appear from the depths of a forgotten dimension of blood. Roll a D6. On a 1-4 these creatures fight alongside you. On a 5-6 they turn on you, attempting to kill you and destroy the book. After the battle they return to their imprisonment.',
 					label:
-						'<b>A Book of Boiling Blood</b> You may open and read from this book once a day. Your enemy must make a DR12 test to prevent this. If they fail D2 Berserker- slayers appear from the depths of a forgotten dimension of blood. Roll a D6. On a 1–4 these creatures fight alongside you. On a 5–6 they turn on you, attempting to kill you and destroy the book. After the battle they return to their imprisonment.'
+						'<b>A Book of Boiling Blood</b> You may open and read from this book once a day. Your enemy must make a DR12 test to prevent this. If they fail D2 Berserker- slayers appear from the depths of a forgotten dimension of blood. Roll a D6. On a 1-4 these creatures fight alongside you. On a 5-6 they turn on you, attempting to kill you and destroy the book. After the battle they return to their imprisonment.'
 				},
 				{
 					dice: [3],
@@ -341,9 +344,9 @@ const CHARACTERS: RawClassData[] = [
 				{
 					dice: [4],
 					value:
-						'feature:<b>Initiate of the Invisible College</b> Once per day you may summon D2 scrolls, whose power can be used only once. Roll a d4, on a 1–2 the scrolls are sacred, on a 3–4, unclean. If the scrolls are not used before sunrise they turn to ash.',
+						'feature:<b>Initiate of the Invisible College</b> Once per day you may summon D2 scrolls, whose power can be used only once. Roll a d4, on a 1-2 the scrolls are sacred, on a 3-4, unclean. If the scrolls are not used before sunrise they turn to ash.',
 					label:
-						'<b>Initiate of the Invisible College</b> Once per day you may summon D2 scrolls, whose power can be used only once. Roll a d4, on a 1–2 the scrolls are sacred, on a 3–4, unclean. If the scrolls are not used before sunrise they turn to ash.'
+						'<b>Initiate of the Invisible College</b> Once per day you may summon D2 scrolls, whose power can be used only once. Roll a d4, on a 1-2 the scrolls are sacred, on a 3-4, unclean. If the scrolls are not used before sunrise they turn to ash.'
 				},
 				{
 					dice: [5],
@@ -361,8 +364,8 @@ const CHARACTERS: RawClassData[] = [
 				}
 			]
 		},
-
-		omens: 4
+		omens: 4,
+		powers: true
 	},
 	{
 		_id: 'e6490e4f-5bd2-49d3-a1a2-17848e5936ec',
@@ -400,8 +403,8 @@ const CHARACTERS: RawClassData[] = [
 				},
 				{
 					dice: [3],
-					value: 'background:King Fathmu IX’s brother Zigmund, your father, was murdered.',
-					label: 'King Fathmu IX’s brother Zigmund, your father, was murdered.'
+					value: "background:King Fathmu IX's brother Zigmund, your father, was murdered.",
+					label: "King Fathmu IX's brother Zigmund, your father, was murdered."
 				},
 				{
 					dice: [4],
@@ -428,16 +431,16 @@ const CHARACTERS: RawClassData[] = [
 				{
 					dice: [1],
 					value:
-						'{"weapon":{"_id":"pLzhbrwoC6FIt9c5","name":"The Blade of your Ancestors","type":"weapon","weaponType":"melee","description":"<p>This magnificent and clearly magical talking sword is foppish, unreliable and quietly despises you. It taunts your failures and, if continually disappointed, develops a 1 in 6 chance to &lsquo;accidentally&rsquo; attack you or your companions. Deals d6+1 damage. Attack/Defence DR is 10.</p>","damageDie":"1d6+1","handed":1,"price":0,"equipped":false,"broken":false,"usesAmmo":false,"ammoType":null,"img":"systems/morkborg/icons/classitems/bladeofyourancestors.png","effects":[{"toHit":"DR10"},{"defence":"DR10"}]}}',
+						'{"equipment":{"_id":"pLzhbrwoC6FIt9c5","name":"The Blade of your Ancestors","type":"weapon","weaponType":"melee","description":"<p>This magnificent and clearly magical talking sword is foppish, unreliable and quietly despises you. It taunts your failures and, if continually disappointed, develops a 1 in 6 chance to &lsquo;accidentally&rsquo; attack you or your companions. Deals d6+1 damage. Attack/Defence DR is 10.</p>","damageDie":"1d6+1","handed":1,"price":0,"equipped":false,"broken":false,"usesAmmo":false,"ammoType":null,"img":"systems/morkborg/icons/classitems/bladeofyourancestors.png","effects":[{"toHit":"DR10"},{"defence":"DR10"}]}}',
 					label:
-						'<b>The Blade of your Ancestors</b> This magnificent and clearly magical talking sword is foppish, unreliable and quietly despises you. It taunts your failures and, if continually disappointed, develops a 1 in 6 chance to ‘accidentally’ attack you or your companions. Deals d6+1 damage. Attack/Defence DR is 10.'
+						"<b>The Blade of your Ancestors</b> This magnificent and clearly magical talking sword is foppish, unreliable and quietly despises you. It taunts your failures and, if continually disappointed, develops a 1 in 6 chance to ‘accidentally' attack you or your companions. Deals d6+1 damage. Attack/Defence DR is 10."
 				},
 				{
 					dice: [2],
 					value:
 						'{"follower":{"_id":"pNlrszU8gNi2VYWn","name":"Poltroon the Court Jester","type":"follower","followerType":"buffer","description":"<p>While practically useless, personally irritating and an emotional drain, Poltroon&rsquo;s capering actually makes enemies lose their focus in combat. For the first two rounds you and your allies get +2 on attack/defence.</p>","price":null,"quantity":1,"capacity":null,"img":"systems/morkborg/tokens/followers/jester.png","effects":["possibly buff effect here"],"sheet":{"abilities":{"agility":0,"presence":0,"strength":0,"toughness":0},"hp":{"max":8,"value":8},"morale":7,"silver":0,"speciality":"","trait":"","value":""},"items":[]}}',
 					label:
-						'<b>‘Poltroon’ the Court Jester</b> While practically useless, personally irritating and an emotional drain, Poltroon’s capering actually makes enemies lose their focus in combat. For the first two rounds you and your allies get +2 on attack/defence.'
+						"<b>‘Poltroon' the Court Jester</b> While practically useless, personally irritating and an emotional drain, Poltroon's capering actually makes enemies lose their focus in combat. For the first two rounds you and your allies get +2 on attack/defence."
 				},
 				{
 					dice: [3],
@@ -469,8 +472,8 @@ const CHARACTERS: RawClassData[] = [
 				}
 			]
 		},
-
-		omens: 2
+		omens: 2,
+		powers: true
 	},
 	{
 		_id: 'bd957fad-7ec5-4315-bfad-622089d5a197',
@@ -534,21 +537,21 @@ const CHARACTERS: RawClassData[] = [
 				{
 					dice: [1],
 					value:
-						'{"weapon":{"_id":"OzdhtFbwwJNMk1py","name":"Sacred shepherd’s crook","type":"weapon","weaponType":"melee","description":"<p>Its head a hook of human bone inscribed with overlapping anti-prayers. This crook hooks through other worlds. Staff does 2d4 damage except to faithless humans.</p>","damageDie":"2d4","handed":2,"price":0,"equipped":false,"broken":false,"usesAmmo":false,"ammoType":null,"img":"systems/morkborg/icons/classitems/shepherds-crook.png","effects":[{"toHit":"DR10"},{"defence":"DR10"}]}}',
+						'{"equipment":{"_id":"OzdhtFbwwJNMk1py","name":"Sacred shepherd\'s crook","type":"weapon","weaponType":"melee","description":"<p>Its head a hook of human bone inscribed with overlapping anti-prayers. This crook hooks through other worlds. Staff does 2d4 damage except to faithless humans.</p>","damageDie":"2d4","handed":2,"price":0,"equipped":false,"broken":false,"usesAmmo":false,"ammoType":null,"img":"systems/morkborg/icons/classitems/shepherds-crook.png","effects":[{"toHit":"DR10"},{"defence":"DR10"}]}}',
 					label:
-						'<b>Sacred shepherd’s crook</b> Its head a hook of human bone inscribed with overlapping anti-prayers. This crook hooks through other worlds. Staff does 2d4 damage except to faithless humans.'
+						"<b>Sacred shepherd's crook</b> Its head a hook of human bone inscribed with overlapping anti-prayers. This crook hooks through other worlds. Staff does 2d4 damage except to faithless humans."
 				},
 				{
 					dice: [2],
 					value: `{"equipment":{"name":"Stolen Mitre","type":"misc","description":"<p>While wearing this holy hat the priest's vile body fades, becoming hard to hit in combat (Defense DR10). If pulled over the ears outside of battle the priest becomes nearly invisible, testing stealth against DR8.</p>","equipped":false,"price":0,"quantity":1,"capacity":0,"img":"systems/morkborg/icons/classitems/mitre.png","effects":[{"toHit":"DR10"},{"stealth":"DR8"}],"_id":"hhCP0wkVWMjXjLGi"}}`,
 					label:
-						'<b>Stolen Mitre</b> While wearing this holy hat the priest’s vile body fades, becoming hard to hit in combat (Defence DR10). If pulled over the ears outside of battle the priest becomes nearly invisible, testing stealth against DR8.'
+						"<b>Stolen Mitre</b> While wearing this holy hat the priest's vile body fades, becoming hard to hit in combat (Defence DR10). If pulled over the ears outside of battle the priest becomes nearly invisible, testing stealth against DR8."
 				},
 				{
 					dice: [3],
 					value: `{"equipment":{"name":"List of Sins","type":"misc","description":"<p>A long and accurate document cross-referenced against reality to discover unseen evil-doers. Successful Presence DR10: A strange light surrounds evil creatures. The list's owner defends with +2 against any being discovered this way.</p>","equipped":false,"price":0,"quantity":1,"capacity":0,"img":"systems/morkborg/icons/classitems/listofsins.png","effects":[],"_id":"tmBvT2Xa23nKQJXE"}}`,
 					label:
-						'<b>List of Sins</b> A long and accurate document cross-referenced against reality to discover unseen evil-doers. Successful Presence DR10: A strange light surrounds evil creatures. The list’s owner defends with +2 against any being discovered this way.'
+						"<b>List of Sins</b> A long and accurate document cross-referenced against reality to discover unseen evil-doers. Successful Presence DR10: A strange light surrounds evil creatures. The list's owner defends with +2 against any being discovered this way."
 				},
 				{
 					dice: [4],
@@ -561,17 +564,18 @@ const CHARACTERS: RawClassData[] = [
 					dice: [5],
 					value: `{"equipment":{"name":"Stones taken from Thel-Emas' Lost Temple","type":"misc","description":"<p>Cast the stones on the ground. Their pattern reveals if danger lurks in an adjacent room. The stones can lie. The priest tests Presence DR10 to see if they are true but after failing they cannot test again until the sun has set.</p>","equipped":false,"price":0,"quantity":1,"capacity":0,"img":"systems/morkborg/icons/classitems/stones.png","effects":[],"_id":"Q5EckLsZNjsNVLc6"}}`,
 					label:
-						'<b>Stones taken from Thel-Emas’ Lost Temple</b> Cast the stones on the ground. Their pattern reveals if danger lurks in an adjacent room. The stones can lie. The priest tests Presence DR10 to see if they are true but after failing they cannot test again until the sun has set.'
+						"<b>Stones taken from Thel-Emas' Lost Temple</b> Cast the stones on the ground. Their pattern reveals if danger lurks in an adjacent room. The stones can lie. The priest tests Presence DR10 to see if they are true but after failing they cannot test again until the sun has set."
 				},
 				{
 					dice: [6],
 					value: `{"equipment":{"name":"(MʁOИҼ ՂEƧꓵƧ) CRUCIFIX","type":"misc","description":"<p>The crucifix can be used in encounters with the undead as we as lesser trolls and goblins. Check morale (add or subtract the priest's Presence modifier) to see if the creatures bow and kindly remove themselves.</p>","equipped":false,"price":0,"quantity":1,"capacity":0,"img":"systems/morkborg/icons/classitems/wrong-crucifix.png","effects":[],"_id":"s7IPLLQcYedhA7mI"}}`,
 					label:
-						'<b>666 (MʁOИҼ ՂEƧꓵƧ) CRUCIFIX</b> The crucifix can be used in encounters with the undead as well as lesser trolls and goblins. Check morale (add or subtract the priest’s Presence modifier) to see if the creatures bow and kindly remove themselves.'
+						"<b>666 (MʁOИҼ ՂEƧꓵƧ) CRUCIFIX</b> The crucifix can be used in encounters with the undead as well as lesser trolls and goblins. Check morale (add or subtract the priest's Presence modifier) to see if the creatures bow and kindly remove themselves."
 				}
 			]
 		},
-		omens: 4
+		omens: 4,
+		powers: true
 	},
 	{
 		_id: '754bc21c-3a45-4274-ba61-96b1d5282962',
@@ -625,13 +629,14 @@ const CHARACTERS: RawClassData[] = [
 				{
 					dice: [8],
 					value:
-						'background:the ruins of the Shadow King’s manse, thick with memories of mushrooms and smoke.',
-					label: 'the ruins of the Shadow King’s manse, thick with memories of mushrooms and smoke.'
+						"background:the ruins of the Shadow King's manse, thick with memories of mushrooms and smoke.",
+					label: "the ruins of the Shadow King's manse, thick with memories of mushrooms and smoke."
 				}
 			]
 		},
 		classFeature: {},
-		omens: 2
+		omens: 2,
+		powers: true
 		// classTable: {
 		//   description:"You carry a portable laboratory and continually search for frequently expended ingredients. Daily you have the materials to create two randomly determined decoctions and can brew a total of d4 doses. If unused they lose vitality after 24 hours",
 		//   dice: [1,"d",8],
@@ -664,12 +669,12 @@ const CHARACTERS: RawClassData[] = [
 		// 		{
 		// 			dice: [6],
 		// 			value: 'equipment:',
-		// 			label: 'Fernor’s Philtre Translucent oil, must be dabbed right into the eye. Heals infection and gives +2 on Presence tests for d4 hours.'
+		// 			label: 'Fernor\'s Philtre Translucent oil, must be dabbed right into the eye. Heals infection and gives +2 on Presence tests for d4 hours.'
 		// 		},
 		// 		{
 		// 			dice: [7],
 		// 			value: 'equipment:',
-		// 			label: 'Hyphos’ Enervating Snuff Berserk! Two attacks per round but defend with DR14. Lasts one fight. Must be snorted, causes sneezing'
+		// 			label: 'Hyphos\' Enervating Snuff Berserk! Two attacks per round but defend with DR14. Lasts one fight. Must be snorted, causes sneezing'
 		// 		},
 		// 		{
 		// 			dice: [8],
