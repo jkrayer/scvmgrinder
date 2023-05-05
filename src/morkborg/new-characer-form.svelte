@@ -2,19 +2,19 @@
 	export let tables: CreateCharacterData['tables'];
 
 	import { isEmpty } from 'ramda';
-	import Label from '../components/Form/Label.svelte';
-	import Input from '../components/Form/Input.svelte';
-	import NumberInput from '../components/Form/NumberInput.svelte';
-	import Select from '../components/Form/Select.svelte';
-	import RollTable from '../components/RollTable.svelte';
-	import Button from '../components/Button.svelte';
-	import Score from '../components/Score.svelte';
-	import { maxRoll, toDiceString, rollToScore } from '$lib';
 	import store, { canSubmit, setSelectedClass, setTrait } from './store/new-character-store';
-	import Form from '../components/Form/Form.svelte';
-	import Title from '../components/Title.svelte';
-	import OptionButton from '../components/OptionButton.svelte';
-	import RollButton from '../components/RollButton.svelte';
+	import { maxRoll, toDiceString, rollToScore } from '$lib';
+	import Label from '$lib/components/Form/Label.svelte';
+	import Input from '$lib/components/Form/Input.svelte';
+	import NumberInput from '$lib/components/Form/NumberInput.svelte';
+	import Select from '$lib/components/Form/Select.svelte';
+	import RollTable from '$lib/components/RollTable.svelte';
+	import Button from '$lib/components/Button.svelte';
+	import Score from '$lib/components/Score.svelte';
+	import Form from '$lib/components/Form/Form.svelte';
+	import Title from '$lib/components/Title.svelte';
+	import OptionButton from '$lib/components/OptionButton.svelte';
+	import RollButton from '$lib/components/RollButton.svelte';
 	import { formToCharacter } from '../morkborg/lib';
 
 	const CHARACTERS: RawClassData[] = tables.characters;
@@ -251,7 +251,7 @@
 		</Title>
 	{/if}
 
-  <!-- TODO: Show Occult Hermaster Feature as HTML(?) -->
+	<!-- TODO: Show Occult Hermaster Feature as HTML(?) -->
 	{#if !isEmpty($store.selectedClass.classFeature)}
 		<Title title="Class Feature...">
 			<RollTable

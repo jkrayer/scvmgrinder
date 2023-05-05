@@ -5,7 +5,7 @@
 		// HTMLInputTypeAttribute,
 		ChangeEventHandler
 	} from 'svelte/elements';
-	import { stringValue } from '../../lib';
+	import { stringValue } from '$lib';
 
 	// interface $$Props extends Omit<HTMLInputAttributes, 'type'> {
 	// 	type?: HTMLInputAttributes | null;
