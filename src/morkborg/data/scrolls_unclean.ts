@@ -1,4 +1,4 @@
-const UNCLEAN_SCROLLS: Scroll[] = [
+const UNCLEAN_SCROLLS: Equipment.Scroll[] = [
 	{
 		_id: 'CbvABUTSPxNelOrL',
 		name: 'Palms Open the Southern Gate',

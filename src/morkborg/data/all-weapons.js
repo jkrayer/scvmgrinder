@@ -11,7 +11,7 @@ export default [
 		broken: false,
 		usesAmmo: false,
 		ammoType: null,
-		img: 'systems/morkborg/icons/items/weapons/battleaxe.png',
+		// img: 'systems/morkborg/icons/items/weapons/battleaxe.png',
 		effects: []
 	},
 	{
@@ -322,7 +322,7 @@ export default [
 		weaponType: 'melee',
 		description:
 			'<p>Its head a hook of human bone inscribed with overlapping anti-prayers. This crook hooks through other worlds. Staff does 2d4 damage except to faithless humans.</p>',
-		damageDie: '2d4',
+		damageDie: [2, 'd', 4],
 		handed: 2,
 		price: 0,
 		equipped: false,

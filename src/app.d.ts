@@ -1,4 +1,5 @@
 // See https://kit.svelte.dev/docs/types#app
+
 // for information about these interfaces
 declare global {
 	namespace App {
@@ -9,6 +10,8 @@ declare global {
 	}
 
 	type ModifierMathSymbols = '+' | '-' | 'x';
+
+	type Die = 2 | 4 | 6 | 8 | 10 | 12 | 20;
 
 	type Dice = [number, 'd', number, ModifierMathSymbols?, number?];
 
@@ -75,17 +78,6 @@ declare global {
 		naturalWeapon?: Weapon;
 	};
 
-	// EQUIPMENT
-	type Scroll = {
-		_id: string;
-		name: string;
-		type: 'scroll';
-		subType: 'unclean' | 'sacred';
-		description: string;
-		equipped: boolean;
-		price: number;
-	};
-
 	//
 	type CreateCharacterData = {
 		tables: {
@@ -100,6 +92,65 @@ declare global {
 			badHabits: Table;
 		};
 	};
+
+	namespace Equipment {
+		type CommonEquipmentProps = {
+			_id: string;
+			broken?: boolean;
+			description: string;
+			name: string;
+			equipped: boolean;
+			price: number;
+			quantity?: CurrentMax;
+		};
+
+		type Effect = { [key: string]: string };
+
+		type Scroll = CommonEquipmentProps & {
+			type: 'scroll';
+			subType: 'unclean' | 'sacred';
+		};
+
+		type Armor = CommonEquipmentProps & {
+			type: 'armor';
+			effects?: string[];
+			currentTier: number;
+			maxTier: number;
+			// img
+			// effect?: Effect;
+		};
+
+		type Shield = CommonEquipmentProps & {
+			type: 'shield';
+			effects?: Effect[];
+			// img
+			// effect?: Effect;
+		};
+
+		type Weapon = CommonEquipmentProps & {
+			type: 'weapon';
+			weaponType: 'melee' | 'ranged';
+			damageDie: Die | Dice;
+			handed: 1 | 2;
+			usesAmmo: boolean;
+			ammoType: null | 'arrow' | 'bolt' | 'sling stone';
+			effects?: Effect[];
+		};
+
+		type Container = CommonEquipmentProps & {
+			type: 'container';
+			capacity: 7;
+		};
+
+		type Equipment = CommonEquipmentProps & {
+			type: 'equipment';
+		};
+
+		type Misc = CommonEquipmentProps & {
+			type: 'misc';
+			effects?: Effect[];
+		};
+	}
 
 	namespace Character {
 		// type CharacterClasses;
@@ -117,7 +168,13 @@ declare global {
 			maximum: number;
 		};
 
-		type Equipment = Scroll; //  Weapon |Armor| Eq
+		type Equipment =
+			| Equipment.Scroll
+			| Equipment.Armor
+			| Equipment.Shield
+			| Equipment.Weapon
+			| Equipment.Container
+			| Equipment.Misc;
 
 		type CharacterData = {
 			_id: number;
@@ -128,7 +185,7 @@ declare global {
 			hitpoints: CurrentMax;
 			omens: CurrentMax;
 			powers: null | number;
-			equipment: unknown[];
+			equipment: Equipment[];
 			miseries?: [boolean, string][];
 			followers: Follower[];
 			description: string[];
@@ -139,7 +196,34 @@ declare global {
 		};
 	}
 
-	type Follower = Record<string, unknown>;
+	type Follower = {
+		_id: string;
+		name: string;
+		type: 'follower';
+		followerType: 'container' | 'buffer' | 'combatant';
+		description: string;
+		price: null | number;
+		quantity: number;
+		capacity: null | number;
+		// img: 'systems/morkborg/icons/items/containers/donkey.png';
+		effects: Equipment.Effect[];
+		sheet?: {
+			attack?: string;
+			defense?: string;
+			abilities: AbilityScores;
+			hitpoints: CurrentMax;
+			morale: number;
+			silver: number;
+			speciality: string;
+			trait: string;
+			value: string;
+			weapons?: Equipment.Weapon[];
+			armor?: {
+				tier: CurrentMax;
+			};
+		};
+		// Equipment
+	};
 }
 
 export {};

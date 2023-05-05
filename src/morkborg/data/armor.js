@@ -3,13 +3,13 @@ export default [
 		_id: 'ODqK19IBLTyfDjtD',
 		name: 'Shield',
 		type: 'shield',
-		containerSpace: 1,
+		// containerSpace: 1,
 		description:
 			'<p>-1 damage. You may choose to ignore all damage from one attack but shield breaks.</p>',
 		equipped: false,
 		broken: false,
 		price: 20,
-		img: 'systems/morkborg/icons/items/armor/shield.png',
+		// img: 'systems/morkborg/icons/items/armor/shield.png',
 		effects: []
 	},
 	{
@@ -22,7 +22,7 @@ export default [
 		price: 20,
 		currentTier: 1,
 		maxTier: 1,
-		img: 'systems/morkborg/icons/items/armor/light.png',
+		// img: 'systems/morkborg/icons/items/armor/light.png',
 		effects: []
 	},
 	{
@@ -35,7 +35,7 @@ export default [
 		price: 100,
 		currentTier: 2,
 		maxTier: 2,
-		img: 'systems/morkborg/icons/items/armor/medium.png',
+		// img: 'systems/morkborg/icons/items/armor/medium.png',
 		effects: []
 	},
 	{
@@ -48,7 +48,7 @@ export default [
 		price: 200,
 		currentTier: 3,
 		maxTier: 3,
-		img: 'systems/morkborg/icons/items/armor/heavy.png',
+		// img: 'systems/morkborg/icons/items/armor/heavy.png',
 		effects: []
 	}
 ];
