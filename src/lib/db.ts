@@ -35,7 +35,7 @@ export const DB = new ScvmgrinderDB();
 
 // Either
 export async function deleteCharacter(
-	character: Character.CharacterData
+	character: Required<Character.CharacterData>
 ): Promise<Character.CharacterData> {
 	try {
 		await DB.characters.delete(character._id);
@@ -73,7 +73,7 @@ export async function getCharacters(): Promise<Character.CharacterData[]> {
 		return characters;
 	} catch (error) {
 		console.error(`DB: Error finding character" ${error}`);
-		return [{}] as Character.CharacterData[];
+		return [];
 	}
 }
 

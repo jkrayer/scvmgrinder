@@ -1,9 +1,12 @@
 <script lang="ts">
 	export let type: 'button' | 'submit' | 'reset' = 'button';
 	export let disabled: boolean = false;
+	export let style: 'primary' | 'muted' = 'primary';
+
+	const classes: string = `button ${style}`;
 </script>
 
-<button {type} {disabled} aria-disabled={disabled} on:click {...$$restProps} class="button"
+<button {type} {disabled} aria-disabled={disabled} on:click {...$$restProps} class={classes}
 	><slot />
 </button>
 
@@ -14,20 +17,39 @@
 		padding: calc(var(--padSmall) + var(--padTiny));
 		font-weight: 700;
 		line-height: 1;
-		color: var(--black);
-		background-color: var(--yellow);
 		transition: color 200ms linear, background-color 200ms linear;
 	}
-	.button:hover {
+
+	.primary {
+		color: var(--black);
+		background-color: var(--yellow);
+	}
+
+	.primary:hover {
 		background-color: var(--pink);
 	}
-	.button:active {
+	.primary:active {
 		background-color: var(--black);
 		color: var(--white);
 	}
-	.button:disabled,
-	.button:disabled:hover,
-	.button:disabled:active {
+
+	.muted {
+		border: 1px solid var(--lightGray);
+		color: var(--gray);
+		/* background-color: var(--yellow); */
+	}
+	.muted:hover,
+	.muted:active {
+		background-color: var(--black);
+		color: var(--white);
+	}
+
+	.primary:disabled,
+	.primary:disabled:hover,
+	.primary:disabled:active,
+	.muted:disabled,
+	.muted:disabled:hover,
+	.muted:disabled:active {
 		border: 1px solid var(--lightGray);
 		color: var(--lightGray);
 		background-color: transparent;

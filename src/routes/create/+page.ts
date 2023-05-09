@@ -14,29 +14,31 @@ import scrolls_sacred from '../../morkborg/data/scrolls_sacred';
 import scrolls_unclean from '../../morkborg/data/scrolls_unclean';
 
 const scrollAtIndex =
-	(scrolls: Scroll[]) =>
-	(index: number): Scroll =>
+	(scrolls: Equipment.Scroll[]) =>
+	(index: number): Equipment.Scroll =>
 		scrolls[index];
 
 const stringify = (x: any): string => JSON.stringify({ equipment: x });
 // (x) => (fn) => [fn(x), x]
-const nameAndScroll = (x: Scroll): [string, Scroll] => [x.name, x];
-const scrollString = ([name, scroll]: [string, Scroll]): [string, string] => [
+const nameAndScroll = (x: Equipment.Scroll): [string, Equipment.Scroll] => [x.name, x];
+const scrollString = ([name, scroll]: [string, Equipment.Scroll]): [string, string] => [
 	name,
 	stringify(scroll)
 ];
 
-const getSacredScroll = compose<[number], Scroll, [string, Scroll], [string, string]>(
-	scrollString,
-	nameAndScroll,
-	scrollAtIndex(scrolls_sacred)
-);
+const getSacredScroll = compose<
+	[number],
+	Equipment.Scroll,
+	[string, Equipment.Scroll],
+	[string, string]
+>(scrollString, nameAndScroll, scrollAtIndex(scrolls_sacred));
 
-const getnUncleanScroll = compose<[number], Scroll, [string, Scroll], [string, string]>(
-	scrollString,
-	nameAndScroll,
-	scrollAtIndex(scrolls_unclean)
-);
+const getnUncleanScroll = compose<
+	[number],
+	Equipment.Scroll,
+	[string, Equipment.Scroll],
+	[string, string]
+>(scrollString, nameAndScroll, scrollAtIndex(scrolls_unclean));
 
 export function load(): CreateCharacterData {
 	const [sacredName, sacredScroll]: [string, string] = getSacredScroll(rollD10() - 1);
@@ -45,13 +47,21 @@ export function load(): CreateCharacterData {
 	// TODO: Insert Values
 	const tableTwo: Table = modifyPath(
 		['rows', 4],
-		(s: Scroll) => ({ ...s, value: uncleanScroll, label: `${uncleanName} (unclean scroll)` }),
+		(s: Equipment.Scroll) => ({
+			...s,
+			value: uncleanScroll,
+			label: `${uncleanName} (unclean scroll)`
+		}),
 		{ ...eqTableTwo }
 	);
 
 	const tableThree: Table = modifyPath(
 		['rows', 1],
-		(s: Scroll) => ({ ...s, value: sacredScroll, label: `${sacredName} (sacred scroll)` }),
+		(s: Equipment.Scroll) => ({
+			...s,
+			value: sacredScroll,
+			label: `${sacredName} (sacred scroll)`
+		}),
 		{ ...eqTableThree }
 	);
 
