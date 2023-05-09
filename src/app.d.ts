@@ -177,7 +177,7 @@ declare global {
 			| Equipment.Misc;
 
 		type CharacterData = {
-			_id: number;
+			_id?: number;
 			name: string;
 			className: string;
 			silver: number;

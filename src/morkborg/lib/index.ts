@@ -76,7 +76,7 @@ const sort = compose<
 export function formToCharacter(
 	{ _id, name: className, omens, naturalWeapon, powers }: RawClassData, // probably a feature?
 	{ food, silver, agility, presence, strength, toughness, hitPoints, name, ...rest }: FormData
-): Omit<Character.CharacterData, '_id'> {
+): Character.CharacterData {
 	//
 	const { equipment, followers, description }: EqAndFollower = sort(rest);
 

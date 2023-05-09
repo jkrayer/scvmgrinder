@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let tables: CreateCharacterData['tables'];
 
+	import { goto } from '$app/navigation';
 	import { isEmpty } from 'ramda';
 	import store, { canSubmit, setSelectedClass, setTrait } from './store/new-character-store';
 	import { maxRoll, toDiceString, rollToScore } from '$lib';
@@ -16,6 +17,7 @@
 	import OptionButton from '$lib/components/OptionButton.svelte';
 	import RollButton from '$lib/components/RollButton.svelte';
 	import { formToCharacter } from '../morkborg/lib';
+	import { addCharacter } from '$lib/db';
 
 	const CHARACTERS: RawClassData[] = tables.characters;
 	let classId: string = CHARACTERS[0]._id;
@@ -38,7 +40,9 @@
 		($store.formData[key] = rollToScore(score));
 
 	const handleSubmit = () =>
-		console.log(formToCharacter($store.selectedClass as RawClassData, $store.formData));
+		addCharacter(formToCharacter($store.selectedClass as RawClassData, $store.formData)).then(() =>
+			goto('/')
+		);
 </script>
 
 <a href="/" class="banner">Go Home!<br />the path is pain.</a>
