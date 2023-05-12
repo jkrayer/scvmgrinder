@@ -194,6 +194,8 @@ declare global {
 			//
 			// 	status: { [keys: string]: Status };
 		};
+
+		type SavedCharacter = Required<CharacterData>;
 	}
 
 	type Follower = {

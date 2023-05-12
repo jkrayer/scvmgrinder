@@ -13,7 +13,7 @@
 		"precommit": "echo \"run unit tests here\"",
 		"preview": "vite preview",
 		"test": "playwright test",
-		"test:unit": "vitest"
+		"test:unit": "vitest run --reporter verbose"
 	},
 	"devDependencies": {
 		"@playwright/test": "~1.30.0",

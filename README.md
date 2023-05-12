@@ -8,12 +8,11 @@ Scvmgrinder is an independent production by James Krayer and is not affiliated w
 
 TODO:
 
-1. Looks like tables aren't really done
-   1. BUG: Can same number twice on terrible traits
-   2. tables that spawn tables (rolling for scrolls)
-   3. equipment with rolls, doses, ammunition
-2. Class tables
+1. BUG: Can same number twice on terrible traits
+2. Equipment with rolls, doses, ammunition
+3. Class tables
    1. Just Occult Herbmaster (and should I code feature in to the sheet directly?)
    2. Also the bite from so and so
-3. Publishing
-4. Ask jeff to test
+4. Publishing
+5. Ask jeff to test
+6. Update CircleCI

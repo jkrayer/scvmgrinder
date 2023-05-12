@@ -61,9 +61,4 @@
 	.title-col {
 		flex-grow: 1;
 	}
-	.button-col {
-		display: flex;
-		flex-direction: column;
-		gap: 1px;
-	}
 </style>

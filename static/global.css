@@ -108,8 +108,15 @@ a:hover {
 	flex-basis: calc(25% - 5px);
 }
 .col-two {
-	flex-basis: calc(50% - 5px);
+	flex-basis: calc(50% - 10px);
 }
 .col-three {
 	flex-basis: calc(70% - 5px);
+}
+
+/* Button Layout */
+.button-col {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
 }

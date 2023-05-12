@@ -1,5 +1,5 @@
 <header id="site-header">
-	<h1 id="site-logo">SCVUMGRINDER</h1>
+	<h1 id="site-logo"><a href="/">SCVUMGRINDER</a></h1>
 	<p id="site-tag">A digital character sheet for MÖRK BORG</p>
 	<img src="/CompWith_MORKBORG_horiz.svg" width="270" height="77" alt="Compatible With MÖRK BORG" />
 </header>
@@ -33,6 +33,11 @@
 	#site-logo {
 		font: 400 1.125rem/1 var(--serif);
 		letter-spacing: 4px;
+	}
+
+	#site-logo > a {
+		color: var(--gray);
+		text-decoration: none;
 	}
 
 	#site-tag,
