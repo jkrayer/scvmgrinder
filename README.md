@@ -16,3 +16,7 @@ TODO:
 4. Publishing
 5. Ask jeff to test
 6. Update CircleCI
+
+## TODO: Interactivity
+
+1. Add roll to scores
