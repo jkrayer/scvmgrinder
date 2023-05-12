@@ -1,6 +1,6 @@
 <script lang="ts">
-	import CharacterStore from './components/store';
-	import Header from './components/Header.svelte';
+	import CharacterStore from '../../../lib/components/Character-Sheet/store';
+	import Header from '../../../lib/components/Character-Sheet/Header.svelte';
 
 	export let data: { character: Required<Character.CharacterData> };
 
