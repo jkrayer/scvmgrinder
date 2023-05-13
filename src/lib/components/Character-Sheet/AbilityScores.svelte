@@ -32,8 +32,8 @@
 		cursor: pointer;
 	}
 	.scores {
-		border-top: 1px solid #c8c8c8;
-		border-bottom: 1px solid #c8c8c8;
+		border-top: 1px solid var(--ruleGray);
+		border-bottom: 1px solid var(--ruleGray);
 	}
 	.score-title,
 	.score {

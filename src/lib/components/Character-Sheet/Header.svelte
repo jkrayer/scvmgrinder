@@ -1,7 +1,7 @@
 <script lang="ts">
 	import CharacterStore, { update } from './store';
 	import SquareButton from '$lib/components/SquareButton.svelte';
-	import { incrementHp, decrementHp } from '$lib/helpers/hitpoints';
+	import { incrementHp, decrementHp } from '$lib/helpers/character';
 
 	// HANDLERS
 	const increment = () => update(incrementHp);
@@ -39,6 +39,11 @@
 		margin: 8px 0 0 0;
 		font: 400 1rem/1 var(--sans-serif);
 		color: var(---black);
+	}
+
+	.label,
+	.title {
+		padding-left: 0.625rem;
 	}
 
 	.hp-row {

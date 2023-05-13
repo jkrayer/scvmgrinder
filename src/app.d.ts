@@ -19,22 +19,6 @@ declare global {
 
 	type AbilityKeys = 'agility' | 'presence' | 'strength' | 'toughness';
 
-	type Weapon = {
-		_id: string;
-		name: string;
-		type: 'weapon';
-		weaponType: 'melee';
-		damageDie: number;
-		handed: 0 | 1 | 2;
-		price: number;
-		equipped: boolean;
-		broken: boolean;
-		usesAmmo: boolean;
-		ammoType: null;
-		img?: string;
-		effects?: string[];
-	};
-
 	type CurrentMax = {
 		current: number;
 		maximum: number;
@@ -96,6 +80,7 @@ declare global {
 	namespace Equipment {
 		type CommonEquipmentProps = {
 			_id: string;
+			type: string;
 			broken?: boolean;
 			description: string;
 			name: string;
@@ -137,6 +122,11 @@ declare global {
 			effects?: Effect[];
 		};
 
+		type EquippedWeapon = Weapon & {
+			damage: Dice;
+			toHit: Dice;
+		};
+
 		type Container = CommonEquipmentProps & {
 			type: 'container';
 			capacity: 7;
@@ -169,6 +159,7 @@ declare global {
 		};
 
 		type Equipment =
+			| Equipment.Equipment
 			| Equipment.Scroll
 			| Equipment.Armor
 			| Equipment.Shield

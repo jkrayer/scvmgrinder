@@ -305,7 +305,7 @@ export default [
 		weaponType: 'melee',
 		description:
 			'<p>This magnificent and clearly magical talking sword is foppish, unreliable and quietly despises you. It taunts your failures and, if continually disappointed, develops a 1 in 6 chance to &lsquo;accidentally&rsquo; attack you or your companions. Deals d6+1 damage. Attack/Defence DR is 10.</p>',
-		damageDie: '1d6+1',
+		damageDie: [1, 'd', 6, '+', 1],
 		handed: 1,
 		price: 0,
 		equipped: false,
@@ -338,7 +338,7 @@ export default [
 		type: 'weapon',
 		weaponType: 'melee',
 		description: '',
-		damageDie: '1d6',
+		damageDie: [1, 'd', 6],
 		handed: 1,
 		price: 0,
 		equipped: false,

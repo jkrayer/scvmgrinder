@@ -29,9 +29,9 @@ const safeParse = <T>(s: string): T | null => {
 
 //
 const filterParse = reduce<string, Record<string, unknown>[]>((acc, x) => {
-	const p = safeParse<Record<string, unknown>>(x);
+	const p = safeParse<Record<string, Character.Equipment>>(x);
 
-	return p === null ? acc : acc.concat(p);
+	return p === null ? acc : acc.concat(p.equipment);
 }, []);
 
 //
@@ -98,9 +98,12 @@ export function formToCharacter(
 				description: '<p>4 days of water.</p>',
 				equipped: false,
 				price: 4,
-				quantity: 4,
-				img: 'systems/morkborg/icons/items/misc/waterskin.png',
-				effects: [],
+				quantity: {
+					current: food,
+					maximum: 4
+				},
+				// img: 'systems/morkborg/icons/items/misc/waterskin.png',
+				// effects: [],
 				_id: 'Zrs4ubq4fDBNPmnN'
 			},
 			...equipment

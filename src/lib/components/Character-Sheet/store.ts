@@ -1,5 +1,6 @@
 import { writable, derived, type Readable } from 'svelte/store';
 import { updateCharacter } from '$lib/db';
+import { getEquippedWeapons } from '$lib/helpers/character';
 // import { updateCharacter } from '../lib/db';
 // import { getScrolls } from './lib';
 // import {
@@ -21,8 +22,12 @@ export function update(fn: (arg1: Character.SavedCharacter) => Character.SavedCh
 	Character.update(fn);
 }
 
-//   Readable<Weapon[]>, (arg1: CharacterType) => Weapon[]
-// export const EquippedWeapons: Readable<Weapon[]> = derived(Character, getEquippedWeapons);
+// WEAPONS
+// (a: Character.SavedCharacter): Weapon[] => a.equipment.filter((x) => x.type === 'weapon')
+export const EquippedWeapons = derived<typeof Character, Equipment.EquippedWeapon[]>(
+	Character,
+	getEquippedWeapons
+);
 
 // export const EquippedArmor: Readable<ArmorAndShield> = derived(Character, getEquippedArmor);
 
