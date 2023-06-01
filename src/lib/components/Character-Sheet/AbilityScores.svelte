@@ -14,7 +14,7 @@
 		<div class="col-one">
 			<button type="button" class="clear-button">
 				<h3 class="score-title">{key}</h3>
-				<p class="score">{value}</p>
+				<p class="score-title score">{value}</p>
 			</button>
 		</div>
 	{/each}
@@ -39,7 +39,6 @@
 	.score {
 		margin-top: 0.25rem;
 		margin-bottom: 0;
-		font: 400 1.5rem/1 var(--handwriting);
 		color: var(--gray);
 		text-align: center;
 	}

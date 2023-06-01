@@ -1,6 +1,9 @@
 import { writable, derived, type Readable } from 'svelte/store';
+import { always, compose, filter, ifElse, isEmpty, isNotNil, join, not, paths, props } from 'ramda';
 import { updateCharacter } from '$lib/db';
-import { getEquippedWeapons } from '$lib/helpers/character';
+import { getEquippedArmor, getEquippedWeapons } from '$lib/helpers/character';
+import { ARMOR_TIERS } from '../../../morkborg/lib/constants';
+
 // import { updateCharacter } from '../lib/db';
 // import { getScrolls } from './lib';
 // import {
@@ -28,6 +31,34 @@ export const EquippedWeapons = derived<typeof Character, Equipment.EquippedWeapo
 	Character,
 	getEquippedWeapons
 );
+
+//
+const getTitle = compose<[Equipment.ArmorAndShield], Array<string | undefined>, string[], string>(
+	ifElse(isEmpty, always('no armor'), join('+')),
+	filter<string | undefined, string>(isNotNil),
+	paths<string>([
+		['armor', 'name'],
+		['shield', 'name']
+	])
+);
+
+const getFormula = ({ armor, shield }: Equipment.ArmorAndShield): number | Dice => {
+	const ar = armor !== null ? ARMOR_TIERS[armor.tier?.current || armor.currentTier || 0] : null;
+	const s = Number(!!shield);
+
+	return ar === null ? s : s === 0 ? ar : [ar[0], ar[1], ar[2], '+', s];
+};
+
+export const EquippedArmor = derived<
+	typeof Character,
+	{ armor: Equipment.ArmorAndShield; title: string; formula: number | Dice }
+>(Character, (x) => {
+	const armor = getEquippedArmor(x);
+	const title = `(${getTitle(armor)})`;
+	const formula = getFormula(armor);
+
+	return { armor, title, formula };
+});
 
 // export const EquippedArmor: Readable<ArmorAndShield> = derived(Character, getEquippedArmor);
 

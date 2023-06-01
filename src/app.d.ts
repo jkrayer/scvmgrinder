@@ -99,8 +99,9 @@ declare global {
 		type Armor = CommonEquipmentProps & {
 			type: 'armor';
 			effects?: string[];
-			currentTier: number;
-			maxTier: number;
+			tier: CurrentMax;
+			currentTier?: 1 | 2 | 3;
+			maxTier?: 1 | 2 | 3;
 			// img
 			// effect?: Effect;
 		};
@@ -110,6 +111,11 @@ declare global {
 			effects?: Effect[];
 			// img
 			// effect?: Effect;
+		};
+
+		type ArmorAndShield = {
+			armor: Armor | null;
+			shield: Shield | null;
 		};
 
 		type Weapon = CommonEquipmentProps & {
@@ -125,6 +131,10 @@ declare global {
 		type EquippedWeapon = Weapon & {
 			damage: Dice;
 			toHit: Dice;
+		};
+
+		type EquippedArmor = Armor & {
+			damage: Dice;
 		};
 
 		type Container = CommonEquipmentProps & {

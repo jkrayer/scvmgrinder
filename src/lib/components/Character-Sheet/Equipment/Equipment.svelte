@@ -39,7 +39,7 @@
 		<li class={classes}>
 			{#if eq !== null}
 				{eq.name}
-				<button type="button" on:click={handleEquip(eq._id)}>equip</button>
+				<button type="button" on:click={handleEquip(eq._id)}>{eq.equipped ? 'un' : ''}equip</button>
 			{/if}
 		</li>
 	{/each}

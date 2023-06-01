@@ -16,7 +16,6 @@
 	--ruleGray: #c8c8c8;
 	--lightGray: #ccc;
 	--veryLightGray: #ebebeb;
-
 	--pink: #ff41b4;
 	--white: #fff;
 	--yellow: #ffe800;
@@ -106,7 +105,7 @@ a:hover {
 }
 
 .row-right {
-	justify-content: end;
+	justify-content: flex-end;
 }
 
 .col-one {
@@ -131,4 +130,8 @@ a:hover {
 	margin: 0;
 	font: 1.875rem/1 var(--handwriting);
 	color: var(--gray);
+}
+
+.score-title {
+	font: 400 1.5rem/1 var(--handwriting);
 }

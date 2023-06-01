@@ -1,4 +1,4 @@
-const SACRED_SCROLLS: Scroll[] = [
+const SACRED_SCROLLS: Equipment.Scroll[] = [
 	{
 		_id: '1hEUOlxuvuMNNgVi',
 		name: 'Grace of a Dead Saint',

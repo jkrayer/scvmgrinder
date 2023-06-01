@@ -1,5 +1,3 @@
-// copied from src/CharacterSheet/*
-import Character from '$lib/components/Character-Sheet/store';
 import {
 	allPass,
 	assoc,
@@ -11,18 +9,14 @@ import {
 	join,
 	lens,
 	map,
-	max,
 	min,
 	over,
 	pathOr,
-	pathSatisfies,
 	prop,
 	propEq,
 	propSatisfies,
-	view,
-	type Pred,
-	type ObjPred,
-	type PredTypeguard
+	reduce,
+	view
 } from 'ramda';
 
 // KEYS
@@ -115,6 +109,29 @@ export const getEquippedWeapons = (c: Character.SavedCharacter): Equipment.Equip
 
 // compose<>(map(transformWeapon), ; // as (arg0: Character.SavedCharacter) => Equipment.EquippedWeapon[];
 
+// ARMOR
+const isArmor = propEq<string>('armor', 'type');
+
+const isShield = propEq<string>('shield', 'type');
+
+const isArmorOrShield = either(isArmor, isShield);
+
+const isEquippedArmor = allPass([isArmorOrShield, isEquipped, notBroken]);
+
+const equippedArmor = reduce<Character.Equipment, Equipment.ArmorAndShield>(
+	(acc, eq) => {
+		if (!isEquippedArmor(eq)) return acc;
+		return { ...acc, [eq.type]: eq };
+	},
+	{ armor: null, shield: null }
+);
+
+export const getEquippedArmor = compose<
+	[Character.SavedCharacter],
+	Character.Equipment[],
+	Equipment.ArmorAndShield
+>(equippedArmor, getEquipment);
+
 // EQUIPMENT
 
 // TODO: Better way to use lenses over this data?
@@ -125,5 +142,7 @@ export const toggleEq =
 			e._id === id ? { ...e, equipped: !e.equipped } : e
 		);
 
-		return { ...c, equipment };
+		const cp = { ...c, equipment };
+
+		return cp;
 	};

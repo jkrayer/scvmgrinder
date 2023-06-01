@@ -3,6 +3,7 @@
 	import Header from '$lib/components/Character-Sheet/Header.svelte';
 	import Scores from '$lib/components/Character-Sheet/AbilityScores.svelte';
 	import Weapons from '$lib/components/Character-Sheet/Weapons.svelte';
+	import Armor from '$lib/components/Character-Sheet/Armor.svelte';
 	import Equipment from '$lib/components/Character-Sheet/Equipment/Equipment.svelte';
 
 	export let data: { character: Required<Character.CharacterData> };
@@ -17,5 +18,6 @@
 	<Header />
 	<Scores />
 	<Weapons />
+	<Armor />
 	<Equipment />
 {/if}

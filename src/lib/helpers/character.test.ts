@@ -1,7 +1,27 @@
 import { describe, it, expect } from 'vitest';
-import { incrementHp, decrementHp } from './hitpoints';
+import {
+	dieToDice,
+	toDiceString,
+	incrementHp,
+	decrementHp,
+	getEquippedWeapons,
+	toggleEq
+} from './character';
 
 const startCharacter = { hitpoints: { current: 2, maximum: 4 } } as Character.SavedCharacter;
+
+describe('dieToDice', () => {
+	it('should return a Dice type', () => {
+		expect(dieToDice(2)).toEqual([1, 'd', 2]);
+	});
+});
+
+describe('toDiceString', () => {
+	it('should return a dice string', () => {
+		expect(toDiceString([1, 'd', 2])).toBe('1d2');
+		expect(toDiceString([3, 'd', 6, '+', 2])).toBe('3d6+2');
+	});
+});
 
 describe('incrementHp', () => {
 	it('adds one to the current hit points without exceeding max', () => {

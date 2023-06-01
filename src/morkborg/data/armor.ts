@@ -1,4 +1,4 @@
-export default [
+const ARMOR: Array<Equipment.Armor | Equipment.Shield> = [
 	{
 		_id: 'ODqK19IBLTyfDjtD',
 		name: 'Shield',
@@ -20,10 +20,12 @@ export default [
 		equipped: false,
 		broken: false,
 		price: 20,
-		currentTier: 1,
-		maxTier: 1,
+		tier: {
+			current: 1,
+			maximum: 1
+		}
 		// img: 'systems/morkborg/icons/items/armor/light.png',
-		effects: []
+		// effects: []
 	},
 	{
 		_id: 'raiGDQXNkHpHe1ts',
@@ -33,10 +35,12 @@ export default [
 		equipped: false,
 		broken: false,
 		price: 100,
-		currentTier: 2,
-		maxTier: 2,
+		tier: {
+			current: 2,
+			maximum: 2
+		}
 		// img: 'systems/morkborg/icons/items/armor/medium.png',
-		effects: []
+		// effects: []
 	},
 	{
 		_id: 'a9NSVvJgpD1tdIga',
@@ -46,9 +50,13 @@ export default [
 		equipped: false,
 		broken: false,
 		price: 200,
-		currentTier: 3,
-		maxTier: 3,
+		tier: {
+			current: 3,
+			maximum: 3
+		}
 		// img: 'systems/morkborg/icons/items/armor/heavy.png',
-		effects: []
+		// effects: []
 	}
 ];
+
+export default ARMOR;
