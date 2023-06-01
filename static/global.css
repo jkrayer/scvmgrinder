@@ -119,6 +119,50 @@ a:hover {
 }
 
 /* Button Layout */
+.btn {
+	box-sizing: border-box;
+	border: none;
+	line-height: 1;
+	transition: color 200ms linear, background-color 200ms linear;
+	cursor: pointer;
+}
+
+.btn.primary {
+	color: var(--black);
+	background-color: var(--yellow);
+}
+
+.btn.primary:hover {
+	background-color: var(--pink);
+}
+.btn.primary:active {
+	background-color: var(--black);
+	color: var(--white);
+}
+
+.btn.muted {
+	border: 1px solid var(--lightGray);
+	color: var(--gray);
+	/* background-color: var(--yellow); */
+}
+.btn.muted:hover,
+.btn.muted:active {
+	background-color: var(--black);
+	color: var(--white);
+}
+
+.btn.primary:disabled,
+.btn.primary:disabled:hover,
+.btn.primary:disabled:active,
+.btn.muted:disabled,
+.btn.muted:disabled:hover,
+.btn.muted:disabled:active {
+	border: 1px solid var(--lightGray);
+	color: var(--lightGray);
+	background-color: transparent;
+	cursor: default;
+}
+
 .button-col {
 	display: flex;
 	flex-direction: column;

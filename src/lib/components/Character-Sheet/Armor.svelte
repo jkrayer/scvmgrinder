@@ -33,19 +33,19 @@
 		{#if $EquippedArmor.armor !== null}
 			<div class="row row-right">
 				<button
-					class="button-tier"
+					class="btn primary button-tier"
 					class:active={getTier($EquippedArmor.armor.armor) === 1}
 					disabled={1 > getMaxTier($EquippedArmor.armor.armor)}
 					type="button">1</button
 				>
 				<button
-					class="button-tier"
+					class="btn primary button-tier"
 					class:active={getTier($EquippedArmor.armor.armor) === 2}
 					disabled={2 > getMaxTier($EquippedArmor.armor.armor)}
 					type="button">2</button
 				>
 				<button
-					class="button-tier"
+					class="btn primary button-tier"
 					class:active={getTier($EquippedArmor.armor.armor) === 3}
 					disabled={3 > getMaxTier($EquippedArmor.armor.armor)}
 					type="button">3</button
@@ -69,7 +69,6 @@
 		width: 30px;
 		height: 30px;
 		padding: 3px;
-		border: none;
 		border-radius: 50%;
 		margin-left: var(--padding-tiny);
 		font-size: 0.75em;
@@ -80,10 +79,6 @@
 	.active {
 		color: var(--black);
 		background-color: var(--yellow);
-	}
-	.button-tier:disabled {
-		/* border: 1px solid var(--lightGray); */
-		color: var(--gray);
-		background-color: var(--lightGray);
+		cursor: pointer;
 	}
 </style>
