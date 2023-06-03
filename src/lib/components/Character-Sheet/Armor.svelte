@@ -32,24 +32,30 @@
 	<div class="col-one">
 		{#if $EquippedArmor.armor !== null}
 			<div class="row row-right">
-				<button
-					class="btn primary button-tier"
-					class:active={getTier($EquippedArmor.armor.armor) === 1}
-					disabled={1 > getMaxTier($EquippedArmor.armor.armor)}
-					type="button">1</button
-				>
-				<button
-					class="btn primary button-tier"
-					class:active={getTier($EquippedArmor.armor.armor) === 2}
-					disabled={2 > getMaxTier($EquippedArmor.armor.armor)}
-					type="button">2</button
-				>
-				<button
-					class="btn primary button-tier"
-					class:active={getTier($EquippedArmor.armor.armor) === 3}
-					disabled={3 > getMaxTier($EquippedArmor.armor.armor)}
-					type="button">3</button
-				>
+				<div class="btn-col">
+					<button
+						class="btn primary button-tier"
+						class:active={getTier($EquippedArmor.armor.armor) === 1}
+						disabled={1 > getMaxTier($EquippedArmor.armor.armor)}
+						type="button">1</button
+					>
+				</div>
+				<div class="btn-col">
+					<button
+						class="btn primary button-tier"
+						class:active={getTier($EquippedArmor.armor.armor) === 2}
+						disabled={2 > getMaxTier($EquippedArmor.armor.armor)}
+						type="button">2</button
+					>
+				</div>
+				<div class="btn-col">
+					<button
+						class="btn primary button-tier"
+						class:active={getTier($EquippedArmor.armor.armor) === 3}
+						disabled={3 > getMaxTier($EquippedArmor.armor.armor)}
+						type="button">3</button
+					>
+				</div>
 			</div>
 		{/if}
 	</div>
@@ -63,6 +69,11 @@
 		width: 70px;
 		height: 50px;
 		border: 1px solid var(--ruleGray);
+		margin-right: 0.625rem;
+	}
+
+	.btn-col {
+		flex: 1 1;
 	}
 
 	.button-tier {

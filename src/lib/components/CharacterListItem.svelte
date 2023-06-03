@@ -37,7 +37,7 @@
 				>Cast <span class="heading">{character.name}</span> into oblivion?<br />(press
 				<span class="heading">escape</span> to save this soul)</span
 			>
-			<SquareButton color="pink" icon="minus" title={`Delete ${character.name}`} />
+			<SquareButton color="secondary" icon="minus" title={`Delete ${character.name}`} />
 		</Confirm>
 	</div>
 </article>
@@ -59,6 +59,8 @@
 		color: var(--gray);
 	}
 	.title-col {
+		box-sizing: border-box;
 		flex-grow: 1;
+		padding: 0 0.625rem;
 	}
 </style>

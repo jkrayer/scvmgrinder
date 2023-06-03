@@ -24,6 +24,7 @@
 	.weapon-row {
 		display: flex;
 		align-items: center;
+		justify-content: center;
 		padding-bottom: 0.625rem;
 		border-bottom: 1px solid var(--ruleGray);
 	}

@@ -84,7 +84,7 @@ declare global {
 			broken?: boolean;
 			description: string;
 			name: string;
-			equipped: boolean;
+			equipped?: boolean;
 			price: number;
 			quantity?: CurrentMax;
 		};

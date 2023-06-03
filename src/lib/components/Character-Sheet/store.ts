@@ -1,7 +1,7 @@
-import { writable, derived, type Readable } from 'svelte/store';
-import { always, compose, filter, ifElse, isEmpty, isNotNil, join, not, paths, props } from 'ramda';
+import { writable, derived } from 'svelte/store';
+import { always, compose, filter, ifElse, isEmpty, isNotNil, join, paths } from 'ramda';
 import { updateCharacter } from '$lib/db';
-import { getEquippedArmor, getEquippedWeapons } from '$lib/helpers/character';
+import { getEquippedArmor, getEquippedWeapons } from '$lib/helpers/equipment';
 import { ARMOR_TIERS } from '../../../morkborg/lib/constants';
 
 // import { updateCharacter } from '../lib/db';

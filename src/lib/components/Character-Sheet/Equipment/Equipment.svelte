@@ -1,14 +1,7 @@
 <script lang="ts">
-	import equipment from '../../../../morkborg/data/equipment';
+	import EquipmentItem from './EquipmentItem.svelte';
 	import CharacterStore, { update } from '../store';
 	import { padTo } from '$lib/helpers';
-	import { toggleEq } from '$lib/helpers/character';
-	// import { addMessage } from "../Messages/state/MessageStore";
-	// import { testMessage } from "../Messages/lib";
-	// import Button from "../components/Button.svelte";
-
-	// const handleAbilityTest = (score: string, modifier: number) => () =>
-	// addMessage(testMessage({ score, modifier, name: $CharacterStore.name }));
 
 	// Should this just be  aderived?
 	let inventory = padTo<Character.Equipment>(16, $CharacterStore.equipment);
@@ -21,42 +14,83 @@
 		encumbranceIndex = encumbrance - 1;
 		isEncumbered = $CharacterStore.equipment.length > encumbrance;
 	}
-	// on:click={equip(eq)}
 
-	const handleEquip = (id: string) => () => update(toggleEq(id));
+	// const handleEquip = (id: string) => () => update(toggleEq(id));
+	const handleHover = () => alert('HOVERED!');
 </script>
 
-<div class="row">
-	<h2 class="sheet-title col-two">Equipment</h2>
-	<!-- TODO: Change message when encumbered -->
-	<p class="rule col-two">Strength + 8 items or DR+2 on Agility<wbr />/<wbr />Strength tests</p>
+<div id="equipment">
+	<div class="row">
+		<h2 class="sheet-title col-two">Equipment</h2>
+		<!-- TODO: Change message when encumbered -->
+		<p class="rule col-two">Strength + 8 items or DR+2 on Agility<wbr />/<wbr />Strength tests</p>
+	</div>
+	<ul class="inventory-list clear-list">
+		{#each inventory as eq, index}
+			<li class="inventory-slot">
+				<EquipmentItem {eq} encumbered={index > encumbranceIndex} />
+			</li>
+		{/each}
+	</ul>
+	<p class="silver"><span>Silver:</span> {$CharacterStore.silver}</p>
 </div>
-<ul class="row clear-list">
-	{#each inventory as eq, index}
-		{@const classes = `col-two inventory-slot ${
-			index > encumbranceIndex ? 'inventory-slot-encumbered' : ''
-		}`}
-		<li class={classes}>
-			{#if eq !== null}
-				{eq.name}
-				<button type="button" on:click={handleEquip(eq._id)}>{eq.equipped ? 'un' : ''}equip</button>
-			{/if}
-		</li>
-	{/each}
-</ul>
 
 <style>
+	#equipment {
+		margin-bottom: var(--pad);
+	}
+
+	#equipment > .row {
+		margin-bottom: var(--padSmall);
+	}
+
+	#equipment > ul {
+		margin-bottom: 0;
+	}
+
 	.rule {
 		margin: 0;
 		font-size: 0.75rem;
 		color: var(--gray);
 	}
 
-	.inventory-slot {
-		min-height: 1rem;
-		background-color: var(--veryLightGray);
+	.inventory-list {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: stretch;
 	}
-	.inventory-slot-encumbered {
+
+	.inventory-slot {
+		box-sizing: border-box;
+		flex: 0 0 50%;
+		width: 50%;
+		padding: 1px;
+	}
+
+	.inventory-title {
+		box-sizing: border-box;
+		height: 27px;
+		padding: 6px 6px 0;
+		background-color: var(--veryLightGray);
+		font-size: 0.875rem;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.inventory-title-encumbered {
 		background-color: var(--lightYellow);
+	}
+
+	.inventory-is-broken {
+		text-decoration: line-through;
+	}
+
+	.silver {
+		margin: var(--padTiny) 0 0 0;
+		font-size: 0.875rem;
+	}
+
+	.silver > span {
+		font-weight: 700;
 	}
 </style>

@@ -24,7 +24,7 @@
 		</div>
 		<div class="button-col">
 			<SquareButton icon="plus" on:click={increment} />
-			<SquareButton color="pink" icon="minus" on:click={decrement} />
+			<SquareButton color="secondary" icon="minus" on:click={decrement} />
 		</div>
 	</div>
 </header>

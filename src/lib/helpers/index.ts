@@ -1,3 +1,9 @@
+export const HP_KEY = 'hitpoints';
+export const EQUIPMENT_KEY = 'equipment';
+export const ABILITIES = 'abilities';
+export const STRENGTH = 'strength';
+export const AGILITY = 'agility';
+
 /**
  * Pad an array to the given size
  * @param size number
