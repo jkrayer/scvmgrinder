@@ -208,7 +208,7 @@ a:hover {
 .btn.muted:disabled:active {
 	border: 1px solid var(--lightGray);
 	color: var(--lightGray);
-	background-color: transparent;
+	background-color: var(--white);
 	cursor: default;
 }
 

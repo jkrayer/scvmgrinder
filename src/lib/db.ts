@@ -59,6 +59,7 @@ export async function updateCharacter(character: Character.CharacterData) {
 export async function getCharacter(id: IndexableType): Promise<Character.CharacterData> {
 	try {
 		const character: Character.CharacterData | undefined = await DB.characters.get(id);
+		console.log(62, character);
 		return character || ({} as Character.CharacterData);
 	} catch (error) {
 		console.error(`DB: Error finding character" ${error}`);

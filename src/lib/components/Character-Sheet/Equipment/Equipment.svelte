@@ -13,10 +13,8 @@
 		encumbrance = 8 + $CharacterStore.abilities.strength;
 		encumbranceIndex = encumbrance - 1;
 		isEncumbered = $CharacterStore.equipment.length > encumbrance;
+		inventory = padTo<Character.Equipment>(16, $CharacterStore.equipment);
 	}
-
-	// const handleEquip = (id: string) => () => update(toggleEq(id));
-	const handleHover = () => alert('HOVERED!');
 </script>
 
 <div id="equipment">

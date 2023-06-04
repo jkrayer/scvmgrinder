@@ -1,20 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import {
-	dieToDice,
-	toDiceString,
-	incrementHp,
-	decrementHp,
-	getEquippedWeapons,
-	toggleEq
-} from './character';
+import { toDiceString, incrementHp, decrementHp } from './character';
 
 const startCharacter = { hitpoints: { current: 2, maximum: 4 } } as Character.SavedCharacter;
-
-describe('dieToDice', () => {
-	it('should return a Dice type', () => {
-		expect(dieToDice(2)).toEqual([1, 'd', 2]);
-	});
-});
 
 describe('toDiceString', () => {
 	it('should return a dice string', () => {

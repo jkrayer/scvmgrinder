@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { ArrowDown, ArrowUp, Circle, CrossCircled, EyeOpen, Trash } from 'radix-icons-svelte';
+	import { update } from '../store';
 	import SquareButton from '$lib/components/SquareButton.svelte';
 	import {
 		canDecrement,
@@ -7,7 +8,7 @@
 		hasQuantityProp,
 		isEquippable
 	} from '$lib/helpers/equipment';
-	// import { toggleEq } from '$lib/helpers/character';
+	import { decEquipment, dropEquipment, incEquipment, toggleEq } from '$lib/helpers/state';
 
 	export let eq: Character.Equipment | null;
 	export let encumbered: boolean = false;
@@ -21,6 +22,10 @@
 	// HANDLERS
 	const handleMouseIn = () => (active = true);
 	const handleMouseOut = () => (active = false);
+	const handleDrop = (id: string) => () => update(dropEquipment(id));
+	const handleEquip = (id: string) => () => update(toggleEq(id));
+	const handleInc = (id: string) => () => update(incEquipment(id));
+	const handleDec = (id: string) => () => update(decEquipment(id));
 </script>
 
 <!-- on:mouseenter={handleHover} -->
@@ -32,23 +37,27 @@
 			<SquareButton title="Details"><EyeOpen /></SquareButton>
 
 			{#if hasQuantityProp(eq)}
-				<SquareButton title="-1" disabled={canDecrement(eq)}><ArrowDown /></SquareButton>
-				<SquareButton title="+1" disabled={canIncrement(eq)}><ArrowUp /></SquareButton>
+				<SquareButton title="-1" disabled={!canDecrement(eq)} on:click={handleDec(eq._id)}
+					><ArrowDown /></SquareButton
+				>
+				<SquareButton title="+1" disabled={!canIncrement(eq)} on:click={handleInc(eq._id)}
+					><ArrowUp /></SquareButton
+				>
 			{/if}
 
 			{#if isEquippable(eq)}
-				{#if eq.equipped}
-					<SquareButton title="Un-Equip">
+				{@const title = eq.equipped ? 'Un-Equip' : 'Equip'}
+
+				<SquareButton {title} on:click={handleEquip(eq._id)}>
+					{#if eq.equipped}
 						<CrossCircled />
-					</SquareButton>
-				{:else}
-					<SquareButton title="Equip">
+					{:else}
 						<Circle />
-					</SquareButton>
-				{/if}
+					{/if}
+				</SquareButton>
 			{/if}
 
-			<SquareButton title="Drop"><Trash /></SquareButton>
+			<SquareButton title="Drop" on:click={handleDrop(eq._id)}><Trash /></SquareButton>
 		</div>
 		<div class="copy" class:active>
 			{eq.name}
@@ -90,12 +99,4 @@
 	.buttons.active {
 		transform: translate3d(0, 0, 0);
 	}
-
-	/* .copy {
-		transform: translate3d(-104px, 0, 0);
-	}
-
-	.copy.active {
-		transform: translate3d(6px, 0, 0);
-	} */
 </style>

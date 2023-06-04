@@ -16,7 +16,6 @@
 </script>
 
 {#if $CharacterStore === undefined}
-	<!-- TODO ADD LOADING GRAPHIC -->
 	wating...
 {:else}
 	<Header />

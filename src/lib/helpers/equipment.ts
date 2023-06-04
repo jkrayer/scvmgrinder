@@ -8,7 +8,6 @@ import {
 	equals,
 	filter,
 	has,
-	join,
 	isNil,
 	map,
 	lens,
@@ -22,26 +21,60 @@ import {
 } from 'ramda';
 import { ABILITIES, AGILITY, EQUIPMENT_KEY, STRENGTH } from '.';
 
+export const QUANTITY = 'quantity';
+
 const eqLens = lens<Character.SavedCharacter, Character.Equipment[]>(
 	prop(EQUIPMENT_KEY),
 	assoc(EQUIPMENT_KEY)
 );
 
-// DICE
+const getEquipment = view<Character.SavedCharacter, Character.Equipment[]>(eqLens);
+
+// TO MOVE?
 export const dieToDice = (d: Die | Dice): Dice => (typeof d === 'number' ? [1, 'd', d] : d);
 
 const numberToMod = (n: number): [ModifierMathSymbols, number] | [] =>
 	n < 0 ? ['-', Math.abs(n)] : n > 0 ? ['+', n] : [];
 
-// EQUIPMENT
-const getEquipment = view<Character.SavedCharacter, Character.Equipment[]>(eqLens);
-
+// general ------------
 const isEquipped = propEq(true, 'equipped');
-
+const hasEquippedProp = has('equipped');
 const notBroken = propSatisfies(either(isNil, equals(false)), 'broken');
 
-// WEAPONS
+// types --------------
 const isWeapon = propEq<string>('weapon', 'type');
+const isArmor = propEq<string>('armor', 'type');
+const isShield = propEq<string>('shield', 'type');
+const isArmorOrShield = either(isArmor, isShield);
+
+const trace =
+	<T>(msg: string) =>
+	(x: T): T => {
+		console.log(msg, x);
+		return x;
+	};
+
+// quantity -----------
+export const hasQuantityProp = has(QUANTITY);
+
+export const canIncrement = (a: Character.Equipment) =>
+	pathOr(0, ['quantity', 'current'], a) < pathOr(0, ['quantity', 'maximum'], a);
+
+export const canDecrement = compose<[Character.Equipment], number, number, boolean, boolean>(
+	trace('canDec'),
+	lt(0),
+	trace('canDec'),
+	pathOr(0, ['quantity', 'current'])
+);
+
+// EQUIPPED
+export const isEquippable = both(hasEquippedProp, anyPass([isArmor, isShield, isWeapon]));
+
+// --------------------
+
+// EQUIPMENT
+
+// WEAPONS
 
 const isEquippedWeapon = allPass([isWeapon, isEquipped, notBroken]);
 
@@ -75,14 +108,7 @@ export const getEquippedWeapons = (c: Character.SavedCharacter): Equipment.Equip
 	// return map(transformWeapon(), filter(isEquippedWeapon), getEquipment(c)))
 };
 
-// compose<>(map(transformWeapon), ; // as (arg0: Character.SavedCharacter) => Equipment.EquippedWeapon[];
-
 // ARMOR
-const isArmor = propEq<string>('armor', 'type');
-
-const isShield = propEq<string>('shield', 'type');
-
-const isArmorOrShield = either(isArmor, isShield);
 
 const isEquippedArmor = allPass([isArmorOrShield, isEquipped, notBroken]);
 
@@ -99,39 +125,3 @@ export const getEquippedArmor = compose<
 	Character.Equipment[],
 	Equipment.ArmorAndShield
 >(equippedArmor, getEquipment);
-
-// EQUIPMENT
-
-// TODO: Better way to use lenses over this data?
-export const toggleEq =
-	(id: string) =>
-	(c: Character.SavedCharacter): Character.SavedCharacter => {
-		const equipment: Character.Equipment[] = c.equipment.map((e) =>
-			e._id === id ? { ...e, equipped: !e.equipped } : e
-		);
-
-		const cp = { ...c, equipment };
-
-		return cp;
-	};
-
-// HELPERS
-const QUANTITY = 'quantity';
-
-const hasEquippedProp = has('equipped');
-
-// QUANTITY
-export const hasQuantityProp = has(QUANTITY);
-
-const getQuantity = prop(QUANTITY);
-
-export const canIncrement = (a: Character.Equipment) =>
-	pathOr(0, ['quantity', 'current'], a) < pathOr(0, ['quantity', 'maximum'], a);
-
-export const canDecrement = compose<[Character.Equipment], number, boolean>(
-	lt(0),
-	pathOr(0, ['quantity', 'current'])
-);
-
-// EQUIPPED
-export const isEquippable = both(hasEquippedProp, anyPass([isArmor, isShield, isWeapon]));
