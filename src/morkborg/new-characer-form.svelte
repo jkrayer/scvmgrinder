@@ -20,8 +20,6 @@
 	import { formToCharacter } from '../morkborg/lib';
 	import { addCharacter } from '$lib/db';
 
-	console.log('store', $store);
-
 	const CHARACTERS: RawClassData[] = tables.characters;
 	let classId: string = CHARACTERS[0]._id;
 	let hpDice: Dice | never[] = [];
@@ -37,8 +35,6 @@
 		const D: [Dice[0], Dice[1], Dice[2]] = $store.selectedClass.hitPoints || [1, 'd', 1];
 		const M: [Dice[3], Dice[4]] = ['+', $store.formData.toughness];
 		hpDice = [...D, ...M];
-
-		console.log(36, $store);
 	}
 
 	const handleScoreChange = ({
