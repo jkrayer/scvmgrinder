@@ -1,9 +1,10 @@
 <script lang="ts">
 	export let tables: CreateCharacterData['tables'];
 
+	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { isEmpty } from 'ramda';
-	import store, { canSubmit, setSelectedClass, setTrait } from './store/new-character-store';
+	import store, { canSubmit, reset, setSelectedClass, setTrait } from './store/new-character-store';
 	import { maxRoll, toDiceString, rollToScore } from '$lib';
 	import Label from '$lib/components/Form/Label.svelte';
 	import Input from '$lib/components/Form/Input.svelte';
@@ -19,6 +20,8 @@
 	import { formToCharacter } from '../morkborg/lib';
 	import { addCharacter } from '$lib/db';
 
+	console.log('store', $store);
+
 	const CHARACTERS: RawClassData[] = tables.characters;
 	let classId: string = CHARACTERS[0]._id;
 	let hpDice: Dice | never[] = [];
@@ -28,10 +31,14 @@
 		!!selectedClass && setSelectedClass(selectedClass);
 	}
 
+	onMount(() => reset(CHARACTERS[0]));
+
 	$: {
 		const D: [Dice[0], Dice[1], Dice[2]] = $store.selectedClass.hitPoints || [1, 'd', 1];
 		const M: [Dice[3], Dice[4]] = ['+', $store.formData.toughness];
 		hpDice = [...D, ...M];
+
+		console.log(36, $store);
 	}
 
 	const handleScoreChange = ({
@@ -240,7 +247,7 @@
 	</Title>
 
 	{#if !isEmpty($store.selectedClass.origin)}
-		<Title title={`${$store.selectedClass.origin.title}...`}>
+		<Title title={`${$store.selectedClass.origin.title}`}>
 			<RollTable
 				die={$store.selectedClass.origin.dice[2]}
 				options={$store.selectedClass.origin.rows}

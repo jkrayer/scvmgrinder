@@ -19,6 +19,7 @@ const d10 = IO.of(10).map(roll);
 const d8 = IO.of(8).map(roll);
 const d6 = IO.of(6).map(roll);
 const d4 = IO.of(4).map(roll);
+const d3 = IO.of(3).map(roll);
 const d2 = IO.of(2).map(roll);
 
 type RollDie = () => number;
@@ -29,6 +30,7 @@ export const rollD10: RollDie = () => d10.run();
 export const rollD8: RollDie = () => d8.run();
 export const rollD6: RollDie = () => d6.run();
 export const rollD4: RollDie = () => d4.run();
+export const rollD3: RollDie = () => d3.run();
 export const rollD2: RollDie = () => d2.run();
 
 // IO.of(20).map(roll).map(add(-2));

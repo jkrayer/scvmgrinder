@@ -1,5 +1,5 @@
 import { add, multiply, pathOr, sum, subtract } from 'ramda';
-import { rollD20, rollD12, rollD10, rollD8, rollD6, rollD4, rollD2 } from './dice';
+import { rollD20, rollD12, rollD10, rollD8, rollD6, rollD4, rollD3, rollD2 } from './dice';
 
 const DICE: { [key: number]: () => number } = Object.freeze({
 	20: rollD20,
@@ -8,6 +8,7 @@ const DICE: { [key: number]: () => number } = Object.freeze({
 	8: rollD8,
 	6: rollD6,
 	4: rollD4,
+	3: rollD3,
 	2: rollD2
 });
 

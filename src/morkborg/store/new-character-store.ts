@@ -53,6 +53,10 @@ const store = writable<State>({
 
 export default store;
 
+export function reset(selectedClass: RawClassData) {
+	store.update((state: State): State => ({ selectedClass, formData: formDataFactory() }));
+}
+
 export function setSelectedClass(selectedClass: RawClassData) {
 	store.update((state: State): State => {
 		const { food, tableOne, tableTwo, tableThree, name } = state.formData;
