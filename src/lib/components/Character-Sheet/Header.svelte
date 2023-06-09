@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CharacterStore, { update } from './store';
+	import Incrementer from './Incrementer.svelte';
 	import SquareButton from '$lib/components/SquareButton.svelte';
 	import { incrementHp, decrementHp } from '$lib/helpers/character';
 
@@ -17,36 +18,9 @@
 		<div class="label">Class</div>
 		<h2 class="title">{$CharacterStore.className}</h2>
 	</div>
-	<div class="col-one row hp-row">
-		<div>
-			<div class="label">Hit Points</div>
-			<p class="title">{$CharacterStore.hitpoints.current}/{$CharacterStore.hitpoints.maximum}</p>
-		</div>
-		<div class="button-col">
-			<SquareButton icon="plus" on:click={increment} />
-			<SquareButton color="secondary" icon="minus" on:click={decrement} />
-		</div>
+	<div class="col-one">
+		<Incrementer title="Hit Points" on:increment={increment} on:decrement={decrement}>
+			{$CharacterStore.hitpoints.current}/{$CharacterStore.hitpoints.maximum}
+		</Incrementer>
 	</div>
 </header>
-
-<style>
-	.label {
-		font: 700 0.75rem/1 var(--sans-serif);
-		color: var(---black);
-	}
-
-	.title {
-		margin: 8px 0 0 0;
-		font: 400 1rem/1 var(--sans-serif);
-		color: var(---black);
-	}
-
-	.label,
-	.title {
-		padding-left: 0.625rem;
-	}
-
-	.hp-row {
-		justify-content: space-between;
-	}
-</style>

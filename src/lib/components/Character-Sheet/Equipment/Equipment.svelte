@@ -1,7 +1,9 @@
 <script lang="ts">
 	import EquipmentItem from './EquipmentItem.svelte';
 	import CharacterStore, { update } from '../store';
+	import Incrementer from '../Incrementer.svelte';
 	import { padTo } from '$lib/helpers';
+	// import EquipmentPicker from './EquipmentPicker.svelte';
 
 	// Should this just be  aderived?
 	let inventory = padTo<Character.Equipment>(16, $CharacterStore.equipment);
@@ -30,9 +32,16 @@
 			</li>
 		{/each}
 	</ul>
-	<p class="silver"><span>Silver:</span> {$CharacterStore.silver}</p>
+	<div class="row">
+		<div class="col-two">
+			<!-- on:increment={()=>{}} on:decrement{() => {}} -->
+			<Incrementer title="Silver">{$CharacterStore.silver}</Incrementer>
+			<!-- <p class="silver"><span>Silver:</span> {$CharacterStore.silver}</p> -->
+		</div>
+	</div>
 </div>
 
+<!-- <EquipmentPicker /> -->
 <style>
 	#equipment {
 		margin-bottom: var(--pad);

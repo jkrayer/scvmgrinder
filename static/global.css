@@ -239,3 +239,19 @@ a:hover {
 .score-title {
 	font: 400 1.5rem/1 var(--handwriting);
 }
+
+.label {
+	font: 700 0.75rem/1 var(--sans-serif);
+	color: var(---black);
+}
+
+.title {
+	margin: 8px 0 0 0;
+	font: 400 1rem/1 var(--sans-serif);
+	color: var(---black);
+}
+
+.label,
+.title {
+	padding-left: 0.625rem;
+}
