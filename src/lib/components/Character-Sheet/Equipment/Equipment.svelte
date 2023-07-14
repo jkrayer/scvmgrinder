@@ -3,6 +3,7 @@
 	import CharacterStore, { update } from '../store';
 	import Incrementer from '../Incrementer.svelte';
 	import { padTo } from '$lib/helpers';
+	import { decSilver, incSilver } from '$lib/helpers/character';
 	// import EquipmentPicker from './EquipmentPicker.svelte';
 
 	// Should this just be  aderived?
@@ -17,6 +18,10 @@
 		isEncumbered = $CharacterStore.equipment.length > encumbrance;
 		inventory = padTo<Character.Equipment>(16, $CharacterStore.equipment);
 	}
+
+	// HANDLERS
+	const increment = () => update(incSilver);
+	const decrement = () => update(decSilver);
 </script>
 
 <div id="equipment">
@@ -34,9 +39,9 @@
 	</ul>
 	<div class="row">
 		<div class="col-two">
-			<!-- on:increment={()=>{}} on:decrement{() => {}} -->
-			<Incrementer title="Silver">{$CharacterStore.silver}</Incrementer>
-			<!-- <p class="silver"><span>Silver:</span> {$CharacterStore.silver}</p> -->
+			<Incrementer title="Silver" on:decrement={decrement} on:increment={increment}
+				>{$CharacterStore.silver}</Incrementer
+			>
 		</div>
 	</div>
 </div>

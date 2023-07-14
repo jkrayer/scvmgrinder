@@ -2,6 +2,7 @@ export const ABILITIES = 'abilities';
 export const AGILITY = 'agility';
 export const EQUIPMENT_KEY = 'equipment';
 export const HP_KEY = 'hitpoints';
+export const SILVER_KEY = 'silver';
 export const STRENGTH = 'strength';
 
 /**
