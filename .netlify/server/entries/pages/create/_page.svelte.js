@@ -1,8 +1,8 @@
-import { c as create_ssr_component, h as compute_rest_props, j as spread, l as escape_object, e as escape, o as compute_slots, d as add_attribute, k as escape_attribute_value, f as each, v as validate_component, p as null_to_empty, q as createEventDispatcher, a as subscribe } from "../../../chunks/index2.js";
+import { c as create_ssr_component, f as compute_rest_props, h as spread, i as escape_object, e as escape, j as compute_slots, b as add_attribute, k as escape_attribute_value, d as each, v as validate_component, n as null_to_empty, l as createEventDispatcher, a as subscribe } from "../../../chunks/ssr.js";
 import { B as Button, g as goto } from "../../../chunks/Button.js";
 import { ifElse, lte, gte, always, lt, compose, not, isEmpty, prop, reduce, values } from "ramda";
 import { d as derived, w as writable } from "../../../chunks/index.js";
-import { t as toDiceString, m as minRoll, a as maxRoll } from "../../../chunks/index3.js";
+import { t as toDiceString, m as minRoll, a as maxRoll } from "../../../chunks/index2.js";
 import { R as RollButton } from "../../../chunks/RollButton.js";
 import { r as rollD2, a as rollD4 } from "../../../chunks/dice.js";
 import { a as addCharacter } from "../../../chunks/db.js";
@@ -77,21 +77,14 @@ const Label = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   if ($$props.title === void 0 && $$bindings.title && title !== void 0)
     $$bindings.title(title);
   $$result.css.add(css$4);
-  return `<label${spread([{ class: "label" }, escape_object($$restProps)], { classes: "svelte-nypqz3" })}><div class="${"svelte-nypqz3"}">${escape(title)} ${slots.roll ? slots.roll({}) : ``}</div>
-	${slots.default ? slots.default({}) : ``}
-	${$$slots.comments ? `<div class="${"svelte-nypqz3"}">${slots.comments ? slots.comments({}) : ``}</div>` : ``}
-</label>`;
+  return `<label${spread([{ class: "label" }, escape_object($$restProps)], { classes: "svelte-nypqz3" })}><div class="svelte-nypqz3">${escape(title)} ${slots.roll ? slots.roll({}) : ``}</div> ${slots.default ? slots.default({}) : ``} ${$$slots.comments ? `<div class="svelte-nypqz3">${slots.comments ? slots.comments({}) : ``}</div>` : ``} </label>`;
 });
 const Input = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $$restProps = compute_rest_props($$props, ["value"]);
   let { value = "" } = $$props;
   if ($$props.value === void 0 && $$bindings.value && value !== void 0)
     $$bindings.value(value);
-  return `
-
-<input${spread([{ type: "text" }, { class: "control" }, escape_object($$restProps)], {})}${add_attribute("value", value, 0)}>
-
-`;
+  return ` <input${spread([{ type: "text" }, { class: "control" }, escape_object($$restProps)], {})}${add_attribute("value", value, 0)}> `;
 });
 const NumberInput = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $$restProps = compute_rest_props($$props, ["value"]);
@@ -118,8 +111,9 @@ const TriangleDown = create_ssr_component(($$result, $$props, $$bindings, slots)
       escape_object($$restProps)
     ],
     {}
-  )}><path d="${"M4 6H11L7.5 10.5L4 6Z"}"${add_attribute("fill", color, 0)}></path></svg>`;
+  )}><path d="M4 6H11L7.5 10.5L4 6Z"${add_attribute("fill", color, 0)}></path></svg>`;
 });
+const TriangleDown$1 = TriangleDown;
 const Select = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $$restProps = compute_rest_props($$props, ["options", "valueProp", "labelProp", "value"]);
   let { options } = $$props;
@@ -136,10 +130,9 @@ const Select = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.labelProp(labelProp);
   if ($$props.value === void 0 && $$bindings.value && value !== void 0)
     $$bindings.value(value);
-  return `<div class="${"select-wrapper"}"><select${spread([{ class: "control select" }, escape_object($$restProps)], {})}>${each(options, (option) => {
+  return `<div class="select-wrapper"><select${spread([{ class: "control select" }, escape_object($$restProps)], {})}>${each(options, (option) => {
     return `<option${add_attribute("value", getVal(option), 0)}>${escape(getLabel(option))}</option>`;
-  })}</select>
-	${validate_component(TriangleDown, "TriangleDown").$$render(
+  })}</select> ${validate_component(TriangleDown$1, "TriangleDown").$$render(
     $$result,
     {
       class: "icon",
@@ -173,17 +166,10 @@ const RollTable = create_ssr_component(($$result, $$props, $$bindings, slots) =>
     $$bindings.alignItems(alignItems);
   $$result.css.add(css$3);
   group.length >= multiple;
-  return `<div class="${"wrapper svelte-r2djon"}"><h1 class="${"title svelte-r2djon"}">d${escape(die)} ${slots.default ? slots.default({}) : ``}</h1>
-	<ol class="${escape(null_to_empty(`clear-list list local ${alignItems}`), true) + " svelte-r2djon"}">${each(options, ({ dice: dice2, label, value }, index) => {
+  return `<div class="wrapper svelte-r2djon"><h1 class="title svelte-r2djon">d${escape(die)} ${slots.default ? slots.default({}) : ``}</h1> <ol class="${escape(null_to_empty(`clear-list list local ${alignItems}`), true) + " svelte-r2djon"}">${each(options, ({ dice: dice2, label, value }, index) => {
     let isDisabled = !(index < die);
-    return `
-			<li class="${"list-item svelte-r2djon"}"><label>${multiple === 1 ? `<input class="${"radio svelte-r2djon"}" type="${"radio"}"${add_attribute("value", value, 0)} ${isDisabled ? "disabled" : ""}${value === group ? add_attribute("checked", true, 1) : ""}>` : `${isDisabled && group.indexOf(value) === -1 ? `<input class="${"radio svelte-r2djon"}" type="${"checkbox"}"${add_attribute("value", value, 0)} ${"disabled"}${~group.indexOf(value) ? add_attribute("checked", true, 1) : ""}>` : `<input class="${"radio svelte-r2djon"}" type="${"checkbox"}"${add_attribute("value", value, 0)}${~group.indexOf(value) ? add_attribute("checked", true, 1) : ""}>`}`}
-
-					<span class="${"list-item-text svelte-r2djon"}"><span class="${"dice svelte-r2djon"}">${escape(dice2[0])}${dice2.length > 1 ? `-${escape(dice2[dice2.length - 1])}` : ``}</span>
-						<!-- HTML_TAG_START -->${label}<!-- HTML_TAG_END --></span></label>
-			</li>`;
-  })}</ol>
-</div>`;
+    return ` <li class="list-item svelte-r2djon"><label>${multiple === 1 ? `<input class="radio svelte-r2djon" type="radio"${add_attribute("value", value, 0)} ${isDisabled ? "disabled" : ""}${value === group ? add_attribute("checked", true, 1) : ""}>` : `${isDisabled && group.indexOf(value) === -1 ? `<input class="radio svelte-r2djon" type="checkbox"${add_attribute("value", value, 0)} ${"disabled"}${~group.indexOf(value) ? add_attribute("checked", true, 1) : ""}>` : `<input class="radio svelte-r2djon" type="checkbox"${add_attribute("value", value, 0)}${~group.indexOf(value) ? add_attribute("checked", true, 1) : ""}>`}`} <span class="list-item-text svelte-r2djon"><span class="dice svelte-r2djon">${escape(dice2[0])}${dice2.length > 1 ? `-${escape(dice2[dice2.length - 1])}` : ``}</span> <!-- HTML_TAG_START -->${label}<!-- HTML_TAG_END --></span></label> </li>`;
+  })}</ol> </div>`;
 });
 const Score_svelte_svelte_type_style_lang = "";
 const css$2 = {
@@ -216,9 +202,7 @@ const Score = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         }
       }
     }
-    $$rendered = `<fieldset class="${"fieldset svelte-1h1kzup"}"><legend class="${"legend svelte-1h1kzup"}">${escape(`${ability.name}(${toDiceString(ability.dice)})`)}
-		${validate_component(RollButton, "RollButton").$$render($$result, { dice: ability.dice }, {}, {})}</legend>
-	<div class="${"row"}"><div class="${"col-two"}">${validate_component(Label, "Label").$$render($$result, { title: "roll" }, {}, {
+    $$rendered = `<fieldset class="fieldset svelte-1h1kzup"><legend class="legend svelte-1h1kzup">${escape(`${ability.name}(${toDiceString(ability.dice)})`)} ${validate_component(RollButton, "RollButton").$$render($$result, { dice: ability.dice }, {}, {})}</legend> <div class="row"><div class="col-two">${validate_component(Label, "Label").$$render($$result, { title: "roll" }, {}, {
       default: () => {
         return `${validate_component(NumberInput, "NumberInput").$$render(
           $$result,
@@ -236,8 +220,7 @@ const Score = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           {}
         )}`;
       }
-    })}</div>
-		<div class="${"col-two"}">${validate_component(Label, "Label").$$render(
+    })}</div> <div class="col-two">${validate_component(Label, "Label").$$render(
       $$result,
       {
         title: "score",
@@ -249,8 +232,7 @@ const Score = create_ssr_component(($$result, $$props, $$bindings, slots) => {
           return `${validate_component(NumberInput, "NumberInput").$$render($$result, { readonly: true, value: mod }, {}, {})}`;
         }
       }
-    )}</div></div>
-</fieldset>`;
+    )}</div></div> </fieldset>`;
   } while (!$$settled);
   return $$rendered;
 });
@@ -271,17 +253,15 @@ const Title = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { align = "right" } = $$props;
   const rotations = [-3, -2, -1, 1, 2, 3];
   const index = Math.floor(Math.random() * 6);
+  const rotation = rotations[index];
   if ($$props.title === void 0 && $$bindings.title && title !== void 0)
     $$bindings.title(title);
   if ($$props.align === void 0 && $$bindings.align && align !== void 0)
     $$bindings.align(align);
   $$result.css.add(css$1);
-  return `<section><div class="${escape(null_to_empty(`title-wrapper ${align}`), true) + " svelte-199rmv"}"><h2 class="${"h2 svelte-199rmv"}"${add_attribute("style", `transform: rotate(${rotations[index]}deg)`, 0)}>${each(title.split(/\s/), (word) => {
-    return `${escape(word)}<br>`;
-  })}</h2>
-		${slots.subtitle ? slots.subtitle({}) : ``}</div>
-	${slots.default ? slots.default({}) : ``}
-</section>`;
+  return `<section><div class="${escape(null_to_empty(`title-wrapper ${align}`), true) + " svelte-199rmv"}"><h2 class="h2 svelte-199rmv"${add_attribute("style", `transform: rotate(${rotation}deg)`, 0)}>${each(title.split(/\s/), (word) => {
+    return `<!-- HTML_TAG_START -->${word}<!-- HTML_TAG_END --><br>`;
+  })}</h2> ${slots.subtitle ? slots.subtitle({}) : ``}</div> ${slots.default ? slots.default({}) : ``} </section>`;
 });
 const OptionButton = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { dice: dice2 } = $$props;
@@ -405,8 +385,7 @@ const New_characer_form = create_ssr_component(($$result, $$props, $$bindings, s
         hpDice = [...D, ...M];
       }
     }
-    $$rendered = `<a href="${"/"}" class="${"banner svelte-y2j8s"}">Go Home!<br>the path is pain.</a>
-${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }, {}, {
+    $$rendered = `<a href="/" class="banner svelte-y2j8s" data-svelte-h="svelte-100aw8p">Go Home!<br>the path is pain.</a> ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }, {}, {
       default: () => {
         return `${validate_component(Label, "Label").$$render($$result, { title: "Character Class" }, {}, {
           roll: () => {
@@ -434,9 +413,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               {}
             )}`;
           }
-        })}
-
-	<div class="${"row"}"><div class="${"col-two"}">${validate_component(Label, "Label").$$render($$result, { title: "d4 days of food" }, {}, {
+        })} <div class="row"><div class="col-two">${validate_component(Label, "Label").$$render($$result, { title: "d4 days of food" }, {}, {
           roll: () => {
             return `${validate_component(RollButton, "RollButton").$$render($$result, { dice: [1, "d", 4], slot: "roll" }, {}, {})}`;
           },
@@ -458,9 +435,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               {}
             )}`;
           }
-        })}</div>
-
-		<div class="${"col-two"}">${validate_component(Label, "Label").$$render(
+        })}</div> <div class="col-two">${validate_component(Label, "Label").$$render(
           $$result,
           {
             title: `${toDiceString($store.selectedClass.silver)} silver`
@@ -498,9 +473,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               )}`;
             }
           }
-        )}</div></div>
-
-	<div class="${"row"}"><div class="${"col-two"}">${validate_component(RollTable, "RollTable").$$render(
+        )}</div></div> <div class="row"><div class="col-two">${validate_component(RollTable, "RollTable").$$render(
           $$result,
           {
             die: 6,
@@ -518,8 +491,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               return `${validate_component(RollButton, "RollButton").$$render($$result, { dice: [1, "d", 6] }, {}, {})}`;
             }
           }
-        )}
-			${validate_component(RollTable, "RollTable").$$render(
+        )} ${validate_component(RollTable, "RollTable").$$render(
           $$result,
           {
             die: 12,
@@ -537,8 +509,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               return `${validate_component(RollButton, "RollButton").$$render($$result, { dice: [1, "d", 12] }, {}, {})}`;
             }
           }
-        )}</div>
-		<div class="${"col-two"}">${validate_component(RollTable, "RollTable").$$render(
+        )}</div> <div class="col-two">${validate_component(RollTable, "RollTable").$$render(
           $$result,
           {
             die: 12,
@@ -556,8 +527,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               return `${validate_component(RollButton, "RollButton").$$render($$result, { dice: [1, "d", 12] }, {}, {})}`;
             }
           }
-        )}
-			${validate_component(Title, "Title").$$render($$result, { title: "Weapons" }, {}, {
+        )} ${validate_component(Title, "Title").$$render($$result, { title: "Weapons" }, {}, {
           default: () => {
             return `${validate_component(RollTable, "RollTable").$$render(
               $$result,
@@ -587,9 +557,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               }
             )}`;
           }
-        })}</div></div>
-
-	${validate_component(Title, "Title").$$render($$result, { title: "Armor" }, {}, {
+        })}</div></div> ${validate_component(Title, "Title").$$render($$result, { title: "Armor" }, {}, {
           default: () => {
             return `${validate_component(RollTable, "RollTable").$$render(
               $$result,
@@ -618,9 +586,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               }
             )}`;
           }
-        })}
-
-	<div class="${"row"}"><div class="${"col-two"}">${validate_component(Score, "Score").$$render(
+        })} <div class="row"><div class="col-two">${validate_component(Score, "Score").$$render(
           $$result,
           {
             ability: $store.selectedClass.abilities[0],
@@ -628,8 +594,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
           },
           {},
           {}
-        )}</div>
-		<div class="${"col-two"}">${validate_component(Score, "Score").$$render(
+        )}</div> <div class="col-two">${validate_component(Score, "Score").$$render(
           $$result,
           {
             ability: $store.selectedClass.abilities[1],
@@ -637,8 +602,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
           },
           {},
           {}
-        )}</div>
-		<div class="${"col-two"}">${validate_component(Score, "Score").$$render(
+        )}</div> <div class="col-two">${validate_component(Score, "Score").$$render(
           $$result,
           {
             ability: $store.selectedClass.abilities[2],
@@ -646,8 +610,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
           },
           {},
           {}
-        )}</div>
-		<div class="${"col-two"}">${validate_component(Score, "Score").$$render(
+        )}</div> <div class="col-two">${validate_component(Score, "Score").$$render(
           $$result,
           {
             ability: $store.selectedClass.abilities[3],
@@ -655,9 +618,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
           },
           {},
           {}
-        )}</div></div>
-
-	<div class="${"row"}"><div class="${"col-three"}">${validate_component(Label, "Label").$$render(
+        )}</div></div> <div class="row"><div class="col-three">${validate_component(Label, "Label").$$render(
           $$result,
           {
             title: `Hit Points (${toDiceString($store.selectedClass.hitPoints)} + toughness(${$store.formData.toughness}))`
@@ -698,11 +659,9 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               )}`;
             }
           }
-        )}</div></div>
-
-	${validate_component(Title, "Title").$$render($$result, { title: "Terrible Traits" }, {}, {
+        )}</div></div> ${validate_component(Title, "Title").$$render($$result, { title: "Terrible Traits" }, {}, {
           subtitle: () => {
-            return `<span slot="${"subtitle"}">(roll twice)</span>`;
+            return `<span slot="subtitle" data-svelte-h="svelte-1tqccp1">(roll twice)</span>`;
           },
           default: () => {
             return `${validate_component(RollTable, "RollTable").$$render(
@@ -727,9 +686,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               }
             )}`;
           }
-        })}
-
-	${validate_component(Title, "Title").$$render($$result, { title: "Broken Bodies", align: "left" }, {}, {
+        })} ${validate_component(Title, "Title").$$render($$result, { title: "Broken Bodies", align: "left" }, {}, {
           default: () => {
             return `${validate_component(RollTable, "RollTable").$$render(
               $$result,
@@ -752,9 +709,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               }
             )}`;
           }
-        })}
-
-	${validate_component(Title, "Title").$$render($$result, { title: "Bad Habits" }, {}, {
+        })} ${validate_component(Title, "Title").$$render($$result, { title: "Bad Habits" }, {}, {
           default: () => {
             return `${validate_component(RollTable, "RollTable").$$render(
               $$result,
@@ -776,12 +731,10 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               }
             )}`;
           }
-        })}
-
-	${!isEmpty($store.selectedClass.origin) ? `${validate_component(Title, "Title").$$render(
+        })} ${!isEmpty($store.selectedClass.origin) ? `${validate_component(Title, "Title").$$render(
           $$result,
           {
-            title: `${$store.selectedClass.origin.title}...`
+            title: `${$store.selectedClass.origin.title}`
           },
           {},
           {
@@ -807,10 +760,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               )}`;
             }
           }
-        )}` : ``}
-
-	
-	${!isEmpty($store.selectedClass.classFeature) ? `${validate_component(Title, "Title").$$render($$result, { title: "Class Feature..." }, {}, {
+        )}` : ``}  ${!isEmpty($store.selectedClass.classFeature) ? `${validate_component(Title, "Title").$$render($$result, { title: "Class Feature..." }, {}, {
           default: () => {
             return `${validate_component(RollTable, "RollTable").$$render(
               $$result,
@@ -839,9 +789,7 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               }
             )}`;
           }
-        })}` : ``}
-
-	${validate_component(Label, "Label").$$render($$result, { title: "Name this one" }, {}, {
+        })}` : ``} ${validate_component(Label, "Label").$$render($$result, { title: "Name this one" }, {}, {
           default: () => {
             return `${validate_component(Input, "Input").$$render(
               $$result,
@@ -855,14 +803,11 @@ ${validate_component(Form, "Form").$$render($$result, { onSubmit: handleSubmit }
               {}
             )}`;
           }
-        })}
-
-	<div class="${"row row-right"}"><div style="${"text-align:right;"}">… it will not ${validate_component(Button, "Button").$$render($$result, { type: "submit", disabled: !$canSubmit }, {}, {
+        })} <div class="row row-right"><div style="text-align:right;">… it will not ${validate_component(Button, "Button").$$render($$result, { type: "submit", disabled: !$canSubmit }, {}, {
           default: () => {
             return `Save`;
           }
-        })} you
-		</div></div>`;
+        })} you</div></div>`;
       }
     })}`;
   } while (!$$settled);

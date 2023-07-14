@@ -1,4 +1,4 @@
-import { n as noop, a as subscribe, r as run_all, b as safe_not_equal, i as is_function } from "./index2.js";
+import { o as noop, a as subscribe, r as run_all, p as safe_not_equal, q as is_function } from "./ssr.js";
 const subscriber_queue = [];
 function readable(value, start) {
   return {
@@ -33,12 +33,12 @@ function writable(value, start = noop) {
     const subscriber = [run, invalidate];
     subscribers.add(subscriber);
     if (subscribers.size === 1) {
-      stop = start(set) || noop;
+      stop = start(set, update) || noop;
     }
     run(value);
     return () => {
       subscribers.delete(subscriber);
-      if (subscribers.size === 0) {
+      if (subscribers.size === 0 && stop) {
         stop();
         stop = null;
       }
@@ -49,9 +49,12 @@ function writable(value, start = noop) {
 function derived(stores, fn, initial_value) {
   const single = !Array.isArray(stores);
   const stores_array = single ? [stores] : stores;
+  if (!stores_array.every(Boolean)) {
+    throw new Error("derived() expects stores as input, got a falsy value");
+  }
   const auto = fn.length < 2;
-  return readable(initial_value, (set) => {
-    let inited = false;
+  return readable(initial_value, (set, update) => {
+    let started = false;
     const values = [];
     let pending = 0;
     let cleanup = noop;
@@ -60,27 +63,34 @@ function derived(stores, fn, initial_value) {
         return;
       }
       cleanup();
-      const result = fn(single ? values[0] : values, set);
+      const result = fn(single ? values[0] : values, set, update);
       if (auto) {
         set(result);
       } else {
         cleanup = is_function(result) ? result : noop;
       }
     };
-    const unsubscribers = stores_array.map((store, i) => subscribe(store, (value) => {
-      values[i] = value;
-      pending &= ~(1 << i);
-      if (inited) {
-        sync();
-      }
-    }, () => {
-      pending |= 1 << i;
-    }));
-    inited = true;
+    const unsubscribers = stores_array.map(
+      (store, i) => subscribe(
+        store,
+        (value) => {
+          values[i] = value;
+          pending &= ~(1 << i);
+          if (started) {
+            sync();
+          }
+        },
+        () => {
+          pending |= 1 << i;
+        }
+      )
+    );
+    started = true;
     sync();
     return function stop() {
       run_all(unsubscribers);
       cleanup();
+      started = false;
     };
   });
 }

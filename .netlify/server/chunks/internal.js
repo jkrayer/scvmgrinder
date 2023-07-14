@@ -1,4 +1,4 @@
-import { c as create_ssr_component, s as setContext, v as validate_component, m as missing_component } from "./index2.js";
+import { c as create_ssr_component, s as setContext, v as validate_component, m as missing_component } from "./ssr.js";
 const base = "";
 let assets = base;
 function set_assets(path) {
@@ -51,10 +51,7 @@ const Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     {
       stores.page.set(page);
     }
-    $$rendered = `
-
-
-${constructors[1] ? `${validate_component(constructors[0] || missing_component, "svelte:component").$$render(
+    $$rendered = `  ${constructors[1] ? `${validate_component(constructors[0] || missing_component, "svelte:component").$$render(
       $$result,
       { data: data_0, this: components[0] },
       {
@@ -88,13 +85,11 @@ ${constructors[1] ? `${validate_component(constructors[0] || missing_component, 
         }
       },
       {}
-    )}`}
-
-${``}`;
+    )}`} ${``}`;
   } while (!$$settled);
   return $$rendered;
 });
-set_version("1685912417170");
+set_version("1689358660731");
 const options = {
   csp: { "mode": "auto", "directives": { "upgrade-insecure-requests": false, "block-all-mixed-content": false }, "reportOnly": { "upgrade-insecure-requests": false, "block-all-mixed-content": false } },
   csrf_check_origin: true,

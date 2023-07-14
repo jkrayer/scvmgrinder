@@ -15,6 +15,7 @@ const d10 = IO.of(10).map(roll);
 IO.of(8).map(roll);
 IO.of(6).map(roll);
 const d4 = IO.of(4).map(roll);
+IO.of(3).map(roll);
 const d2 = IO.of(2).map(roll);
 const rollD10 = () => d10.run();
 const rollD4 = () => d4.run();

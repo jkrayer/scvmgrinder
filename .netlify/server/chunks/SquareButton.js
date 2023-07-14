@@ -1,5 +1,5 @@
-import { c as create_ssr_component, h as compute_rest_props, j as spread, l as escape_object, k as escape_attribute_value, v as validate_component } from "./index2.js";
-import "./index3.js";
+import { c as create_ssr_component, f as compute_rest_props, h as spread, i as escape_object, k as escape_attribute_value, v as validate_component } from "./ssr.js";
+import "./index2.js";
 const Icons = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { icon = "plus" } = $$props;
   const ICONS = {
@@ -9,7 +9,7 @@ const Icons = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   };
   if ($$props.icon === void 0 && $$bindings.icon && icon !== void 0)
     $$bindings.icon(icon);
-  return `<svg class="${"svg"}" width="${"20px"}" height="${"20px"}" viewBox="${"0 0 20 20"}" version="${"1.1"}" xmlns="${"http://www.w3.org/2000/svg"}" xmlns:xlink="${"http://www.w3.org/1999/xlink"}"><!-- HTML_TAG_START -->${ICONS[icon]}<!-- HTML_TAG_END --></svg>`;
+  return `<svg class="svg" width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><!-- HTML_TAG_START -->${ICONS[icon]}<!-- HTML_TAG_END --></svg>`;
 });
 const SquareButton = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $$restProps = compute_rest_props($$props, ["tag", "icon", "color", "href"]);
@@ -33,9 +33,7 @@ const SquareButton = create_ssr_component(($$result, $$props, $$bindings, slots)
       { class: escape_attribute_value(classes) }
     ],
     {}
-  )}>${slots.default ? slots.default({}) : `
-			${validate_component(Icons, "Icons").$$render($$result, { icon }, {}, {})}
-		`}</button>` : `<a${spread(
+  )}>${slots.default ? slots.default({}) : ` ${validate_component(Icons, "Icons").$$render($$result, { icon }, {}, {})} `}</button>` : `<a${spread(
     [
       { href: escape_attribute_value(href) },
       escape_object($$restProps),

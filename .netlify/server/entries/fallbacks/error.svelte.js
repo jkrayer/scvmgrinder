@@ -1,4 +1,4 @@
-import { g as getContext, c as create_ssr_component, a as subscribe, e as escape } from "../../chunks/index2.js";
+import { g as getContext, c as create_ssr_component, a as subscribe, e as escape } from "../../chunks/ssr.js";
 const getStores = () => {
   const stores = getContext("__svelte__");
   return {
@@ -22,8 +22,7 @@ const Error$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $page, $$unsubscribe_page;
   $$unsubscribe_page = subscribe(page, (value) => $page = value);
   $$unsubscribe_page();
-  return `<h1>${escape($page.status)}</h1>
-<p>${escape($page.error?.message)}</p>`;
+  return `<h1>${escape($page.status)}</h1> <p>${escape($page.error?.message)}</p>`;
 });
 export {
   Error$1 as default

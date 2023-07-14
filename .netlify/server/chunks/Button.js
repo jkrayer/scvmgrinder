@@ -1,4 +1,4 @@
-import { c as create_ssr_component, h as compute_rest_props, j as spread, k as escape_attribute_value, l as escape_object } from "./index2.js";
+import { c as create_ssr_component, f as compute_rest_props, h as spread, k as escape_attribute_value, i as escape_object } from "./ssr.js";
 function guard(name) {
   return () => {
     throw new Error(`Cannot call ${name}(...) on the server`);
@@ -35,8 +35,7 @@ const Button = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       { class: escape_attribute_value(classes) }
     ],
     { classes: "svelte-cypbwp" }
-  )}>${slots.default ? slots.default({}) : ``}
-</button>`;
+  )}>${slots.default ? slots.default({}) : ``} </button>`;
 });
 export {
   Button as B,
