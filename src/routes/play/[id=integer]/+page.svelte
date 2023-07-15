@@ -1,6 +1,6 @@
 <script lang="ts">
 	import CharacterStore from '$lib/components/Character-Sheet/store';
-
+	import Messages from '$lib/Messages/Messages.svelte';
 	import Armor from '$lib/components/Character-Sheet/Armor.svelte';
 	import Equipment from '$lib/components/Character-Sheet/Equipment/Equipment.svelte';
 	import Features from '$lib/components/Character-Sheet/Features.svelte';
@@ -18,6 +18,7 @@
 {#if $CharacterStore === undefined}
 	wating...
 {:else}
+	<Messages />
 	<Header />
 	<Scores />
 	<Weapons />

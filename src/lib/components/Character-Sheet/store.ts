@@ -98,5 +98,3 @@ export const EquippedArmor = derived<
 // 		set(P);
 // 	}
 // );
-
-const silver = (c: Character.SavedCharacter): Character.SavedCharacter => {};

@@ -1,18 +1,16 @@
-<script type="ts">
+<script lang="ts">
 	import { toPairs } from 'ramda';
 	import CharacterStore from './store';
-	// import { addMessage } from "../Messages/state/MessageStore";
-	// import { testMessage } from "../Messages/lib";
-	// import Button from "../components/Button.svelte";
+	import { abilityTest } from '$lib/Messages/state';
 
-	// const handleAbilityTest = (score: string, modifier: number) => () =>
-	// addMessage(testMessage({ score, modifier, name: $CharacterStore.name }));
+	// HANDLERS
+	const handleTest = (name: AbilityKeys, score: Score) => () => abilityTest([name, score]);
 </script>
 
 <div class="row scores">
 	{#each toPairs($CharacterStore.abilities) as [key, value]}
 		<div class="col-one">
-			<button type="button" class="clear-button">
+			<button type="button" class="clear-button" on:click={handleTest(key, value)}>
 				<h3 class="score-title">{key}</h3>
 				<p class="score-title score">{value}</p>
 			</button>

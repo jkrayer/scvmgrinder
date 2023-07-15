@@ -227,6 +227,32 @@ declare global {
 		};
 		// Equipment
 	};
+
+	// MESSAGES
+	type MessageBody = {
+		name?: string;
+		rollType?: 'To Hit' | 'Damage' | 'Test' | 'Armor';
+		type?: 'To Hit' | 'Damage' | 'Test' | 'Armor';
+		roll?: number;
+		rollFormula?: string;
+		formula?: Dice;
+		target?: string;
+		dc?: number;
+	};
+
+	namespace Message {
+		type CommonProps = {
+			name: string;
+		};
+
+		type Test = Message & {
+			type: 'TEST';
+			rowRoll: number;
+			roll: number;
+			score: number;
+			rollFormula: string;
+		};
+	}
 }
 
 export {};

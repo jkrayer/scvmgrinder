@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { EquippedArmor } from './store';
 	import RollButton from '../RollButton.svelte';
+	import { damageMitigation } from '$lib/Messages/state';
 
 	const getTier = (a: Equipment.Armor | null): number => a?.tier?.current || a?.currentTier || 0;
 	const getMaxTier = (a: Equipment.Armor | null): number => a?.tier?.maximum || a?.maxTier || 0;
@@ -17,7 +18,11 @@
 				{/if}
 			</div>
 			{#if typeof $EquippedArmor.formula !== 'number'}
-				<RollButton dice={$EquippedArmor.formula} />
+				<RollButton
+					dice={$EquippedArmor.formula}
+					on:roll={() =>
+						damageMitigation($EquippedArmor.armor.armor, !!$EquippedArmor.armor.shield)}
+				/>
 			{/if}
 		</div>
 	</div>

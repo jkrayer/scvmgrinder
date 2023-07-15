@@ -22,5 +22,6 @@
 		padding: 0;
 		line-height: 1;
 		background-color: transparent;
+		cursor: pointer;
 	}
 </style>

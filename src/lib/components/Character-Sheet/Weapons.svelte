@@ -1,7 +1,17 @@
 <script lang="ts">
-	import { EquippedWeapons } from './store';
+	import Character, { EquippedWeapons } from './store';
 	import RollButton from '../RollButton.svelte';
 	import { toDiceString } from '$lib/helpers/character';
+	import { toHit, damage } from '$lib/Messages/state';
+
+	// HANDLERS
+	const handleToHit =
+		({ name, weaponType }: Equipment.Weapon) =>
+		() =>
+			toHit([
+				name,
+				weaponType === 'melee' ? $Character.abilities.strength : $Character.abilities.agility
+			]);
 </script>
 
 {#each $EquippedWeapons as weapon}
@@ -11,11 +21,11 @@
 		</h2>
 		<div class="col-one weapon-row">
 			{toDiceString(weapon.toHit)}&nbsp;
-			<RollButton dice={weapon.toHit} />
+			<RollButton dice={weapon.toHit} on:roll={handleToHit(weapon)} />
 		</div>
 		<div class="col-one weapon-row">
 			{toDiceString(weapon.damage)}&nbsp;
-			<RollButton dice={weapon.damage} />
+			<RollButton dice={weapon.damage} on:roll={() => damage(weapon)} />
 		</div>
 	</div>
 {/each}
