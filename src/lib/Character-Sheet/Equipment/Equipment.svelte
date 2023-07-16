@@ -3,7 +3,8 @@
 	import CharacterStore, { update } from '../state/store';
 	import Incrementer from '../Incrementer.svelte';
 	import { padTo } from '$lib/helpers';
-	import { decSilver, incSilver } from '$lib/helpers/character';
+	import { incSilver, decSilver } from '$lib/Character-Sheet/state/index';
+
 	// import EquipmentPicker from './EquipmentPicker.svelte';
 
 	// Should this just be  aderived?
@@ -20,8 +21,6 @@
 	}
 
 	// HANDLERS
-	const increment = () => update(incSilver);
-	const decrement = () => update(decSilver);
 </script>
 
 <div id="equipment">
@@ -39,7 +38,7 @@
 	</ul>
 	<div class="row">
 		<div class="col-two">
-			<Incrementer title="Silver" on:decrement={decrement} on:increment={increment}
+			<Incrementer title="Silver" on:decrement={decSilver} on:increment={incSilver}
 				>{$CharacterStore.silver}</Incrementer
 			>
 		</div>

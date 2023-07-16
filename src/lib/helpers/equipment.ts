@@ -60,10 +60,8 @@ export const hasQuantityProp = has(QUANTITY);
 export const canIncrement = (a: Character.Equipment) =>
 	pathOr(0, ['quantity', 'current'], a) < pathOr(0, ['quantity', 'maximum'], a);
 
-export const canDecrement = compose<[Character.Equipment], number, number, boolean, boolean>(
-	trace('canDec'),
+export const canDecrement = compose<[Character.Equipment], number, boolean>(
 	lt(0),
-	trace('canDec'),
 	pathOr(0, ['quantity', 'current'])
 );
 

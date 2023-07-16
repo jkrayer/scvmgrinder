@@ -19,6 +19,8 @@ declare global {
 
 	type AbilityKeys = 'agility' | 'presence' | 'strength' | 'toughness';
 
+	type ArmorTiers = 1 | 2 | 3;
+
 	type CurrentMax = {
 		current: number;
 		maximum: number;
@@ -99,9 +101,9 @@ declare global {
 		type Armor = CommonEquipmentProps & {
 			type: 'armor';
 			effects?: string[];
-			tier: CurrentMax;
-			currentTier?: 1 | 2 | 3;
-			maxTier?: 1 | 2 | 3;
+			tier: CurrentMax; // @TODO delete
+			currentTier: ArmorTiers;
+			maxTier: ArmorTiers;
 			// img
 			// effect?: Effect;
 		};

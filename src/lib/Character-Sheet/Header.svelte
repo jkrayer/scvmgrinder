@@ -1,11 +1,7 @@
 <script lang="ts">
-	import CharacterStore, { update } from './state/store';
+	import CharacterStore from './state/store';
 	import Incrementer from './Incrementer.svelte';
-	import { incrementHp, decrementHp } from '$lib/helpers/character';
-
-	// HANDLERS
-	const increment = () => update(incrementHp);
-	const decrement = () => update(decrementHp);
+	import { decHp as decrement, incHp as increment } from '$lib/Character-Sheet/state';
 </script>
 
 <header id="character-sheet-header" class="row">

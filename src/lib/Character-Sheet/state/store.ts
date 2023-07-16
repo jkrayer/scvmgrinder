@@ -1,17 +1,9 @@
-import { writable, derived } from 'svelte/store';
-import { always, compose, filter, ifElse, isEmpty, isNotNil, join, paths } from 'ramda';
+import { writable, derived, type Writable } from 'svelte/store';
+// import { always, compose, filter, ifElse, isEmpty, isNotNil, join, paths } from 'ramda';
 import { updateCharacter } from '$lib/db';
-import { getEquippedArmor, getEquippedWeapons } from '$lib/helpers/equipment';
-import { ARMOR_TIERS } from '$lib/morkborg/game-constants';
-
-// import { updateCharacter } from '../lib/db';
-// import { getScrolls } from './lib';
-// import {
-// 	getEquippedArmor,
-// 	isEquippedMediumOrHeavyArmor,
-// 	getEquippedWeapons,
-// 	isEquippedZweihander
-// } from '../lib/character/equipment';
+import { getEquippedWeapons } from '$lib/helpers/equipment';
+// import { ARMOR_TIERS } from '$lib/morkborg/game-constants';
+import { getEquippedArmor, getEquippedShield } from '.';
 
 const Character = writable<Character.SavedCharacter>();
 
@@ -32,33 +24,47 @@ export const EquippedWeapons = derived<typeof Character, Equipment.EquippedWeapo
 	getEquippedWeapons
 );
 
-//
-const getTitle = compose<[Equipment.ArmorAndShield], Array<string | undefined>, string[], string>(
-	ifElse(isEmpty, always('no armor'), join('+')),
-	filter<string | undefined, string>(isNotNil),
-	paths<string>([
-		['armor', 'name'],
-		['shield', 'name']
-	])
+// ARMOR
+export const EquippedArmor = derived<typeof Character, Equipment.Armor | null>(
+	Character,
+	getEquippedArmor
 );
 
-const getFormula = ({ armor, shield }: Equipment.ArmorAndShield): number | Dice => {
-	const ar = armor !== null ? ARMOR_TIERS[armor.tier?.current || armor.currentTier || 0] : null;
-	const s = Number(!!shield);
+// Shield
+export const EquippedShield = derived<typeof Character, Equipment.Armor | null>(
+	Character,
+	getEquippedShield
+);
 
-	return ar === null ? s : s === 0 ? ar : [ar[0], ar[1], ar[2], '+', s];
-};
+//
+// const getTitle = compose<[Equipment.ArmorAndShield], Array<string | undefined>, string[], string>(
+// 	ifElse(isEmpty, always('no armor'), join('+')),
+// 	filter<string | undefined, string>(isNotNil),
+// 	paths<string>([
+// 		['armor', 'name'],
+// 		['shield', 'name']
+// 	])
+// );
 
-export const EquippedArmor = derived<
-	typeof Character,
-	{ armor: Equipment.ArmorAndShield; title: string; formula: number | Dice }
->(Character, (x) => {
-	const armor = getEquippedArmor(x);
-	const title = `(${getTitle(armor)})`;
-	const formula = getFormula(armor);
+// const getFormula = ({ armor, shield }: Equipment.ArmorAndShield): number | Dice => {
+// 	const ar = armor !== null ? ARMOR_TIERS[armor.tier?.current || armor.currentTier || 0] : null;
+// 	const s = Number(!!shield);
 
-	return { armor, title, formula };
-});
+// 	return ar === null ? s : s === 0 ? ar : [ar[0], ar[1], ar[2], '+', s];
+// };
+
+// export const EquippedArmor = derived<
+// 	typeof Character,
+// 	{ armor: Equipment.ArmorAndShield; title: string; formula: number | Dice }
+// >(Character, (x) => {
+// 	const armor = getEquippedArmor(x);
+// 	const title = `(${getTitle(armor)})`;
+// 	const formula = getFormula(armor);
+
+// 	return { armor, title, formula };
+// });
+
+// TO DELETE
 
 // export const EquippedArmor: Readable<ArmorAndShield> = derived(Character, getEquippedArmor);
 
