@@ -1,14 +1,14 @@
 <script lang="ts">
-	import CharacterStore from '$lib/components/Character-Sheet/store';
+	import CharacterStore from '$lib/Character-Sheet/state/store';
 	import Messages from '$lib/Messages/Messages.svelte';
-	import Armor from '$lib/components/Character-Sheet/Armor.svelte';
-	import Equipment from '$lib/components/Character-Sheet/Equipment/Equipment.svelte';
-	import Features from '$lib/components/Character-Sheet/Features.svelte';
-	import Header from '$lib/components/Character-Sheet/Header.svelte';
-	import Omens from '$lib/components/Character-Sheet/Omens.svelte';
-	import Powers from '$lib/components/Character-Sheet/Powers.svelte';
-	import Scores from '$lib/components/Character-Sheet/AbilityScores.svelte';
-	import Weapons from '$lib/components/Character-Sheet/Weapons.svelte';
+	import Header from '$lib/Character-Sheet/Header.svelte';
+	import Scores from '$lib/Character-Sheet/AbilityScores.svelte';
+	import Weapons from '$lib/Character-Sheet/Weapons.svelte';
+	import Armor from '$lib/Character-Sheet/Armor.svelte';
+	import Powers from '$lib/Character-Sheet/Powers.svelte';
+	import Omens from '$lib/Character-Sheet/Omens.svelte';
+	import Equipment from '$lib/Character-Sheet/Equipment/Equipment.svelte';
+	import Features from '$lib/Character-Sheet/Features.svelte';
 
 	export let data: { character: Required<Character.CharacterData> };
 

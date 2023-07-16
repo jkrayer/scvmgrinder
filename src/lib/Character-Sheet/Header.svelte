@@ -1,7 +1,6 @@
 <script lang="ts">
-	import CharacterStore, { update } from './store';
+	import CharacterStore, { update } from './state/store';
 	import Incrementer from './Incrementer.svelte';
-	import SquareButton from '$lib/components/SquareButton.svelte';
 	import { incrementHp, decrementHp } from '$lib/helpers/character';
 
 	// HANDLERS

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Character from './store';
+	import Character from './state/store';
 
 	const format = (s: string): string =>
 		s
@@ -17,7 +17,7 @@
 			{#if d.indexOf(':') > -1}
 				{@const m = d.split(':')}
 				<span class="prefix">{m[0]}:</span>
-				{m[1]}
+				{@html m[1]}
 			{:else}
 				{d}
 			{/if}

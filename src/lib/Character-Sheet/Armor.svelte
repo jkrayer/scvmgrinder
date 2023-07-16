@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { EquippedArmor } from './store';
-	import RollButton from '../RollButton.svelte';
+	import { EquippedArmor } from './state/store';
+	import RollButton from '$lib/components/RollButton.svelte';
 	import { damageMitigation } from '$lib/Messages/state';
 
 	const getTier = (a: Equipment.Armor | null): number => a?.tier?.current || a?.currentTier || 0;

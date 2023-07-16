@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ArrowDown, ArrowUp, Circle, CrossCircled, EyeOpen, Trash } from 'radix-icons-svelte';
-	import { update } from '../store';
+	import { update } from '../state/store';
 	import SquareButton from '$lib/components/SquareButton.svelte';
 	import {
 		canDecrement,

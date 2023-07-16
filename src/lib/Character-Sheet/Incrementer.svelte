@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import SquareButton from '../SquareButton.svelte';
+	import SquareButton from '$lib/components/SquareButton.svelte';
 
 	const dispatch = createEventDispatcher<{ increment: never; decrement: never }>();
 

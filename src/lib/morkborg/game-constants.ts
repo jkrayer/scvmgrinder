@@ -1,4 +1,3 @@
-// TODO DELETE THIS FILE
 const D2: Dice = [1, 'd', 2];
 const D4: Dice = [1, 'd', 4];
 const D6: Dice = [1, 'd', 6];

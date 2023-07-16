@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Character, { EquippedWeapons } from './store';
-	import RollButton from '../RollButton.svelte';
+	import Character, { EquippedWeapons } from './state/store';
+	import RollButton from '$lib/components/RollButton.svelte';
 	import { toDiceString } from '$lib/helpers/character';
 	import { toHit, damage } from '$lib/Messages/state';
 

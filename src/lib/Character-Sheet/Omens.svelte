@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Character from './store';
+	import Character from './state/store';
 	import Power from './Power.svelte';
 
 	const handleUse = (d: any) => {

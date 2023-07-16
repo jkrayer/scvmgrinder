@@ -1,6 +1,6 @@
 <script lang="ts">
 	import EquipmentItem from './EquipmentItem.svelte';
-	import CharacterStore, { update } from '../store';
+	import CharacterStore, { update } from '../state/store';
 	import Incrementer from '../Incrementer.svelte';
 	import { padTo } from '$lib/helpers';
 	import { decSilver, incSilver } from '$lib/helpers/character';

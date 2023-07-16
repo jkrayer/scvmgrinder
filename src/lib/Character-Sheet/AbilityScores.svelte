@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { toPairs } from 'ramda';
-	import CharacterStore from './store';
+	import CharacterStore from './state/store';
 	import { abilityTest } from '$lib/Messages/state';
 
 	// HANDLERS
