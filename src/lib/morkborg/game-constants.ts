@@ -10,3 +10,7 @@ export const HP = 'hitpoints';
 export const OMENS = 'omens';
 export const POWERS = 'powers';
 export const SILVER = 'silver';
+export const ABILITIES = 'abilities';
+export const AGILITY = 'agility';
+export const STRENGTH = 'strength';
+export const QUANTITY = 'quantity';

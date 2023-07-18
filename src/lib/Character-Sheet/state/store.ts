@@ -1,9 +1,6 @@
-import { writable, derived, type Writable } from 'svelte/store';
-// import { always, compose, filter, ifElse, isEmpty, isNotNil, join, paths } from 'ramda';
+import { writable, derived } from 'svelte/store';
 import { updateCharacter } from '$lib/db';
-import { getEquippedWeapons } from '$lib/helpers/equipment';
-// import { ARMOR_TIERS } from '$lib/morkborg/game-constants';
-import { getEquippedArmor, getEquippedShield } from '.';
+import { getEquippedArmor, getEquippedShield, getEquippedWeapons } from '.';
 
 const Character = writable<Character.SavedCharacter>();
 
@@ -31,76 +28,7 @@ export const EquippedArmor = derived<typeof Character, Equipment.Armor | null>(
 );
 
 // Shield
-export const EquippedShield = derived<typeof Character, Equipment.Armor | null>(
+export const EquippedShield = derived<typeof Character, Equipment.Shield | null>(
 	Character,
 	getEquippedShield
 );
-
-//
-// const getTitle = compose<[Equipment.ArmorAndShield], Array<string | undefined>, string[], string>(
-// 	ifElse(isEmpty, always('no armor'), join('+')),
-// 	filter<string | undefined, string>(isNotNil),
-// 	paths<string>([
-// 		['armor', 'name'],
-// 		['shield', 'name']
-// 	])
-// );
-
-// const getFormula = ({ armor, shield }: Equipment.ArmorAndShield): number | Dice => {
-// 	const ar = armor !== null ? ARMOR_TIERS[armor.tier?.current || armor.currentTier || 0] : null;
-// 	const s = Number(!!shield);
-
-// 	return ar === null ? s : s === 0 ? ar : [ar[0], ar[1], ar[2], '+', s];
-// };
-
-// export const EquippedArmor = derived<
-// 	typeof Character,
-// 	{ armor: Equipment.ArmorAndShield; title: string; formula: number | Dice }
-// >(Character, (x) => {
-// 	const armor = getEquippedArmor(x);
-// 	const title = `(${getTitle(armor)})`;
-// 	const formula = getFormula(armor);
-
-// 	return { armor, title, formula };
-// });
-
-// TO DELETE
-
-// export const EquippedArmor: Readable<ArmorAndShield> = derived(Character, getEquippedArmor);
-
-// export const EqScrolls: Readable<Scroll[]> = derived(Character, getScrolls);
-
-// type TPowers = {
-// 	powers: null | number;
-// 	scrolls: Scroll[];
-// 	message: null | string;
-// };
-
-// export const POWERS: Readable<TPowers> = derived(
-// 	[Character, EquippedArmor, EquippedWeapons],
-// 	([character, armorAndShield, weapons], set) => {
-// 		const { powers } = character;
-// 		const scrolls = getScrolls(character);
-
-// 		const P: TPowers = {
-// 			powers,
-// 			scrolls,
-// 			message: null
-// 		};
-
-// 		// TODO: (or not) replace logic with Either monad
-// 		if (powers === null) {
-// 			P.message = `${character.class.name} can't use powers.`;
-// 		} else if (powers === 0) {
-// 			P.message = `${character.name} has no more powers today.`;
-// 		} else if (scrolls.length === 0) {
-// 			P.message = `${character.name} needs more scrolls.`;
-// 		} else if (isEquippedMediumOrHeavyArmor(armorAndShield)) {
-// 			P.message = `${character.name} can't use scrolls while wearing ${armorAndShield.armor.name}.`;
-// 		} else if (isEquippedZweihander(weapons)) {
-// 			P.message = `${character.name} can't use scrolls while wielding a zweihander.`;
-// 		}
-
-// 		set(P);
-// 	}
-// );

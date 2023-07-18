@@ -1,4 +1,4 @@
-import { add, multiply, pathOr, sum, subtract } from 'ramda';
+import { add, join, multiply, pathOr, sum, subtract } from 'ramda';
 import { rollD20, rollD12, rollD10, rollD8, rollD6, rollD4, rollD3, rollD2 } from './dice';
 
 const DICE: { [key: number]: () => number } = Object.freeze({
@@ -40,7 +40,7 @@ export const rollToScore = (roll: number): Score => {
 };
 
 // DICE
-export const toDiceString = (dice: Dice): string => dice.join('');
+export const toDiceString = join('');
 
 export const minRoll = ([number = 0, , , symbol = '+', modifier = 0]: Dice | never[]): number =>
 	LOCAL_MATH[symbol](number, modifier);
@@ -53,4 +53,17 @@ export const rollDice = ([number = 0, , dice = 0, symbol = '+', modifier = 0]: D
 	const rolls: number[] = new Array(number).fill(-1).map(() => DICE[dice]());
 
 	return LOCAL_MATH[symbol](sum(rolls), modifier);
+};
+
+/**
+ * Pad an array to the given size
+ * @param size number
+ * @param array T[]
+ * @returns T[]
+ */
+export const padTo = <T>(size: number, array: T[]): T[] => {
+	const difference: number = size - array.length;
+	const tail: T[] = difference < 1 ? [] : new Array(difference).fill(null);
+
+	return [...array, ...tail];
 };

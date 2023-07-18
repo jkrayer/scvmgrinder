@@ -7,7 +7,7 @@
 		canIncrement,
 		hasQuantityProp,
 		isEquippable
-	} from '$lib/helpers/equipment';
+	} from '$lib/Character-Sheet/state';
 	import { decEquipment, dropEquipment, incEquipment, toggleEq } from '$lib/helpers/state';
 
 	export let eq: Character.Equipment | null;

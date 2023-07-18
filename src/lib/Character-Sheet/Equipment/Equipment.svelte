@@ -2,7 +2,7 @@
 	import EquipmentItem from './EquipmentItem.svelte';
 	import CharacterStore, { update } from '../state/store';
 	import Incrementer from '../Incrementer.svelte';
-	import { padTo } from '$lib/helpers';
+	import { padTo } from '$lib';
 	import { incSilver, decSilver } from '$lib/Character-Sheet/state/index';
 
 	// import EquipmentPicker from './EquipmentPicker.svelte';

@@ -4,6 +4,7 @@
 	import { ARMOR_TIERS } from '$lib/morkborg/game-constants';
 	import { setArmorTier } from '$lib/Character-Sheet/state';
 	import { damageMitigation } from '$lib/Messages/state';
+	import { toDiceString } from '$lib';
 
 	//
 	let formula: Dice;
@@ -19,7 +20,7 @@
 		<div class="row">
 			<div class="score-title armor-formula">
 				{#if $EquippedArmor !== null}
-					-{formula.join('')}
+					-{toDiceString(formula)}
 				{/if}
 			</div>
 			{#if $EquippedArmor !== null}
