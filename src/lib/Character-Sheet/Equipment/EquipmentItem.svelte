@@ -8,7 +8,7 @@
 		hasQuantityProp,
 		isEquippable
 	} from '$lib/Character-Sheet/state';
-	import { decEquipment, dropEquipment, incEquipment, toggleEq } from '$lib/helpers/state';
+	import { decEquipment, dropEquipment, incEquipment, toggleEq } from '../state';
 
 	export let eq: Character.Equipment | null;
 	export let encumbered: boolean = false;

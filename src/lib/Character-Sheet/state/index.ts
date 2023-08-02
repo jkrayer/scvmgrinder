@@ -20,9 +20,11 @@ import {
 	map,
 	max,
 	min,
+	not,
 	over,
 	pathOr,
 	prop,
+	propOr,
 	propEq,
 	set,
 	view
@@ -30,14 +32,20 @@ import {
 import { update } from './store';
 import {
 	ABILITIES,
-	STRENGTH,
 	AGILITY,
+	ARMOR,
+	CURRENT,
 	EQUIPMENT,
+	EQUIPPED,
 	HP,
-	POWERS,
-	SILVER,
+	MELEE,
 	OMENS,
-	QUANTITY
+	POWERS,
+	QUANTITY,
+	SHIELD,
+	SILVER,
+	STRENGTH,
+	WEAPON
 } from '$lib/morkborg/game-constants';
 
 type MOD = [ModifierMathSymbols, number] | [];
@@ -45,10 +53,12 @@ type MOD = [ModifierMathSymbols, number] | [];
 // LENS - Is This Overkill?
 const hpLens = lens<Character.SavedCharacter, CurrentMax>(prop(HP), assoc(HP));
 const silverLens = lensProp<Character.SavedCharacter, 'silver'>(SILVER);
-const omens = lensPath<Character.SavedCharacter, number>([OMENS, 'current']);
+const omens = lensPath<Character.SavedCharacter, number>([OMENS, CURRENT]);
 const power = lensProp<Character.SavedCharacter, 'powers'>(POWERS);
 const eqlens = lensProp<Character.SavedCharacter, 'equipment'>(EQUIPMENT);
 const tierlens = lensProp<Equipment.Armor, 'currentTier'>('currentTier');
+const quantityLens = lensPath<Character.Equipment>([QUANTITY, CURRENT]);
+const equippedLens = lens<Character.Equipment, boolean>(propOr(true, EQUIPPED), assoc(EQUIPPED));
 
 // HELPERS - To Unit Test
 const decToZero = compose<[number], number, number>(max<number>(0), dec);
@@ -80,22 +90,22 @@ const getRangedMod = compose<[Character.SavedCharacter], number, MOD>(
 const dieToDice = (d: Die | Dice): Dice => (typeof d === 'number' ? [1, 'd', d] : d);
 
 // CHECKS - To Unit Test
-const isEquipped = propEq<string>(true, 'equipped');
-const isArmor = propEq<string>('armor', 'type');
-const isShield = propEq<string>('shield', 'type');
-const isWeapon = propEq<string>('weapon', 'type');
+const isEquipped = propEq<string>(true, EQUIPPED);
+const isArmor = propEq<string>(ARMOR, 'type');
+const isShield = propEq<string>(SHIELD, 'type');
+const isWeapon = propEq<string>(WEAPON, 'type');
 const isEquippedArmor = allPass([isEquipped, isArmor]);
 const isEquippedShield = allPass([isEquipped, isShield]);
 const isEquippedWeapon = allPass([isEquipped, isWeapon]);
-const hasEquippedProp = has('equipped');
+const hasEquippedProp = has(EQUIPPED);
 export const hasQuantityProp = has(QUANTITY);
 export const isEquippable = both(hasEquippedProp, anyPass([isArmor, isShield, isWeapon]));
 export const canIncrement = (a: Character.Equipment) =>
-	pathOr(0, ['quantity', 'current'], a) < pathOr(0, ['quantity', 'maximum'], a);
+	pathOr(0, [QUANTITY, CURRENT], a) < pathOr(0, [QUANTITY, 'maximum'], a);
 
 export const canDecrement = compose<[Character.Equipment], number, boolean>(
 	lt(0),
-	pathOr(0, ['quantity', 'current'])
+	pathOr(0, [QUANTITY, CURRENT])
 );
 
 // UNIT TEST
@@ -152,7 +162,7 @@ const transformWeapon =
 	(w: Equipment.Weapon): Equipment.EquippedWeapon => ({
 		...w,
 		damage: dieToDice(w.damageDie),
-		toHit: [1, 'd', 20, ...(w.weaponType === 'melee' ? melee : range)]
+		toHit: [1, 'd', 20, ...(w.weaponType === MELEE ? melee : range)]
 	});
 
 const getEquippedWeaponsEq = filter(isEquippedWeapon) as (
@@ -169,3 +179,16 @@ export const getEquippedWeapons = compose<
 	([eq, melee, ranged]) => [getEquippedWeaponsEq(eq), melee, ranged],
 	(c: Character.SavedCharacter) => [view(eqlens, c), getMeleeMod(c), getRangedMod(c)]
 );
+
+// EQUIPMENT
+export const dropEquipment = (id: string) =>
+	_modifyEquipment(filter((eq: Character.Equipment) => eq._id !== id));
+
+export const toggleEq = (id: string) =>
+	_modifyEquipment(map((e) => (e._id === id ? over(equippedLens, not, e) : e)));
+
+export const incEquipment = (id: string) =>
+	_modifyEquipment(map((e) => (e._id === id ? over(quantityLens, inc, e) : e)));
+
+export const decEquipment = (id: string) =>
+	_modifyEquipment(map((e) => (e._id === id ? over(quantityLens, dec, e) : e)));

@@ -80,15 +80,15 @@ var symbols$3 = {
   kMaxResponseSize: Symbol('max response size')
 };
 
-class UndiciError extends Error {
+let UndiciError$1 = class UndiciError extends Error {
   constructor (message) {
     super(message);
     this.name = 'UndiciError';
     this.code = 'UND_ERR';
   }
-}
+};
 
-let ConnectTimeoutError$1 = class ConnectTimeoutError extends UndiciError {
+let ConnectTimeoutError$1 = class ConnectTimeoutError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, ConnectTimeoutError$1);
@@ -98,7 +98,7 @@ let ConnectTimeoutError$1 = class ConnectTimeoutError extends UndiciError {
   }
 };
 
-let HeadersTimeoutError$1 = class HeadersTimeoutError extends UndiciError {
+let HeadersTimeoutError$1 = class HeadersTimeoutError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, HeadersTimeoutError$1);
@@ -108,7 +108,7 @@ let HeadersTimeoutError$1 = class HeadersTimeoutError extends UndiciError {
   }
 };
 
-let HeadersOverflowError$1 = class HeadersOverflowError extends UndiciError {
+let HeadersOverflowError$1 = class HeadersOverflowError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, HeadersOverflowError$1);
@@ -118,7 +118,7 @@ let HeadersOverflowError$1 = class HeadersOverflowError extends UndiciError {
   }
 };
 
-let BodyTimeoutError$1 = class BodyTimeoutError extends UndiciError {
+let BodyTimeoutError$1 = class BodyTimeoutError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, BodyTimeoutError$1);
@@ -128,7 +128,7 @@ let BodyTimeoutError$1 = class BodyTimeoutError extends UndiciError {
   }
 };
 
-let ResponseStatusCodeError$1 = class ResponseStatusCodeError extends UndiciError {
+let ResponseStatusCodeError$1 = class ResponseStatusCodeError extends UndiciError$1 {
   constructor (message, statusCode, headers, body) {
     super(message);
     Error.captureStackTrace(this, ResponseStatusCodeError$1);
@@ -142,17 +142,17 @@ let ResponseStatusCodeError$1 = class ResponseStatusCodeError extends UndiciErro
   }
 };
 
-let InvalidArgumentError$g = class InvalidArgumentError extends UndiciError {
+let InvalidArgumentError$j = class InvalidArgumentError extends UndiciError$1 {
   constructor (message) {
     super(message);
-    Error.captureStackTrace(this, InvalidArgumentError$g);
+    Error.captureStackTrace(this, InvalidArgumentError$j);
     this.name = 'InvalidArgumentError';
     this.message = message || 'Invalid Argument Error';
     this.code = 'UND_ERR_INVALID_ARG';
   }
 };
 
-let InvalidReturnValueError$2 = class InvalidReturnValueError extends UndiciError {
+let InvalidReturnValueError$2 = class InvalidReturnValueError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, InvalidReturnValueError$2);
@@ -162,7 +162,7 @@ let InvalidReturnValueError$2 = class InvalidReturnValueError extends UndiciErro
   }
 };
 
-let RequestAbortedError$8 = class RequestAbortedError extends UndiciError {
+let RequestAbortedError$8 = class RequestAbortedError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, RequestAbortedError$8);
@@ -172,7 +172,7 @@ let RequestAbortedError$8 = class RequestAbortedError extends UndiciError {
   }
 };
 
-let InformationalError$1 = class InformationalError extends UndiciError {
+let InformationalError$1 = class InformationalError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, InformationalError$1);
@@ -182,7 +182,7 @@ let InformationalError$1 = class InformationalError extends UndiciError {
   }
 };
 
-let RequestContentLengthMismatchError$1 = class RequestContentLengthMismatchError extends UndiciError {
+let RequestContentLengthMismatchError$1 = class RequestContentLengthMismatchError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, RequestContentLengthMismatchError$1);
@@ -192,7 +192,7 @@ let RequestContentLengthMismatchError$1 = class RequestContentLengthMismatchErro
   }
 };
 
-let ResponseContentLengthMismatchError$1 = class ResponseContentLengthMismatchError extends UndiciError {
+let ResponseContentLengthMismatchError$1 = class ResponseContentLengthMismatchError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, ResponseContentLengthMismatchError$1);
@@ -202,7 +202,7 @@ let ResponseContentLengthMismatchError$1 = class ResponseContentLengthMismatchEr
   }
 };
 
-let ClientDestroyedError$2 = class ClientDestroyedError extends UndiciError {
+let ClientDestroyedError$2 = class ClientDestroyedError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, ClientDestroyedError$2);
@@ -212,7 +212,7 @@ let ClientDestroyedError$2 = class ClientDestroyedError extends UndiciError {
   }
 };
 
-let ClientClosedError$1 = class ClientClosedError extends UndiciError {
+let ClientClosedError$1 = class ClientClosedError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, ClientClosedError$1);
@@ -222,7 +222,7 @@ let ClientClosedError$1 = class ClientClosedError extends UndiciError {
   }
 };
 
-let SocketError$3 = class SocketError extends UndiciError {
+let SocketError$3 = class SocketError extends UndiciError$1 {
   constructor (message, socket) {
     super(message);
     Error.captureStackTrace(this, SocketError$3);
@@ -233,7 +233,7 @@ let SocketError$3 = class SocketError extends UndiciError {
   }
 };
 
-let NotSupportedError$2 = class NotSupportedError extends UndiciError {
+let NotSupportedError$2 = class NotSupportedError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, NotSupportedError$2);
@@ -243,7 +243,7 @@ let NotSupportedError$2 = class NotSupportedError extends UndiciError {
   }
 };
 
-class BalancedPoolMissingUpstreamError extends UndiciError {
+class BalancedPoolMissingUpstreamError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, NotSupportedError$2);
@@ -263,7 +263,7 @@ let HTTPParserError$1 = class HTTPParserError extends Error {
   }
 };
 
-let ResponseExceededMaxSizeError$1 = class ResponseExceededMaxSizeError extends UndiciError {
+let ResponseExceededMaxSizeError$1 = class ResponseExceededMaxSizeError extends UndiciError$1 {
   constructor (message) {
     super(message);
     Error.captureStackTrace(this, ResponseExceededMaxSizeError$1);
@@ -275,14 +275,14 @@ let ResponseExceededMaxSizeError$1 = class ResponseExceededMaxSizeError extends 
 
 var errors$1 = {
   HTTPParserError: HTTPParserError$1,
-  UndiciError,
+  UndiciError: UndiciError$1,
   HeadersTimeoutError: HeadersTimeoutError$1,
   HeadersOverflowError: HeadersOverflowError$1,
   BodyTimeoutError: BodyTimeoutError$1,
   RequestContentLengthMismatchError: RequestContentLengthMismatchError$1,
   ConnectTimeoutError: ConnectTimeoutError$1,
   ResponseStatusCodeError: ResponseStatusCodeError$1,
-  InvalidArgumentError: InvalidArgumentError$g,
+  InvalidArgumentError: InvalidArgumentError$j,
   InvalidReturnValueError: InvalidReturnValueError$2,
   RequestAbortedError: RequestAbortedError$8,
   ClientDestroyedError: ClientDestroyedError$2,
@@ -300,14 +300,14 @@ const { kDestroyed: kDestroyed$1, kBodyUsed: kBodyUsed$1 } = symbols$3;
 const { IncomingMessage } = require$$2;
 const stream$1 = require$$0$1;
 const net$2 = require$$4;
-const { InvalidArgumentError: InvalidArgumentError$f } = errors$1;
+const { InvalidArgumentError: InvalidArgumentError$i } = errors$1;
 const { Blob: Blob$2 } = require$$7;
 const nodeUtil = require$$0$2;
 const { stringify } = require$$8;
 
 const [nodeMajor, nodeMinor] = process.versions.node.split('.').map(v => Number(v));
 
-function nop () {}
+function nop$1 () {}
 
 function isStream (obj) {
   return obj && typeof obj === 'object' && typeof obj.pipe === 'function' && typeof obj.on === 'function'
@@ -324,7 +324,7 @@ function isBlobLike (object) {
   )
 }
 
-function buildURL (url, queryParams) {
+function buildURL$2 (url, queryParams) {
   if (url.includes('?') || url.includes('#')) {
     throw new Error('Query params cannot be passed when url already contains "?" or "#".')
   }
@@ -343,38 +343,38 @@ function parseURL (url) {
     url = new URL(url);
 
     if (!/^https?:/.test(url.origin || url.protocol)) {
-      throw new InvalidArgumentError$f('Invalid URL protocol: the URL must start with `http:` or `https:`.')
+      throw new InvalidArgumentError$i('Invalid URL protocol: the URL must start with `http:` or `https:`.')
     }
 
     return url
   }
 
   if (!url || typeof url !== 'object') {
-    throw new InvalidArgumentError$f('Invalid URL: The URL argument must be a non-null object.')
+    throw new InvalidArgumentError$i('Invalid URL: The URL argument must be a non-null object.')
   }
 
   if (url.port != null && url.port !== '' && !Number.isFinite(parseInt(url.port))) {
-    throw new InvalidArgumentError$f('Invalid URL: port must be a valid integer or a string representation of an integer.')
+    throw new InvalidArgumentError$i('Invalid URL: port must be a valid integer or a string representation of an integer.')
   }
 
   if (url.path != null && typeof url.path !== 'string') {
-    throw new InvalidArgumentError$f('Invalid URL path: the path must be a string or null/undefined.')
+    throw new InvalidArgumentError$i('Invalid URL path: the path must be a string or null/undefined.')
   }
 
   if (url.pathname != null && typeof url.pathname !== 'string') {
-    throw new InvalidArgumentError$f('Invalid URL pathname: the pathname must be a string or null/undefined.')
+    throw new InvalidArgumentError$i('Invalid URL pathname: the pathname must be a string or null/undefined.')
   }
 
   if (url.hostname != null && typeof url.hostname !== 'string') {
-    throw new InvalidArgumentError$f('Invalid URL hostname: the hostname must be a string or null/undefined.')
+    throw new InvalidArgumentError$i('Invalid URL hostname: the hostname must be a string or null/undefined.')
   }
 
   if (url.origin != null && typeof url.origin !== 'string') {
-    throw new InvalidArgumentError$f('Invalid URL origin: the origin must be a string or null/undefined.')
+    throw new InvalidArgumentError$i('Invalid URL origin: the origin must be a string or null/undefined.')
   }
 
   if (!/^https?:/.test(url.origin || url.protocol)) {
-    throw new InvalidArgumentError$f('Invalid URL protocol: the URL must start with `http:` or `https:`.')
+    throw new InvalidArgumentError$i('Invalid URL protocol: the URL must start with `http:` or `https:`.')
   }
 
   if (!(url instanceof URL)) {
@@ -409,7 +409,7 @@ function parseOrigin (url) {
   url = parseURL(url);
 
   if (url.pathname !== '/' || url.search || url.hash) {
-    throw new InvalidArgumentError$f('invalid url')
+    throw new InvalidArgumentError$i('invalid url')
   }
 
   return url
@@ -574,36 +574,36 @@ function isBuffer (buffer) {
 
 function validateHandler (handler, method, upgrade) {
   if (!handler || typeof handler !== 'object') {
-    throw new InvalidArgumentError$f('handler must be an object')
+    throw new InvalidArgumentError$i('handler must be an object')
   }
 
   if (typeof handler.onConnect !== 'function') {
-    throw new InvalidArgumentError$f('invalid onConnect method')
+    throw new InvalidArgumentError$i('invalid onConnect method')
   }
 
   if (typeof handler.onError !== 'function') {
-    throw new InvalidArgumentError$f('invalid onError method')
+    throw new InvalidArgumentError$i('invalid onError method')
   }
 
   if (typeof handler.onBodySent !== 'function' && handler.onBodySent !== undefined) {
-    throw new InvalidArgumentError$f('invalid onBodySent method')
+    throw new InvalidArgumentError$i('invalid onBodySent method')
   }
 
   if (upgrade || method === 'CONNECT') {
     if (typeof handler.onUpgrade !== 'function') {
-      throw new InvalidArgumentError$f('invalid onUpgrade method')
+      throw new InvalidArgumentError$i('invalid onUpgrade method')
     }
   } else {
     if (typeof handler.onHeaders !== 'function') {
-      throw new InvalidArgumentError$f('invalid onHeaders method')
+      throw new InvalidArgumentError$i('invalid onHeaders method')
     }
 
     if (typeof handler.onData !== 'function') {
-      throw new InvalidArgumentError$f('invalid onData method')
+      throw new InvalidArgumentError$i('invalid onData method')
     }
 
     if (typeof handler.onComplete !== 'function') {
-      throw new InvalidArgumentError$f('invalid onComplete method')
+      throw new InvalidArgumentError$i('invalid onComplete method')
     }
   }
 }
@@ -737,7 +737,7 @@ kEnumerableProperty.enumerable = true;
 
 var util$i = {
   kEnumerableProperty,
-  nop,
+  nop: nop$1,
   isDisturbed,
   isErrored,
   isReadable,
@@ -762,7 +762,7 @@ var util$i = {
   validateHandler,
   getSocketInfo,
   isFormDataLike,
-  buildURL,
+  buildURL: buildURL$2,
   throwIfAborted,
   nodeMajor,
   nodeMinor,
@@ -6544,7 +6544,7 @@ function requireBody () {
 }
 
 const {
-  InvalidArgumentError: InvalidArgumentError$e,
+  InvalidArgumentError: InvalidArgumentError$h,
   NotSupportedError: NotSupportedError$1
 } = errors$1;
 const assert$7 = require$$0;
@@ -6608,37 +6608,37 @@ let Request$2 = class Request {
     throwOnError
   }, handler) {
     if (typeof path !== 'string') {
-      throw new InvalidArgumentError$e('path must be a string')
+      throw new InvalidArgumentError$h('path must be a string')
     } else if (
       path[0] !== '/' &&
       !(path.startsWith('http://') || path.startsWith('https://')) &&
       method !== 'CONNECT'
     ) {
-      throw new InvalidArgumentError$e('path must be an absolute URL or start with a slash')
+      throw new InvalidArgumentError$h('path must be an absolute URL or start with a slash')
     } else if (invalidPathRegex.exec(path) !== null) {
-      throw new InvalidArgumentError$e('invalid request path')
+      throw new InvalidArgumentError$h('invalid request path')
     }
 
     if (typeof method !== 'string') {
-      throw new InvalidArgumentError$e('method must be a string')
+      throw new InvalidArgumentError$h('method must be a string')
     } else if (tokenRegExp.exec(method) === null) {
-      throw new InvalidArgumentError$e('invalid request method')
+      throw new InvalidArgumentError$h('invalid request method')
     }
 
     if (upgrade && typeof upgrade !== 'string') {
-      throw new InvalidArgumentError$e('upgrade must be a string')
+      throw new InvalidArgumentError$h('upgrade must be a string')
     }
 
     if (headersTimeout != null && (!Number.isFinite(headersTimeout) || headersTimeout < 0)) {
-      throw new InvalidArgumentError$e('invalid headersTimeout')
+      throw new InvalidArgumentError$h('invalid headersTimeout')
     }
 
     if (bodyTimeout != null && (!Number.isFinite(bodyTimeout) || bodyTimeout < 0)) {
-      throw new InvalidArgumentError$e('invalid bodyTimeout')
+      throw new InvalidArgumentError$h('invalid bodyTimeout')
     }
 
     if (reset != null && typeof reset !== 'boolean') {
-      throw new InvalidArgumentError$e('invalid reset')
+      throw new InvalidArgumentError$h('invalid reset')
     }
 
     this.headersTimeout = headersTimeout;
@@ -6664,7 +6664,7 @@ let Request$2 = class Request {
     } else if (util$g.isFormDataLike(body) || util$g.isIterable(body) || util$g.isBlobLike(body)) {
       this.body = body;
     } else {
-      throw new InvalidArgumentError$e('body must be a string, a Buffer, a Readable stream, an iterable, or an async iterable')
+      throw new InvalidArgumentError$h('body must be a string, a Buffer, a Readable stream, an iterable, or an async iterable')
     }
 
     this.completed = false;
@@ -6695,7 +6695,7 @@ let Request$2 = class Request {
 
     if (Array.isArray(headers)) {
       if (headers.length % 2 !== 0) {
-        throw new InvalidArgumentError$e('headers array must be even')
+        throw new InvalidArgumentError$h('headers array must be even')
       }
       for (let i = 0; i < headers.length; i += 2) {
         processHeader(this, headers[i], headers[i + 1]);
@@ -6707,12 +6707,12 @@ let Request$2 = class Request {
         processHeader(this, key, headers[key]);
       }
     } else if (headers != null) {
-      throw new InvalidArgumentError$e('headers must be an object or an array')
+      throw new InvalidArgumentError$h('headers must be an object or an array')
     }
 
     if (util$g.isFormDataLike(this.body)) {
       if (util$g.nodeMajor < 16 || (util$g.nodeMajor === 16 && util$g.nodeMinor < 8)) {
-        throw new InvalidArgumentError$e('Form-Data bodies are only supported in node v16.8 and newer.')
+        throw new InvalidArgumentError$h('Form-Data bodies are only supported in node v16.8 and newer.')
       }
 
       if (!extractBody) {
@@ -6820,13 +6820,13 @@ let Request$2 = class Request {
 
 function processHeaderValue (key, val) {
   if (val && typeof val === 'object') {
-    throw new InvalidArgumentError$e(`invalid ${key} header`)
+    throw new InvalidArgumentError$h(`invalid ${key} header`)
   }
 
   val = val != null ? `${val}` : '';
 
   if (headerCharRegex.exec(val) !== null) {
-    throw new InvalidArgumentError$e(`invalid ${key} header`)
+    throw new InvalidArgumentError$h(`invalid ${key} header`)
   }
 
   return `${key}: ${val}\r\n`
@@ -6834,7 +6834,7 @@ function processHeaderValue (key, val) {
 
 function processHeader (request, key, val) {
   if (val && (typeof val === 'object' && !Array.isArray(val))) {
-    throw new InvalidArgumentError$e(`invalid ${key} header`)
+    throw new InvalidArgumentError$h(`invalid ${key} header`)
   } else if (val === undefined) {
     return
   }
@@ -6845,7 +6845,7 @@ function processHeader (request, key, val) {
     key.toLowerCase() === 'host'
   ) {
     if (headerCharRegex.exec(val) !== null) {
-      throw new InvalidArgumentError$e(`invalid ${key} header`)
+      throw new InvalidArgumentError$h(`invalid ${key} header`)
     }
     // Consumed by Client
     request.host = val;
@@ -6856,7 +6856,7 @@ function processHeader (request, key, val) {
   ) {
     request.contentLength = parseInt(val, 10);
     if (!Number.isFinite(request.contentLength)) {
-      throw new InvalidArgumentError$e('invalid content-length header')
+      throw new InvalidArgumentError$h('invalid content-length header')
     }
   } else if (
     request.contentType === null &&
@@ -6869,14 +6869,14 @@ function processHeader (request, key, val) {
     key.length === 17 &&
     key.toLowerCase() === 'transfer-encoding'
   ) {
-    throw new InvalidArgumentError$e('invalid transfer-encoding header')
+    throw new InvalidArgumentError$h('invalid transfer-encoding header')
   } else if (
     key.length === 10 &&
     key.toLowerCase() === 'connection'
   ) {
     const value = typeof val === 'string' ? val.toLowerCase() : null;
     if (value !== 'close' && value !== 'keep-alive') {
-      throw new InvalidArgumentError$e('invalid connection header')
+      throw new InvalidArgumentError$h('invalid connection header')
     } else if (value === 'close') {
       request.reset = true;
     }
@@ -6884,19 +6884,19 @@ function processHeader (request, key, val) {
     key.length === 10 &&
     key.toLowerCase() === 'keep-alive'
   ) {
-    throw new InvalidArgumentError$e('invalid keep-alive header')
+    throw new InvalidArgumentError$h('invalid keep-alive header')
   } else if (
     key.length === 7 &&
     key.toLowerCase() === 'upgrade'
   ) {
-    throw new InvalidArgumentError$e('invalid upgrade header')
+    throw new InvalidArgumentError$h('invalid upgrade header')
   } else if (
     key.length === 6 &&
     key.toLowerCase() === 'expect'
   ) {
     throw new NotSupportedError$1('expect header not supported')
   } else if (tokenRegExp.exec(key) === null) {
-    throw new InvalidArgumentError$e('invalid header key')
+    throw new InvalidArgumentError$h('invalid header key')
   } else {
     if (Array.isArray(val)) {
       for (let i = 0; i < val.length; i++) {
@@ -6932,9 +6932,9 @@ const Dispatcher$1 = dispatcher;
 const {
   ClientDestroyedError: ClientDestroyedError$1,
   ClientClosedError,
-  InvalidArgumentError: InvalidArgumentError$d
+  InvalidArgumentError: InvalidArgumentError$g
 } = errors$1;
-const { kDestroy: kDestroy$3, kClose: kClose$3, kDispatch: kDispatch$3, kInterceptors: kInterceptors$3 } = symbols$3;
+const { kDestroy: kDestroy$3, kClose: kClose$5, kDispatch: kDispatch$3, kInterceptors: kInterceptors$3 } = symbols$3;
 
 const kDestroyed = Symbol('destroyed');
 const kClosed = Symbol('closed');
@@ -6969,7 +6969,7 @@ let DispatcherBase$3 = class DispatcherBase extends Dispatcher$1 {
       for (let i = newInterceptors.length - 1; i >= 0; i--) {
         const interceptor = this[kInterceptors$3][i];
         if (typeof interceptor !== 'function') {
-          throw new InvalidArgumentError$d('interceptor must be an function')
+          throw new InvalidArgumentError$g('interceptor must be an function')
         }
       }
     }
@@ -6987,7 +6987,7 @@ let DispatcherBase$3 = class DispatcherBase extends Dispatcher$1 {
     }
 
     if (typeof callback !== 'function') {
-      throw new InvalidArgumentError$d('invalid callback')
+      throw new InvalidArgumentError$g('invalid callback')
     }
 
     if (this[kDestroyed]) {
@@ -7016,7 +7016,7 @@ let DispatcherBase$3 = class DispatcherBase extends Dispatcher$1 {
     };
 
     // Should not error.
-    this[kClose$3]()
+    this[kClose$5]()
       .then(() => this.destroy())
       .then(() => {
         queueMicrotask(onClosed);
@@ -7038,7 +7038,7 @@ let DispatcherBase$3 = class DispatcherBase extends Dispatcher$1 {
     }
 
     if (typeof callback !== 'function') {
-      throw new InvalidArgumentError$d('invalid callback')
+      throw new InvalidArgumentError$g('invalid callback')
     }
 
     if (this[kDestroyed]) {
@@ -7088,12 +7088,12 @@ let DispatcherBase$3 = class DispatcherBase extends Dispatcher$1 {
 
   dispatch (opts, handler) {
     if (!handler || typeof handler !== 'object') {
-      throw new InvalidArgumentError$d('handler must be an object')
+      throw new InvalidArgumentError$g('handler must be an object')
     }
 
     try {
       if (!opts || typeof opts !== 'object') {
-        throw new InvalidArgumentError$d('opts must be an object.')
+        throw new InvalidArgumentError$g('opts must be an object.')
       }
 
       if (this[kDestroyed] || this[kOnDestroyed]) {
@@ -7107,7 +7107,7 @@ let DispatcherBase$3 = class DispatcherBase extends Dispatcher$1 {
       return this[kInterceptedDispatch](opts, handler)
     } catch (err) {
       if (typeof handler.onError !== 'function') {
-        throw new InvalidArgumentError$d('invalid onError method')
+        throw new InvalidArgumentError$g('invalid onError method')
       }
 
       handler.onError(err);
@@ -7122,7 +7122,7 @@ var dispatcherBase = DispatcherBase$3;
 const net$1 = require$$4;
 const assert$6 = require$$0;
 const util$f = util$i;
-const { InvalidArgumentError: InvalidArgumentError$c, ConnectTimeoutError } = errors$1;
+const { InvalidArgumentError: InvalidArgumentError$f, ConnectTimeoutError } = errors$1;
 
 let tls; // include tls conditionally since it is not always available
 
@@ -7192,7 +7192,7 @@ if (commonjsGlobal.FinalizationRegistry) {
 
 function buildConnector$2 ({ maxCachedSessions, socketPath, timeout, ...opts }) {
   if (maxCachedSessions != null && (!Number.isInteger(maxCachedSessions) || maxCachedSessions < 0)) {
-    throw new InvalidArgumentError$c('maxCachedSessions must be a positive integer or zero')
+    throw new InvalidArgumentError$f('maxCachedSessions must be a positive integer or zero')
   }
 
   const options = { path: socketPath, ...opts };
@@ -7606,14 +7606,14 @@ function requireConstants$2 () {
 		    'upgrade': HEADER_STATE.UPGRADE,
 		};
 		
-} (constants$3));
+	} (constants$3));
 	return constants$3;
 }
 
 const util$e = util$i;
 const { kBodyUsed } = symbols$3;
 const assert$5 = require$$0;
-const { InvalidArgumentError: InvalidArgumentError$b } = errors$1;
+const { InvalidArgumentError: InvalidArgumentError$e } = errors$1;
 const EE = require$$0$4;
 
 const redirectableStatusCodes = [300, 301, 302, 303, 307, 308];
@@ -7636,7 +7636,7 @@ class BodyAsyncIterable {
 let RedirectHandler$1 = class RedirectHandler {
   constructor (dispatch, maxRedirections, opts, handler) {
     if (maxRedirections != null && (!Number.isInteger(maxRedirections) || maxRedirections < 0)) {
-      throw new InvalidArgumentError$b('maxRedirections must be a positive number')
+      throw new InvalidArgumentError$e('maxRedirections must be a positive number')
     }
 
     util$e.validateHandler(handler, opts.method, opts.upgrade);
@@ -7858,7 +7858,7 @@ const DispatcherBase$2 = dispatcherBase;
 const {
   RequestContentLengthMismatchError,
   ResponseContentLengthMismatchError,
-  InvalidArgumentError: InvalidArgumentError$a,
+  InvalidArgumentError: InvalidArgumentError$d,
   RequestAbortedError: RequestAbortedError$7,
   HeadersTimeoutError,
   HeadersOverflowError,
@@ -7885,7 +7885,7 @@ const {
   kSize: kSize$4,
   kWriting,
   kQueue: kQueue$1,
-  kConnected: kConnected$3,
+  kConnected: kConnected$5,
   kConnecting,
   kNeedDrain: kNeedDrain$2,
   kNoRef,
@@ -7907,7 +7907,7 @@ const {
   kMaxRedirections: kMaxRedirections$1,
   kMaxRequests,
   kCounter,
-  kClose: kClose$2,
+  kClose: kClose$4,
   kDestroy: kDestroy$2,
   kDispatch: kDispatch$2,
   kInterceptors: kInterceptors$2,
@@ -7936,7 +7936,7 @@ try {
 /**
  * @type {import('../types/client').default}
  */
-let Client$2 = class Client extends DispatcherBase$2 {
+let Client$3 = class Client extends DispatcherBase$2 {
   /**
    *
    * @param {string|URL} url
@@ -7972,82 +7972,82 @@ let Client$2 = class Client extends DispatcherBase$2 {
     super();
 
     if (keepAlive !== undefined) {
-      throw new InvalidArgumentError$a('unsupported keepAlive, use pipelining=0 instead')
+      throw new InvalidArgumentError$d('unsupported keepAlive, use pipelining=0 instead')
     }
 
     if (socketTimeout !== undefined) {
-      throw new InvalidArgumentError$a('unsupported socketTimeout, use headersTimeout & bodyTimeout instead')
+      throw new InvalidArgumentError$d('unsupported socketTimeout, use headersTimeout & bodyTimeout instead')
     }
 
     if (requestTimeout !== undefined) {
-      throw new InvalidArgumentError$a('unsupported requestTimeout, use headersTimeout & bodyTimeout instead')
+      throw new InvalidArgumentError$d('unsupported requestTimeout, use headersTimeout & bodyTimeout instead')
     }
 
     if (idleTimeout !== undefined) {
-      throw new InvalidArgumentError$a('unsupported idleTimeout, use keepAliveTimeout instead')
+      throw new InvalidArgumentError$d('unsupported idleTimeout, use keepAliveTimeout instead')
     }
 
     if (maxKeepAliveTimeout !== undefined) {
-      throw new InvalidArgumentError$a('unsupported maxKeepAliveTimeout, use keepAliveMaxTimeout instead')
+      throw new InvalidArgumentError$d('unsupported maxKeepAliveTimeout, use keepAliveMaxTimeout instead')
     }
 
     if (maxHeaderSize != null && !Number.isFinite(maxHeaderSize)) {
-      throw new InvalidArgumentError$a('invalid maxHeaderSize')
+      throw new InvalidArgumentError$d('invalid maxHeaderSize')
     }
 
     if (socketPath != null && typeof socketPath !== 'string') {
-      throw new InvalidArgumentError$a('invalid socketPath')
+      throw new InvalidArgumentError$d('invalid socketPath')
     }
 
     if (connectTimeout != null && (!Number.isFinite(connectTimeout) || connectTimeout < 0)) {
-      throw new InvalidArgumentError$a('invalid connectTimeout')
+      throw new InvalidArgumentError$d('invalid connectTimeout')
     }
 
     if (keepAliveTimeout != null && (!Number.isFinite(keepAliveTimeout) || keepAliveTimeout <= 0)) {
-      throw new InvalidArgumentError$a('invalid keepAliveTimeout')
+      throw new InvalidArgumentError$d('invalid keepAliveTimeout')
     }
 
     if (keepAliveMaxTimeout != null && (!Number.isFinite(keepAliveMaxTimeout) || keepAliveMaxTimeout <= 0)) {
-      throw new InvalidArgumentError$a('invalid keepAliveMaxTimeout')
+      throw new InvalidArgumentError$d('invalid keepAliveMaxTimeout')
     }
 
     if (keepAliveTimeoutThreshold != null && !Number.isFinite(keepAliveTimeoutThreshold)) {
-      throw new InvalidArgumentError$a('invalid keepAliveTimeoutThreshold')
+      throw new InvalidArgumentError$d('invalid keepAliveTimeoutThreshold')
     }
 
     if (headersTimeout != null && (!Number.isInteger(headersTimeout) || headersTimeout < 0)) {
-      throw new InvalidArgumentError$a('headersTimeout must be a positive integer or zero')
+      throw new InvalidArgumentError$d('headersTimeout must be a positive integer or zero')
     }
 
     if (bodyTimeout != null && (!Number.isInteger(bodyTimeout) || bodyTimeout < 0)) {
-      throw new InvalidArgumentError$a('bodyTimeout must be a positive integer or zero')
+      throw new InvalidArgumentError$d('bodyTimeout must be a positive integer or zero')
     }
 
     if (connect != null && typeof connect !== 'function' && typeof connect !== 'object') {
-      throw new InvalidArgumentError$a('connect must be a function or an object')
+      throw new InvalidArgumentError$d('connect must be a function or an object')
     }
 
     if (maxRedirections != null && (!Number.isInteger(maxRedirections) || maxRedirections < 0)) {
-      throw new InvalidArgumentError$a('maxRedirections must be a positive number')
+      throw new InvalidArgumentError$d('maxRedirections must be a positive number')
     }
 
     if (maxRequestsPerClient != null && (!Number.isInteger(maxRequestsPerClient) || maxRequestsPerClient < 0)) {
-      throw new InvalidArgumentError$a('maxRequestsPerClient must be a positive number')
+      throw new InvalidArgumentError$d('maxRequestsPerClient must be a positive number')
     }
 
     if (localAddress != null && (typeof localAddress !== 'string' || net.isIP(localAddress) === 0)) {
-      throw new InvalidArgumentError$a('localAddress must be valid string IP address')
+      throw new InvalidArgumentError$d('localAddress must be valid string IP address')
     }
 
     if (maxResponseSize != null && (!Number.isInteger(maxResponseSize) || maxResponseSize < -1)) {
-      throw new InvalidArgumentError$a('maxResponseSize must be a positive number')
+      throw new InvalidArgumentError$d('maxResponseSize must be a positive number')
     }
 
     if (
       autoSelectFamilyAttemptTimeout != null &&
       (!Number.isInteger(autoSelectFamilyAttemptTimeout) || autoSelectFamilyAttemptTimeout < -1)
     ) {
-      throw new InvalidArgumentError$a('autoSelectFamilyAttemptTimeout must be a positive number')
+      throw new InvalidArgumentError$d('autoSelectFamilyAttemptTimeout must be a positive number')
     }
 
     if (typeof connect !== 'function') {
@@ -8121,7 +8121,7 @@ let Client$2 = class Client extends DispatcherBase$2 {
     return this[kQueue$1].length - this[kRunningIdx]
   }
 
-  get [kConnected$3] () {
+  get [kConnected$5] () {
     return !!this[kSocket] && !this[kConnecting] && !this[kSocket].destroyed
   }
 
@@ -8161,7 +8161,7 @@ let Client$2 = class Client extends DispatcherBase$2 {
     return this[kNeedDrain$2] < 2
   }
 
-  async [kClose$2] () {
+  async [kClose$4] () {
     return new Promise((resolve) => {
       if (!this[kSize$4]) {
         resolve(null);
@@ -9629,7 +9629,7 @@ function errorRequest (client, request, err) {
   }
 }
 
-var client = Client$2;
+var client = Client$3;
 
 /* eslint-disable */
 
@@ -9747,7 +9747,7 @@ var fixedQueue = class FixedQueue {
   }
 };
 
-const { kFree: kFree$1, kConnected: kConnected$2, kPending: kPending$1, kQueued: kQueued$1, kRunning: kRunning$2, kSize: kSize$2 } = symbols$3;
+const { kFree: kFree$1, kConnected: kConnected$4, kPending: kPending$1, kQueued: kQueued$1, kRunning: kRunning$2, kSize: kSize$2 } = symbols$3;
 const kPool = Symbol('pool');
 
 let PoolStats$1 = class PoolStats {
@@ -9756,7 +9756,7 @@ let PoolStats$1 = class PoolStats {
   }
 
   get connected () {
-    return this[kPool][kConnected$2]
+    return this[kPool][kConnected$4]
   }
 
   get free () {
@@ -9784,7 +9784,7 @@ var poolStats = PoolStats$1;
 
 const DispatcherBase$1 = dispatcherBase;
 const FixedQueue = fixedQueue;
-const { kConnected: kConnected$1, kSize: kSize$1, kRunning: kRunning$1, kPending, kQueued, kBusy, kFree, kUrl: kUrl$1, kClose: kClose$1, kDestroy: kDestroy$1, kDispatch: kDispatch$1 } = symbols$3;
+const { kConnected: kConnected$3, kSize: kSize$1, kRunning: kRunning$1, kPending, kQueued, kBusy, kFree, kUrl: kUrl$1, kClose: kClose$3, kDestroy: kDestroy$1, kDispatch: kDispatch$1 } = symbols$3;
 const PoolStats = poolStats;
 
 const kClients$2 = Symbol('clients');
@@ -9857,12 +9857,12 @@ let PoolBase$1 = class PoolBase extends DispatcherBase$1 {
     return this[kNeedDrain$1]
   }
 
-  get [kConnected$1] () {
-    return this[kClients$2].filter(client => client[kConnected$1]).length
+  get [kConnected$3] () {
+    return this[kClients$2].filter(client => client[kConnected$3]).length
   }
 
   get [kFree] () {
-    return this[kClients$2].filter(client => client[kConnected$1] && !client[kNeedDrain$1]).length
+    return this[kClients$2].filter(client => client[kConnected$3] && !client[kNeedDrain$1]).length
   }
 
   get [kPending] () {
@@ -9893,7 +9893,7 @@ let PoolBase$1 = class PoolBase extends DispatcherBase$1 {
     return this[kStats]
   }
 
-  async [kClose$1] () {
+  async [kClose$3] () {
     if (this[kQueue].isEmpty()) {
       return Promise.all(this[kClients$2].map(c => c.close()))
     } else {
@@ -9982,9 +9982,9 @@ const {
   kAddClient,
   kGetDispatcher
 } = poolBase;
-const Client$1 = client;
+const Client$2 = client;
 const {
-  InvalidArgumentError: InvalidArgumentError$9
+  InvalidArgumentError: InvalidArgumentError$c
 } = errors$1;
 const util$c = util$i;
 const { kUrl, kInterceptors: kInterceptors$1 } = symbols$3;
@@ -9995,10 +9995,10 @@ const kConnections = Symbol('connections');
 const kFactory$1 = Symbol('factory');
 
 function defaultFactory$1 (origin, opts) {
-  return new Client$1(origin, opts)
+  return new Client$2(origin, opts)
 }
 
-let Pool$1 = class Pool extends PoolBase {
+let Pool$2 = class Pool extends PoolBase {
   constructor (origin, {
     connections,
     factory = defaultFactory$1,
@@ -10014,15 +10014,15 @@ let Pool$1 = class Pool extends PoolBase {
     super();
 
     if (connections != null && (!Number.isFinite(connections) || connections < 0)) {
-      throw new InvalidArgumentError$9('invalid connections')
+      throw new InvalidArgumentError$c('invalid connections')
     }
 
     if (typeof factory !== 'function') {
-      throw new InvalidArgumentError$9('factory must be a function.')
+      throw new InvalidArgumentError$c('factory must be a function.')
     }
 
     if (connect != null && typeof connect !== 'function' && typeof connect !== 'object') {
-      throw new InvalidArgumentError$9('connect must be a function or an object')
+      throw new InvalidArgumentError$c('connect must be a function or an object')
     }
 
     if (typeof connect !== 'function') {
@@ -10064,11 +10064,11 @@ let Pool$1 = class Pool extends PoolBase {
   }
 };
 
-var pool = Pool$1;
+var pool = Pool$2;
 
 /* istanbul ignore file: only for Node 12 */
 
-const { kConnected, kSize } = symbols$3;
+const { kConnected: kConnected$2, kSize } = symbols$3;
 
 class CompatWeakRef {
   constructor (value) {
@@ -10076,7 +10076,7 @@ class CompatWeakRef {
   }
 
   deref () {
-    return this.value[kConnected] === 0 && this.value[kSize] === 0
+    return this.value[kConnected$2] === 0 && this.value[kSize] === 0
       ? undefined
       : this.value
   }
@@ -10089,7 +10089,7 @@ class CompatFinalizer {
 
   register (dispatcher, key) {
     dispatcher.on('disconnect', () => {
-      if (dispatcher[kConnected] === 0 && dispatcher[kSize] === 0) {
+      if (dispatcher[kConnected$2] === 0 && dispatcher[kSize] === 0) {
         this.finalizer(key);
       }
     });
@@ -10103,11 +10103,11 @@ var dispatcherWeakref = function () {
   }
 };
 
-const { InvalidArgumentError: InvalidArgumentError$8 } = errors$1;
-const { kClients, kRunning, kClose, kDestroy, kDispatch, kInterceptors } = symbols$3;
+const { InvalidArgumentError: InvalidArgumentError$b } = errors$1;
+const { kClients, kRunning, kClose: kClose$2, kDestroy, kDispatch, kInterceptors } = symbols$3;
 const DispatcherBase = dispatcherBase;
-const Pool = pool;
-const Client = client;
+const Pool$1 = pool;
+const Client$1 = client;
 const util$b = util$i;
 const createRedirectInterceptor = redirectInterceptor;
 const { WeakRef: WeakRef$1, FinalizationRegistry } = dispatcherWeakref();
@@ -10123,8 +10123,8 @@ const kOptions = Symbol('options');
 
 function defaultFactory (origin, opts) {
   return opts && opts.connections === 1
-    ? new Client(origin, opts)
-    : new Pool(origin, opts)
+    ? new Client$1(origin, opts)
+    : new Pool$1(origin, opts)
 }
 
 let Agent$1 = class Agent extends DispatcherBase {
@@ -10132,15 +10132,15 @@ let Agent$1 = class Agent extends DispatcherBase {
     super();
 
     if (typeof factory !== 'function') {
-      throw new InvalidArgumentError$8('factory must be a function.')
+      throw new InvalidArgumentError$b('factory must be a function.')
     }
 
     if (connect != null && typeof connect !== 'function' && typeof connect !== 'object') {
-      throw new InvalidArgumentError$8('connect must be a function or an object')
+      throw new InvalidArgumentError$b('connect must be a function or an object')
     }
 
     if (!Number.isInteger(maxRedirections) || maxRedirections < 0) {
-      throw new InvalidArgumentError$8('maxRedirections must be a positive number')
+      throw new InvalidArgumentError$b('maxRedirections must be a positive number')
     }
 
     if (connect && typeof connect !== 'function') {
@@ -10201,7 +10201,7 @@ let Agent$1 = class Agent extends DispatcherBase {
     if (opts.origin && (typeof opts.origin === 'string' || opts.origin instanceof URL)) {
       key = String(opts.origin);
     } else {
-      throw new InvalidArgumentError$8('opts.origin must be a non-empty string or URL.')
+      throw new InvalidArgumentError$b('opts.origin must be a non-empty string or URL.')
     }
 
     const ref = this[kClients].get(key);
@@ -10221,7 +10221,7 @@ let Agent$1 = class Agent extends DispatcherBase {
     return dispatcher.dispatch(opts, handler)
   }
 
-  async [kClose] () {
+  async [kClose$2] () {
     const closePromises = [];
     for (const ref of this[kClients].values()) {
       const client = ref.deref();
@@ -10254,7 +10254,7 @@ var api$1 = {};
 
 const assert$3 = require$$0;
 const { Readable: Readable$2 } = require$$0$1;
-const { RequestAbortedError: RequestAbortedError$6, NotSupportedError, InvalidArgumentError: InvalidArgumentError$7 } = errors$1;
+const { RequestAbortedError: RequestAbortedError$6, NotSupportedError, InvalidArgumentError: InvalidArgumentError$a } = errors$1;
 const util$a = util$i;
 const { ReadableStreamFrom, toUSVString: toUSVString$1 } = util$i;
 
@@ -10407,7 +10407,7 @@ var readable = class BodyReadable extends Readable$2 {
     };
     if (signal) {
       if (typeof signal !== 'object' || !('aborted' in signal)) {
-        throw new InvalidArgumentError$7('signal must be an AbortSignal')
+        throw new InvalidArgumentError$a('signal must be an AbortSignal')
       }
       util$a.throwIfAborted(signal);
       signal.addEventListener('abort', abortFn, { once: true });
@@ -10660,7 +10660,7 @@ var abortSignal = {
 
 const Readable$1 = readable;
 const {
-  InvalidArgumentError: InvalidArgumentError$6,
+  InvalidArgumentError: InvalidArgumentError$9,
   RequestAbortedError: RequestAbortedError$4
 } = errors$1;
 const util$8 = util$i;
@@ -10671,30 +10671,30 @@ const { addSignal: addSignal$4, removeSignal: removeSignal$4 } = abortSignal;
 class RequestHandler extends AsyncResource$4 {
   constructor (opts, callback) {
     if (!opts || typeof opts !== 'object') {
-      throw new InvalidArgumentError$6('invalid opts')
+      throw new InvalidArgumentError$9('invalid opts')
     }
 
     const { signal, method, opaque, body, onInfo, responseHeaders, throwOnError, highWaterMark } = opts;
 
     try {
       if (typeof callback !== 'function') {
-        throw new InvalidArgumentError$6('invalid callback')
+        throw new InvalidArgumentError$9('invalid callback')
       }
 
       if (highWaterMark && (typeof highWaterMark !== 'number' || highWaterMark < 0)) {
-        throw new InvalidArgumentError$6('invalid highWaterMark')
+        throw new InvalidArgumentError$9('invalid highWaterMark')
       }
 
       if (signal && typeof signal.on !== 'function' && typeof signal.addEventListener !== 'function') {
-        throw new InvalidArgumentError$6('signal must be an EventEmitter or EventTarget')
+        throw new InvalidArgumentError$9('signal must be an EventEmitter or EventTarget')
       }
 
       if (method === 'CONNECT') {
-        throw new InvalidArgumentError$6('invalid method')
+        throw new InvalidArgumentError$9('invalid method')
       }
 
       if (onInfo && typeof onInfo !== 'function') {
-        throw new InvalidArgumentError$6('invalid onInfo callback')
+        throw new InvalidArgumentError$9('invalid onInfo callback')
       }
 
       super('UNDICI_REQUEST');
@@ -10839,7 +10839,7 @@ var apiRequest = request$1;
 
 const { finished, PassThrough: PassThrough$1 } = require$$0$1;
 const {
-  InvalidArgumentError: InvalidArgumentError$5,
+  InvalidArgumentError: InvalidArgumentError$8,
   InvalidReturnValueError: InvalidReturnValueError$1,
   RequestAbortedError: RequestAbortedError$3
 } = errors$1;
@@ -10851,30 +10851,30 @@ const { addSignal: addSignal$3, removeSignal: removeSignal$3 } = abortSignal;
 class StreamHandler extends AsyncResource$3 {
   constructor (opts, factory, callback) {
     if (!opts || typeof opts !== 'object') {
-      throw new InvalidArgumentError$5('invalid opts')
+      throw new InvalidArgumentError$8('invalid opts')
     }
 
     const { signal, method, opaque, body, onInfo, responseHeaders, throwOnError } = opts;
 
     try {
       if (typeof callback !== 'function') {
-        throw new InvalidArgumentError$5('invalid callback')
+        throw new InvalidArgumentError$8('invalid callback')
       }
 
       if (typeof factory !== 'function') {
-        throw new InvalidArgumentError$5('invalid factory')
+        throw new InvalidArgumentError$8('invalid factory')
       }
 
       if (signal && typeof signal.on !== 'function' && typeof signal.addEventListener !== 'function') {
-        throw new InvalidArgumentError$5('signal must be an EventEmitter or EventTarget')
+        throw new InvalidArgumentError$8('signal must be an EventEmitter or EventTarget')
       }
 
       if (method === 'CONNECT') {
-        throw new InvalidArgumentError$5('invalid method')
+        throw new InvalidArgumentError$8('invalid method')
       }
 
       if (onInfo && typeof onInfo !== 'function') {
-        throw new InvalidArgumentError$5('invalid onInfo callback')
+        throw new InvalidArgumentError$8('invalid onInfo callback')
       }
 
       super('UNDICI_STREAM');
@@ -11054,7 +11054,7 @@ const {
   PassThrough
 } = require$$0$1;
 const {
-  InvalidArgumentError: InvalidArgumentError$4,
+  InvalidArgumentError: InvalidArgumentError$7,
   InvalidReturnValueError,
   RequestAbortedError: RequestAbortedError$2
 } = errors$1;
@@ -11110,25 +11110,25 @@ class PipelineResponse extends Readable {
 class PipelineHandler extends AsyncResource$2 {
   constructor (opts, handler) {
     if (!opts || typeof opts !== 'object') {
-      throw new InvalidArgumentError$4('invalid opts')
+      throw new InvalidArgumentError$7('invalid opts')
     }
 
     if (typeof handler !== 'function') {
-      throw new InvalidArgumentError$4('invalid handler')
+      throw new InvalidArgumentError$7('invalid handler')
     }
 
     const { signal, method, opaque, onInfo, responseHeaders } = opts;
 
     if (signal && typeof signal.on !== 'function' && typeof signal.addEventListener !== 'function') {
-      throw new InvalidArgumentError$4('signal must be an EventEmitter or EventTarget')
+      throw new InvalidArgumentError$7('signal must be an EventEmitter or EventTarget')
     }
 
     if (method === 'CONNECT') {
-      throw new InvalidArgumentError$4('invalid method')
+      throw new InvalidArgumentError$7('invalid method')
     }
 
     if (onInfo && typeof onInfo !== 'function') {
-      throw new InvalidArgumentError$4('invalid onInfo callback')
+      throw new InvalidArgumentError$7('invalid onInfo callback')
     }
 
     super('UNDICI_PIPELINE');
@@ -11296,7 +11296,7 @@ function pipeline (opts, handler) {
 
 var apiPipeline = pipeline;
 
-const { InvalidArgumentError: InvalidArgumentError$3, RequestAbortedError: RequestAbortedError$1, SocketError: SocketError$1 } = errors$1;
+const { InvalidArgumentError: InvalidArgumentError$6, RequestAbortedError: RequestAbortedError$1, SocketError: SocketError$1 } = errors$1;
 const { AsyncResource: AsyncResource$1 } = require$$4$2;
 const util$5 = util$i;
 const { addSignal: addSignal$1, removeSignal: removeSignal$1 } = abortSignal;
@@ -11305,17 +11305,17 @@ const assert = require$$0;
 class UpgradeHandler extends AsyncResource$1 {
   constructor (opts, callback) {
     if (!opts || typeof opts !== 'object') {
-      throw new InvalidArgumentError$3('invalid opts')
+      throw new InvalidArgumentError$6('invalid opts')
     }
 
     if (typeof callback !== 'function') {
-      throw new InvalidArgumentError$3('invalid callback')
+      throw new InvalidArgumentError$6('invalid callback')
     }
 
     const { signal, opaque, responseHeaders } = opts;
 
     if (signal && typeof signal.on !== 'function' && typeof signal.addEventListener !== 'function') {
-      throw new InvalidArgumentError$3('signal must be an EventEmitter or EventTarget')
+      throw new InvalidArgumentError$6('signal must be an EventEmitter or EventTarget')
     }
 
     super('UNDICI_UPGRADE');
@@ -11400,7 +11400,7 @@ function upgrade (opts, callback) {
 
 var apiUpgrade = upgrade;
 
-const { InvalidArgumentError: InvalidArgumentError$2, RequestAbortedError, SocketError } = errors$1;
+const { InvalidArgumentError: InvalidArgumentError$5, RequestAbortedError, SocketError } = errors$1;
 const { AsyncResource } = require$$4$2;
 const util$4 = util$i;
 const { addSignal, removeSignal } = abortSignal;
@@ -11408,17 +11408,17 @@ const { addSignal, removeSignal } = abortSignal;
 class ConnectHandler extends AsyncResource {
   constructor (opts, callback) {
     if (!opts || typeof opts !== 'object') {
-      throw new InvalidArgumentError$2('invalid opts')
+      throw new InvalidArgumentError$5('invalid opts')
     }
 
     if (typeof callback !== 'function') {
-      throw new InvalidArgumentError$2('invalid callback')
+      throw new InvalidArgumentError$5('invalid callback')
     }
 
     const { signal, opaque, responseHeaders } = opts;
 
     if (signal && typeof signal.on !== 'function' && typeof signal.addEventListener !== 'function') {
-      throw new InvalidArgumentError$2('signal must be an EventEmitter or EventTarget')
+      throw new InvalidArgumentError$5('signal must be an EventEmitter or EventTarget')
     }
 
     super('UNDICI_CONNECT');
@@ -11502,6 +11502,713 @@ api$1.stream = apiStream;
 api$1.pipeline = apiPipeline;
 api$1.upgrade = apiUpgrade;
 api$1.connect = apiConnect;
+
+const { UndiciError } = errors$1;
+
+let MockNotMatchedError$1 = class MockNotMatchedError extends UndiciError {
+  constructor (message) {
+    super(message);
+    Error.captureStackTrace(this, MockNotMatchedError$1);
+    this.name = 'MockNotMatchedError';
+    this.message = message || 'The request does not match any registered mock dispatches';
+    this.code = 'UND_MOCK_ERR_MOCK_NOT_MATCHED';
+  }
+};
+
+var mockErrors = {
+  MockNotMatchedError: MockNotMatchedError$1
+};
+
+var mockSymbols = {
+  kAgent: Symbol('agent'),
+  kOptions: Symbol('options'),
+  kFactory: Symbol('factory'),
+  kDispatches: Symbol('dispatches'),
+  kDispatchKey: Symbol('dispatch key'),
+  kDefaultHeaders: Symbol('default headers'),
+  kDefaultTrailers: Symbol('default trailers'),
+  kContentLength: Symbol('content length'),
+  kMockAgent: Symbol('mock agent'),
+  kMockAgentSet: Symbol('mock agent set'),
+  kMockAgentGet: Symbol('mock agent get'),
+  kMockDispatch: Symbol('mock dispatch'),
+  kClose: Symbol('close'),
+  kOriginalClose: Symbol('original agent close'),
+  kOrigin: Symbol('origin'),
+  kIsMockActive: Symbol('is mock active'),
+  kNetConnect: Symbol('net connect'),
+  kGetNetConnect: Symbol('get net connect'),
+  kConnected: Symbol('connected')
+};
+
+const { MockNotMatchedError } = mockErrors;
+const {
+  kDispatches: kDispatches$3,
+  kMockAgent: kMockAgent$2,
+  kOriginalDispatch: kOriginalDispatch$2,
+  kOrigin: kOrigin$2,
+  kGetNetConnect
+} = mockSymbols;
+const { buildURL: buildURL$1, nop } = util$i;
+const { STATUS_CODES } = require$$2;
+const {
+  types: {
+    isPromise
+  }
+} = require$$0$2;
+
+function matchValue (match, value) {
+  if (typeof match === 'string') {
+    return match === value
+  }
+  if (match instanceof RegExp) {
+    return match.test(value)
+  }
+  if (typeof match === 'function') {
+    return match(value) === true
+  }
+  return false
+}
+
+function lowerCaseEntries (headers) {
+  return Object.fromEntries(
+    Object.entries(headers).map(([headerName, headerValue]) => {
+      return [headerName.toLocaleLowerCase(), headerValue]
+    })
+  )
+}
+
+/**
+ * @param {import('../../index').Headers|string[]|Record<string, string>} headers
+ * @param {string} key
+ */
+function getHeaderByName (headers, key) {
+  if (Array.isArray(headers)) {
+    for (let i = 0; i < headers.length; i += 2) {
+      if (headers[i].toLocaleLowerCase() === key.toLocaleLowerCase()) {
+        return headers[i + 1]
+      }
+    }
+
+    return undefined
+  } else if (typeof headers.get === 'function') {
+    return headers.get(key)
+  } else {
+    return lowerCaseEntries(headers)[key.toLocaleLowerCase()]
+  }
+}
+
+/** @param {string[]} headers */
+function buildHeadersFromArray (headers) { // fetch HeadersList
+  const clone = headers.slice();
+  const entries = [];
+  for (let index = 0; index < clone.length; index += 2) {
+    entries.push([clone[index], clone[index + 1]]);
+  }
+  return Object.fromEntries(entries)
+}
+
+function matchHeaders (mockDispatch, headers) {
+  if (typeof mockDispatch.headers === 'function') {
+    if (Array.isArray(headers)) { // fetch HeadersList
+      headers = buildHeadersFromArray(headers);
+    }
+    return mockDispatch.headers(headers ? lowerCaseEntries(headers) : {})
+  }
+  if (typeof mockDispatch.headers === 'undefined') {
+    return true
+  }
+  if (typeof headers !== 'object' || typeof mockDispatch.headers !== 'object') {
+    return false
+  }
+
+  for (const [matchHeaderName, matchHeaderValue] of Object.entries(mockDispatch.headers)) {
+    const headerValue = getHeaderByName(headers, matchHeaderName);
+
+    if (!matchValue(matchHeaderValue, headerValue)) {
+      return false
+    }
+  }
+  return true
+}
+
+function safeUrl (path) {
+  if (typeof path !== 'string') {
+    return path
+  }
+
+  const pathSegments = path.split('?');
+
+  if (pathSegments.length !== 2) {
+    return path
+  }
+
+  const qp = new URLSearchParams(pathSegments.pop());
+  qp.sort();
+  return [...pathSegments, qp.toString()].join('?')
+}
+
+function matchKey (mockDispatch, { path, method, body, headers }) {
+  const pathMatch = matchValue(mockDispatch.path, path);
+  const methodMatch = matchValue(mockDispatch.method, method);
+  const bodyMatch = typeof mockDispatch.body !== 'undefined' ? matchValue(mockDispatch.body, body) : true;
+  const headersMatch = matchHeaders(mockDispatch, headers);
+  return pathMatch && methodMatch && bodyMatch && headersMatch
+}
+
+function getResponseData$1 (data) {
+  if (Buffer.isBuffer(data)) {
+    return data
+  } else if (typeof data === 'object') {
+    return JSON.stringify(data)
+  } else {
+    return data.toString()
+  }
+}
+
+function getMockDispatch (mockDispatches, key) {
+  const basePath = key.query ? buildURL$1(key.path, key.query) : key.path;
+  const resolvedPath = typeof basePath === 'string' ? safeUrl(basePath) : basePath;
+
+  // Match path
+  let matchedMockDispatches = mockDispatches.filter(({ consumed }) => !consumed).filter(({ path }) => matchValue(safeUrl(path), resolvedPath));
+  if (matchedMockDispatches.length === 0) {
+    throw new MockNotMatchedError(`Mock dispatch not matched for path '${resolvedPath}'`)
+  }
+
+  // Match method
+  matchedMockDispatches = matchedMockDispatches.filter(({ method }) => matchValue(method, key.method));
+  if (matchedMockDispatches.length === 0) {
+    throw new MockNotMatchedError(`Mock dispatch not matched for method '${key.method}'`)
+  }
+
+  // Match body
+  matchedMockDispatches = matchedMockDispatches.filter(({ body }) => typeof body !== 'undefined' ? matchValue(body, key.body) : true);
+  if (matchedMockDispatches.length === 0) {
+    throw new MockNotMatchedError(`Mock dispatch not matched for body '${key.body}'`)
+  }
+
+  // Match headers
+  matchedMockDispatches = matchedMockDispatches.filter((mockDispatch) => matchHeaders(mockDispatch, key.headers));
+  if (matchedMockDispatches.length === 0) {
+    throw new MockNotMatchedError(`Mock dispatch not matched for headers '${typeof key.headers === 'object' ? JSON.stringify(key.headers) : key.headers}'`)
+  }
+
+  return matchedMockDispatches[0]
+}
+
+function addMockDispatch$1 (mockDispatches, key, data) {
+  const baseData = { timesInvoked: 0, times: 1, persist: false, consumed: false };
+  const replyData = typeof data === 'function' ? { callback: data } : { ...data };
+  const newMockDispatch = { ...baseData, ...key, pending: true, data: { error: null, ...replyData } };
+  mockDispatches.push(newMockDispatch);
+  return newMockDispatch
+}
+
+function deleteMockDispatch (mockDispatches, key) {
+  const index = mockDispatches.findIndex(dispatch => {
+    if (!dispatch.consumed) {
+      return false
+    }
+    return matchKey(dispatch, key)
+  });
+  if (index !== -1) {
+    mockDispatches.splice(index, 1);
+  }
+}
+
+function buildKey$1 (opts) {
+  const { path, method, body, headers, query } = opts;
+  return {
+    path,
+    method,
+    body,
+    headers,
+    query
+  }
+}
+
+function generateKeyValues (data) {
+  return Object.entries(data).reduce((keyValuePairs, [key, value]) => [
+    ...keyValuePairs,
+    Buffer.from(`${key}`),
+    Array.isArray(value) ? value.map(x => Buffer.from(`${x}`)) : Buffer.from(`${value}`)
+  ], [])
+}
+
+/**
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+ * @param {number} statusCode
+ */
+function getStatusText (statusCode) {
+  return STATUS_CODES[statusCode] || 'unknown'
+}
+
+async function getResponse (body) {
+  const buffers = [];
+  for await (const data of body) {
+    buffers.push(data);
+  }
+  return Buffer.concat(buffers).toString('utf8')
+}
+
+/**
+ * Mock dispatch function used to simulate undici dispatches
+ */
+function mockDispatch (opts, handler) {
+  // Get mock dispatch from built key
+  const key = buildKey$1(opts);
+  const mockDispatch = getMockDispatch(this[kDispatches$3], key);
+
+  mockDispatch.timesInvoked++;
+
+  // Here's where we resolve a callback if a callback is present for the dispatch data.
+  if (mockDispatch.data.callback) {
+    mockDispatch.data = { ...mockDispatch.data, ...mockDispatch.data.callback(opts) };
+  }
+
+  // Parse mockDispatch data
+  const { data: { statusCode, data, headers, trailers, error }, delay, persist } = mockDispatch;
+  const { timesInvoked, times } = mockDispatch;
+
+  // If it's used up and not persistent, mark as consumed
+  mockDispatch.consumed = !persist && timesInvoked >= times;
+  mockDispatch.pending = timesInvoked < times;
+
+  // If specified, trigger dispatch error
+  if (error !== null) {
+    deleteMockDispatch(this[kDispatches$3], key);
+    handler.onError(error);
+    return true
+  }
+
+  // Handle the request with a delay if necessary
+  if (typeof delay === 'number' && delay > 0) {
+    setTimeout(() => {
+      handleReply(this[kDispatches$3]);
+    }, delay);
+  } else {
+    handleReply(this[kDispatches$3]);
+  }
+
+  function handleReply (mockDispatches, _data = data) {
+    // fetch's HeadersList is a 1D string array
+    const optsHeaders = Array.isArray(opts.headers)
+      ? buildHeadersFromArray(opts.headers)
+      : opts.headers;
+    const body = typeof _data === 'function'
+      ? _data({ ...opts, headers: optsHeaders })
+      : _data;
+
+    // util.types.isPromise is likely needed for jest.
+    if (isPromise(body)) {
+      // If handleReply is asynchronous, throwing an error
+      // in the callback will reject the promise, rather than
+      // synchronously throw the error, which breaks some tests.
+      // Rather, we wait for the callback to resolve if it is a
+      // promise, and then re-run handleReply with the new body.
+      body.then((newData) => handleReply(mockDispatches, newData));
+      return
+    }
+
+    const responseData = getResponseData$1(body);
+    const responseHeaders = generateKeyValues(headers);
+    const responseTrailers = generateKeyValues(trailers);
+
+    handler.abort = nop;
+    handler.onHeaders(statusCode, responseHeaders, resume, getStatusText(statusCode));
+    handler.onData(Buffer.from(responseData));
+    handler.onComplete(responseTrailers);
+    deleteMockDispatch(mockDispatches, key);
+  }
+
+  function resume () {}
+
+  return true
+}
+
+function buildMockDispatch$2 () {
+  const agent = this[kMockAgent$2];
+  const origin = this[kOrigin$2];
+  const originalDispatch = this[kOriginalDispatch$2];
+
+  return function dispatch (opts, handler) {
+    if (agent.isMockActive) {
+      try {
+        mockDispatch.call(this, opts, handler);
+      } catch (error) {
+        if (error instanceof MockNotMatchedError) {
+          const netConnect = agent[kGetNetConnect]();
+          if (netConnect === false) {
+            throw new MockNotMatchedError(`${error.message}: subsequent request to origin ${origin} was not allowed (net.connect disabled)`)
+          }
+          if (checkNetConnect(netConnect, origin)) {
+            originalDispatch.call(this, opts, handler);
+          } else {
+            throw new MockNotMatchedError(`${error.message}: subsequent request to origin ${origin} was not allowed (net.connect is not enabled for this origin)`)
+          }
+        } else {
+          throw error
+        }
+      }
+    } else {
+      originalDispatch.call(this, opts, handler);
+    }
+  }
+}
+
+function checkNetConnect (netConnect, origin) {
+  const url = new URL(origin);
+  if (netConnect === true) {
+    return true
+  } else if (Array.isArray(netConnect) && netConnect.some((matcher) => matchValue(matcher, url.host))) {
+    return true
+  }
+  return false
+}
+
+function buildMockOptions (opts) {
+  if (opts) {
+    const { agent, ...mockOptions } = opts;
+    return mockOptions
+  }
+}
+
+var mockUtils = {
+  getResponseData: getResponseData$1,
+  getMockDispatch,
+  addMockDispatch: addMockDispatch$1,
+  deleteMockDispatch,
+  buildKey: buildKey$1,
+  generateKeyValues,
+  matchValue,
+  getResponse,
+  getStatusText,
+  mockDispatch,
+  buildMockDispatch: buildMockDispatch$2,
+  checkNetConnect,
+  buildMockOptions,
+  getHeaderByName
+};
+
+var mockInterceptor = {};
+
+const { getResponseData, buildKey, addMockDispatch } = mockUtils;
+const {
+  kDispatches: kDispatches$2,
+  kDispatchKey,
+  kDefaultHeaders,
+  kDefaultTrailers,
+  kContentLength,
+  kMockDispatch
+} = mockSymbols;
+const { InvalidArgumentError: InvalidArgumentError$4 } = errors$1;
+const { buildURL } = util$i;
+
+/**
+ * Defines the scope API for an interceptor reply
+ */
+class MockScope {
+  constructor (mockDispatch) {
+    this[kMockDispatch] = mockDispatch;
+  }
+
+  /**
+   * Delay a reply by a set amount in ms.
+   */
+  delay (waitInMs) {
+    if (typeof waitInMs !== 'number' || !Number.isInteger(waitInMs) || waitInMs <= 0) {
+      throw new InvalidArgumentError$4('waitInMs must be a valid integer > 0')
+    }
+
+    this[kMockDispatch].delay = waitInMs;
+    return this
+  }
+
+  /**
+   * For a defined reply, never mark as consumed.
+   */
+  persist () {
+    this[kMockDispatch].persist = true;
+    return this
+  }
+
+  /**
+   * Allow one to define a reply for a set amount of matching requests.
+   */
+  times (repeatTimes) {
+    if (typeof repeatTimes !== 'number' || !Number.isInteger(repeatTimes) || repeatTimes <= 0) {
+      throw new InvalidArgumentError$4('repeatTimes must be a valid integer > 0')
+    }
+
+    this[kMockDispatch].times = repeatTimes;
+    return this
+  }
+}
+
+/**
+ * Defines an interceptor for a Mock
+ */
+let MockInterceptor$2 = class MockInterceptor {
+  constructor (opts, mockDispatches) {
+    if (typeof opts !== 'object') {
+      throw new InvalidArgumentError$4('opts must be an object')
+    }
+    if (typeof opts.path === 'undefined') {
+      throw new InvalidArgumentError$4('opts.path must be defined')
+    }
+    if (typeof opts.method === 'undefined') {
+      opts.method = 'GET';
+    }
+    // See https://github.com/nodejs/undici/issues/1245
+    // As per RFC 3986, clients are not supposed to send URI
+    // fragments to servers when they retrieve a document,
+    if (typeof opts.path === 'string') {
+      if (opts.query) {
+        opts.path = buildURL(opts.path, opts.query);
+      } else {
+        // Matches https://github.com/nodejs/undici/blob/main/lib/fetch/index.js#L1811
+        const parsedURL = new URL(opts.path, 'data://');
+        opts.path = parsedURL.pathname + parsedURL.search;
+      }
+    }
+    if (typeof opts.method === 'string') {
+      opts.method = opts.method.toUpperCase();
+    }
+
+    this[kDispatchKey] = buildKey(opts);
+    this[kDispatches$2] = mockDispatches;
+    this[kDefaultHeaders] = {};
+    this[kDefaultTrailers] = {};
+    this[kContentLength] = false;
+  }
+
+  createMockScopeDispatchData (statusCode, data, responseOptions = {}) {
+    const responseData = getResponseData(data);
+    const contentLength = this[kContentLength] ? { 'content-length': responseData.length } : {};
+    const headers = { ...this[kDefaultHeaders], ...contentLength, ...responseOptions.headers };
+    const trailers = { ...this[kDefaultTrailers], ...responseOptions.trailers };
+
+    return { statusCode, data, headers, trailers }
+  }
+
+  validateReplyParameters (statusCode, data, responseOptions) {
+    if (typeof statusCode === 'undefined') {
+      throw new InvalidArgumentError$4('statusCode must be defined')
+    }
+    if (typeof data === 'undefined') {
+      throw new InvalidArgumentError$4('data must be defined')
+    }
+    if (typeof responseOptions !== 'object') {
+      throw new InvalidArgumentError$4('responseOptions must be an object')
+    }
+  }
+
+  /**
+   * Mock an undici request with a defined reply.
+   */
+  reply (replyData) {
+    // Values of reply aren't available right now as they
+    // can only be available when the reply callback is invoked.
+    if (typeof replyData === 'function') {
+      // We'll first wrap the provided callback in another function,
+      // this function will properly resolve the data from the callback
+      // when invoked.
+      const wrappedDefaultsCallback = (opts) => {
+        // Our reply options callback contains the parameter for statusCode, data and options.
+        const resolvedData = replyData(opts);
+
+        // Check if it is in the right format
+        if (typeof resolvedData !== 'object') {
+          throw new InvalidArgumentError$4('reply options callback must return an object')
+        }
+
+        const { statusCode, data = '', responseOptions = {} } = resolvedData;
+        this.validateReplyParameters(statusCode, data, responseOptions);
+        // Since the values can be obtained immediately we return them
+        // from this higher order function that will be resolved later.
+        return {
+          ...this.createMockScopeDispatchData(statusCode, data, responseOptions)
+        }
+      };
+
+      // Add usual dispatch data, but this time set the data parameter to function that will eventually provide data.
+      const newMockDispatch = addMockDispatch(this[kDispatches$2], this[kDispatchKey], wrappedDefaultsCallback);
+      return new MockScope(newMockDispatch)
+    }
+
+    // We can have either one or three parameters, if we get here,
+    // we should have 1-3 parameters. So we spread the arguments of
+    // this function to obtain the parameters, since replyData will always
+    // just be the statusCode.
+    const [statusCode, data = '', responseOptions = {}] = [...arguments];
+    this.validateReplyParameters(statusCode, data, responseOptions);
+
+    // Send in-already provided data like usual
+    const dispatchData = this.createMockScopeDispatchData(statusCode, data, responseOptions);
+    const newMockDispatch = addMockDispatch(this[kDispatches$2], this[kDispatchKey], dispatchData);
+    return new MockScope(newMockDispatch)
+  }
+
+  /**
+   * Mock an undici request with a defined error.
+   */
+  replyWithError (error) {
+    if (typeof error === 'undefined') {
+      throw new InvalidArgumentError$4('error must be defined')
+    }
+
+    const newMockDispatch = addMockDispatch(this[kDispatches$2], this[kDispatchKey], { error });
+    return new MockScope(newMockDispatch)
+  }
+
+  /**
+   * Set default reply headers on the interceptor for subsequent replies
+   */
+  defaultReplyHeaders (headers) {
+    if (typeof headers === 'undefined') {
+      throw new InvalidArgumentError$4('headers must be defined')
+    }
+
+    this[kDefaultHeaders] = headers;
+    return this
+  }
+
+  /**
+   * Set default reply trailers on the interceptor for subsequent replies
+   */
+  defaultReplyTrailers (trailers) {
+    if (typeof trailers === 'undefined') {
+      throw new InvalidArgumentError$4('trailers must be defined')
+    }
+
+    this[kDefaultTrailers] = trailers;
+    return this
+  }
+
+  /**
+   * Set reply content length header for replies on the interceptor
+   */
+  replyContentLength () {
+    this[kContentLength] = true;
+    return this
+  }
+};
+
+mockInterceptor.MockInterceptor = MockInterceptor$2;
+mockInterceptor.MockScope = MockScope;
+
+const { promisify: promisify$1 } = require$$0$2;
+const Client = client;
+const { buildMockDispatch: buildMockDispatch$1 } = mockUtils;
+const {
+  kDispatches: kDispatches$1,
+  kMockAgent: kMockAgent$1,
+  kClose: kClose$1,
+  kOriginalClose: kOriginalClose$1,
+  kOrigin: kOrigin$1,
+  kOriginalDispatch: kOriginalDispatch$1,
+  kConnected: kConnected$1
+} = mockSymbols;
+const { MockInterceptor: MockInterceptor$1 } = mockInterceptor;
+const Symbols$1 = symbols$3;
+const { InvalidArgumentError: InvalidArgumentError$3 } = errors$1;
+
+/**
+ * MockClient provides an API that extends the Client to influence the mockDispatches.
+ */
+class MockClient extends Client {
+  constructor (origin, opts) {
+    super(origin, opts);
+
+    if (!opts || !opts.agent || typeof opts.agent.dispatch !== 'function') {
+      throw new InvalidArgumentError$3('Argument opts.agent must implement Agent')
+    }
+
+    this[kMockAgent$1] = opts.agent;
+    this[kOrigin$1] = origin;
+    this[kDispatches$1] = [];
+    this[kConnected$1] = 1;
+    this[kOriginalDispatch$1] = this.dispatch;
+    this[kOriginalClose$1] = this.close.bind(this);
+
+    this.dispatch = buildMockDispatch$1.call(this);
+    this.close = this[kClose$1];
+  }
+
+  get [Symbols$1.kConnected] () {
+    return this[kConnected$1]
+  }
+
+  /**
+   * Sets up the base interceptor for mocking replies from undici.
+   */
+  intercept (opts) {
+    return new MockInterceptor$1(opts, this[kDispatches$1])
+  }
+
+  async [kClose$1] () {
+    await promisify$1(this[kOriginalClose$1])();
+    this[kConnected$1] = 0;
+    this[kMockAgent$1][Symbols$1.kClients].delete(this[kOrigin$1]);
+  }
+}
+
+const { promisify } = require$$0$2;
+const Pool = pool;
+const { buildMockDispatch } = mockUtils;
+const {
+  kDispatches,
+  kMockAgent,
+  kClose,
+  kOriginalClose,
+  kOrigin,
+  kOriginalDispatch,
+  kConnected
+} = mockSymbols;
+const { MockInterceptor } = mockInterceptor;
+const Symbols = symbols$3;
+const { InvalidArgumentError: InvalidArgumentError$2 } = errors$1;
+
+/**
+ * MockPool provides an API that extends the Pool to influence the mockDispatches.
+ */
+class MockPool extends Pool {
+  constructor (origin, opts) {
+    super(origin, opts);
+
+    if (!opts || !opts.agent || typeof opts.agent.dispatch !== 'function') {
+      throw new InvalidArgumentError$2('Argument opts.agent must implement Agent')
+    }
+
+    this[kMockAgent] = opts.agent;
+    this[kOrigin] = origin;
+    this[kDispatches] = [];
+    this[kConnected] = 1;
+    this[kOriginalDispatch] = this.dispatch;
+    this[kOriginalClose] = this.close.bind(this);
+
+    this.dispatch = buildMockDispatch.call(this);
+    this.close = this[kClose];
+  }
+
+  get [Symbols.kConnected] () {
+    return this[kConnected]
+  }
+
+  /**
+   * Sets up the base interceptor for mocking replies from undici.
+   */
+  intercept (opts) {
+    return new MockInterceptor(opts, this[kDispatches])
+  }
+
+  async [kClose] () {
+    await promisify(this[kOriginalClose])();
+    this[kConnected] = 0;
+    this[kMockAgent][Symbols.kClients].delete(this[kOrigin]);
+  }
+}
 
 // We include a version number for the Dispatcher API. In case of breaking changes,
 // this version number must be increased to avoid conflicts.
@@ -19685,6 +20392,14 @@ const globals = {
 
 // exported for dev/preview and node environments
 // TODO: remove this once we only support Node 18.11+ (the version multipart/form-data was added)
+/**
+ * Make various web APIs available as globals:
+ * - `crypto`
+ * - `fetch`
+ * - `Headers`
+ * - `Request`
+ * - `Response`
+ */
 function installPolyfills() {
 	for (const name in globals) {
 		Object.defineProperty(globalThis, name, {

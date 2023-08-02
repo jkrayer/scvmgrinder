@@ -43,7 +43,6 @@ async function updateCharacter(character) {
 async function getCharacter(id) {
   try {
     const character = await DB.characters.get(id);
-    console.log(62, character);
     return character || {};
   } catch (error) {
     console.error(`DB: Error finding character" ${error}`);

@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import {
 	_incrementSilver,
 	_decrementSilver,
@@ -6,17 +6,23 @@ import {
 	_incrementHp,
 	_decrementHp,
 	_decrementPower,
+	_modifyEquipment,
 	_setArmorTier,
-	armorTier
+	armorTier,
+	hasQuantityProp,
+	isEquippable,
+	canIncrement
 } from '.';
+
+vi.doMock('./store.ts', () => ({ update: (x: any) => x }));
 
 const startCharacter = {
 	silver: 2,
 	hitpoints: { current: 2, maximum: 4 },
 	omens: { current: 2, maximum: 2 },
 	powers: 1,
-	equipment: [{ name: 'lantern' }, { currentTier: 3 }]
-} as Character.SavedCharacter;
+	equipment: [{ name: 'lantern' }, { _id: '2', currentTier: 3 }]
+} as unknown as Character.SavedCharacter;
 
 describe('incrementHp', () => {
 	it('adds one to the current hit points without exceeding max', () => {
@@ -107,9 +113,22 @@ describe('_setArmorTier', () => {
 
 describe('armorTier', () => {
 	it('set currentTier of armor in equipment', () => {
-		const a = armorTier(1, 2)(startCharacter);
+		const a = armorTier(2, '2')(startCharacter);
 		const ar = a.equipment[1] as Equipment.Armor;
 
 		expect(ar.currentTier).toBe(2);
 	});
 });
+
+describe('hasQuantityProp', () => {
+	it('should return true when the object contains the "quantity" property', () => {
+		expect(hasQuantityProp({ quantity: 1 })).toBe(true);
+		expect(hasQuantityProp({ quantity: undefined })).toBe(true);
+	});
+
+	it('should return false when the object does not contain the "quantity" property', () => {
+		expect(hasQuantityProp({})).toBe(false);
+	});
+});
+
+//isEquippable, canIncrement;

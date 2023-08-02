@@ -1,22 +1,23 @@
-import { c as create_ssr_component, s as setContext, v as validate_component, m as missing_component } from "./ssr.js";
-const base = "";
+import { c as create_ssr_component, s as setContext, v as validate_component, m as missing_component } from "./index2.js";
+let base = "";
 let assets = base;
+const initial = { base, assets };
+function reset() {
+  base = initial.base;
+  assets = initial.assets;
+}
 function set_assets(path) {
-  assets = path;
+  assets = initial.assets = path;
 }
-let version = "";
 let public_env = {};
-function set_building(value) {
-}
 function set_private_env(environment) {
 }
 function set_public_env(environment) {
   public_env = environment;
 }
-function set_version(value) {
-  version = value;
-}
 function afterUpdate() {
+}
+function set_building() {
 }
 const Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { stores } = $$props;
@@ -51,7 +52,10 @@ const Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     {
       stores.page.set(page);
     }
-    $$rendered = `  ${constructors[1] ? `${validate_component(constructors[0] || missing_component, "svelte:component").$$render(
+    $$rendered = `
+
+
+${constructors[1] ? `${validate_component(constructors[0] || missing_component, "svelte:component").$$render(
       $$result,
       { data: data_0, this: components[0] },
       {
@@ -85,18 +89,23 @@ const Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         }
       },
       {}
-    )}`} ${``}`;
+    )}`}
+
+${``}`;
   } while (!$$settled);
   return $$rendered;
 });
-set_version("1689358660731");
 const options = {
+  app_template_contains_nonce: false,
   csp: { "mode": "auto", "directives": { "upgrade-insecure-requests": false, "block-all-mixed-content": false }, "reportOnly": { "upgrade-insecure-requests": false, "block-all-mixed-content": false } },
   csrf_check_origin: true,
+  track_server_fetches: false,
   embedded: false,
   env_public_prefix: "PUBLIC_",
+  env_private_prefix: "",
   hooks: null,
   // added lazily, via `get_hooks`
+  preload_strategy: "modulepreload",
   root: Root,
   service_worker: false,
   templates: {
@@ -105,12 +114,18 @@ const options = {
 
 		<style>
 			body {
+				--bg: white;
+				--fg: #222;
+				--divider: #ccc;
+				background: var(--bg);
+				color: var(--fg);
 				font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
 					Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				height: 100vh;
+				margin: 0;
 			}
 
 			.error {
@@ -129,7 +144,7 @@ const options = {
 			}
 
 			.message {
-				border-left: 1px solid #ccc;
+				border-left: 1px solid var(--divider);
 				padding: 0 0 0 1rem;
 				margin: 0 0 0 1rem;
 				min-height: 2.5rem;
@@ -142,12 +157,21 @@ const options = {
 				font-size: 1em;
 				margin: 0;
 			}
+
+			@media (prefers-color-scheme: dark) {
+				body {
+					--bg: #222;
+					--fg: #ddd;
+					--divider: #666;
+				}
+			}
 		</style>
 	</head>
 	<body>
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
-  }
+  },
+  version_hash: "7qc8bi"
 };
 function get_hooks() {
   return {};
@@ -155,12 +179,12 @@ function get_hooks() {
 export {
   assets as a,
   base as b,
-  set_assets as c,
-  set_building as d,
-  set_private_env as e,
+  set_public_env as c,
+  set_assets as d,
+  set_building as e,
   get_hooks as g,
   options as o,
   public_env as p,
-  set_public_env as s,
-  version as v
+  reset as r,
+  set_private_env as s
 };
