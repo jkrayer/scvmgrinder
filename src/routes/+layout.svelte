@@ -1,3 +1,7 @@
+<script lang="ts">
+	export const ssr = false;
+</script>
+
 <header id="site-header">
 	<h1 id="site-logo"><a href="/">SCVUMGRINDER</a></h1>
 	<p id="site-tag">A digital character sheet for MÖRK BORG</p>
