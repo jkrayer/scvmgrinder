@@ -1,69 +1,117 @@
-import { add, join, multiply, pathOr, sum, subtract } from 'ramda';
-import { rollD20, rollD12, rollD10, rollD8, rollD6, rollD4, rollD3, rollD2 } from './dice';
+import {
+  __,
+  compose,
+  filter,
+  isNil,
+  not,
+  props,
+  propOr,
+  propSatisfies,
+  reduce,
+} from "ramda";
 
-const DICE: { [key: number]: () => number } = Object.freeze({
-	20: rollD20,
-	12: rollD12,
-	10: rollD10,
-	8: rollD8,
-	6: rollD6,
-	4: rollD4,
-	3: rollD3,
-	2: rollD2
-});
+// DEBUGGING
+const trace =
+  (msg: string) =>
+  (x: any): any => {
+    console.log(msg, x);
+    return x;
+  };
 
-const LOCAL_MATH: { [key in ModifierMathSymbols]: (arg1: number, arg2: number) => number } =
-	Object.freeze({
-		'+': add,
-		'-': subtract,
-		x: multiply
-	});
+export const roll = (d: number): number => Math.floor(Math.random() * d) + 1;
 
-export const stringValue = pathOr<string>('', ['target', 'value']);
+type RollMath = "+" | "-" | "x";
+type ROLLFORMULA = [number, "d", number, RollMath, number];
 
-export const rollToScore = (roll: number): Score => {
-	if (roll < 5) {
-		return -3;
-	} else if (roll < 7) {
-		return -2;
-	} else if (roll < 9) {
-		return -1;
-	} else if (roll < 13) {
-		return 0;
-	} else if (roll < 15) {
-		return 1;
-	} else if (roll < 17) {
-		return 2;
-	} else {
-		return 3;
-	}
+export const rollFormula = ([
+  number,
+  ,
+  die,
+  operation,
+  modifier,
+]: ROLLFORMULA): number => {
+  let r = 0;
+
+  for (let i = 0; i < number; i++) {
+    r += roll(die);
+  }
+
+  switch (operation) {
+    case "+":
+      r += modifier;
+      break;
+    case "-":
+      r -= modifier;
+      break;
+    case "x":
+      r *= modifier;
+      break;
+    default:
+      break;
+  }
+
+  return r;
 };
 
-// DICE
-export const toDiceString = join('');
+export const toInt = (str: string): number => parseInt(str, 10);
 
-export const minRoll = ([number = 0, , , symbol = '+', modifier = 0]: Dice | never[]): number =>
-	LOCAL_MATH[symbol](number, modifier);
+const toInboundsIndex = (num: number): number => (num === -1 ? Infinity : num);
 
-export const maxRoll = ([number = 0, , dice = 0, symbol = '+', modifier = 0]:
-	| Dice
-	| never[]): number => LOCAL_MATH[symbol](number * dice, modifier);
+// pretty easy to cache
+export const parseRollString = (rs: string): ROLLFORMULA => {
+  const dieIndex = rs.indexOf("d");
+  const modIndex = toInboundsIndex(rs.search(/[-x\+]/));
 
-export const rollDice = ([number = 0, , dice = 0, symbol = '+', modifier = 0]: Dice): number => {
-	const rolls: number[] = new Array(number).fill(-1).map(() => DICE[dice]());
-
-	return LOCAL_MATH[symbol](sum(rolls), modifier);
+  return [
+    toInt(rs.slice(0, dieIndex)),
+    "d",
+    toInt(rs.slice(dieIndex + 1, modIndex)),
+    modIndex === Infinity ? "+" : (rs.charAt(modIndex) as RollMath),
+    modIndex === Infinity ? 0 : toInt(rs.slice(modIndex + 1)),
+  ];
 };
 
-/**
- * Pad an array to the given size
- * @param size number
- * @param array T[]
- * @returns T[]
- */
-export const padTo = <T>(size: number, array: T[]): T[] => {
-	const difference: number = size - array.length;
-	const tail: T[] = difference < 1 ? [] : new Array(difference).fill(null);
+export const rollString = compose(rollFormula, parseRollString) as (
+  arg1: string
+) => number;
 
-	return [...array, ...tail];
+const getEq = propOr([], "equipment") as (arg1: CharacterType) => Equipment[];
+
+// const equippedArmor = compose(
+//   ([type, equipped]) => equipped && ["armor", "shield"].includes(type),
+//   props(["type", "equipped"])
+// ) as (arg1: Equipment[]) => Armor[];
+
+export const sign = (num: number): string => {
+  const s = Math.sign(num);
+
+  if (s === 0) {
+    return "";
+  } else if (s === 1) {
+    return `+${num}`;
+  } else {
+    return `${num}`;
+  }
 };
+
+export const hasPowers = propSatisfies(compose(not, isNil), "powers") as (
+  arg1: CharacterType
+) => boolean;
+
+// export const getWeapons = compose(
+//   filter(({ type, equipped }) => type === "weapon" && equipped === true),
+//   getEq
+// ) as (arg1: TCharacter) => Weapon[];
+
+// export const getArmor = compose(
+//   reduce(
+//     (acc, eq) => (equippedArmor(eq) ? { ...acc, [eq.type]: eq } : acc),
+//     {}
+//   ),
+//   getEq
+// ) as (arg1: TCharacter) => { armor: Armor; shield: any };
+
+export const getScrolls = compose(
+  filter(propSatisfies((type) => type === "scroll", "type")),
+  getEq
+) as (arg1: CharacterType) => Scroll[];
