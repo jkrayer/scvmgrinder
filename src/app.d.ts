@@ -13,7 +13,7 @@ declare global {
 
 	type Die = 2 | 4 | 6 | 8 | 10 | 12 | 20;
 
-	type Dice = [number, 'd', number, ModifierMathSymbols?, number?];
+	type Dice = [number, 'd', Die, ModifierMathSymbols?, number?];
 
 	type Score = -3 | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -48,8 +48,8 @@ declare global {
 		tableOne: number;
 		tableTwo: number;
 		tableThree: number;
-		weaponTable: number;
-		armorTable: number;
+		weaponTable: Die;
+		armorTable: Die;
 		abilities: Ability[];
 		hitPoints: [Dice[0], Dice[1], Dice[2]];
 		terribleTraits: boolean;

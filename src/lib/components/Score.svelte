@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { maxRoll, minRoll, toDiceString } from '$lib';
+	import { toDiceString } from '$lib';
+	import { maxRoll, minRoll } from '$lib/dice';
 	import Label from './Form/Label.svelte';
 	import NumberInput from './Form/NumberInput.svelte';
 	import RollButton from './RollButton.svelte';
