@@ -4,7 +4,8 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "vite build",
+		"build": "vite build && npm run build:404",
+		"build:404": "cp docs/index.html docs/404.html",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
 		"dev": "vite dev",
@@ -18,7 +19,6 @@
 	"devDependencies": {
 		"@playwright/test": "1.30.0",
 		"@sveltejs/adapter-auto": "3.1.1",
-		"@sveltejs/adapter-netlify": "4.1.0",
 		"@sveltejs/adapter-static": "3.0.1",
 		"@sveltejs/kit": "2.5.2",
 		"@sveltejs/vite-plugin-svelte": "3.0.2",
