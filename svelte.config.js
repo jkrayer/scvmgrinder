@@ -1,4 +1,3 @@
-// import adapter from '@sveltejs/adapter-netlify';
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
@@ -9,7 +8,6 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		// adapter: adapter({ edge: false, split: false }) // netlify
 		adapter: adapter({
 			pages: 'docs',
 			fallback: 'index.html'
