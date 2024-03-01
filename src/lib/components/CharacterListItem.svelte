@@ -8,7 +8,7 @@
 
 	// TODO: Move to lib and test
 	// const snakCase = (s: string): string => s.toLocaleLowerCase().replace(/\s+/g, '_');
-	const image: string = `/${character.className.toLocaleLowerCase().replace(/\s+/g, '_')}.png`;
+	const image: string = `${character.className.toLocaleLowerCase().replace(/\s+/g, '_')}.png`;
 
 	const handleConfirm = () => {
 		deleteCharacter(character).then(() => {

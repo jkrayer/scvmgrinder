@@ -11,7 +11,11 @@ const config = {
 		adapter: adapter({
 			pages: 'docs',
 			fallback: 'index.html'
-		})
+		}),
+		paths: {
+			base: '/scvmgrinder',
+			relative: true
+		}
 	}
 };
 

@@ -12,7 +12,7 @@
 </script>
 
 <button type="button" title="Roll" on:click={handleRoll} class="button"
-	><img src="/pip-six.svg" alt="Roll" /></button
+	><img src="pip-six.svg" alt="Roll" /></button
 >
 
 <style>

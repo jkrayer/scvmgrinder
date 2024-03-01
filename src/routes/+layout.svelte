@@ -5,7 +5,7 @@
 <header id="site-header">
 	<h1 id="site-logo"><a href="/">SCVUMGRINDER</a></h1>
 	<p id="site-tag">A digital character sheet for MÖRK BORG</p>
-	<img src="/CompWith_MORKBORG_horiz.svg" width="270" height="77" alt="Compatible With MÖRK BORG" />
+	<img src="CompWith_MORKBORG_horiz.svg" width="270" height="77" alt="Compatible With MÖRK BORG" />
 </header>
 
 <main class="narrow-container">
