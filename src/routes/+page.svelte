@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let data: { characters: Required<Character.CharacterData>[] };
 
-	import { base, resolveRoute } from '$app/paths';
+	import { base } from '$app/paths';
 	import CharacterListItem from '$lib/components/CharacterListItem.svelte';
 </script>
 

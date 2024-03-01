@@ -3,6 +3,7 @@
 
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { isEmpty } from 'ramda';
 	import store, { canSubmit, reset, setSelectedClass, setTrait } from './store/new-character-store';
 	import { maxRoll, toDiceString, rollToScore } from '$lib';
@@ -44,11 +45,11 @@
 
 	const handleSubmit = () =>
 		addCharacter(formToCharacter($store.selectedClass as RawClassData, $store.formData)).then(() =>
-			goto('/')
+			goto(`${base}/`)
 		);
 </script>
 
-<a href="/" class="banner">Go Home!<br />the path is pain.</a>
+<a href="{base}/" class="banner">Go Home!<br />the path is pain.</a>
 <Form onSubmit={handleSubmit}>
 	<Label title="Character Class">
 		<OptionButton
