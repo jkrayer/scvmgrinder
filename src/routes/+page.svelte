@@ -1,11 +1,12 @@
 <script lang="ts">
 	export let data: { characters: Required<Character.CharacterData>[] };
 
+	import { base, resolveRoute } from '$app/paths';
 	import CharacterListItem from '$lib/components/CharacterListItem.svelte';
 </script>
 
 <ol id="class-list" class="clear-list row">
-	<li class="col-two"><a href="/create" id="create-character-link">+New Character</a></li>
+	<li class="col-two"><a href="{base}/create" id="create-character-link">+New Character</a></li>
 	{#each data.characters as character}
 		<li class="col-two"><CharacterListItem {character} /></li>
 	{/each}

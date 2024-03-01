@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { invalidateAll } from '$app/navigation';
 	import { deleteCharacter } from '$lib/db';
 	import SquareButton from './SquareButton.svelte';
@@ -28,7 +29,7 @@
 	<div class="button-col">
 		<SquareButton
 			tag="a"
-			href={`/play/${character._id}`}
+			href={`${base}/play/${character._id}`}
 			icon="play"
 			title={`Play ${character.name}`}
 		/>
