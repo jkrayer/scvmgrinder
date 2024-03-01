@@ -1,3 +1,5 @@
+![Deploy](https://github.com/jkrayer/scvmgrinder/actions/workflows/deploy.yml/badge.svg)
+
 # scvmgrinder
 
 A browser based character sheet for [MÖRK BORG](https://morkborg.com/). Built with [Svelte](https://svelte.dev/).
