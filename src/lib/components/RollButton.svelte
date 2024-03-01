@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { rollDice } from '$lib/index';
+	import { rollDice } from '$lib/dice';
 	import { createEventDispatcher } from 'svelte';
 
 	export let dice: Dice;
+	export let roll: (arg0: Dice) => number = rollDice;
 
 	const dispatch = createEventDispatcher<{ roll: number }>();
 
 	const handleRoll = () => {
-		dispatch('roll', rollDice(dice));
+		dispatch('roll', roll(dice));
 	};
 </script>
 

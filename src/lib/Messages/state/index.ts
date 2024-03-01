@@ -1,7 +1,7 @@
 import { rollD20 } from '$lib/dice';
 import { compose } from 'ramda';
 import { addMessage } from './store';
-import { rollDice } from '$lib';
+import { rollDice, toDiceString } from '$lib';
 // import { sum } from 'ramda';
 // import { ARMOR_TIERS } from '../CharacterSheet/enums';
 // import { rollD2, rollD4, rollD6, rollD8, rollD10, rollD12, rollD20, DICE_MAP } from '../lib/dice';
@@ -152,7 +152,7 @@ const composeDamage = ({ name, damageDie }: Equipment.Weapon) => {
 		name,
 		score: '',
 		roll: rawRoll,
-		rollFormula: dice.join('')
+		rollFormula: toDiceString(dice)
 	};
 };
 
@@ -171,7 +171,7 @@ const rollArmor = (armor: Equipment.Armor | null, shield: boolean = false) => {
 		name: `${name}${!!name ? ' + ' : ''}${s}`,
 		score: '',
 		roll: rawRoll,
-		rollFormula: rollFormula.join('')
+		rollFormula: toDiceString(rollFormula)
 	};
 };
 

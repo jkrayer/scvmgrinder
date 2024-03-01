@@ -71,6 +71,8 @@ export function setTrait(trait: string) {
 		const { selectedClass, formData } = state;
 		const [, two] = formData.traits;
 
+		console.log('trait', two, trait);
+
 		return { selectedClass, formData: { ...formData, traits: [two, trait] } };
 	});
 }
