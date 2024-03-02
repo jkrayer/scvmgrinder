@@ -1,7 +1,8 @@
 import { rollD20 } from '$lib/dice';
 import { compose } from 'ramda';
 import { addMessage } from './store';
-import { rollDice, toDiceString } from '$lib';
+import { toDiceString } from '$lib';
+import { rollDice } from '$lib/dice';
 // import { sum } from 'ramda';
 // import { ARMOR_TIERS } from '../CharacterSheet/enums';
 // import { rollD2, rollD4, rollD6, rollD8, rollD10, rollD12, rollD20, DICE_MAP } from '../lib/dice';
@@ -161,13 +162,14 @@ const rollArmor = (armor: Equipment.Armor | null, shield: boolean = false) => {
 
 	const { name = '', currentTier = 0 } = armor || {};
 
-	let rawRoll: number = currentTier === 0 ? 0 : rollDice(TIERS[currentTier]) + Number(shield);
+	const rawRoll: number = currentTier === 0 ? 0 : rollDice(TIERS[currentTier]) + Number(shield);
 
 	const s = shield ? 'Shield' : '';
 	const rollFormula = [...(TIERS[currentTier] || [])].concat(shield ? ['+', 1] : []);
 
 	return {
 		type: 'ARMOR',
+		// eslint-disable-next-line no-extra-boolean-cast
 		name: `${name}${!!name ? ' + ' : ''}${s}`,
 		score: '',
 		roll: rawRoll,

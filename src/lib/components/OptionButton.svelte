@@ -1,8 +1,6 @@
-<script lang="ts">
+<script lang="ts" generics="T extends { _id: string; name: string }">
 	import { createEventDispatcher } from 'svelte';
 	import RollButton from './RollButton.svelte';
-
-	type T = $$Generic<{ _id: string; name: string }>;
 
 	export let dice: Dice;
 	export let options: T[];

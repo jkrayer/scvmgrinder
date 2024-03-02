@@ -11,6 +11,7 @@
 
 	// COME BACK TO ME
 	$: formula = ARMOR_TIERS[$EquippedArmor?.currentTier || 0].concat(
+		// eslint-disable-next-line no-extra-boolean-cast
 		!!$EquippedShield ? ['+', 1] : []
 	) as Dice;
 </script>

@@ -1,10 +1,7 @@
-<script lang="ts">
+<script lang="ts" generics="T extends {_id: string; name: string}">
 	import { TriangleDown } from 'radix-icons-svelte';
 	import { prop } from 'ramda';
 
-	type T = $$Generic<{ _id: string; name: string }>;
-
-	//
 	export let options: T[];
 	export let valueProp: keyof T = '_id';
 	export let labelProp: keyof T = 'name';

@@ -74,7 +74,7 @@ const sort = compose<
 // NOTE: Might wan to add class ID to character object, might make sense to include class data at some future point
 // Note: Need to deal with Natural Weapons
 export function formToCharacter(
-	{ _id, name: className, omens, naturalWeapon, powers }: RawClassData, // probably a feature?
+	{ name: className, omens, powers }: RawClassData, // probably a feature?
 	{ food, silver, agility, presence, strength, toughness, hitPoints, name, ...rest }: FormData
 ): Character.CharacterData {
 	//

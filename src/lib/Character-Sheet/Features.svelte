@@ -1,13 +1,13 @@
 <script lang="ts">
 	import Character from './state/store';
 
-	const format = (s: string): string =>
-		s
-			.split(':')
-			.reduce(
-				(acc, part, index) => acc + (index === 0 ? `<span class="prefix">${part}: </span>` : part),
-				''
-			);
+	// const format = (s: string): string =>
+	// 	s
+	// 		.split(':')
+	// 		.reduce(
+	// 			(acc, part, index) => acc + (index === 0 ? `<span class="prefix">${part}: </span>` : part),
+	// 			''
+	// 		);
 </script>
 
 <h2 class="sheet-title">Features</h2>

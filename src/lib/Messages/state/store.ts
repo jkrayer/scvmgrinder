@@ -9,7 +9,7 @@ export default MessageStore;
 
 export function addMessage(message: Message) {
 	MessageStore.update(([one, two]: Message[]) => {
-		return [message, one, two].filter((x: any) => x !== undefined);
+		return [message, one, two].filter((x: Message | undefined) => x !== undefined);
 	});
 }
 

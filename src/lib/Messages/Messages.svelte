@@ -63,15 +63,15 @@
 
 	.message-body-title,
 	.message-body-formula,
-	.message-body-target {
+	/* .message-body-target {
 		font-size: 0.8125rem;
 		line-height: 1;
 		text-transform: capitalize;
-	}
+	} */
 	.message-body-title {
 		text-transform: uppercase;
 	}
-	.message-body-title_to-hit {
+	/* .message-body-title_to-hit {
 		color: #769eff;
 	}
 	.message-body-title_damage {
@@ -79,15 +79,15 @@
 	}
 	.message-body-title_test {
 		color: green;
-	}
+	} */
 
 	.message-body-formula,
-	.message-body-target {
+	/* .message-body-target {
 		color: #ccc;
 	}
 	.message-body-target {
 		line-height: 1.33333;
-	}
+	} */
 	.message-body-formula {
 		margin-left: 0.25rem;
 		font-weight: 400;

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 // import { itMessage, damageMessage, armorMessage, usePowerMessage, rollFormula } from '.';
 
-const inRange = (low: number, high: number) => (x: number) => x > low && x < high;
+// const inRange = (low: number, high: number) => (x: number) => x > low && x < high;
 
 describe.skip('it message', () => {
 	it('should be true', () => {

@@ -142,7 +142,9 @@ a:hover {
 	box-sizing: border-box;
 	border: none;
 	line-height: 1;
-	transition: color 200ms linear, background-color 200ms linear;
+	transition:
+		color 200ms linear,
+		background-color 200ms linear;
 	cursor: pointer;
 	appearance: none;
 }

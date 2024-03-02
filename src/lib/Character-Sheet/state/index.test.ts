@@ -6,15 +6,15 @@ import {
 	_incrementHp,
 	_decrementHp,
 	_decrementPower,
-	_modifyEquipment,
+	// _modifyEquipment,
 	_setArmorTier,
 	armorTier,
-	hasQuantityProp,
-	isEquippable,
-	canIncrement
+	hasQuantityProp
+	// isEquippable,
+	// canIncrement
 } from '.';
 
-vi.doMock('./store.ts', () => ({ update: (x: any) => x }));
+vi.doMock('./store.ts', () => ({ update: (x: unknown) => x }));
 
 const startCharacter = {
 	silver: 2,

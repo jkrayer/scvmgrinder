@@ -1,6 +1,6 @@
 <script lang="ts">
 	import EquipmentItem from './EquipmentItem.svelte';
-	import CharacterStore, { update } from '../state/store';
+	import CharacterStore from '../state/store';
 	import Incrementer from '../Incrementer.svelte';
 	import { padTo } from '$lib';
 	import { incSilver, decSilver } from '$lib/Character-Sheet/state/index';
@@ -11,12 +11,12 @@
 	let inventory = padTo<Character.Equipment>(16, $CharacterStore.equipment);
 	let encumbrance: number = 8;
 	let encumbranceIndex: number = 7;
-	let isEncumbered: boolean = false;
+	// let isEncumbered: boolean = false;
 
 	$: {
 		encumbrance = 8 + $CharacterStore.abilities.strength;
 		encumbranceIndex = encumbrance - 1;
-		isEncumbered = $CharacterStore.equipment.length > encumbrance;
+		// isEncumbered = $CharacterStore.equipment.length > encumbrance;
 		inventory = padTo<Character.Equipment>(16, $CharacterStore.equipment);
 	}
 
@@ -78,7 +78,7 @@
 		padding: 1px;
 	}
 
-	.inventory-title {
+	/* .inventory-title {
 		box-sizing: border-box;
 		height: 27px;
 		padding: 6px 6px 0;
@@ -90,18 +90,18 @@
 	}
 	.inventory-title-encumbered {
 		background-color: var(--lightYellow);
-	}
+	} */
 
-	.inventory-is-broken {
+	/* .inventory-is-broken {
 		text-decoration: line-through;
-	}
+	} */
 
-	.silver {
+	/* .silver {
 		margin: var(--padTiny) 0 0 0;
 		font-size: 0.875rem;
-	}
+	} */
 
-	.silver > span {
+	/* .silver > span {
 		font-weight: 700;
-	}
+	} */
 </style>

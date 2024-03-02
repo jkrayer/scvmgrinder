@@ -29,7 +29,9 @@
 	let hpDice: Dice | never[] = [];
 
 	$: {
-		let selectedClass: RawClassData | undefined = CHARACTERS.find((x: any) => x._id === classId);
+		let selectedClass: RawClassData | undefined = CHARACTERS.find(
+			(x: RawClassData) => x._id === classId
+		);
 		!!selectedClass && setSelectedClass(selectedClass);
 	}
 
