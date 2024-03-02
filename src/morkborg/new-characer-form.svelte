@@ -6,7 +6,8 @@
 	import { base } from '$app/paths';
 	import { isEmpty } from 'ramda';
 	import store, { canSubmit, reset, setSelectedClass, setTrait } from './store/new-character-store';
-	import { maxRoll, toDiceString, rollToScore } from '$lib';
+	import { toDiceString, rollToScore } from '$lib';
+	import { maxRoll, rollDice, rollWithHistory } from '$lib/dice';
 	import Label from '$lib/components/Form/Label.svelte';
 	import Input from '$lib/components/Form/Input.svelte';
 	import NumberInput from '$lib/components/Form/NumberInput.svelte';
@@ -21,12 +22,16 @@
 	import { formToCharacter } from '../morkborg/lib';
 	import { addCharacter } from '$lib/db';
 
+	const rollTraits = rollWithHistory(rollDice, 2);
+
 	const CHARACTERS: RawClassData[] = tables.characters;
 	let classId: string = CHARACTERS[0]._id;
 	let hpDice: Dice | never[] = [];
 
 	$: {
-		let selectedClass: RawClassData | undefined = CHARACTERS.find((x: any) => x._id === classId);
+		let selectedClass: RawClassData | undefined = CHARACTERS.find(
+			(x: RawClassData) => x._id === classId
+		);
 		!!selectedClass && setSelectedClass(selectedClass);
 	}
 
@@ -212,6 +217,7 @@
 			alignItems="inline-block"
 		>
 			<RollButton
+				roll={rollTraits}
 				dice={[1, 'd', 20]}
 				on:roll={({ detail }) => setTrait(tables.terribelTraits.rows[detail - 1].value)}
 			/>

@@ -1,18 +1,14 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-	import type {
-		HTMLInputAttributes,
-		// HTMLInputTypeAttribute,
-		ChangeEventHandler
-	} from 'svelte/elements';
-	import { stringValue } from '$lib';
+	// import type {
+	// 	HTMLInputAttributes,
+	// } from 'svelte/elements';
 
 	// interface $$Props extends Omit<HTMLInputAttributes, 'type'> {
 	// 	type?: HTMLInputAttributes | null;
 	// }
 
 	// interface $$Props extends HTMLInputAttributes {}
-	interface $$Props extends Omit<HTMLInputAttributes, 'type'> {}
+	// interface $$Props extends Omit<HTMLInputAttributes, 'type'> {}
 
 	// const dispatch = createEventDispatcher();
 

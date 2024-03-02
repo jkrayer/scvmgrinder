@@ -18,7 +18,7 @@ const scrollAtIndex =
 	(index: number): Equipment.Scroll =>
 		scrolls[index];
 
-const stringify = (x: any): string => JSON.stringify({ equipment: x });
+const stringify = (x: unknown): string => JSON.stringify({ equipment: x });
 // (x) => (fn) => [fn(x), x]
 const nameAndScroll = (x: Equipment.Scroll): [string, Equipment.Scroll] => [x.name, x];
 const scrollString = ([name, scroll]: [string, Equipment.Scroll]): [string, string] => [

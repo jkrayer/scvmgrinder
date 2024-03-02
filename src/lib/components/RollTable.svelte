@@ -1,13 +1,10 @@
 <script lang="ts">
 	export let die: number;
-	export let group: any;
+	// TODO: learn how to type this
+	export let group: unknown[];
 	export let options: { dice: number[]; value: string; label: string }[];
 	export let multiple: number = 1;
 	export let alignItems: 'list-item' | 'inline-block' = 'list-item';
-
-	let isDisabled: boolean = false;
-
-	$: isDisabled = group.length >= multiple;
 </script>
 
 <div class="wrapper">

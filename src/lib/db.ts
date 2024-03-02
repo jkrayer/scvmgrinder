@@ -1,19 +1,23 @@
-import Dexie, { liveQuery, type IndexableType, type Table } from 'dexie';
+import Dexie, { type IndexableType, type Table } from 'dexie';
 import { compose } from 'ramda';
 
-const desc = ({ description, ...rest }: any) => ({ ...rest, description: [description] });
+// @ts-expect-error legacy character data updater
+const desc = ({ description, ...rest }) => ({ ...rest, description: [description] });
 
-const className = ({ class: classObj, description, ...rest }: any) => ({
+// @ts-expect-error legacy character data updater
+const className = ({ class: classObj, description, ...rest }) => ({
 	...rest,
 	description: description.concat(classObj.abilities),
 	className: classObj.name
 });
 
-const miseries = ({ miseries, ...rest }: any) => ({
+// @ts-expect-error legacy character data updater
+const miseries = ({ miseries, ...rest }) => ({
 	...rest,
 	miseries: miseries.map((x: boolean) => [x, ''])
 });
 
+// @ts-expect-error legacy character data updater
 const convert = compose(miseries, className, desc);
 
 export class ScvmgrinderDB extends Dexie {
@@ -49,7 +53,8 @@ export async function deleteCharacter(
 //
 export async function updateCharacter(character: Character.CharacterData) {
 	try {
-		const id = await DB.characters.put(character);
+		// const id = await DB.characters.put(character);
+		await DB.characters.put(character);
 	} catch (error) {
 		console.error(`DB: Error updating character" ${error}`);
 	}

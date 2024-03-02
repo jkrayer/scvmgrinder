@@ -54,7 +54,7 @@ const store = writable<State>({
 export default store;
 
 export function reset(selectedClass: RawClassData) {
-	store.update((state: State): State => ({ selectedClass, formData: formDataFactory() }));
+	store.update((): State => ({ selectedClass, formData: formDataFactory() }));
 }
 
 export function setSelectedClass(selectedClass: RawClassData) {
@@ -71,6 +71,8 @@ export function setTrait(trait: string) {
 		const { selectedClass, formData } = state;
 		const [, two] = formData.traits;
 
+		console.log('trait', two, trait);
+
 		return { selectedClass, formData: { ...formData, traits: [two, trait] } };
 	});
 }
@@ -78,13 +80,14 @@ export function setTrait(trait: string) {
 // VALIDATORS
 const scoreRange = ifElse<[number], boolean, boolean>(lte(-3), gte(3), always(false));
 const gtZero = lt(0);
-const notEmpty = compose<[any], boolean, boolean>(not, isEmpty);
+const notEmpty = compose<[unknown], boolean, boolean>(not, isEmpty);
 
 //
 export const canSubmit = derived<Readable<State>, boolean>(
 	store,
 	({ formData }: State): boolean => {
-		const VALIDATIONS: [keyof FormData, (arg1: any) => boolean][] = [
+		// Array<keyof Formdata, (arg0:Formdata[samekey])=>boolean>
+		const VALIDATIONS = [
 			['food', gtZero],
 			['silver', gtZero],
 			['tableOne', notEmpty],
@@ -103,6 +106,7 @@ export const canSubmit = derived<Readable<State>, boolean>(
 			['badHabits', notEmpty]
 		];
 
+		// @ts-expect-error ts(7053)
 		return VALIDATIONS.reduce((acc, [key, fn]) => acc && fn(formData[key]), true);
 	},
 	false

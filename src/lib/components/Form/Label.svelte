@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { HTMLLabelAttributes } from 'svelte/elements';
+	// import type { HTMLLabelAttributes } from 'svelte/elements';
 
-	interface $$Props extends HTMLLabelAttributes {
-		title: string;
-	}
+	// interface $$Props extends HTMLLabelAttributes {
+	// 	title: string;
+	// }
 
 	export let title: string;
 </script>

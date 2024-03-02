@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Icons from './Icons.svelte';
-	import { stringValue } from '$lib';
 
 	type IconTypes = 'plus' | 'minus' | 'play';
 
