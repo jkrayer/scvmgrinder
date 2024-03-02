@@ -1,4 +1,5 @@
 ![Deploy](https://github.com/jkrayer/scvmgrinder/actions/workflows/deploy.yml/badge.svg)
+[![Scvmgrinder](https://circleci.com/gh/jkrayer/scvmgrinder.svg?style=svg)](https://app.circleci.com/pipelines/github/jkrayer/scvmgrinder)
 
 # scvmgrinder
 
