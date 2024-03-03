@@ -11,6 +11,7 @@
 	import Label from '$lib/components/Form/Label.svelte';
 	import Input from '$lib/components/Form/Input.svelte';
 	import NumberInput from '$lib/components/Form/NumberInput.svelte';
+	import HomeBanner from '$lib/components/HomeBanner.svelte';
 	import Select from '$lib/components/Form/Select.svelte';
 	import RollTable from '$lib/components/RollTable.svelte';
 	import Button from '$lib/components/Button.svelte';
@@ -54,7 +55,7 @@
 		);
 </script>
 
-<a href="{base}/" class="banner">Go Home!<br />the path is pain.</a>
+<HomeBanner />
 <Form onSubmit={handleSubmit}>
 	<Label title="Character Class">
 		<OptionButton
@@ -293,17 +294,3 @@
 		</div>
 	</div>
 </Form>
-
-<style>
-	/* may want to move to global */
-	.banner {
-		position: fixed;
-		top: 32px;
-		left: -63px;
-		padding: 0.5em 4rem;
-		border-bottom: 1px solid var(--black);
-		transform: rotate(-45deg);
-		background-color: var(--yellow);
-		text-align: center;
-	}
-</style>

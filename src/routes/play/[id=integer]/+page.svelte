@@ -9,6 +9,7 @@
 	import Omens from '$lib/Character-Sheet/Omens.svelte';
 	import Equipment from '$lib/Character-Sheet/Equipment/Equipment.svelte';
 	import Features from '$lib/Character-Sheet/Features.svelte';
+	import HomeBanner from '$lib/components/HomeBanner.svelte';
 
 	export let data: { character: Required<Character.CharacterData> };
 
@@ -18,6 +19,7 @@
 {#if $CharacterStore === undefined}
 	wating...
 {:else}
+	<HomeBanner />
 	<Messages />
 	<Header />
 	<Scores />

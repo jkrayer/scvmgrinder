@@ -3,7 +3,7 @@
 
 # scvmgrinder
 
-A browser based character sheet for [MÖRK BORG](https://morkborg.com/). Built with [Svelte](https://svelte.dev/).
+A browser based [Character Sheet](https://jameskrayer.com/scvmgrinder/) for [MÖRK BORG](https://morkborg.com/). Built with [Svelte](https://svelte.dev/).
 
 Scvmgrinder is an independent production by James Krayer and is not affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is published under the MÖRK BORG Third Party License.
 
