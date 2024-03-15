@@ -36,7 +36,7 @@
 	<div class="col-two">
 		<div class="row" style="align-items:center;">
 			<h2 class="sheet-title">Armor</h2>
-			&nbsp;{$EquippedArmor?.name}
+			&nbsp;{$EquippedArmor?.name || ''}
 			{$EquippedShield !== null ? ' + Shield' : ''}
 		</div>
 	</div>
