@@ -14,8 +14,8 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - add_ssh_keys:
-        fingerprints:
-          - 'SHA256:QG26wYkIBnCKAW+kHzW8C0Mtpgam5tuaw63A726phfY'
+          fingerprints:
+            - 'SHA256:QG26wYkIBnCKAW+kHzW8C0Mtpgam5tuaw63A726phfY'
       - checkout
       - run:
           name: install
