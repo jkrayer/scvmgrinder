@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { rollDice } from '$lib/dice';
 	import { createEventDispatcher } from 'svelte';
 
@@ -13,7 +14,7 @@
 </script>
 
 <button type="button" title="Roll" on:click={handleRoll} class="button"
-	><img src="pip-six.svg" alt="Roll" /></button
+	><img src={`${base}/pip-six.svg`} alt="Roll" /></button
 >
 
 <style>

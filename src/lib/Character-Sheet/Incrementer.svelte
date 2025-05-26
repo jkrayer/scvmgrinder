@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import SquareButton from '$lib/components/SquareButton.svelte';
 
-	const dispatch = createEventDispatcher<{ increment: never; decrement: never }>();
+	const dispatch = createEventDispatcher();
 
 	export let title: string;
 </script>
